@@ -5,7 +5,7 @@ import VouchersList from "./VouchersList.js";
 import UserNavbar from "./UserNavbar.js";
 import "./styles.css";
 
-class UsersView extends Component {
+class UsersBuyVouchers extends Component {
     getListOfVouchers() {
         const l = [
             {
@@ -14,7 +14,9 @@ class UsersView extends Component {
                 "Price": 600,
                 "CreationDate": "2020-04-01",
                 "EndDate": "2020-06-01",
-                "Stock": 4
+                "Stock": 4,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "2 Cervezas",
@@ -22,7 +24,9 @@ class UsersView extends Component {
                 "Price": 150,
                 "CreationDate": "2020-04-10",
                 "EndDate": "2020-12-31",
-                "Stock": 100
+                "Stock": 100,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "Sala de escape",
@@ -30,7 +34,9 @@ class UsersView extends Component {
                 "Price": 300,
                 "CreationDate": "2020-05-01",
                 "EndDate": "2020-08-10",
-                "Stock": 1
+                "Stock": 1,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "10 paquetes de yerba",
@@ -38,14 +44,18 @@ class UsersView extends Component {
                 "Price": 1000,
                 "CreationDate": "2020-05-10",
                 "EndDate": "2020-10-01",
-                "Stock": 30
+                "Stock": 30,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },{
                 "Title": "2 Hamburguesas",
                 "Description": "Vale por 2 hamburguesas con queso",
                 "Price": 600,
                 "CreationDate": "2020-04-01",
                 "EndDate": "2020-06-01",
-                "Stock": 4
+                "Stock": 4,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "2 Cervezas",
@@ -53,7 +63,9 @@ class UsersView extends Component {
                 "Price": 150,
                 "CreationDate": "2020-04-10",
                 "EndDate": "2020-12-31",
-                "Stock": 100
+                "Stock": 100,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "Sala de escape",
@@ -61,7 +73,9 @@ class UsersView extends Component {
                 "Price": 300,
                 "CreationDate": "2020-05-01",
                 "EndDate": "2020-08-10",
-                "Stock": 1
+                "Stock": 1,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "10 paquetes de yerba",
@@ -69,14 +83,18 @@ class UsersView extends Component {
                 "Price": 1000,
                 "CreationDate": "2020-05-10",
                 "EndDate": "2020-10-01",
-                "Stock": 30
+                "Stock": 30,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },{
                 "Title": "2 Hamburguesas",
                 "Description": "Vale por 2 hamburguesas con queso",
                 "Price": 600,
                 "CreationDate": "2020-04-01",
                 "EndDate": "2020-06-01",
-                "Stock": 4
+                "Stock": 4,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "2 Cervezas",
@@ -84,7 +102,9 @@ class UsersView extends Component {
                 "Price": 150,
                 "CreationDate": "2020-04-10",
                 "EndDate": "2020-12-31",
-                "Stock": 100
+                "Stock": 100,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "Sala de escape",
@@ -92,7 +112,9 @@ class UsersView extends Component {
                 "Price": 300,
                 "CreationDate": "2020-05-01",
                 "EndDate": "2020-08-10",
-                "Stock": 1
+                "Stock": 1,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             },
             {
                 "Title": "10 paquetes de yerba",
@@ -100,7 +122,9 @@ class UsersView extends Component {
                 "Price": 1000,
                 "CreationDate": "2020-05-10",
                 "EndDate": "2020-10-01",
-                "Stock": 30
+                "Stock": 30,
+                "isOwned": false,
+                "shopName": "Tio Felipe"
             }
         ]
         return l;
@@ -110,8 +134,8 @@ class UsersView extends Component {
     render() {
         return (
             <div>
-                <UserNavbar />
-                <GridContainer className="vouchersGrid" >
+                <UserNavbar title="Comprar Vouchers" />
+                <GridContainer className="vouchersGrid">
                     <GridItem>
                         <VouchersList vouchers={this.getListOfVouchers()}/>
                     </GridItem>
@@ -121,4 +145,4 @@ class UsersView extends Component {
     }
 }
 
-export default UsersView;
+export default UsersBuyVouchers;

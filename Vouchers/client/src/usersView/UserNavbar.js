@@ -25,6 +25,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   title: {
+    color: "white",
     flexGrow: 1,
     textAlign: "left"
   },
@@ -60,6 +61,14 @@ export default function DenseAppBar(props) {
     setOpen(false);
   };
 
+  const redirectToBuy = () => {
+    window.location.replace('/users/comprar');
+  };
+
+  const redirectToExchange = () => {
+    window.location.replace('/users/canjear');
+  };
+
   const classes = useStyles();
 
   return (
@@ -92,11 +101,11 @@ export default function DenseAppBar(props) {
               </IconButton>
             </div>
             <List>
-              <ListItem button key={"Comprar Vouchers"}>
+              <ListItem button key={"Comprar Vouchers"} onClick={redirectToBuy}>
                 <ListItemIcon><ShoppingCartIcon/></ListItemIcon>
                 <ListItemText primary={"Comprar Vouchers"} />
               </ListItem>
-              <ListItem button key={"Canjear mis Vouchers"}>
+              <ListItem button key={"Canjear mis Vouchers"} onClick={redirectToExchange}>
                 <ListItemIcon><StorefrontIcon/></ListItemIcon>
                 <ListItemText primary={"Canjear mis Vouchers"} />
               </ListItem>

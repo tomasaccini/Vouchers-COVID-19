@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import GrailsApp from "./GrailsApp";
-import UsersView from "./usersView/UsersView";
+import UsersBuyVouchers from "./usersView/UsersBuyVouchers";
+import UsersExchangeVouchers from "./usersView/UsersExchangeVouchers";
 import SignInPage from "./usersView/SignInPage";
 import SignUpPage from "./usersView/SignUpPage";
 import ForgotPasswordPage from "./usersView/ForgotPasswordPage";
@@ -24,8 +25,11 @@ class App extends Component {
                     <Route path="/forgotpassword">
                         <ForgotPasswordPage />
                     </Route>
-                    <Route path="/users">
-                        <UsersView />
+                    <Route path="/users/comprar">
+                        <UsersBuyVouchers />
+                    </Route>
+                    <Route path="/users/canjear">
+                        <UsersExchangeVouchers />
                     </Route>
                     <Route path="/">
                         <GrailsApp />
