@@ -3,6 +3,7 @@ import GrailsApp from "./GrailsApp";
 import UsersView from "./usersView/UsersView";
 import SignInPage from "./usersView/SignInPage";
 import SignUpPage from "./usersView/SignUpPage";
+import ForgotPasswordPage from "./usersView/ForgotPasswordPage";
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,6 +20,9 @@ class App extends Component {
                     </Route>
                     <Route path="/signup">
                         <SignUpPage />
+                    </Route>
+                    <Route path="/forgotpassword">
+                        <ForgotPasswordPage />
                     </Route>
                     <Route path="/users">
                         <UsersView />

@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -56,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInPage() {
+export default function ForgotPasswordPage() {
   const classes = useStyles();
 
   return (
@@ -69,7 +67,10 @@ export default function SignInPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            FORGOT YOUR PASSWORD?
+          </Typography>
+          <Typography component="h8" variant="h8">
+            Enter your email address below and we'll send you a link to reset your password.
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -83,21 +84,6 @@ export default function SignInPage() {
               autoComplete="email"
               autoFocus
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -105,17 +91,12 @@ export default function SignInPage() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Send Reset Link
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="/forgotpassword" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/signin" variant="body2">
+                  {"Go back to Sign in page"}
                 </Link>
               </Grid>
             </Grid>
