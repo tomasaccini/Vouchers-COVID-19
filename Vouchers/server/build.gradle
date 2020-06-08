@@ -8,6 +8,7 @@ buildscript {
         classpath "com.github.node-gradle:gradle-node-plugin:1.3.0"
         classpath "org.grails.plugins:hibernate5:7.0.0"
         classpath "org.grails.plugins:views-gradle:2.0.0.BUILD-SNAPSHOT"
+        classpath 'org.grails.plugins:database-migration:3.1.0.RC1'
     }
 }
 
@@ -54,6 +55,8 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.4.0.Final"
     compile "org.grails.plugins:views-json"
     compile "org.grails.plugins:views-json-templates"
+    compile 'org.grails.plugins:database-migration:3.1.0.RC1'
+    compile 'org.liquibase:liquibase-core:3.6.1'
     compileOnly "io.micronaut:micronaut-inject-groovy"
     console "org.grails:grails-console"
     profile "org.grails.profiles:react"
@@ -66,6 +69,14 @@ dependencies {
     testCompile "org.mockito:mockito-core"
     testCompile "io.micronaut:micronaut-http-client"
     testCompile "org.grails:grails-web-testing-support"
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'grails-app/migrations'
+        }
+    }
 }
 
 bootRun {
