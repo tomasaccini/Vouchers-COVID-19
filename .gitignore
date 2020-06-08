@@ -34,3 +34,5 @@
 
 /.gradle
 /Vouchers/.gradle
+
+.idea
