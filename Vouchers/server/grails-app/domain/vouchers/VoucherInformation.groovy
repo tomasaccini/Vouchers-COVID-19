@@ -14,4 +14,8 @@ class VoucherInformation {
         valid_from blank:false, nullable: false
         valid_until blank:false, nullable: false
     }
+
+    VoucherInformation duplicate() {
+        new VoucherInformation(price: price, description: description, valid_from: valid_from, valid_until: valid_until, items: items.clone())
+    }
 }

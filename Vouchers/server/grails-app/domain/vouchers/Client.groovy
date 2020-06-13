@@ -10,4 +10,10 @@ class Client extends User {
         full_name nullable: false, blank: false
         phone_number nullable: true, blank: true
     }
+
+    Voucher buyVoucher(Counterfoil c) {
+        Voucher v = c.createVoucher()
+        addToVouchers(v)
+        v
+    }
 }
