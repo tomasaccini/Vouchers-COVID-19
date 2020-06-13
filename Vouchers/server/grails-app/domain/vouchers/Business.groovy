@@ -5,15 +5,15 @@ class Business {
     String name
     String email
     String phone_number
-    String address
-    String category
+    Address address
     String website
-    String social_network
+    //TODO: Create domain to keep all social networks
 
     static constraints = {
-        name blank: false, nullable: false
-        email email: true, blank: false, nullable: false
-        phone_number blank: false, nullable: false
-        address blank: false, nullable: false
+        name                    blank: false, nullable: false
+        email                   email: true, blank: false, nullable: false
+        phone_number            blank: false, nullable: false
+        address                 blank: false, nullable: false
+        website                 blank: false, nullable: true
     }
 }
