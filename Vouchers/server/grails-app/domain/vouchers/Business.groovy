@@ -4,15 +4,17 @@ class Business extends User {
 
     String name
     String phone_number
-    String address
-    String category
+    Address address
     String website
-    String social_network
+    String category
+    //TODO: Create domain to keep all social networks
+    static hasMany = [counterfoils: Counterfoil]
 
     static constraints = {
         name blank: false, nullable: false
         phone_number blank: false, nullable: false
         address blank: false, nullable: false
+        website nullable: true
         category blank: false, nullable: false
     }
 }

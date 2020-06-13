@@ -11,8 +11,9 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
     def cleanup() {
     }
 
-    void "test something"() {
-        expect:"fix me"
-            true == false
+    void "constructor"() {
+        Client c = new Client()
+        expect:"not null"
+            c != null
     }
 }
