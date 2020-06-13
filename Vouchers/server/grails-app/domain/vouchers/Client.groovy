@@ -7,7 +7,7 @@ class Client extends User {
 
 
     static constraints = {
-        full_name nullable: true, blank: false
-        phone_number nullable: true, blank: false
+        full_name nullable: false, blank: false
+        phone_number nullable: true, blank: true
     }
 }
