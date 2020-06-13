@@ -1,9 +1,8 @@
 package vouchers
 
-class Business {
+class Business extends User {
 
     String name
-    String email
     String phone_number
     String address
     String category
@@ -12,8 +11,8 @@ class Business {
 
     static constraints = {
         name blank: false, nullable: false
-        email email: true, blank: false, nullable: false
         phone_number blank: false, nullable: false
         address blank: false, nullable: false
+        category blank: false, nullable: false
     }
 }
