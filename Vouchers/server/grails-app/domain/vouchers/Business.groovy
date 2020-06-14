@@ -10,6 +10,12 @@ class Business extends User {
     //TODO: Create domain to keep all social networks
     static hasMany = [counterfoils: Counterfoil]
 
+    static hasMany = [products: Product]
+
+    static mapping = {
+        products cascade: 'all-delete-orphan'
+    }
+
     static constraints = {
         name blank: false, nullable: false
         phone_number blank: false, nullable: false
