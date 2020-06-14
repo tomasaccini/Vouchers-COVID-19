@@ -35,7 +35,7 @@ class CounterfoilSpec extends Specification implements DomainUnitTest<Counterfoi
         Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
         Voucher v = client.buyVoucher(counterfoil)
         expect:"Voucher bought correctly"
-        v != null && counterfoil.stock == 2 && counterfoil.voucherInformation == vi && counterfoil.getVouchers().size() == 1 && counterfoil. getVouchers()[0] == v && client.getVouchers().size() == 1 && client.getVouchers()[0] == v
+        v != null && counterfoil.stock == 2 && counterfoil.voucherInformation == vi && counterfoil.getVouchers().size() == 1 && counterfoil. getVouchers()[0] == v
     }
 
     void "buy vouchers without stock"() {
