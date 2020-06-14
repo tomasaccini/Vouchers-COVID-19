@@ -1,4 +1,4 @@
+
 databaseChangeLog = {
-    include file: 'initial-domain-setup.groovy'
-    include file: 'advanced-domain-setup.groovy'
+    include file: 'iteration1/IT1_CHANGELOG.groovy'
 }
