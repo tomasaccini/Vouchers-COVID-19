@@ -7,6 +7,6 @@ class Item {
 
     static constraints = {
         product     nullable: false
-        quantity    nullable: false, default: 1
+        quantity    nullable: false, default: 1, min: 1
     }
 }
