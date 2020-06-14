@@ -11,7 +11,7 @@ class Voucher {
     VoucherState state = VoucherState.BOUGHT
     Date lastStateChange = new Date()
 
-    static hasMany = [items: Item]
+    static hasMany = [items: Item, complaints: Complaint]
 
     static belongsTo = [client: Client, counterfoil: Counterfoil]
 
@@ -50,5 +50,10 @@ class Voucher {
         state = VoucherState.RETIRED
         lastStateChange = new Date()
         true
+    }
+
+    void addComplaint(Complaint c) {
+        addToComplaints(c)
+        c.setVoucher(this)
     }
 }
