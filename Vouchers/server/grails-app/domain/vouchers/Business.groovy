@@ -9,6 +9,12 @@ class Business {
     String website
     //TODO: Create domain to keep all social networks
 
+    static hasMany = [products: Product]
+
+    static mapping = {
+        products cascade: 'all-delete-orphan'
+    }
+
     static constraints = {
         name                    blank: false, nullable: false
         email                   email: true, blank: false, nullable: false
