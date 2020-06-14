@@ -20,6 +20,7 @@ class Counterfoil {
             throw new RuntimeException("Voucher does not have stock")
         }
         Voucher v = new Voucher(voucherInformation: voucherInformation.duplicate(), dateCreated: new Date())
+        v.setCounterfoil(this)
         addToVouchers(v)
         stock -= 1
         v

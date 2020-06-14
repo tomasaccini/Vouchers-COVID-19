@@ -8,9 +8,7 @@ class Business extends User {
     String website
     String category
     //TODO: Create domain to keep all social networks
-    static hasMany = [counterfoils: Counterfoil]
-
-    static hasMany = [products: Product]
+    static hasMany = [counterfoils: Counterfoil, products: Product]
 
     static mapping = {
         products cascade: 'all-delete-orphan'
@@ -22,5 +20,29 @@ class Business extends User {
         address blank: false, nullable: false
         website nullable: true
         category blank: false, nullable: false
+    }
+
+    void addProduct(Product p) {
+        addToProducts(p)
+        p.setBusiness(this)
+    }
+
+    void addCounterfoil(Counterfoil c) {
+        addToCounterfoils(c)
+        c.setBusiness(this)
+    }
+
+    boolean isOwnerOfVoucher(Voucher v) {
+        counterfoils.contains(v.getCounterfoil())
+    }
+
+    boolean confirmRetireVoucher(Voucher v){
+        if (!isOwnerOfVoucher(v)) {
+            throw new RuntimeException("The business is not the owner of the Voucher")
+        }
+        if (!v.isConfirmable()) {
+            throw new RuntimeException("Voucher is not confirmable")
+        }
+        v.confirm()
     }
 }

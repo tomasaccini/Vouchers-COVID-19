@@ -16,4 +16,14 @@ class Client extends User {
         addToVouchers(v)
         v
     }
+
+    boolean retireVoucher(Voucher v){
+        if (!vouchers.contains(v)) {
+            throw new RuntimeException("The client is not the owner of the Voucher")
+        }
+        if (!v.isRetirable()) {
+            throw new RuntimeException("Voucher has been already retired or is expired")
+        }
+        v.retire()
+    }
 }
