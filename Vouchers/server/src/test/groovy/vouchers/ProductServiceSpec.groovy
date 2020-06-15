@@ -3,8 +3,6 @@ package vouchers
 import commands.ProductCommand
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
-import org.junit.Before
-import org.junit.BeforeClass
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Specification
 
