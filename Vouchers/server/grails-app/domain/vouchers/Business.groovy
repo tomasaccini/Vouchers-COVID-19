@@ -7,7 +7,6 @@ class Business extends User {
     Address address
     String website
     String category
-    //TODO: Create domain to keep all social networks
     static hasMany = [counterfoils: Counterfoil, products: Product]
 
     static mapping = {

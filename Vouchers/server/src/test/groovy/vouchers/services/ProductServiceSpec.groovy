@@ -1,10 +1,15 @@
-package vouchers
+package vouchers.services
 
 import commands.ProductCommand
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Specification
+import vouchers.Address
+import vouchers.Business
+import vouchers.Country
+import vouchers.Product
+import vouchers.ProductService
 
 @Integration
 @Rollback
