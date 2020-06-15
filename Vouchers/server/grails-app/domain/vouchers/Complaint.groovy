@@ -1,10 +1,8 @@
 package vouchers
 
-class Complaint {
+import states.ComplaintState
 
-    enum ComplaintState {
-        OPENED, ANSWERED, CLOSED
-    }
+class Complaint {
 
     String description
     Date dateCreated = new Date()

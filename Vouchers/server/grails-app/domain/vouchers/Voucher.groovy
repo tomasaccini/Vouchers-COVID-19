@@ -1,10 +1,8 @@
 package vouchers
 
-class Voucher {
+import states.VoucherState
 
-    enum VoucherState {
-        BOUGHT, PENDING_CONFIRMATION, RETIRED, EXPIRED
-    }
+class Voucher {
 
     VoucherInformation voucherInformation
     Date dateCreated = new Date()
