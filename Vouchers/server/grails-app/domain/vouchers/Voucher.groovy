@@ -10,16 +10,17 @@ class Voucher {
     Date dateCreated = new Date()
     VoucherState state = VoucherState.BOUGHT
     Date lastStateChange = new Date()
+    Complaint   complaint
 
-    static hasMany = [items: Item, complaints: Complaint]
+    static hasMany = [items: Item]
 
     static belongsTo = [client: Client, counterfoil: Counterfoil]
 
     static constraints = {
         voucherInformation     nullable: false, blank: true
-        dateCreated     nullable: false
-        state nullable: false, blank: false, default: VoucherState.BOUGHT
-        lastStateChange nullable:true
+        dateCreated            nullable: false
+        state                  nullable: false, blank: false, default: VoucherState.BOUGHT
+        lastStateChange        nullable:true
     }
 
     boolean isRetirable() {
@@ -50,10 +51,5 @@ class Voucher {
         state = VoucherState.RETIRED
         lastStateChange = new Date()
         true
-    }
-
-    void addComplaint(Complaint c) {
-        addToComplaints(c)
-        c.setVoucher(this)
     }
 }
