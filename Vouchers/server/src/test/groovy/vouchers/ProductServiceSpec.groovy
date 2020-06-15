@@ -3,6 +3,8 @@ package vouchers
 import commands.ProductCommand
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
+import org.junit.Before
+import org.junit.BeforeClass
 import org.springframework.beans.factory.annotation.Autowired
 import spock.lang.Specification
 
@@ -13,12 +15,18 @@ class ProductServiceSpec extends Specification {
     @Autowired
     ProductService productService
 
+    private static Boolean setupIsDone = false
+
     def setup() {
+        if (setupIsDone) return
+
         Business business = new Business()
         business.name = "Blue Dog"
         business.email = "sales@bluedog.com"
+        business.password = "1234"
+        business.verified_account = true
         business.phone_number = "1234"
-
+        business.category = "Cervezería"
         Address newAddress = new Address()
         newAddress.street = "calle falsa"
         newAddress.number = "123"
@@ -35,7 +43,8 @@ class ProductServiceSpec extends Specification {
         product.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
         product.name = "Hamburguesa Blue Dog"
         business.addToProducts(product)
-        business.save(flush: true)
+        business.save(flush: true, failOnError: true)
+        setupIsDone = true
     }
 
     def cleanup() {
