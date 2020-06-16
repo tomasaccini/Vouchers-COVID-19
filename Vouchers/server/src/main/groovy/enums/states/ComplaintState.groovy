@@ -1,4 +1,4 @@
-package states
+package enums.states
 
 enum ComplaintState {
     OPENED('Opened'),
