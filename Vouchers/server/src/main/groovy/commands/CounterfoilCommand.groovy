@@ -1,8 +1,10 @@
 package commands
 
+import grails.validation.Validateable
+import vouchers.Counterfoil
 import vouchers.Voucher
 
-class CounterfoilCommand {
+class CounterfoilCommand implements Validateable {
 
     Long id
     Long version
