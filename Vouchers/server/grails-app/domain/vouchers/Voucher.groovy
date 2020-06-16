@@ -8,7 +8,7 @@ class Voucher {
     Date dateCreated = new Date()
     VoucherState state = VoucherState.BOUGHT
     Date lastStateChange = new Date()
-    Complaint   complaint
+    Complaint complaint
 
     static hasMany = [items: Item]
 
@@ -18,7 +18,8 @@ class Voucher {
         voucherInformation     nullable: false, blank: true
         dateCreated            nullable: false
         state                  nullable: false, blank: false, default: VoucherState.BOUGHT
-        lastStateChange        nullable:true
+        lastStateChange        nullable: true
+        complaint              nullable: true
     }
 
     boolean isRetirable() {

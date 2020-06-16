@@ -2,6 +2,7 @@ package vouchers
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import states.ComplaintState
 
 class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
 
@@ -30,7 +31,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         Client c = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         Complaint complaint = createComplaint(b, c)
         expect:"complaint constructed correctly"
-        complaint != null && complaint.state == Complaint.ComplaintState.OPENED && complaint.business == b && complaint.client == c && complaint.messages.size() == 0
+        complaint != null && complaint.state == ComplaintState.OPENED && complaint.business == b && complaint.client == c && complaint.messages.size() == 0
     }
 
     void "add message from business"() {
@@ -40,7 +41,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         String msg = "First msg from business"
         complaint.addMessage(msg, b)
         expect:"complaint message added correctly"
-        complaint != null && complaint.state == Complaint.ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == b && complaint.messages[0].message == msg
+        complaint != null && complaint.state == ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == b && complaint.messages[0].message == msg
     }
 
     void "add message from client"() {
@@ -50,7 +51,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         String msg = "First msg from client"
         complaint.addMessage(msg, c)
         expect:"complaint message added correctly"
-        complaint != null && complaint.state == Complaint.ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == c && complaint.messages[0].message == msg
+        complaint != null && complaint.state == ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == c && complaint.messages[0].message == msg
     }
 
     void "add two messages"() {
@@ -62,7 +63,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         complaint.addMessage(msg1, b)
         complaint.addMessage(msg2, c)
         expect:"complaint messages added correctly"
-        complaint != null && complaint.state == Complaint.ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 2 && complaint.messages[0].owner == b && complaint.messages[0].message == msg1 && complaint.messages[1].owner == c && complaint.messages[1].message == msg2
+        complaint != null && complaint.state == ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 2 && complaint.messages[0].owner == b && complaint.messages[0].message == msg1 && complaint.messages[1].owner == c && complaint.messages[1].message == msg2
     }
 
     void "add message from business and close"() {
@@ -73,7 +74,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         complaint.addMessage(msg, b)
         complaint.close()
         expect:"complaint message added correctly and closed"
-        complaint != null && complaint.state == Complaint.ComplaintState.CLOSED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == b && complaint.messages[0].message == msg
+        complaint != null && complaint.state == ComplaintState.CLOSED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == b && complaint.messages[0].message == msg
     }
 
     void "add message from business, close and reopen"() {
@@ -85,7 +86,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         complaint.close()
         complaint.reopen()
         expect:"complaint message added correctly, closed and reopened"
-        complaint != null && complaint.state == Complaint.ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == b && complaint.messages[0].message == msg
+        complaint != null && complaint.state == ComplaintState.ANSWERED && complaint.business == b && complaint.client == c && complaint.messages.size() == 1 && complaint.messages[0].owner == b && complaint.messages[0].message == msg
     }
 
     void "close and reopen without messages"() {
@@ -95,6 +96,6 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         complaint.close()
         complaint.reopen()
         expect:"complaint message added correctly, closed and reopened"
-        complaint != null && complaint.state == Complaint.ComplaintState.OPENED && complaint.business == b && complaint.client == c && complaint.messages.size() == 0
+        complaint != null && complaint.state == ComplaintState.OPENED && complaint.business == b && complaint.client == c && complaint.messages.size() == 0
     }
 }
