@@ -1,6 +1,6 @@
 package vouchers
 
-import states.ComplaintState
+import enums.states.ComplaintState
 
 class Complaint {
 

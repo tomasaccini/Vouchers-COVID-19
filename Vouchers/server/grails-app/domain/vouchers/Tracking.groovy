@@ -1,8 +1,10 @@
 package vouchers
 
+import enums.TrackingType
+
 class Tracking {
 
-    Tracking type
+    TrackingType type
     Client client
 
     static constraints = {

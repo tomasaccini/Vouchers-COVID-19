@@ -1,18 +1,44 @@
 package vouchers
 
+import assemblers.TrackingAssembler
 import commands.TrackingCommand
+import enums.TrackingType
+import org.hibernate.service.spi.ServiceException
 
 import javax.transaction.Transactional
+import javax.xml.bind.ValidationException
 
 @Transactional
 class TrackingService {
 
-    void save(TrackingCommand trackingCommand) {
+    TrackingAssembler trackingAssembler
 
+    Tracking save(TrackingCommand trackingCommand) {
+        Tracking tracking = TrackingAssembler.toDomain(trackingCommand)
+        try {
+            tracking.save(flush:true, failOnError: true)
+        } catch (ValidationException e){
+            throw new ServiceException(e.message)
+        }
+        return tracking
     }
 
     List<Tracking> list(Map args) {
+        try {
+            return Tracking.list(args)
+        } catch (ValidationException e){
+            throw new ServiceException(e.message)
+        }
+    }
 
+    Map<TrackingType, Long> countByType() {
+        try {
+            return Tracking.list()
+                    .groupBy { tracking -> tracking.type }
+                    .collectEntries { type, list -> [(type): list.size()] }
+        } catch (ValidationException e) {
+            throw new ServiceException(e.message)
+        }
     }
 
     // !!!!

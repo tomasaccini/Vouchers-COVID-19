@@ -2,7 +2,7 @@ package vouchers
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
-import states.ComplaintState
+import enums.states.ComplaintState
 
 class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
 

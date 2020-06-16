@@ -1,6 +1,6 @@
 package vouchers
 
-import states.VoucherState
+import enums.states.VoucherState
 
 class Voucher {
 
