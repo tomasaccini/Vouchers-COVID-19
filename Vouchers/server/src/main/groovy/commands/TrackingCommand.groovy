@@ -1,14 +1,17 @@
 package commands
 
-class TrackingCommand {
+import enums.TrackingType
+import grails.validation.Validateable
+import vouchers.Tracking
+
+class TrackingCommand implements Validateable {
 
     Long id
-    String type
-    String clientID
+    ClientCommand clientCommand
+    TrackingType type
 
 
     static constraints = {
-        trackingType nullable: false, blank: false
-        clientID nullable: false, blank: false
+        importFrom Tracking
     }
 }
