@@ -8,7 +8,7 @@ class Tracking {
     Client client
 
     static constraints = {
-        // !!!! type constraint
-        // client: false
+        type    nullable: false, blank: false
+        client  nullable: false, blank: false
     }
 }
