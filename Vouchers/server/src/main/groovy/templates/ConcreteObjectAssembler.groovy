@@ -14,7 +14,7 @@ abstract class ConcreteObjectAssembler<Domain, Bean> extends GenericAssembler<Do
             }
         }
         bean.id = domain.id
-        bean.versionValue = domain.version
+        bean.version = domain.version
         return bean
     }
 
@@ -26,7 +26,7 @@ abstract class ConcreteObjectAssembler<Domain, Bean> extends GenericAssembler<Do
             }
         }
         domain.id = bean.id
-        domain.version = bean.versionValue
+        domain.version = bean.version
         return domain
     }
 }
