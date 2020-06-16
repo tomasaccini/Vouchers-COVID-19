@@ -1,19 +1,33 @@
 package assemblers
 
 import commands.VoucherCommand
+import templates.ConcreteObjectAssembler
 import vouchers.Voucher
 
-class VoucherAssembler extends BaseAssembler{
+class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
 
-    VoucherCommand fromDomain(Voucher domain) {
-        VoucherCommand command = new VoucherCommand()
-        copyProperties(domain, command)
-        return command
+    @Override
+    protected Voucher getEntity(Long id) {
+        return (id == null || id == 0) ? new Voucher() : Voucher.get(id)
     }
 
-    Voucher toDomain(VoucherCommand command) {
-        Voucher domain = command.id ? Voucher.get(command.id) : new Voucher()
-        copyProperties(command, domain)
+    @Override
+    protected VoucherCommand createBean() {
+        return new VoucherCommand()
+    }
+
+    @Override
+    VoucherCommand toBean(Voucher domain) {
+        VoucherCommand bean = super.toBean(domain)
+
+        return bean
+    }
+
+    @Override
+    Voucher fromBean(VoucherCommand bean) {
+
+        Voucher domain = super.fromBean(bean)
+
         return domain
     }
 

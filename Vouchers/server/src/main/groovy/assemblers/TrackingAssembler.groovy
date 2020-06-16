@@ -2,20 +2,35 @@ package assemblers;
 
 
 import commands.TrackingCommand
-import enums.TrackingType
-import vouchers.Client;
-import vouchers.Tracking;
+import templates.ConcreteObjectAssembler
+import vouchers.Tracking
 
 
-public class TrackingAssembler extends BaseAssembler {
+class TrackingAssembler extends ConcreteObjectAssembler<Tracking, TrackingCommand> {
 
-    TrackingCommand fromDomain(Tracking domain) {
-        TrackingCommand command = new TrackingCommand(type: domain.type.value, clientID: domain.client.id)
-        return command
+    @Override
+    protected Tracking getEntity(Long id) {
+        return (id == null || id == 0) ? new Tracking() : Tracking.get(id)
     }
 
-    Tracking toDomain(TrackingCommand command) {
-        Tracking domain = command.id ? Tracking.get(command.id) : new Tracking(type: new TrackingType(command.type), client: Client.get(command.clientID))
+    @Override
+    protected TrackingCommand createBean() {
+        return new TrackingCommand()
+    }
+
+    @Override
+    TrackingCommand toBean(Tracking domain) {
+        TrackingCommand bean  = super.toBean(domain)
+
+        return bean
+    }
+
+    @Override
+    Tracking fromBean(TrackingCommand bean) {
+
+        Tracking domain = super.fromBean(bean)
+
         return domain
     }
+
 }
