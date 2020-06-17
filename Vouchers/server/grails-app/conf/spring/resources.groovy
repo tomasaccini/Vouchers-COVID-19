@@ -1,3 +1,4 @@
+import assemblers.ClientAssembler
 import assemblers.CounterfoilAssembler
 import assemblers.ItemAssembler
 import assemblers.ProductAssembler
@@ -22,5 +23,9 @@ beans = {
 
     voucherAssembler(VoucherAssembler) {
         voucherInformationAssembler = ref("voucherInformationAssembler")
+    }
+
+    clientAssembler(ClientAssembler) {
+        voucherAssembler = ref("voucherAssembler")
     }
 }

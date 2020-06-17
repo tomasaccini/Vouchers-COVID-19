@@ -8,7 +8,7 @@ class ClientCommand implements Validateable {
 
     String fullName
     String phoneNumber
-    Set<Voucher> vouchers
+    List vouchersCommand
 
     static constraints = {
         importFrom Client
