@@ -12,7 +12,9 @@ beans = {
         productAssembler = ref("productAssembler")
     }
 
-    voucherInformationAssembler(VoucherInformationAssembler){}
+    voucherInformationAssembler(VoucherInformationAssembler){
+        itemAssembler = ref("itemAssembler")
+    }
 
     counterfoilAssembler(CounterfoilAssembler) {
         voucherInformationAssembler = ref("voucherInformationAssembler")

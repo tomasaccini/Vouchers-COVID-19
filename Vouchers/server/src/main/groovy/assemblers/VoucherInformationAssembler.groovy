@@ -6,6 +6,8 @@ import vouchers.VoucherInformation
 
 class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInformation, VoucherInformationCommand> {
 
+    ItemAssembler itemAssembler
+
     @Override
     protected VoucherInformation getEntity(Long id) {
         return (id == null || id == 0) ? new VoucherInformation() : VoucherInformation.get(id)
@@ -19,7 +21,7 @@ class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInform
     @Override
     VoucherInformationCommand toBean(VoucherInformation domain) {
         VoucherInformationCommand bean = super.toBean(domain)
-
+        bean.itemsCommand = itemAssembler.toBeans(domain.items.asList())
         return bean
     }
 
@@ -28,6 +30,7 @@ class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInform
 
         VoucherInformation domain = super.fromBean(bean)
 
+        domain.items = itemAssembler.fromBeans(bean.itemsCommand.asList())
         return domain
     }
 
