@@ -6,6 +6,8 @@ import vouchers.Voucher
 
 class VoucherCommand implements Validateable {
 
+    Long id
+    Long version
     VoucherInformationCommand voucherInformationCommand
     Date dateCreated
     VoucherState state

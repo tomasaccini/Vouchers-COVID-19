@@ -7,6 +7,7 @@ import vouchers.Tracking
 class TrackingCommand implements Validateable {
 
     Long id
+    Long version
     ClientCommand clientCommand
     TrackingType type
 
