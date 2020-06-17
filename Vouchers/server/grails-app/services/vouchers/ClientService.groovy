@@ -13,7 +13,7 @@ class ClientService {
 
     Voucher buyVoucher(Long id, Counterfoil c) {
         Client client = Client.get(id)
-        Voucher v = counterfoilService.createVoucher(c.id)
+        Voucher v = counterfoilService.createVoucher(c.id, id)
         client.addToVouchers(v)
         try {
             client.save(flush:true, failOnError: true)

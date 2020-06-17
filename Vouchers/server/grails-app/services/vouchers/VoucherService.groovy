@@ -1,7 +1,6 @@
 package vouchers
 
 import assemblers.VoucherAssembler
-import assemblers.VoucherInformationAssembler
 import commands.VoucherCommand
 import enums.states.VoucherState
 import grails.gorm.transactions.Transactional
@@ -24,6 +23,17 @@ class VoucherService {
         return voucher
     }
 
+    /*
+    * Creates and return Voucher,
+    * given de voucherInformation to use
+    */
+    Voucher createVoucher(VoucherInformation vi){
+        Voucher voucher = new Voucher()
+        voucher.voucherInformation = vi.duplicate()
+        return voucher
+    }
+
+
     def update(VoucherCommand voucherCommand) {
         Voucher voucher = voucherAssembler.fromBean(voucherCommand)
         try {
@@ -44,6 +54,9 @@ class VoucherService {
         }
     }
 
+    /*
+    * Sets voucher to retired state
+    */
     def confirm(Long id) {
         Voucher voucher = Voucher.get(id)
         if (!voucher.isConfirmable()) {
@@ -53,6 +66,10 @@ class VoucherService {
         modifyState(voucher, VoucherState.RETIRED)
     }
 
+    /*
+    * Retires voucher
+    * Sets state to pending confirmation
+    */
     def retire(Long id) {
         Voucher voucher = Voucher.get(id)
         if (!voucher.isRetirable()) {
@@ -62,6 +79,10 @@ class VoucherService {
         modifyState(voucher, VoucherState.PENDING_CONFIRMATION)
     }
 
+    /*
+    * Modifies given state with specified state,
+    * updating last state change date as well
+    */
     def modifyState(Voucher voucher, VoucherState newState){
         voucher.state = newState
         voucher.lastStateChange = new Date()
@@ -72,13 +93,4 @@ class VoucherService {
         }
     }
 
-    Voucher createVoucher(VoucherInformation vi){
-        Voucher voucher = new Voucher()
-        voucher.voucherInformation = vi.duplicate()
-        try {
-            voucher.save(flush:true, failOnError: true)
-        } catch (ValidationException e){
-            throw new ServiceException(e.message)
-        }
-    }
 }

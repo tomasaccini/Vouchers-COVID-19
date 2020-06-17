@@ -13,7 +13,7 @@ class CounterfoilService {
     /*
     * Creates voucher from counterfoil
     * it associates voucher to client
-    * decrease the quantity of stock
+    * decreases the quantity of stock
     */
     Voucher createVoucher(Long id, Long clientId) {
         Counterfoil counterfoil = Counterfoil.get(id)
