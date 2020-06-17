@@ -21,7 +21,7 @@ class Voucher {
     }
 
     boolean isRetirable() {
-        if (new Date() >= voucherInformation.valid_until) {
+        if (new Date() >= voucherInformation.validUntil) {
             state = VoucherState.EXPIRED
             lastStateChange = new Date()
         }

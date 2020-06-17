@@ -12,7 +12,7 @@ class VoucherInformationCommand  implements Validateable{
     String description
     Date validFrom
     Date validUntil
-    List<Item> items = [].withLazyDefault { new Item() }
+    List itemsCommand
 
     static constraints = {
         importFrom VoucherInformation

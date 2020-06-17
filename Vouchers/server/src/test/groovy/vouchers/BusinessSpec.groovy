@@ -11,7 +11,7 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
         Item i1 = new Item(product: p1, quantity: 1)
         Item i2 = new Item(product: p2, quantity: 2)
 
-        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", valid_from: new Date('2020/08/01'), valid_until: new Date('2020/12/31'), items: [i1, i2])
+        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil: new Date('2020/12/31'), items: [i1, i2])
         vi
     }
 
