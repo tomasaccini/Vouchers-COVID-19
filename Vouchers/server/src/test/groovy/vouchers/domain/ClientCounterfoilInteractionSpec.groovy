@@ -1,5 +1,6 @@
 package vouchers.domain
 
+import enums.InteractionType
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 import vouchers.Client
@@ -28,17 +29,17 @@ class ClientCounterfoilInteractionSpec extends Specification implements DomainUn
         Client c = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation()
         Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        ClientCounterfoilInteraction cci = new ClientCounterfoilInteraction(client: c, counterfoil: counterfoil, interaction: ClientCounterfoilInteraction.Interactions.VIEW)
+        ClientCounterfoilInteraction cci = new ClientCounterfoilInteraction(client: c, counterfoil: counterfoil, interaction: InteractionType.VIEW)
         expect:"interaction constructed correctly"
-        cci != null && cci.client == c && cci.counterfoil == counterfoil && cci.dateCreated != null && cci.interaction == ClientCounterfoilInteraction.Interactions.VIEW
+        cci != null && cci.client == c && cci.counterfoil == counterfoil && cci.dateCreated != null && cci.interaction == InteractionType.VIEW
     }
 
     void "constructor buy"() {
         Client c = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation()
         Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        ClientCounterfoilInteraction cci = new ClientCounterfoilInteraction(client: c, counterfoil: counterfoil, interaction: ClientCounterfoilInteraction.Interactions.BUY)
+        ClientCounterfoilInteraction cci = new ClientCounterfoilInteraction(client: c, counterfoil: counterfoil, interaction: InteractionType.BUY)
         expect:"interaction constructed correctly"
-        cci != null && cci.client == c && cci.counterfoil == counterfoil && cci.dateCreated != null && cci.interaction == ClientCounterfoilInteraction.Interactions.BUY
+        cci != null && cci.client == c && cci.counterfoil == counterfoil && cci.dateCreated != null && cci.interaction == InteractionType.BUY
     }
 }
