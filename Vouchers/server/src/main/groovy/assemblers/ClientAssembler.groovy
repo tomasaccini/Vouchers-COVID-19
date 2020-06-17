@@ -21,7 +21,10 @@ class ClientAssembler extends ConcreteObjectAssembler<Client, ClientCommand>{
     @Override
     ClientCommand toBean(Client domain) {
         ClientCommand bean = super.toBean(domain)
-        bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
+
+        if (domain.vouchers){
+            bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
+        }
 
         return bean
     }
@@ -29,7 +32,10 @@ class ClientAssembler extends ConcreteObjectAssembler<Client, ClientCommand>{
     @Override
     Client fromBean(ClientCommand bean) {
         Client domain = super.fromBean(bean)
-        domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())
+
+        if (bean.vouchersCommand){
+            domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())
+        }
 
         return domain
     }

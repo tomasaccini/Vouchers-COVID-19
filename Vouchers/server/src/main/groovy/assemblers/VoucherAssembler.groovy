@@ -22,7 +22,10 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
     VoucherCommand toBean(Voucher domain) {
         VoucherCommand bean = super.toBean(domain)
 
-        bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.voucherInformation)
+        if (domain.voucherInformation){
+            bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.voucherInformation)
+        }
+
         return bean
     }
 
@@ -31,7 +34,10 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
 
         Voucher domain = super.fromBean(bean)
 
-        domain.voucherInformation = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
+        if (bean.voucherInformationCommand){
+            domain.voucherInformation = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
+        }
+
         return domain
     }
 

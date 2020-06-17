@@ -23,7 +23,7 @@ class ItemAssembler extends ConcreteObjectAssembler<Item, ItemCommand> {
 
         ItemCommand bean = super.toBean(domain)
 
-        if(domain.product) {
+        if (domain.product) {
             bean.productCommand = productAssembler.toBean(domain.product)
         }
 
@@ -34,7 +34,10 @@ class ItemAssembler extends ConcreteObjectAssembler<Item, ItemCommand> {
     Item fromBean(ItemCommand bean) {
 
         Item domain = super.fromBean(bean)
-        domain.product  = productAssembler.fromBean(bean.productCommand)
+
+        if (bean.productCommand){
+            domain.product  = productAssembler.fromBean(bean.productCommand)
+        }
 
         return domain
     }

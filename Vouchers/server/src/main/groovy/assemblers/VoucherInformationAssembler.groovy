@@ -20,8 +20,13 @@ class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInform
 
     @Override
     VoucherInformationCommand toBean(VoucherInformation domain) {
+
         VoucherInformationCommand bean = super.toBean(domain)
-        bean.itemsCommand = itemAssembler.toBeans(domain.items.asList())
+
+        if (domain.items){
+            bean.itemsCommand = itemAssembler.toBeans(domain.items.asList())
+        }
+
         return bean
     }
 
@@ -30,7 +35,10 @@ class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInform
 
         VoucherInformation domain = super.fromBean(bean)
 
-        domain.items = itemAssembler.fromBeans(bean.itemsCommand.asList())
+        if (bean.itemsCommand){
+            domain.items = itemAssembler.fromBeans(bean.itemsCommand.asList())
+        }
+
         return domain
     }
 
