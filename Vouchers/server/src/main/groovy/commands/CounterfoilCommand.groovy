@@ -2,7 +2,6 @@ package commands
 
 import grails.validation.Validateable
 import vouchers.Counterfoil
-import vouchers.Voucher
 
 class CounterfoilCommand implements Validateable {
 
@@ -11,7 +10,7 @@ class CounterfoilCommand implements Validateable {
     VoucherInformationCommand voucherInformationCommand
     Boolean active
     Integer stock
-    List<VoucherCommand> voucher
+    List<VoucherCommand> vouchersCommand
 
     static constraints = {
         importFrom Counterfoil
