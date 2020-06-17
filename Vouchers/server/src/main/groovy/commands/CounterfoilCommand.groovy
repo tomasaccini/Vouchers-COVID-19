@@ -8,6 +8,7 @@ class CounterfoilCommand {
     Long version
     VoucherInformationCommand voucherInformationCommand
     Integer stock
+    Boolean active
     List<Voucher> vouchers = [].withLazyDefault { new Voucher() }
 
     static constraints = {
