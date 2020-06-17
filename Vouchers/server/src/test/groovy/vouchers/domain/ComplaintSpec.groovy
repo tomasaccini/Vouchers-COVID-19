@@ -1,8 +1,18 @@
-package vouchers
+package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 import enums.states.ComplaintState
+import vouchers.Address
+import vouchers.Business
+import vouchers.Client
+import vouchers.Complaint
+import vouchers.Counterfoil
+import vouchers.Country
+import vouchers.Item
+import vouchers.Product
+import vouchers.Voucher
+import vouchers.VoucherInformation
 
 class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
 
@@ -12,15 +22,16 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
         Item i1 = new Item(product: p1, quantity: 1)
         Item i2 = new Item(product: p2, quantity: 2)
 
-        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", valid_from: new Date('2020/08/01'), valid_until: valid_until, items: [i1, i2])
+        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil: valid_until, items: [i1, i2])
         vi
     }
 
     def createComplaint(Business b, Client c) {
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
-        b.addCounterfoil(counterfoil)
-        Voucher v = c.buyVoucher(counterfoil)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        b.addToCounterfoils(counterfoil)
+        Voucher v = new Voucher(voucherInformation: vi)
+        c.addToVouchers(v)
         Complaint complaint = new Complaint(client: c, business: b, description: "Description of my problem")
         v.complaint = complaint
         complaint

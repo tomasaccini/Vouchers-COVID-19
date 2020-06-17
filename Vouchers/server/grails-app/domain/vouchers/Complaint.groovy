@@ -9,10 +9,11 @@ class Complaint {
     Client client
     Business business
     ComplaintState state = ComplaintState.OPENED
-    ArrayList<ComplaintMessage> messages = new ArrayList<ComplaintMessage>()
+    Set messages = []
 
     static belongsTo = [voucher: Voucher]
 
+    static hasMany = [messages: ComplaintMessage]
     static constraints = {
         description nullable: false
         dateCreated nullable: false
@@ -36,7 +37,7 @@ class Complaint {
     }
 
     private void _addMessage(String message, User owner){
-        messages.add(new ComplaintMessage(owner: owner, message: message))
+        this.addToMessages(new ComplaintMessage(owner: owner, message: message))
         state = ComplaintState.ANSWERED
     }
 

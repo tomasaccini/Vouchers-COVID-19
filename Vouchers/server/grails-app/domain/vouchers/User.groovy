@@ -4,15 +4,15 @@ abstract class User {
 
     String email
     String password
-    Boolean verified_account
+    Boolean verifiedAccount
 
     static constraints = {
         email email: true, blank: false, nullable: false
         password password: true, blank: false, nullable: false
-        verified_account blank: false, nullable: false, default: false
+        verifiedAccount blank: false, nullable: false, default: false
     }
 
     void verify_account() {
-        verified_account = true
+        verifiedAccount = true
     }
 }

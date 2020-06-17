@@ -4,6 +4,7 @@ class Counterfoil {
 
     VoucherInformation voucherInformation
     int stock
+    Set vouchers = []
     int amountSold
     boolean isActive
     //TODO: add state
@@ -13,25 +14,13 @@ class Counterfoil {
 
     static hasMany = [vouchers: Voucher]
 
-    static constraints = {
-        voucherInformation blank: false, nullable: false
-        stock blank: false, nullable: false, default: 0
-        active blank:false, nullable: false, default: false
+    static mapping = {
+        vouchers cascade: 'save-update'
     }
-
-    Voucher createVoucher() {
-        if (!active) {
-            throw new RuntimeException("Counterfoil is not active")
-        }
-        if (stock <= 0) {
-            throw new RuntimeException("Voucher does not have stock")
-        }
-        Voucher v = new Voucher(voucherInformation: voucherInformation.duplicate(), dateCreated: new Date())
-        v.setCounterfoil(this)
-        addToVouchers(v)
-        stock -= 1
-        amountSold += 1
-        v
+    static constraints = {
+        voucherInformation      blank: false, nullable: false
+        stock                   blank: false, nullable: false, default: 0
+        active blank:false, nullable: false, default: false
     }
 
     boolean activate() {

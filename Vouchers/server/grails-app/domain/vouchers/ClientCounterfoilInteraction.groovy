@@ -1,12 +1,10 @@
 package vouchers
 
+import enums.InteractionType
+
 class ClientCounterfoilInteraction {
 
-    enum Interactions {
-        VIEW, BUY
-    }
-
-    Interactions interaction
+    InteractionType interaction
     Date dateCreated = new Date()
     Client client
     Counterfoil counterfoil

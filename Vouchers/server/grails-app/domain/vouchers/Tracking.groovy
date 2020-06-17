@@ -11,6 +11,6 @@ class Tracking {
     static constraints = {
         type nullable: false
         client nullable: false
-        voucher nullable: false
+        voucherInformation nullable: false
     }
 }

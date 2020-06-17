@@ -6,12 +6,10 @@ import vouchers.Voucher
 
 class VoucherCommand implements Validateable {
 
-    VoucherInformationCommand voucherInformation
+    VoucherInformationCommand voucherInformationCommand
     Date dateCreated
     VoucherState state
     Date lastStateChange = new Date()
-    List<ItemCommand> items
-
 
     static constraints = {
         importFrom Voucher

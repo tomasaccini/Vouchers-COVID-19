@@ -10,8 +10,6 @@ class Voucher {
     Date lastStateChange = new Date()
     Complaint complaint
 
-    static hasMany = [items: Item]
-
     static belongsTo = [client: Client, counterfoil: Counterfoil]
 
     static constraints = {
@@ -23,32 +21,15 @@ class Voucher {
     }
 
     boolean isRetirable() {
-        if (new Date() >= voucherInformation.valid_until) {
+        if (new Date() >= voucherInformation.validUntil) {
             state = VoucherState.EXPIRED
             lastStateChange = new Date()
         }
         return state == VoucherState.BOUGHT
     }
 
-    boolean retire() {
-        if (!isRetirable()) {
-            return false
-        }
-        state = VoucherState.PENDING_CONFIRMATION
-        lastStateChange = new Date()
-        true
-    }
-
     boolean isConfirmable() {
         return state == VoucherState.PENDING_CONFIRMATION
     }
 
-    boolean confirm() {
-        if (!isConfirmable()) {
-            return false
-        }
-        state = VoucherState.RETIRED
-        lastStateChange = new Date()
-        true
-    }
 }

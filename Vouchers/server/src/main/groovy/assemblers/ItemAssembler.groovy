@@ -1,23 +1,41 @@
 package assemblers
 
 import commands.ItemCommand
+import templates.ConcreteObjectAssembler
 import vouchers.Item
 
-class ItemAssembler extends BaseAssembler {
+class ItemAssembler extends ConcreteObjectAssembler<Item, ItemCommand> {
 
     ProductAssembler productAssembler
 
-    ItemCommand fromDomain(Item domain) {
-        ItemCommand command = new ItemCommand()
-        copyProperties(domain, command)
-        command.productCommand = productAssembler.fromDomain(domain.product)
-        return command
+    @Override
+    protected Item getEntity(Long id) {
+        return (id == null || id == 0) ? new Item() : Item.get(id)
     }
 
-    Item toDomain(ItemCommand command) {
-        Item domain = command.id ? Item.get(command.id) : new Item()
-        copyProperties(command, domain)
-        domain.product = productAssembler.toDomain(command.productCommand)
+    @Override
+    protected ItemCommand createBean() {
+        return new ItemCommand()
+    }
+
+    @Override
+    ItemCommand toBean(Item domain) {
+
+        ItemCommand bean = super.toBean(domain)
+
+        if(domain.product) {
+            bean.productCommand = productAssembler.toBean(domain.product)
+        }
+
+        return bean
+    }
+
+    @Override
+    Item fromBean(ItemCommand bean) {
+
+        Item domain = super.fromBean(bean)
+        domain.product  = productAssembler.fromBean(bean.productCommand)
+
         return domain
     }
 }

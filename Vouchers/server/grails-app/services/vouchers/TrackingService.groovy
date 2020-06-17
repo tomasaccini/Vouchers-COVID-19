@@ -15,7 +15,7 @@ class TrackingService {
     TrackingAssembler trackingAssembler
 
     Tracking save(TrackingCommand trackingCommand) {
-        Tracking tracking = TrackingAssembler.toDomain(trackingCommand)
+        Tracking tracking = trackingAssembler.fromBean(trackingCommand)
         try {
             tracking.save(flush:true, failOnError: true)
         } catch (ValidationException e){

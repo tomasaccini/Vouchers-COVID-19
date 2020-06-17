@@ -7,10 +7,14 @@ class Business extends User {
     Address address
     String website
     String category
+    Set counterfoils = []
+    Set products = []
+
     static hasMany = [counterfoils: Counterfoil, products: Product]
 
     static mapping = {
-        products cascade: 'all-delete-orphan'
+        products cascade: 'save-update'
+        counterfoils cascade: 'save-update'
     }
 
     static constraints = {
@@ -21,28 +25,8 @@ class Business extends User {
         category blank: false, nullable: false
     }
 
-    void addProduct(Product p) {
-        addToProducts(p)
-        p.setBusiness(this)
-    }
-
-    void addCounterfoil(Counterfoil c) {
-        addToCounterfoils(c)
-        c.setBusiness(this)
-    }
-
     boolean isOwnerOfVoucher(Voucher v) {
         counterfoils.contains(v.getCounterfoil())
-    }
-
-    boolean confirmRetireVoucher(Voucher v){
-        if (!isOwnerOfVoucher(v)) {
-            throw new RuntimeException("The business is not the owner of the Voucher")
-        }
-        if (!v.isConfirmable()) {
-            throw new RuntimeException("Voucher is not confirmable")
-        }
-        v.confirm()
     }
 
     boolean activateCounterfoil(Counterfoil c) {
