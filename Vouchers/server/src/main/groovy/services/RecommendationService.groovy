@@ -30,11 +30,15 @@ class RecommendationService {
         }
     }
 
-    List<Counterfoil> recommendTo(Client client) {
+    /**
+     * If the client does not have purchases, it will return the counterfoils sorted by amount sold.
+     * If it does have purchases, it will return the counterfoils after grouping them by the client
+     * product type preferences and concatenating each block of counterfoils (by product type).
+    */
+    List<Counterfoil> recommendCounterfoils(Client client) {
         Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count = trackingService.countyByProductTypeAndTrackingType(client)
 
         List<Counterfoil> sortedCounterfoils = defaultCounterfoils()
-
         List<ProductType> sortedProductTypes = calculateProductTypesWithDecreasingPriority(count)
 
         if (sortedProductTypes.indexOf()) {
@@ -60,7 +64,7 @@ class RecommendationService {
             new Tuple2(productPriority, counterfoils)
         }
 
-        List<Counterfoil> personalizedCounterfoils = prioritiesAndCounterFoils.sort { it.first }
+        List<Counterfoil> personalizedCounterfoils =  (List<Counterfoil>) prioritiesAndCounterFoils.sort { it.first }
                 .collect { it.second }
                 .flatten()
 
