@@ -32,16 +32,16 @@ class CounterfoilSpec extends Specification implements DomainUnitTest<Counterfoi
         VoucherInformation vi = createVoucherInformation()
         Counterfoil c = new Counterfoil(voucherInformation: vi, stock: 3)
         expect:"counterfoil constructed correctly"
-        c != null && c.stock == 3 && c.voucherInformation == vi
+        c != null && c.stock == 3 && c.voucherInformation == vi && !c.active
     }
 
     void "buy vouchers"() {
         VoucherInformation vi = createVoucherInformation()
         Client client = createClient()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v = client.buyVoucher(counterfoil)
         expect:"Voucher bought correctly"
-        v != null && counterfoil.stock == 2 && counterfoil.voucherInformation == vi && counterfoil.getVouchers().size() == 1 && counterfoil. getVouchers()[0] == v
+        v != null && counterfoil.stock == 2 && counterfoil.voucherInformation == vi && counterfoil.getVouchers().size() == 1 && counterfoil. getVouchers()[0] == v && counterfoil.active
     }
 
     void "buy vouchers without stock"() {
@@ -52,5 +52,22 @@ class CounterfoilSpec extends Specification implements DomainUnitTest<Counterfoi
             client.buyVoucher(counterfoil)
         then: "Throw error"
             thrown RuntimeException
+    }
+
+    void "activate counterfoil"() {
+        VoucherInformation vi = createVoucherInformation()
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 0)
+        counterfoil.activate()
+        expect:"Counterfoil is active"
+        counterfoil.active
+    }
+
+    void "activate and deactivate counterfoil"() {
+        VoucherInformation vi = createVoucherInformation()
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 0)
+        counterfoil.activate()
+        counterfoil.deactivate()
+        expect:"Counterfoil is not active"
+        !counterfoil.active
     }
 }

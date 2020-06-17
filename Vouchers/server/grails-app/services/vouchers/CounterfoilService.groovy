@@ -18,4 +18,8 @@ class CounterfoilService {
         counterfoil.stock -= 1
         v
     }
+
+    List<Counterfoil> list(Map args) {
+        Counterfoil.list(args)
+    }
 }

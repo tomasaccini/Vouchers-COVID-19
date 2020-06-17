@@ -3,10 +3,10 @@ package vouchers
 class VoucherInformation {
 
     double price
+    // TODO remove description because it should be in product
     String description
     Date validFrom
     Date validUntil
-    Set items = []
 
     static hasMany = [items: Item]
 
@@ -21,6 +21,7 @@ class VoucherInformation {
         validUntil blank:false, nullable: false
     }
 
+    // TODO Isn't there something like deep clone not to do this manually?
     VoucherInformation duplicate() {
         new VoucherInformation(price: price, description: description, validFrom: validFrom, validUntil: validUntil, items: items.clone())
     }

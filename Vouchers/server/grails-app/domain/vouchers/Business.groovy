@@ -29,4 +29,17 @@ class Business extends User {
         counterfoils.contains(v.getCounterfoil())
     }
 
+    boolean activateCounterfoil(Counterfoil c) {
+        if (!counterfoils.contains(c)) {
+            throw new RuntimeException("The business is not the owner of the Counterfoil")
+        }
+        c.activate()
+    }
+
+    boolean deactivateCounterfoil(Counterfoil c) {
+        if (!counterfoils.contains(c)) {
+            throw new RuntimeException("The business is not the owner of the Counterfoil")
+        }
+        c.deactivate()
+    }
 }

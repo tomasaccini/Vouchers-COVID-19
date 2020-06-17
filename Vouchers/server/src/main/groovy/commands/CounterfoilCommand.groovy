@@ -9,8 +9,9 @@ class CounterfoilCommand implements Validateable {
     Long id
     Long version
     VoucherInformationCommand voucherInformationCommand
+    Boolean active
     Integer stock
-    List vouchersCommand
+    List<VoucherCommand> voucher
 
     static constraints = {
         importFrom Counterfoil
