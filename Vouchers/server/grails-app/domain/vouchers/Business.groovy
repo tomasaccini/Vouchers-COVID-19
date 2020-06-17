@@ -10,7 +10,8 @@ class Business extends User {
     static hasMany = [counterfoils: Counterfoil, products: Product]
 
     static mapping = {
-        products cascade: 'all-delete-orphan'
+        products cascade: 'save-update'
+        counterfoils cascade: 'save-update'
     }
 
     static constraints = {

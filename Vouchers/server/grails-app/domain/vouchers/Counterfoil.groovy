@@ -10,6 +10,9 @@ class Counterfoil {
 
     static hasMany = [vouchers: Voucher]
 
+    static mapping = {
+        vouchers cascade: 'save-update'
+    }
     static constraints = {
         voucherInformation blank: false, nullable: false
         stock blank: false, nullable: false, default: 0

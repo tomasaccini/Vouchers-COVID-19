@@ -6,7 +6,12 @@ class VoucherInformation {
     String description
     Date validFrom
     Date validUntil
+
     static hasMany = [items: Item]
+
+    static mapping = {
+        items cascade: 'save-update'
+    }
 
     static constraints = {
         price blank:false, nullable: false, default: 0
