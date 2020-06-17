@@ -5,7 +5,11 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class CounterfoilService {
 
-    def serviceMethod() {
+    VoucherService voucherService
 
-    }
+   Voucher createVoucher(Long id){
+       Counterfoil counterfoil = Counterfoil.get(id)
+       Voucher voucher = voucherService.createVoucher(counterfoil.voucherInformation)
+       return voucher
+   }
 }
