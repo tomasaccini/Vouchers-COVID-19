@@ -4,6 +4,7 @@ class Counterfoil {
 
     VoucherInformation voucherInformation
     int stock
+    Set vouchers = []
     //TODO: add state
 
     static belongsTo = [business: Business]

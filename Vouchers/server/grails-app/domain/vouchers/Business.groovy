@@ -7,6 +7,9 @@ class Business extends User {
     Address address
     String website
     String category
+    Set counterfoils = []
+    Set products = []
+
     static hasMany = [counterfoils: Counterfoil, products: Product]
 
     static mapping = {

@@ -4,6 +4,7 @@ class Client extends User {
 
     String fullName
     String phoneNumber
+    Set vouchers = []
 
     static hasMany = [vouchers: Voucher]
 

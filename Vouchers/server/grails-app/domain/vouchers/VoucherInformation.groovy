@@ -6,6 +6,7 @@ class VoucherInformation {
     String description
     Date validFrom
     Date validUntil
+    Set items = []
 
     static hasMany = [items: Item]
 

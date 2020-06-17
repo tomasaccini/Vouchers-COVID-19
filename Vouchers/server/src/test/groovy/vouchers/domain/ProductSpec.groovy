@@ -1,7 +1,8 @@
-package vouchers
+package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import vouchers.Product
 
 class ProductSpec extends Specification implements DomainUnitTest<Product> {
 

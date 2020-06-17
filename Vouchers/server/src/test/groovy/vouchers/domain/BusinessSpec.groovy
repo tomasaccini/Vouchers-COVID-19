@@ -1,7 +1,17 @@
-package vouchers
+package vouchers.domain
 
+import enums.states.VoucherState
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import vouchers.Address
+import vouchers.Business
+import vouchers.Client
+import vouchers.Counterfoil
+import vouchers.Country
+import vouchers.Item
+import vouchers.Product
+import vouchers.Voucher
+import vouchers.VoucherInformation
 
 class BusinessSpec extends Specification implements DomainUnitTest<Business> {
 
@@ -21,14 +31,14 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
     void "constructor"() {
         Business b = new Business(name: "Burger", phone_number: "123412341234", address: new Address(street: "Libertador", number: "1234", country: new Country(name: "Argentina")), category: "Restaurant", email: "burger@gmail.com", password: "burger1234")
         expect:"business constructed correctly"
-        b != null && b.name == "Burger" && b.email == "burger@gmail.com" && b.password == "burger1234" && b.phone_number == "123412341234" && b.category == "Restaurant" && !b.verified_account
+        b != null && b.name == "Burger" && b.email == "burger@gmail.com" && b.password == "burger1234" && b.phone_number == "123412341234" && b.category == "Restaurant" && !b.verifiedAccount
     }
 
     void "verify account"() {
         Business b = new Business(name: "Burger", phone_number: "123412341234", address: new Address(street: "Libertador", number: "1234", country: new Country(name: "Argentina")), category: "Restaurant", email: "burger@gmail.com", password: "burger1234")
         b.verify_account()
         expect:"account is verified"
-        b.verified_account
+        b.verifiedAccount
     }
 
     void "confirm voucher retirement"() {
@@ -41,7 +51,7 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
         client.retireVoucher(v)
         b.confirmRetireVoucher(v)
         expect:"Vouchers status in retired"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == Voucher.VoucherState.RETIRED
+        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.RETIRED
     }
 
     void "confirm voucher retirement before client retires it"() {
@@ -55,7 +65,7 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
             b.confirmRetireVoucher(v)
         then: "Throw error"
             thrown RuntimeException
-            v.state == Voucher.VoucherState.BOUGHT
+            v.state == VoucherState.BOUGHT
     }
 
     void "confirm voucher from other business"() {
@@ -71,6 +81,6 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
             b2.confirmRetireVoucher(v)
         then: "Throw error"
             thrown RuntimeException
-            v.state == Voucher.VoucherState.PENDING_CONFIRMATION
+            v.state == VoucherState.PENDING_CONFIRMATION
     }
 }

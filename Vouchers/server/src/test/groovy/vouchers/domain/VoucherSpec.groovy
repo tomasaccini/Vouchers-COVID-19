@@ -1,8 +1,12 @@
-package vouchers
+package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 import enums.states.VoucherState
+import vouchers.Item
+import vouchers.Product
+import vouchers.Voucher
+import vouchers.VoucherInformation
 
 class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
 

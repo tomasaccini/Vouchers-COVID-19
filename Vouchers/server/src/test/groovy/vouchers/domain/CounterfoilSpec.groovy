@@ -1,7 +1,13 @@
-package vouchers
+package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import vouchers.Client
+import vouchers.Counterfoil
+import vouchers.Item
+import vouchers.Product
+import vouchers.Voucher
+import vouchers.VoucherInformation
 
 class CounterfoilSpec extends Specification implements DomainUnitTest<Counterfoil> {
 
