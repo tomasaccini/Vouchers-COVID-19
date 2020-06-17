@@ -13,7 +13,7 @@ class VoucherService {
     VoucherAssembler voucherAssembler
 
     def save(VoucherCommand voucherCommand) {
-        Voucher voucher = voucherAssembler.toDomain(voucherCommand)
+        Voucher voucher = voucherAssembler.fromBean(voucherCommand)
         try {
             voucher.save(flush:true, failOnError: true)
         } catch (ValidationException e){
@@ -23,7 +23,7 @@ class VoucherService {
     }
 
     def update(VoucherCommand voucherCommand) {
-        Voucher voucher = voucherAssembler.toDomain(voucherCommand)
+        Voucher voucher = voucherAssembler.fromBean(voucherCommand)
         try {
             voucher.save(flush:true, failOnError: true)
         } catch (ValidationException e){
@@ -32,21 +32,9 @@ class VoucherService {
         return voucher
     }
 
-    def addItem(Long id, Item item){
-        Voucher voucher = Voucher.get(id)
-        voucher.addToItems(item)
-        try {
-            voucher.save(flush:true, failOnError: true)
-        } catch (ValidationException e){
-            throw new ServiceException(e.message)
-        }
-    }
-
-
     def delete(Long id) {
         try {
             Voucher voucher = Voucher.get(id)
-            voucher.items.clear()
             voucher.delete(flush: true, failOneEror: true)
         } catch (ServiceException e) {
             log.error(e)
