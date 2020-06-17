@@ -18,7 +18,7 @@ class ComplaintSpec extends Specification implements DomainUnitTest<Complaint> {
 
     def createComplaint(Business b, Client c) {
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         b.addCounterfoil(counterfoil)
         Voucher v = c.buyVoucher(counterfoil)
         Complaint complaint = new Complaint(client: c, business: b, description: "Description of my problem")

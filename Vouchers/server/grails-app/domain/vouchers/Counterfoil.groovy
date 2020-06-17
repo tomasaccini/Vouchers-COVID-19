@@ -5,6 +5,7 @@ class Counterfoil {
     VoucherInformation voucherInformation
     int stock
     //TODO: add state
+    boolean active = false
 
     static belongsTo = [business: Business]
 
@@ -13,9 +14,13 @@ class Counterfoil {
     static constraints = {
         voucherInformation blank: false, nullable: false
         stock blank: false, nullable: false, default: 0
+        active blank:false, nullable: false, default: false
     }
 
     Voucher createVoucher() {
+        if (!active) {
+            throw new RuntimeException("Counterfoil is not active")
+        }
         if (stock <= 0) {
             throw new RuntimeException("Voucher does not have stock")
         }
@@ -24,5 +29,21 @@ class Counterfoil {
         addToVouchers(v)
         stock -= 1
         v
+    }
+
+    boolean activate() {
+        if (active) {
+            return false
+        }
+        active = true
+        true
+    }
+
+    boolean deactivate() {
+        if (!active) {
+            return false
+        }
+        active = false
+        true
     }
 }

@@ -35,7 +35,7 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
     void "buy one voucher"() {
         Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v = client.buyVoucher(counterfoil)
         expect:"Voucher bought correctly"
         v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.BOUGHT
@@ -44,7 +44,7 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
     void "buy two vouchers"() {
         Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v1 = client.buyVoucher(counterfoil)
         Voucher v2 = client.buyVoucher(counterfoil)
         expect:"Vouchers bought correctly"
@@ -54,7 +54,7 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
     void "retire Voucher"() {
         Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v = client.buyVoucher(counterfoil)
         client.retireVoucher(v)
         expect:"Vouchers status in pending retire"
@@ -64,7 +64,7 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
     void "retire Voucher twice"() {
         Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v = client.buyVoucher(counterfoil)
         client.retireVoucher(v)
         when:
@@ -77,7 +77,7 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
     void "test expiration of voucher"() {
         Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         VoucherInformation vi = createVoucherInformation(valid_until: new Date('2020/01/01'))
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v = client.buyVoucher(counterfoil)
         when:
             client.retireVoucher(v)
@@ -90,7 +90,7 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
         Client c1 = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
         Client c2 = new Client(full_name: "Mariano Iudica", email: "iudica@gmail.com", password: "iudica1234")
         VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
         Voucher v = c1.buyVoucher(counterfoil)
         when:
             c2.retireVoucher(v)
@@ -98,4 +98,26 @@ class ClientSpec extends Specification implements DomainUnitTest<Client> {
             thrown RuntimeException
             v.state == VoucherState.BOUGHT
     }
+
+    void "buy one voucher of not active counterfoil"() {
+        Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
+        VoucherInformation vi = createVoucherInformation()
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
+        when:
+            client.buyVoucher(counterfoil)
+        then: "Throw error"
+            thrown RuntimeException
+    }
+
+    void "retire Voucher after counterfoil was deactivated"() {
+        Client client = new Client(full_name: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
+        VoucherInformation vi = createVoucherInformation()
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, active: true)
+        Voucher v = client.buyVoucher(counterfoil)
+        counterfoil.deactivate()
+        client.retireVoucher(v)
+        expect:"Vouchers status in pending retire"
+        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.PENDING_CONFIRMATION
+    }
+
 }
