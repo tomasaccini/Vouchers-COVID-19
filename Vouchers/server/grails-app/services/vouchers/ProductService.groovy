@@ -19,6 +19,7 @@ class ProductService {
         Business business = Business.findById(businessId)
         Product product = productAssembler.fromBean(productCommand)
         business.removeFromProducts(product)
+        product.delete()
         business.save(flush: true, failOnError: true)
     }
 
