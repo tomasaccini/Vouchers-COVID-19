@@ -4,6 +4,8 @@ class Counterfoil {
 
     VoucherInformation voucherInformation
     int stock
+    int amountSold
+    boolean isActive
     //TODO: add state
     boolean active = false
 
@@ -28,6 +30,7 @@ class Counterfoil {
         v.setCounterfoil(this)
         addToVouchers(v)
         stock -= 1
+        amountSold += 1
         v
     }
 

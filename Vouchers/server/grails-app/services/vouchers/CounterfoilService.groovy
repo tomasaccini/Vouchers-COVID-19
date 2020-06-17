@@ -8,4 +8,8 @@ class CounterfoilService {
     def serviceMethod() {
 
     }
+
+    List<Counterfoil> list(Map args) {
+        Counterfoil.list(args)
+    }
 }

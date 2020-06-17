@@ -6,9 +6,11 @@ class Tracking {
 
     TrackingType type
     Client client
+    VoucherInformation voucherInformation
 
     static constraints = {
-        // !!!! type constraint
-        // client: false
+        type nullable: false
+        client nullable: false
+        voucher nullable: false
     }
 }
