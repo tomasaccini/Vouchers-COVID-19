@@ -10,7 +10,7 @@ class CounterfoilCommand implements Validateable {
     Long version
     VoucherInformationCommand voucherInformationCommand
     Integer stock
-    List<Voucher> vouchers = [].withLazyDefault { new Voucher() }
+    List vouchersCommand
 
     static constraints = {
         importFrom Counterfoil

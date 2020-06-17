@@ -7,6 +7,7 @@ import vouchers.Counterfoil
 class CounterfoilAssembler extends ConcreteObjectAssembler<Counterfoil, CounterfoilCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
+    VoucherAssembler voucherAssembler
 
     @Override
     protected Counterfoil getEntity(Long id) {
@@ -23,9 +24,8 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Counterfoil, Counterf
 
         CounterfoilCommand bean = super.toBean(domain)
 
-        if(domain.voucherInformation) {
-            bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.voucherInformation)
-        }
+        bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.voucherInformation)
+        bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
 
         return bean
     }
@@ -34,7 +34,9 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Counterfoil, Counterf
     Counterfoil fromBean(CounterfoilCommand bean) {
 
         Counterfoil domain 	= super.fromBean(bean)
+        
         domain.voucherInformation = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
+        domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())
 
         return domain
     }

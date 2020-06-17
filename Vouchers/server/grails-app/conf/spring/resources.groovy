@@ -19,6 +19,7 @@ beans = {
 
     counterfoilAssembler(CounterfoilAssembler) {
         voucherInformationAssembler = ref("voucherInformationAssembler")
+        voucherAssembler = ref("voucherAssembler")
     }
 
     voucherAssembler(VoucherAssembler) {
