@@ -18,5 +18,7 @@ beans = {
         voucherInformationAssembler = ref("voucherInformationAssembler")
     }
 
-    voucherAssembler(VoucherAssembler) {}
+    voucherAssembler(VoucherAssembler) {
+        voucherInformationAssembler = ref("voucherInformationAssembler")
+    }
 }

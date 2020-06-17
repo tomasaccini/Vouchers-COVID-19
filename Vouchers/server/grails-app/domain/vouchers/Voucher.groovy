@@ -10,8 +10,6 @@ class Voucher {
     Date lastStateChange = new Date()
     Complaint complaint
 
-    static hasMany = [items: Item]
-
     static belongsTo = [client: Client, counterfoil: Counterfoil]
 
     static constraints = {
