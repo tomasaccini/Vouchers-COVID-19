@@ -29,7 +29,7 @@ class TrackingService {
         try {
             Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count = Tracking.list()
                     .groupBy { tracking -> new Tuple2(tracking.type, tracking.voucherInformation.product.type) }
-            return count
+            count
         } catch (ValidationException e) {
             throw new ServiceException(e.message)
         }
