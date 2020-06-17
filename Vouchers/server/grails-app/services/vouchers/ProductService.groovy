@@ -2,29 +2,30 @@ package vouchers
 
 import commands.ProductCommand
 import grails.gorm.transactions.Transactional
+import org.hibernate.service.spi.ServiceException
+import javax.xml.bind.ValidationException
 
 @Transactional
 class ProductService {
 
     def productAssembler
 
-    def save(ProductCommand productCommand, Long businessId) {
-        Business business = Business.findById(businessId)
+    Product save(ProductCommand productCommand) {
         Product product = productAssembler.fromBean(productCommand)
-        business.addToProducts(product)
-        business.save(flush: true, failOnError: true)
-    }
-
-    def delete(ProductCommand productCommand, Long businessId) {
-        Business business = Business.findById(businessId)
-        Product product = productAssembler.fromBean(productCommand)
-        business.removeFromProducts(product)
-        product.delete()
-        business.save(flush: true, failOnError: true)
+        try {
+            product.save(flush: true, failOnError: true)
+        } catch (ValidationException e){
+            throw new ServiceException(e.message)
+        }
     }
 
     def update(ProductCommand productCommand) {
         Product product = productAssembler.fromBean(productCommand)
         product.save(flush: true, failOnError: true)
+    }
+
+    def delete(ProductCommand productCommand) {
+        Product product = productAssembler.fromBean(productCommand)
+        product.delete(flush: true, failOnError: true)
     }
 }

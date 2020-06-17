@@ -7,8 +7,6 @@ class Business extends User {
     Address address
     String website
     String category
-    Set counterfoils = []
-    Set products = []
 
     static hasMany = [counterfoils: Counterfoil, products: Product]
 
@@ -29,17 +27,8 @@ class Business extends User {
         counterfoils.contains(v.getCounterfoil())
     }
 
-    boolean activateCounterfoil(Counterfoil c) {
-        if (!counterfoils.contains(c)) {
-            throw new RuntimeException("The business is not the owner of the Counterfoil")
-        }
-        c.activate()
+    boolean isOwnerOfCounterfoil(Long id) {
+        counterfoils.any{c -> c.id == id}
     }
 
-    boolean deactivateCounterfoil(Counterfoil c) {
-        if (!counterfoils.contains(c)) {
-            throw new RuntimeException("The business is not the owner of the Counterfoil")
-        }
-        c.deactivate()
-    }
 }

@@ -23,19 +23,4 @@ class Counterfoil {
         active blank:false, nullable: false, default: false
     }
 
-    boolean activate() {
-        if (active) {
-            return false
-        }
-        active = true
-        true
-    }
-
-    boolean deactivate() {
-        if (!active) {
-            return false
-        }
-        active = false
-        true
-    }
 }
