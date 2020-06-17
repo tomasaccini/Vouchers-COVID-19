@@ -9,9 +9,11 @@ import javax.xml.bind.ValidationException
 class ProductService {
 
     def productAssembler
+    BusinessService businessService
 
-    Product save(ProductCommand productCommand) {
+    Product save(ProductCommand productCommand, Long businessId) {
         Product product = productAssembler.fromBean(productCommand)
+        businessService.addProduct(businessId, product)
         try {
             product.save(flush: true, failOnError: true)
         } catch (ValidationException e){
@@ -24,8 +26,14 @@ class ProductService {
         product.save(flush: true, failOnError: true)
     }
 
-    def delete(ProductCommand productCommand) {
-        Product product = productAssembler.fromBean(productCommand)
-        product.delete(flush: true, failOnError: true)
+    def delete(Long id) {
+        try {
+            Product product = Product.get(id)
+            businessService.removeProduct(product.business.id, product)
+            product.delete(failOnError: true)
+        }
+        catch (ServiceException se) {
+            throw se
+        }
     }
 }

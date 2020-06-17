@@ -1,6 +1,7 @@
 package vouchers.services
 
 import commands.ProductCommand
+import enums.ProductType
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,6 +31,7 @@ class ProductServiceSpec extends Specification {
         business.verifiedAccount = true
         business.phone_number = "1234"
         business.category = "Cervezería"
+
         Address newAddress = new Address()
         newAddress.street = "calle falsa"
         newAddress.number = "123"
@@ -41,21 +43,23 @@ class ProductServiceSpec extends Specification {
 
         business.address = newAddress
         business.website = "bluedog.com"
-
-        Product product = new Product()
-        product.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
-        product.name = "Hamburguesa Blue Dog"
-        business.addToProducts(product)
         business.save(flush: true, failOnError: true)
+
+        ProductCommand productCommand = new ProductCommand()
+        productCommand.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
+        productCommand.name = "Hamburguesa Blue Dog"
+        productCommand.type = ProductType.FAST_FOOD
+        productService.save(productCommand, 1)
+
         setupIsDone = true
     }
 
     def cleanup() {
     }
 
-    void "test something"() {
+    void "there is one product and one business created in database"() {
         expect:
-        Business.count() == 1
+        Product.count() == 1 && Business.count() == 1
     }
 
     void "save creates a Product"() {
@@ -63,10 +67,10 @@ class ProductServiceSpec extends Specification {
         ProductCommand productCommand = new ProductCommand()
         productCommand.name = "Patagonia IPA"
         productCommand.description = "Cerveza IPA artesanal industrial de la más alta calidad."
+        productCommand.type = ProductType.FAST_FOOD
 
         when:
-        Long businessId = 1
-        productService.save(productCommand, businessId)
+        productService.save(productCommand, 1)
 
         then:
         Product.count() == 2
@@ -80,27 +84,26 @@ class ProductServiceSpec extends Specification {
         ProductCommand productCommand = new ProductCommand()
         productCommand.id = 1
         productCommand.name = "Hamburguesa PURPLE DOG"
+        productCommand.description = "ahora con mas queso"
+        productCommand.type = ProductType.FAST_FOOD
 
         when:
         productService.update(productCommand)
 
         then:
         Product updatedProduct = Product.get(1)
-        updatedProduct.name == productCommand.name
+        updatedProduct.name == productCommand.name && updatedProduct.description == "ahora con mas queso"
     }
 
-    def "delete removes a Product from a Business"() {
+    def "deleting a product removes it from the Business"() {
         given:
-        ProductCommand productCommand = new ProductCommand()
-        productCommand.id = 1
+        Long productId = 1
 
         when:
-        Long businessId = 1
-        productService.delete(productCommand, businessId)
+        productService.delete(productId)
 
         then:
         Business business = Business.get(1)
         business.products.size() == 0
-        Product.countById(1) == 0
     }
 }

@@ -8,11 +8,11 @@ class Product {
     String description
     ProductType type
 
-    //static belongsTo = [business: Business]
+    static belongsTo = [business: Business]
 
     static constraints = {
-        name blank: false, nullable: false
-        description blank: false, nullable: true
-        type nullable: false
+        name                blank: false, nullable: false
+        description         blank: false, nullable: true
+        type                nullable: false
     }
 }

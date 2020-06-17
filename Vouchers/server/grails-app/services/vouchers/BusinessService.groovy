@@ -24,6 +24,16 @@ class BusinessService {
         }
     }
 
+    void removeProduct(Long id, Product p){
+        Business business = Business.get(id)
+        business.removeFromProducts(p)
+        try {
+            business.save(flush:true, failOnError: true)
+        } catch (ValidationException e){
+            throw new ServiceException(e.message)
+        }
+    }
+
     /*
     * Gets a counterfoil and adds it to business
     */
