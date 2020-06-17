@@ -2,6 +2,7 @@ package vouchers
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import enums.states.VoucherState
 
 class BusinessSpec extends Specification implements DomainUnitTest<Business> {
 
@@ -41,7 +42,7 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
         client.retireVoucher(v)
         b.confirmRetireVoucher(v)
         expect:"Vouchers status in retired"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == Voucher.VoucherState.RETIRED
+        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.RETIRED
     }
 
     void "confirm voucher retirement before client retires it"() {
@@ -55,7 +56,7 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
             b.confirmRetireVoucher(v)
         then: "Throw error"
             thrown RuntimeException
-            v.state == Voucher.VoucherState.BOUGHT
+            v.state == VoucherState.BOUGHT
     }
 
     void "confirm voucher from other business"() {
@@ -71,6 +72,6 @@ class BusinessSpec extends Specification implements DomainUnitTest<Business> {
             b2.confirmRetireVoucher(v)
         then: "Throw error"
             thrown RuntimeException
-            v.state == Voucher.VoucherState.PENDING_CONFIRMATION
+            v.state == VoucherState.PENDING_CONFIRMATION
     }
 }
