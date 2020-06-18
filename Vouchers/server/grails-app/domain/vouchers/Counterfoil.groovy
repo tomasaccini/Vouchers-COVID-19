@@ -5,9 +5,7 @@ class Counterfoil {
     VoucherInformation voucherInformation
     int stock
     Set vouchers = []
-    int amountSold
-    boolean isActive
-    //TODO: add state
+    int amountSold = 0
     boolean active = false
 
     static belongsTo = [business: Business]

@@ -9,8 +9,8 @@ class Voucher {
     VoucherState state = VoucherState.BOUGHT
     Date lastStateChange = new Date()
     Complaint complaint
-
-    static belongsTo = [client: Client, counterfoil: Counterfoil]
+    Client client
+    Counterfoil counterfoil
 
     static constraints = {
         voucherInformation     nullable: false, blank: true
@@ -18,6 +18,8 @@ class Voucher {
         state                  nullable: false, blank: false, default: VoucherState.BOUGHT
         lastStateChange        nullable: true
         complaint              nullable: true
+        client                 nullable:true
+        counterfoil            nullable:true
     }
 
     boolean isRetirable() {
