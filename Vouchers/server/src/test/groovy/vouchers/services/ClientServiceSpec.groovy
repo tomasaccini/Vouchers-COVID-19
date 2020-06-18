@@ -3,8 +3,10 @@ package vouchers.services
 import enums.ProductType
 import enums.states.VoucherState
 import grails.gorm.transactions.Rollback
+import grails.gorm.transactions.Transactional
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
 import vouchers.Address
 import vouchers.Business
@@ -19,6 +21,7 @@ import vouchers.VoucherInformation
 
 @Integration
 @Rollback
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class ClientServiceSpec extends Specification{
 
     @Autowired
