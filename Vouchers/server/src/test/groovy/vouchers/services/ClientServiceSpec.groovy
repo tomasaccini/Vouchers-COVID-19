@@ -1,5 +1,6 @@
 package vouchers.services
 
+import enums.ProductType
 import enums.states.VoucherState
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
@@ -24,6 +25,7 @@ class ClientServiceSpec extends Specification{
     ClientService clientService
 
     private static Boolean setupIsDone = false
+    static Long clientId
 
     def setup() {
         if (setupIsDone) return
@@ -50,76 +52,93 @@ class ClientServiceSpec extends Specification{
         Product product = new Product()
         product.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
         product.name = "Hamburguesa Blue Dog"
+        product.type = ProductType.FAST_FOOD
         business.addToProducts(product)
         business.save(flush: true, failOnError: true)
 
+        Item item = new Item(product: product, quantity: 1)
+        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil:  new Date('2020/08/15'))
+        vi.addToItems(item)
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, isActive: true)
+        business.addToCounterfoils(counterfoil)
+        business.save(flush: true, failOnError: true)
+
         Client client = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
-        client.save()
+        client.verifiedAccount = true
+        client.save(flush:true, failOnError:true)
 
         setupIsDone = true
+        clientId = client.id
     }
 
     def cleanup() {
     }
 
-    def createVoucherInformation(valid_until = new Date('2020/12/31')) {
-        Product p1 = new Product(name:"Hamburguesa", description: "Doble cheddar")
-        Product p2 = new Product(name:"Pinta cerveza", description: "Cerveza artesanal de la casa")
-        Item i1 = new Item(product: p1, quantity: 1)
-        Item i2 = new Item(product: p2, quantity: 2)
-
-        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil: valid_until, items: [i1, i2])
-        vi
+    void "setup test"() {
+        expect:
+        Business.count() == 1
+        Product.count() == 1
+        Counterfoil.count() == 1
     }
 
     void "buy one voucher"() {
-        VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        Voucher v = client.buyVoucher(counterfoil)
+        Counterfoil counterfoil = Counterfoil.findById(1)
+
+        Voucher v = clientService.buyVoucher(clientId, counterfoil)
+        Client client = Client.get(clientId)
         expect:"Voucher bought correctly"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.BOUGHT
+        v?.id != null
+        client.vouchers.size() == 1
+        counterfoil.vouchers.size() == 1
     }
 
     void "buy two vouchers"() {
-        Client client = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
-        VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        Voucher v1 = client.buyVoucher(counterfoil)
-        Voucher v2 = client.buyVoucher(counterfoil)
-        expect:"Vouchers bought correctly"
-        v1 != null && v2 != null && client.getVouchers().size() == 2 && client.getVouchers()[0] == v1 && client.getVouchers()[1] == v2 && v1.getState() == VoucherState.BOUGHT && v1.getState() == VoucherState.BOUGHT
+        Counterfoil counterfoil = Counterfoil.findById(1)
+
+        Voucher v1 = clientService.buyVoucher(clientId, counterfoil)
+        Voucher v2 = clientService.buyVoucher(clientId, counterfoil)
+        Client client = Client.get(clientId)
+        expect:"Voucher bought correctly"
+        v1?.id != null
+        v2?.id != null
+        client.vouchers.size() == 2
+        counterfoil.vouchers.size() == 2
     }
 
     void "retire Voucher"() {
-        Client client = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
-        VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        Voucher v = client.buyVoucher(counterfoil)
-        client.retireVoucher(v)
+        Counterfoil counterfoil = Counterfoil.findById(1)
+
+        Voucher v = clientService.buyVoucher(clientId, counterfoil)
+        Client client = Client.get(clientId)
+        clientService.retireVoucher(clientId, v)
         expect:"Vouchers status in pending retire"
         v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.PENDING_CONFIRMATION
     }
 
     void "test expiration of voucher"() {
-        Client client = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
-        VoucherInformation vi = createVoucherInformation(valid_until: new Date('2020/01/01'))
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        Voucher v = client.buyVoucher(counterfoil)
+        Business b = Business.findById(1)
+        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2019/01/01'), validUntil:  new Date('2020/01/01'))
+        vi.addToItems(Item.findById(1))
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, isActive: true)
+        b.addToCounterfoils(counterfoil)
+        b.save(flush: true, failOnError: true)
+        Voucher v = clientService.buyVoucher(clientId, counterfoil)
         when:
-        client.retireVoucher(v)
+        clientService.retireVoucher(clientId, v)
         then: "Throw error"
         thrown RuntimeException
         v.state == VoucherState.EXPIRED
     }
 
     void "test retire voucher from other client"() {
-        Client c1 = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
+        Client c1 = Client.get(clientId)
         Client c2 = new Client(fullName: "Mariano Iudica", email: "iudica@gmail.com", password: "iudica1234")
-        VoucherInformation vi = createVoucherInformation()
-        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3)
-        Voucher v = c1.buyVoucher(counterfoil)
+        c2.verifiedAccount = true
+        c2.save(flush:true, failOnError:true)
+        Counterfoil counterfoil = Counterfoil.findById(1)
+        Voucher v = clientService.buyVoucher(c1.id, counterfoil)
         when:
-        c2.retireVoucher(v)
+        clientService.retireVoucher(c2.id, v)
         then: "Throw error"
         thrown RuntimeException
         v.state == VoucherState.BOUGHT

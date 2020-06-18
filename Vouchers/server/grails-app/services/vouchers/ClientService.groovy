@@ -31,6 +31,6 @@ class ClientService {
         if (!v.isRetirable()) {
             throw new RuntimeException("Voucher has been already retired or is expired")
         }
-        voucherService.retire()
+        voucherService.retire(v.id)
     }
 }
