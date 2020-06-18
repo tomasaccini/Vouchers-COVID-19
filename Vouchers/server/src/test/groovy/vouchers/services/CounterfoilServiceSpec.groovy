@@ -104,8 +104,9 @@ class CounterfoilServiceSpec extends Specification{
 
     void "buy vouchers"() {
         Voucher v = clientService.buyVoucher(clientId, counterfoil_active)
+        counterfoil_active = Counterfoil.findById(counterfoil_active.id)
         expect:"Voucher bought correctly"
-        v != null && counterfoil_active.stock == 2 && counterfoil_active.voucherInformation == vi && counterfoil_active.getVouchers().size() == 1 && counterfoil_active. getVouchers()[0] == v && counterfoil_active.active
+        v != null && counterfoil_active.stock == 2 && counterfoil_active.voucherInformation.id == vi.id && counterfoil_active.getVouchers().size() == 1 && counterfoil_active. getVouchers()[0] == v && counterfoil_active.active
     }
 
     void "buy vouchers without stock"() {
@@ -117,6 +118,7 @@ class CounterfoilServiceSpec extends Specification{
 
     void "activate counterfoil"() {
         counterfoilService.activate(counterfoil_inactive.id)
+        counterfoil_inactive = Counterfoil.findById(counterfoil_inactive.id)
         expect:"Counterfoil is active"
         counterfoil_inactive.active
     }
@@ -124,6 +126,7 @@ class CounterfoilServiceSpec extends Specification{
     void "activate and deactivate counterfoil"() {
         counterfoilService.activate(counterfoil_inactive.id)
         counterfoilService.deactivate(counterfoil_inactive.id)
+        counterfoil_inactive = Counterfoil.findById(counterfoil_inactive.id)
         expect:"Counterfoil is not active"
         !counterfoil_inactive.active
     }
