@@ -90,12 +90,14 @@ dataSource:
 environments:
     development:
         dataSource:
-            driverClassName: com.mysql.jdbc.Driver
-            dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-            username: vouchers
-            password: dev
-            dbCreate: none
-            url: jdbc:mysql://127.0.0.1:3306/vouchers_dev
+            dbCreate: update
+            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+#            driverClassName: com.mysql.jdbc.Driver
+#            dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#            username: vouchers
+#            password: dev
+#            dbCreate: none
+#            url: jdbc:mysql://127.0.0.1:3306/vouchers_dev
     test:
         dataSource:
             dbCreate: update
