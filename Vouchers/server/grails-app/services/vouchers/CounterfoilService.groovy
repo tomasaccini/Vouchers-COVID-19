@@ -10,6 +10,25 @@ class CounterfoilService {
 
     VoucherService voucherService
 
+    // !!!!
+    List<Counterfoil> counterfoilDB = []
+
+    // !!!!
+    Counterfoil create() {
+        println "!!!! CreatingCounterfoil"
+        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil:  new Date('2020/08/15'))
+        Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 5)
+        counterfoilDB.add(counterfoil)
+        return counterfoil
+    }
+
+    // !!!!
+    List<Counterfoil> getAll() {
+        println "gettingCounterfoils"
+        return counterfoilDB
+    }
+
+
     /*
     * Creates voucher from counterfoil
     * it associates voucher to client

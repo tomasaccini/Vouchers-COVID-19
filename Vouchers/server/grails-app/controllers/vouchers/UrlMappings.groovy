@@ -9,6 +9,14 @@ class UrlMappings {
         post "/$controller(.$format)?"(action:"save")
         put "/$controller/$id(.$format)?"(action:"update")
         patch "/$controller/$id(.$format)?"(action:"patch")
+        // !!!!
+        get "/vouchers"(controller: 'voucher', action: 'create')
+        put "/vouchers"(controller: 'voucher', action: 'asd')
+
+        get "/counterfoils"(controller: 'counterfoil', action: 'getAll')
+        post "/counterfoils"(controller: 'counterfoil', action: 'save')
+
+        get "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
