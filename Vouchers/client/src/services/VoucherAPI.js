@@ -18,24 +18,13 @@ class VoucherAPI {
       'Title': '2 Hamburguesas',
       'Description': vi.description,
       'Price': vi.price,
-      // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01
+      // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01 !!!!
       'CreationDate': vi.validFrom,
       'EndDate': vi.validUntil,
       'Stock': counterfoil.stock,
       // TODO no mor owner !!!!
       'isOwned': false,
       // !!!!
-      'shopName': 'Tio Felipe'
-    }
-
-    return {
-      'Title': '2 Hamburguesas',
-      'Description': 'Vale por 2 hamburguesas con queso',
-      'Price': 600,
-      'CreationDate': '2020-04-01',
-      'EndDate': '2020-06-01',
-      'Stock': 4,
-      'isOwned': false,
       'shopName': 'Tio Felipe'
     }
   }
