@@ -16,16 +16,15 @@ class VoucherAPI {
     return {
       // TODO change title, maybe something with items !!!!
       'Title': '2 Hamburguesas',
-      'Description': vi.description,
+      'Description': `${counterfoil.business.name} - ${vi.description}`,
       'Price': vi.price,
       // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01 !!!!
       'CreationDate': vi.validFrom,
       'EndDate': vi.validUntil,
       'Stock': counterfoil.stock,
-      // TODO no mor owner !!!!
+      // TODO no more owner !!!!
       'isOwned': false,
-      // !!!!
-      'shopName': 'Tio Felipe'
+      'shopName': counterfoil.business.name
     }
   }
 }
