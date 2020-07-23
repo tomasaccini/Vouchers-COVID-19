@@ -7,6 +7,7 @@ class VoucherAPI {
     console.log(`debug | getCounterfoils URL is: ${url}`);
     const response = await fetch(url);
     const counterfoils = await response.json();
+    console.log(`debug | getCounterfoils: `, counterfoils);
     return counterfoils.map((c) => this._transformCounterfoil(c));
   }
 
@@ -15,7 +16,7 @@ class VoucherAPI {
     console.log(`debug | getVouchers URL is: ${url}`);
     const response = await fetch(url);
     const vouchers = await response.json();
-    console.log('!!!!', vouchers)
+    console.log(`debug | getVouchers: `, vouchers);
     return vouchers.map((v) => this._transformVoucher(v));
   }
 
@@ -32,12 +33,12 @@ class VoucherAPI {
   }
 
   _transformCounterfoil(counterfoil) {
-    console.log(`debug | _transformCounterfoil ${JSON.stringify(counterfoil)}`);
-    const vi = counterfoil.voucherInformation;
+    const vi = counterfoil.voucherInformationCommand;
+
     return {
       // TODO change title, maybe something with items !!!!
       'Title': '2 Hamburguesas',
-      'Description': `${counterfoil.business.name} - ${vi.description}`,
+      'Description': vi.description,
       'Price': vi.price,
       // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01 !!!!
       'CreationDate': vi.validFrom,
@@ -45,7 +46,8 @@ class VoucherAPI {
       'Stock': counterfoil.stock,
       // TODO no more owner !!!!
       'isOwned': false,
-      'shopName': counterfoil.business.name
+      // TODO not bringing business name yet
+      'shopName': 'Demo Restaurant'
     }
   }
 
