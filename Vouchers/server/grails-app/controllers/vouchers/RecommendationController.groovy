@@ -14,7 +14,7 @@ class RecommendationController {
 	
     def index() { }
 
-    List<Counterfoil> getRecommendationsForUser(Long userId) {
+    List<Counterfoil> getRecommendationsForUser() {
         def counterfoils = counterfoilService.getAll()
         // respond counterfoils
         // TODO throws exception but works

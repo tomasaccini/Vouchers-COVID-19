@@ -10,7 +10,8 @@ class UrlMappings {
         put "/$controller/$id(.$format)?"(action:"update")
         patch "/$controller/$id(.$format)?"(action:"patch")
         // !!!!
-        get "/vouchers"(controller: 'voucher', action: 'create')
+        get "/vouchers"(controller: 'voucher', action: 'getByUserId')
+        post "/vouchers"(controller: 'voucher', action: 'create')
         put "/vouchers"(controller: 'voucher', action: 'asd')
 
         get "/counterfoils"(controller: 'counterfoil', action: 'getAll')

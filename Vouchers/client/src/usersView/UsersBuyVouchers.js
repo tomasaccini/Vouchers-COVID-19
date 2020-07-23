@@ -22,7 +22,7 @@ class UsersBuyVouchers extends Component {
     }
 
     async getListOfVouchers() {
-        return await voucherAPI.getCounterfoils();
+        return await voucherAPI.getCounterfoils(null);
 
         const l = [
             {

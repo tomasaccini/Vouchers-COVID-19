@@ -27,10 +27,8 @@ class CounterfoilService {
 
     // !!!!
     Counterfoil create(String name) {
-        println "!!!! CreatingCounterfoil"
         VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil:  new Date('2020/08/15'))
         Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 5)
-        // counterfoil.business = mockBusiness(name)
         counterfoil.business = mockBusiness(name)
         counterfoilDB.add(counterfoil)
         return counterfoil
@@ -43,7 +41,7 @@ class CounterfoilService {
     }
 
     // !!!!
-    Business mockBusiness(name) {
+    private Business mockBusiness(name) {
         Business business = new Business()
         business.name = name
         business.email = "sales@bluedog.com"
@@ -79,13 +77,18 @@ class CounterfoilService {
         return business
     }
 
+    // !!!!
+    Counterfoil get(Long counterfoilId) {
+        return Counterfoil.findById(counterfoilId)
+    }
+
     /*
     * Creates voucher from counterfoil
     * it associates voucher to client
     * decrease the quantity of stock
     */
-    Voucher createVoucher(Long id, Long clientId) {
-        Counterfoil counterfoil = Counterfoil.get(id)
+    Voucher createVoucher(Long counterfoilId, Long clientId) {
+        Counterfoil counterfoil = Counterfoil.get(counterfoilId)
         Client client = Client.get(clientId)
         if (counterfoil.stock <= 0) {
             throw new RuntimeException("Voucher does not have stock")
@@ -133,4 +136,6 @@ class CounterfoilService {
         counterfoil.active = false
         counterfoil.save(flush:true)
     }
+
+
 }
