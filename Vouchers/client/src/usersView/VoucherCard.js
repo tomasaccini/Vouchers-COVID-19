@@ -17,6 +17,7 @@ import Button from "components/CustomButtons/Button.js";
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 
 import { cardTitle } from "assets/jss/material-kit-react.js";
+import voucherAPI from "../services/VoucherAPI";
 
 const styles = {
   cardTitle,
@@ -38,6 +39,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function VoucherCard(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
+
+  const onClickBuyButton = async () => {
+    setModal(false)
+    // TODO pass actual parameters!!!!
+    voucherAPI.buyVoucher(1, 1)
+  };
+
   return (
     <div>
       <Card className={classes.textCenter}>
@@ -96,7 +104,7 @@ export default function VoucherCard(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={() => setModal(false)} color="success">
+          <Button onClick={onClickBuyButton} color="success">
             Confirmar
           </Button>
         </DialogActions>

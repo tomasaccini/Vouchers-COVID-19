@@ -1,12 +1,29 @@
 import React, {Component} from 'react';
+
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import VouchersList from "./VouchersList.js";
 import UserNavbar from "./UserNavbar.js";
+import {SERVER_URL} from 'config';
+import voucherAPI from "../services/VoucherAPI";
 import "./styles.css";
 
 class UsersBuyVouchers extends Component {
-    getListOfVouchers() {
+
+    constructor() {
+        super();
+        this.state = { counterfoils: [] };
+    }
+
+    async componentDidMount() {
+        const counterfoils = await this.getListOfVouchers();
+
+        this.setState({ counterfoils })
+    }
+
+    async getListOfVouchers() {
+        return await voucherAPI.getCounterfoils(null);
+
         const l = [
             {
                 "Title": "2 Hamburguesas",
@@ -126,7 +143,8 @@ class UsersBuyVouchers extends Component {
                 "isOwned": false,
                 "shopName": "Tio Felipe"
             }
-        ]
+        ];
+
         return l;
     }
 
@@ -137,7 +155,7 @@ class UsersBuyVouchers extends Component {
                 <UserNavbar title="Comprar Vouchers" />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
-                        <VouchersList vouchers={this.getListOfVouchers()}/>
+                        <VouchersList vouchers={this.state.counterfoils}/>
                     </GridItem>
                 </GridContainer>
             </div>

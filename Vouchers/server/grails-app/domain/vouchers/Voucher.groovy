@@ -33,5 +33,4 @@ class Voucher {
     boolean isConfirmable() {
         return state == VoucherState.PENDING_CONFIRMATION
     }
-
 }

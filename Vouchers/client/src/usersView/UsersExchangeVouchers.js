@@ -4,9 +4,25 @@ import GridItem from "components/Grid/GridItem.js";
 import VouchersList from "./VouchersList.js";
 import UserNavbar from "./UserNavbar.js";
 import "./styles.css";
+import voucherAPI from "../services/VoucherAPI";
 
 class UsersExchangeVouchers extends Component {
-    getListOfVouchers() {
+
+    constructor() {
+        super();
+        this.state = { vouchers: [] };
+    }
+
+    async componentDidMount() {
+        const vouchers = await this.getListOfVouchers();
+        console.log('!!!!', vouchers)
+
+        this.setState({ vouchers })
+    }
+
+    async getListOfVouchers() {
+        return await voucherAPI.getVouchers(null);
+
         const l = [
             {
                 "Title": "2 Hamburguesas",
@@ -39,7 +55,7 @@ class UsersExchangeVouchers extends Component {
                 <UserNavbar title="Canjear Vouchers" />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
-                        <VouchersList vouchers={this.getListOfVouchers()}/>
+                        <VouchersList vouchers={this.state.vouchers}/>
                     </GridItem>
                 </GridContainer>
             </div>

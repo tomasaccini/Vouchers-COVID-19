@@ -10,7 +10,7 @@ class CounterfoilCommand implements Validateable {
     VoucherInformationCommand voucherInformationCommand
     Boolean active
     Integer stock
-    List<VoucherCommand> vouchersCommand
+    String businessName
 
     static constraints = {
         importFrom Counterfoil
