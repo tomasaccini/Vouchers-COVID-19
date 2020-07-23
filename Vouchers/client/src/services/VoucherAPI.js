@@ -19,14 +19,15 @@ class VoucherAPI {
     return vouchers.map((v) => this._transformVoucher(v));
   }
 
-  async buyVouchers(userId, counterfoilId) {
+  async buyVoucher(userId, counterfoilId) {
     const url = `${SERVER_URL}vouchers`;
-    console.log(`debug | getVouchers URL is: ${url}`);
+    console.log(`debug | buyVoucher URL is: ${url}`);
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ userId, counterfoilId })
+      body: JSON.stringify({ clientId: userId, counterfoilId: counterfoilId })
     });
     const voucher = await response.json();
+    console.log(`debug | bough voucher: `, voucher);
     return this._transformVoucher(voucher);
   }
 
