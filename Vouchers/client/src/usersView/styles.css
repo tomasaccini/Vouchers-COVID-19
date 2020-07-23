@@ -4,7 +4,9 @@
   padding-right: 30px;
 }
 
-.businessProfileGrid{
+/* -- Business Profile -- */
+
+.businessProfileGrid {
   margin: 80px;
   padding-left: 30px;
   padding-right: 30px;
@@ -15,6 +17,35 @@
   align-self: center;
 }
 
-.gridItemm{
-  text-align: center
+.businessTitle {
+  text-align: center;
+  padding: 10px;
+  font-size: 2.5rem;
+  text-transform: uppercase;
 }
+
+.businessSubTitle {
+  text-align: center;
+  padding: 10px;
+}
+
+.businessSubTitle h1 {
+  font-size: 1.8rem;
+}
+
+.businessInfoGrid {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.businessDescription {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
+/* \-- Business Profile  --*/
