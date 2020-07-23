@@ -21,17 +21,15 @@ class VoucherController extends RestfulController {
 
     def getByUserId() {
         String userId = params.userId
-        println("!!!! " + userId)
-
         List<Voucher> vouchers
 
         if (userId == null) {
+            // TODO maybe throw exception.
             vouchers = voucherService.list()
         } else {
             vouchers = voucherService.listByUserId(userId)
         }
 
-        println("!!!! vouchers.size()" + vouchers.size())
         List<VoucherCommand> voucherCommands = new ArrayList<VoucherCommand>()
         for (def v : vouchers) {
             voucherCommands.add(voucherAssembler.toBean(v))
@@ -42,13 +40,28 @@ class VoucherController extends RestfulController {
 
     // !!!!
     VoucherCommand create() {
-        println "ASDASDsdfs"
-        Long clientId = request['clientId']
-        Long counterfoilId = request['counterfoilId']
+        println "ASDASDsdfs !!!!!"
+        println(request.JSON)
+        Object requestBody = request.JSON
+        Long clientId = requestBody['clientId']
+        Long counterfoilId = requestBody['counterfoilId']
+
+        println('Create a new Voucher with clientId: ' + clientId + ", counterfoilId: " + counterfoilId + ".")
+
+        if (clientId == null || counterfoilId == null) {
+            // TODO respond 400 instead of throwing exception !!!!
+            throw new IllegalArgumentException("Both 'clientId' and 'counterfoilId' are needed")
+        }
+
+        // TODO remove this mock. Now is just getting a random mocked voucher !!!!
+        // ------------------
+        Voucher v = voucherService.list()[0]
+        return respond(voucherAssembler.toBean(v))
+        // ------------------
 
         Counterfoil counterfoil = counterfoilService.get(counterfoilId)
-        Voucher voucher = clientService.buyVoucher(clientId, counterfoilId)
-        VoucherCommand voucherCommand = VoucherAssembler.fromBean(voucher)
+        Voucher voucher = clientService.buyVoucher(clientId, counterfoil)
+        VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
         respond voucherCommand
     }
 

@@ -36,7 +36,6 @@ class CounterfoilService {
 
     // !!!!
     List<Counterfoil> getAll() {
-        println "gettingCounterfoils"
         return counterfoilDB
     }
 
