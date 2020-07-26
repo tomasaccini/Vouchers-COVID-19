@@ -32,6 +32,12 @@ class BootStrap {
         Business.get(1).addToCounterfoils(Counterfoil.get(1))
 
         new Country(name: "Brazil").save(failOnError:true)
+
+        new Client(fullName: "Pepe Argento",
+                phoneNumber: "1234",
+                email: "asdf@asdf.com",
+                password: "1234",
+                verifiedAccount: Boolean.TRUE).save(failOnError:true)
     }
 
     def destroy = {

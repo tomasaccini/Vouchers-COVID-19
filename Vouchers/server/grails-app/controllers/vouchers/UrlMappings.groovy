@@ -14,6 +14,9 @@ class UrlMappings {
         "/vouchers"(resources:"voucher")
         "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
 
+        //Client
+        "/clients"(resources:"client")
+
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")
         get "/$controller/$id(.$format)?"(action:"show")

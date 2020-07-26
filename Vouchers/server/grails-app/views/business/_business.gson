@@ -1,0 +1,15 @@
+import vouchers.Business
+
+model {
+    Business business
+}
+//json jsonapi.render(business)
+//json hal.render(business, [deep:true])
+json {
+    name business.name
+    phone_number business.phone_number
+    address hal.render(business.address, [deep:true])
+    website business.website
+    category business.category
+    counterfoils hal.render(business.counterfoils, [deep:true])
+}
