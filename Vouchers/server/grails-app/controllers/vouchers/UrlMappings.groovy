@@ -3,8 +3,16 @@ package vouchers
 class UrlMappings {
 
     static mappings = {
+
+        //Country
         "/countries"(resources:"country")
+
+        //Business
         "/businesses"(resources:"business")
+
+        //Voucher
+        "/vouchers"(resources:"voucher")
+        "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
 
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")

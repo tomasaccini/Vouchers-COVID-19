@@ -15,32 +15,51 @@ class VoucherController extends RestfulController {
     ClientService clientService
 
     static responseFormats = ['json', 'xml']
+
     VoucherController() {
         super(Voucher)
     }
 
-    def getByUserId() {
-        String userId = params.userId
-        List<Voucher> vouchers
+    /*
+    * Responds with max number of vouchers requestes
+    * If max is not specified, no more than 100 are given.
+    * URL/vouchers -> When max is not specified
+    * URL/vouchers?max=n -> When max is specified
+    */
+    def index(Integer max){
+        println("Asking for vouchers list, maz size: ${params.max}")
+        params.max = Math.min(max ?: 10, 100)
+        respond Voucher.list(params)
+    }
 
-        if (userId == null) {
-            // TODO maybe throw exception.
-            vouchers = voucherService.list()
-        } else {
-            vouchers = voucherService.listByUserId(userId)
+    /*
+    * Given an user id, it respond with all vouchers owned by the user.
+    * Max value returned can be specified
+    * URL/vouchers/getByUser/userId -> When max is not specified
+    * URL/vouchers/getByUser/userId?max=n -> When max is specified
+    */
+    def getByUser(String userId, Integer max) {
+        println("Vouchers requested by user id: ${userId}")
+
+        if (!userId){
+            response.sendError(404)
+            return
         }
 
-        List<VoucherCommand> voucherCommands = new ArrayList<VoucherCommand>()
-        for (def v : vouchers) {
-            voucherCommands.add(voucherAssembler.toBean(v))
-        }
+        params.max = Math.min(max ?: 10, 100)
+        params.userId = userId
+        List<Voucher> vouchers = voucherService.listByUserId(userId)
 
-        respond voucherCommands
+//        List<VoucherCommand> voucherCommands = new ArrayList<VoucherCommand>()
+//        for (def v : vouchers) {
+//            voucherCommands.add(voucherAssembler.toBean(v))
+//        }
+        respond vouchers
     }
 
     // !!!!
     VoucherCommand create() {
-        println "ASDASDsdfs !!!!!"
+        println("Voucher creationg requestes")
         println(request.JSON)
         Object requestBody = request.JSON
         Long clientId = requestBody['clientId']
@@ -65,14 +84,4 @@ class VoucherController extends RestfulController {
         respond voucherCommand
     }
 
-    // !!!!
-    def asd() {
-        println "!!!! asd2"
-        respond [1, 2, 3]
-    }
-}
-
-// !!!!
-class Obj {
-    int a
 }
