@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 
 import UserNavbar from "./UserNavbar.js";
 import MapSection from "./Map.js"
-import GridContainer from "components/Grid/GridContainer.js";
+import GridContainer from "components/Grid/GridContainer";
 import VouchersList from "./VouchersList.js";
 import BusinessInfo from "./BusinessInfo.js";
-import voucherAPI from "../services/VoucherAPI";
-import GridItem from "components/Grid/GridItem.js";
+import GridItem from "components/Grid/GridItem";
 import "./styles.css";
 import { Typography } from '@material-ui/core';
+import businessAPI from '../services/BusinessAPI.js';
 
 
 class BusinessProfile extends Component{
@@ -20,30 +20,16 @@ class BusinessProfile extends Component{
             "lat": -34.599373,
             "lng": -58.438230,
           } // here until i learn react properly
-        this.state = { profile: {}, counterfoils: []};
-    }
-
-    async componentDidMount() {
-        const profile = await this.getBusinessProfile(null);
-        const counterfoils = await this.getListOfVouchers(null);
-        // Todo: must get business counterfoils
-        this.setState({ profile: profile, counterfoils: counterfoils })
-    }
-
-    async getListOfVouchers(id) {
-        return await voucherAPI.getCounterfoils(null);
+        this.state = { profile: {}};
     }
 
     async getBusinessProfile(id) {
-        //TODO: Bring profile from VoucherApi
-        const location = {
-            "address": '1600 Amphitheatre Parkway, Mountain View, california.',
-            "lat": 37.42216,
-            "lng": -122.08427,
-          }
-        const mockProfile = {"name": "Costumbres Argentinas",
-                             "location": location}
-        return mockProfile
+        return await businessAPI.getBusiness(id);
+    }
+
+    async componentDidMount() {
+        const profile = await this.getBusinessProfile(1);
+        this.setState({ profile: profile })
     }
 
     render() {
@@ -66,7 +52,10 @@ class BusinessProfile extends Component{
                         </Typography>
                     </GridItem>
                     <GridItem>
-                        <VouchersList vouchers={this.state.counterfoils}/>
+                        {this.state.profile.counterfoils ? 
+                            <VouchersList vouchers={this.state.profile.counterfoils}/> : 
+                            <h1>Loading</h1> }
+                            {/* TODO: Create loading component */}
                     </GridItem>
                 </GridContainer>
             </div>

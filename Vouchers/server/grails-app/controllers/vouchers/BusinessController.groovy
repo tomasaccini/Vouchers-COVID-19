@@ -1,6 +1,5 @@
 package vouchers
 
-
 import grails.rest.*
 
 class BusinessController extends RestfulController {
@@ -16,11 +15,24 @@ class BusinessController extends RestfulController {
     * URL/businesses/{id}
     */
     def show(Business business){
-        println("Asking for a business")
+        println("Request for a business by id")
         if (!business){
             response.sendError(404)
         } else {
             respond business
+        }
+    }
+
+    /*
+    * Returns counterfoils requested by Id
+    * URL/businesses/{id}
+    */
+    def getCounterfoils(Business business){
+        println("Request counterfoils of business")
+        if (!business){
+            response.sendError(404)
+        } else {
+            respond business.counterfoils
         }
     }
 
@@ -30,7 +42,7 @@ class BusinessController extends RestfulController {
     * URL/businesses?max=n" -> When max is specified
     */
     def index(Integer max){
-        println("Asking for business list, maz size: ${params.max}")
+        println("Request for business list, max size: ${params.max}")
         params.max = Math.min(max ?: 10, 100)
         respond Business.list(params)
     }

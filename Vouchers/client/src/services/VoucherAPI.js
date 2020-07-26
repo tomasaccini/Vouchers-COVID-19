@@ -11,6 +11,8 @@ class VoucherAPI {
     return counterfoils.map((c) => this._transformCounterfoil(c));
   }
 
+  // Returns vouchers owned by clients
+  // TODO: Modify and rename
   async getVouchers(userId) {
     const url = `${SERVER_URL}vouchers?userId=${userId}`;
     console.log(`debug | getVouchers URL is: ${url}`);
