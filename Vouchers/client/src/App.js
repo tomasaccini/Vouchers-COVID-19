@@ -11,6 +11,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import ClientProfile from './usersView/ClientProfile';
 
 class App extends Component {
     render() {
@@ -28,6 +29,9 @@ class App extends Component {
                     </Route>
                     <Route path="/business/profile">
                         <BusinessProfile />
+                    </Route>
+                    <Route path="/users/profile">
+                        <ClientProfile />
                     </Route>
                     <Route path="/users/comprar">
                         <UsersBuyVouchers />

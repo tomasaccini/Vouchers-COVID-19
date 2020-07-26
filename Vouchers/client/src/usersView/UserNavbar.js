@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import StorefrontIcon from '@material-ui/icons/Storefront';
+import InboxIcon from '@material-ui/icons/Inbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -69,6 +70,10 @@ export default function DenseAppBar(props) {
     window.location.replace('/users/canjear');
   };
 
+  const redirectToProfile = () => {
+    window.location.replace('/users/profile');
+  };
+
   const classes = useStyles();
 
   return (
@@ -108,6 +113,10 @@ export default function DenseAppBar(props) {
               <ListItem button key={"Canjear mis Vouchers"} onClick={redirectToExchange}>
                 <ListItemIcon><StorefrontIcon/></ListItemIcon>
                 <ListItemText primary={"Canjear mis Vouchers"} />
+              </ListItem>
+              <ListItem button key={"Mi Perfil"} onClick={redirectToProfile}>
+                <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                <ListItemText primary={"Mi Perfil"} />
               </ListItem>
             </List>
           </div>
