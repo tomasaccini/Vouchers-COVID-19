@@ -1,3 +1,4 @@
+import vouchers.UserPasswordEncoderListener
 import assemblers.ClientAssembler
 import assemblers.CounterfoilAssembler
 import assemblers.ItemAssembler
@@ -7,6 +8,7 @@ import assemblers.VoucherInformationAssembler
 
 // Place your Spring DSL code here
 beans = {
+    userPasswordEncoderListener(UserPasswordEncoderListener)
     productAssembler(ProductAssembler){}
 
     itemAssembler(ItemAssembler) {

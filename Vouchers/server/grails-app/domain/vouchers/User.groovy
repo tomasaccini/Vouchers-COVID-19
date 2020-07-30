@@ -1,18 +1,35 @@
 package vouchers
 
-abstract class User {
+import groovy.transform.EqualsAndHashCode
+import groovy.transform.ToString
+import grails.compiler.GrailsCompileStatic
 
-    String email
+@GrailsCompileStatic
+@EqualsAndHashCode(includes='username')
+@ToString(includes='username', includeNames=true, includePackage=false)
+class User implements Serializable {
+
+    private static final long serialVersionUID = 1
+
+    String username
     String password
-    Boolean verifiedAccount
+    String email
+    boolean enabled = true
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
 
-    static constraints = {
-        email email: true, blank: false, nullable: false
-        password password: true, blank: false, nullable: false
-        verifiedAccount blank: false, nullable: false, default: false
+    Set<Role> getAuthorities() {
+        (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
     }
 
-    void verify_account() {
-        verifiedAccount = true
+    static constraints = {
+        password nullable: false, blank: false, password: true
+        username nullable: false, blank: false, unique: true
+        email email: true, blank: false, nullable: false
+    }
+
+    static mapping = {
+	    password column: '`password`'
     }
 }
