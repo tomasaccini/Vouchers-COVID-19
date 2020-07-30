@@ -5,33 +5,33 @@ class UrlMappings {
     static mappings = {
 
         //Country
-        "/countries"(resources:"country")
+        "/api/countries"(resources:"country")
 
         //Business
-        "/businesses"(resources:"business")
+        "/api/businesses"(resources:"business")
 
         //Voucher
-        "/vouchers"(resources:"voucher")
-        "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
+        "/api/vouchers"(resources:"voucher")
+        "/api/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
 
         //Client
-        "/clients"(resources:"client")
+        "/api/clients"(resources:"client")
 
-        delete "/$controller/$id(.$format)?"(action:"delete")
-        get "/$controller(.$format)?"(action:"index")
-        get "/$controller/$id(.$format)?"(action:"show")
-        post "/$controller(.$format)?"(action:"save")
-        put "/$controller/$id(.$format)?"(action:"update")
-        patch "/$controller/$id(.$format)?"(action:"patch")
+        delete "/api/$controller/$id(.$format)?"(action:"delete")
+        get "/api/$controller(.$format)?"(action:"index")
+        get "/api/$controller/$id(.$format)?"(action:"show")
+        post "/api/$controller(.$format)?"(action:"save")
+        put "/api/$controller/$id(.$format)?"(action:"update")
+        patch "/api/$controller/$id(.$format)?"(action:"patch")
         // !!!!
-        get "/vouchers"(controller: 'voucher', action: 'getByUserId')
-        post "/vouchers"(controller: 'voucher', action: 'create')
-        put "/vouchers"(controller: 'voucher', action: 'asd')
+        get "/api/vouchers"(controller: 'voucher', action: 'getByUserId')
+        post "/api/vouchers"(controller: 'voucher', action: 'create')
+        put "/api/vouchers"(controller: 'voucher', action: 'asd')
 
-        get "/counterfoils"(controller: 'counterfoil', action: 'getAll')
-        post "/counterfoils"(controller: 'counterfoil', action: 'save')
+        get "/api/counterfoils"(controller: 'counterfoil', action: 'getAll')
+        post "/api/counterfoils"(controller: 'counterfoil', action: 'save')
 
-        get "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
+        get "/api/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
