@@ -45,7 +45,6 @@ class CounterfoilService {
         business.name = name
         business.email = "sales@bluedog.com"
         business.password = "1234"
-        business.verifiedAccount = true
         business.phone_number = "1234"
         business.category = "Cervezería"
         Address newAddress = new Address()

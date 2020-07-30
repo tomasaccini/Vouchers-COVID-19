@@ -37,7 +37,6 @@ class ClientServiceSpec extends Specification{
         business.name = "Blue Dog"
         business.email = "sales@bluedog.com"
         business.password = "1234"
-        business.verifiedAccount = true
         business.phone_number = "1234"
         business.category = "Cervezería"
         Address newAddress = new Address()
@@ -67,7 +66,6 @@ class ClientServiceSpec extends Specification{
         business.save(flush: true, failOnError: true)
 
         Client client = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
-        client.verifiedAccount = true
         client.save(flush:true, failOnError:true)
 
         setupIsDone = true
@@ -136,7 +134,6 @@ class ClientServiceSpec extends Specification{
     void "test retire voucher from other client"() {
         Client c1 = Client.get(clientId)
         Client c2 = new Client(fullName: "Mariano Iudica", email: "iudica@gmail.com", password: "iudica1234")
-        c2.verifiedAccount = true
         c2.save(flush:true, failOnError:true)
         Counterfoil counterfoil = Counterfoil.findById(1)
         Voucher v = clientService.buyVoucher(c1.id, counterfoil)

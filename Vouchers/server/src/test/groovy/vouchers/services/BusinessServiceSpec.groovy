@@ -40,7 +40,6 @@ class BusinessServiceSpec extends Specification{
         business.name = "Blue Dog"
         business.email = "sales@bluedog.com"
         business.password = "1234"
-        business.verifiedAccount = true
         business.phone_number = "1234"
         business.category = "Cervezería"
         Address newAddress = new Address()
@@ -70,7 +69,6 @@ class BusinessServiceSpec extends Specification{
         business.save(flush: true, failOnError: true)
 
         Client client = new Client(fullName: "Ricardo Fort", email: "ricki@gmail.com", password: "ricki1234")
-        client.verifiedAccount = true
         client.save(flush:true, failOnError:true)
 
         setupIsDone = true

@@ -31,7 +31,6 @@ class ProductServiceSpec extends Specification {
         business.name = "Blue Dog"
         business.email = "sales@bluedog.com"
         business.password = "1234"
-        business.verifiedAccount = true
         business.phone_number = "1234"
         business.category = "Cervezería"
 
