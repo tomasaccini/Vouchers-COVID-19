@@ -1,7 +1,9 @@
 package vouchers
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.rest.*
 
+@Secured(['ROLE_BUSINESS'])
 class BusinessController extends RestfulController {
 
     static responseFormats = ['json', 'xml']

@@ -1,9 +1,11 @@
 package vouchers
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.rest.*
 
 import javax.transaction.Transactional
 
+@Secured(['ROLE_CLIENT'])
 class ClientController extends RestfulController{
 
 	static responseFormats = ['json', 'xml']
