@@ -17,6 +17,10 @@ class UrlMappings {
         //Client
         "/clients"(resources:"client")
 
+        //Products
+        "/products"(resources:"product")
+        "/products/getByBusiness/$businessId"(controller: 'product', action: 'getByBusiness')
+
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")
         get "/$controller/$id(.$format)?"(action:"show")
