@@ -21,6 +21,11 @@ class UrlMappings {
         "/products"(resources:"product")
         "/products/getByBusiness/$businessId"(controller: 'product', action: 'getByBusiness')
 
+        //Complaints
+        "/complaints"(resources:"complaint")
+        "/complaints/getByBusiness/$businessId"(controller: 'complaint', action: 'getByBusiness')
+        "/complaints/getByClient/$clientId"(controller: 'complaint', action: 'getByClient')
+
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")
         get "/$controller/$id(.$format)?"(action:"show")
