@@ -7,14 +7,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import StorefrontIcon from '@material-ui/icons/Storefront';
-import InboxIcon from '@material-ui/icons/Inbox';
 import List from '@material-ui/core/List';
+import Button from "components/CustomButtons/Button.js";
+import NavbarBusiness from './NavbarBusiness';
+import NavbarClient from './NavbarClient';
+
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from "components/CustomButtons/Button.js";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+
 
 const drawerWidth = 240;
 
@@ -47,6 +50,10 @@ const useStyles = makeStyles(theme => ({
   },
   signOutButton: {
     color: 'white',
+  },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
   }
 }));
 
@@ -62,16 +69,8 @@ export default function DenseAppBar(props) {
     setOpen(false);
   };
 
-  const redirectToBuy = () => {
-    window.location.replace('/users/comprar');
-  };
-
-  const redirectToExchange = () => {
-    window.location.replace('/users/canjear');
-  };
-
-  const redirectToProfile = () => {
-    window.location.replace('/users/profile');
+  const redirectToComplaints = () => {
+    window.location.replace('/complaints');
   };
 
   const classes = useStyles();
@@ -106,17 +105,18 @@ export default function DenseAppBar(props) {
               </IconButton>
             </div>
             <List>
-              <ListItem button key={"Comprar Vouchers"} onClick={redirectToBuy}>
-                <ListItemIcon><ShoppingCartIcon/></ListItemIcon>
-                <ListItemText primary={"Comprar Vouchers"} />
+              {/* True debe ser reemplazado por el verdadero chequeo de usario business/client */}
+              { true ? 
+                <NavbarBusiness></NavbarBusiness> : 
+                <NavbarClient></NavbarClient>
+              }
+              <ListItem button key={"Complaints"} onClick={redirectToComplaints}>
+                <ListItemIcon> <ErrorOutlineIcon /> </ListItemIcon>
+                <ListItemText primary={"Quejas"} />
               </ListItem>
-              <ListItem button key={"Canjear mis Vouchers"} onClick={redirectToExchange}>
-                <ListItemIcon><StorefrontIcon/></ListItemIcon>
-                <ListItemText primary={"Canjear mis Vouchers"} />
-              </ListItem>
-              <ListItem button key={"Mi Perfil"} onClick={redirectToProfile}>
-                <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                <ListItemText primary={"Mi Perfil"} />
+              <ListItem button key={"Log out"}>
+                <ListItemIcon> <ExitToAppIcon /> </ListItemIcon>
+                <ListItemText primary={"Cerrar Sesión"} />
               </ListItem>
             </List>
           </div>

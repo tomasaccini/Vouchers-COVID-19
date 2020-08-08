@@ -12,6 +12,7 @@ import {
   Route
 } from "react-router-dom";
 import ClientProfile from './usersView/ClientProfile';
+import Complaints from './usersView/Complaints';
 
 class App extends Component {
     render() {
@@ -38,6 +39,9 @@ class App extends Component {
                     </Route>
                     <Route path="/users/canjear">
                         <UsersExchangeVouchers />
+                    </Route>
+                    <Route path="/complaints">
+                        <Complaints/>
                     </Route>
                     <Route path="/">
                         <GrailsApp />
