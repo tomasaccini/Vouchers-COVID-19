@@ -25,6 +25,7 @@ class UrlMappings {
         "/complaints"(resources:"complaint")
         "/complaints/getByBusiness/$businessId"(controller: 'complaint', action: 'getByBusiness')
         "/complaints/getByClient/$clientId"(controller: 'complaint', action: 'getByClient')
+        "/complaints/closeComplaint/$complaintId"(controller: 'complaint', action: 'closeComplaint')
 
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")

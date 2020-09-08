@@ -45,20 +45,35 @@ class ComplaintController extends RestfulController{
     /*
     * Returns list of client's complaints. If specified, it returns a max amount of them.
     * A client complaint is a complaint created for a voucher owned
-    * URL/products/getByClient/clientId -> When max is not specified
-    * URL/products/getByClient/clientId?max=n -> When max is specified
+    * URL/complaints/getByClient/clientId -> When max is not specified
+    * URL/complaints/getByClient/clientId?max=n -> When max is specified
     */
     def getByClient(Long clientId, Integer max){
         Client client = Client.get(clientId)
         params.max = Math.min(max ?: 10, 100)
         if (!client){
-            // TODO: Mejores mensajes de error / no encontrado
             response.sendError(404)
         }
         println("Request for client complaints, clientId: ${client?.id}")
         respond Complaint.findAllByClient(client)
     }
 
-
+    /*
+    * Closes complaint given by Id
+    * URL/complaints/closeComplaint/{id}
+    */
+    def closeComplaint(Long complaintId){
+        Complaint complaint = Complaint.get(complaintId)
+        if (!complaint){
+            response.sendError(404)
+        }
+        if (complaint.isClosed()){
+            //TODO: Mejorar mensajes
+            render (["message":"Complaint already closed", "id": complaintId] as JSON)
+        }
+        complaint.close()
+        complaint.save()
+        render (["id": complaintId] as JSON)
+    }
 
 }

@@ -48,4 +48,8 @@ class Complaint {
     void reopen() {
         state = messages.size() == 0 ? ComplaintState.OPENED : ComplaintState.ANSWERED
     }
+
+    Boolean isClosed() {
+        return state == ComplaintState.CLOSED
+    }
 }
