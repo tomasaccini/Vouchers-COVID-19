@@ -28,8 +28,8 @@ class ProductController extends RestfulController {
     }
 
     /*
-    * Returns business requested by Id
-    * URL/businesses/{id}
+    * Returns product requested by Id
+    * URL/products/{id}
     */
     def show(Product product){
         println("Request for a product by id")

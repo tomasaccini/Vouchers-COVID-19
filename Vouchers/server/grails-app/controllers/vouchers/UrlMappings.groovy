@@ -9,6 +9,7 @@ class UrlMappings {
 
         //Business
         "/businesses"(resources:"business")
+        "/businesses/getCounterfoils/$id"(controller: 'business', action: 'getCounterfoils')
 
         //Voucher
         "/vouchers"(resources:"voucher")

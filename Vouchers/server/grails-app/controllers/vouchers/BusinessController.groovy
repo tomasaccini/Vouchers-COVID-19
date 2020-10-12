@@ -25,9 +25,10 @@ class BusinessController extends RestfulController {
 
     /*
     * Returns counterfoils requested by Id
-    * URL/businesses/{id}
+    * URL/businesses/getCounterfoils/{id}
     */
-    def getCounterfoils(Business business){
+    def getCounterfoils(Long id){
+        Business business = Business.get(id)
         println("Request counterfoils of business")
         if (!business){
             response.sendError(404)
