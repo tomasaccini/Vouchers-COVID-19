@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import GrailsApp from "./GrailsApp";
-import ClienteComprarVouchersPage from "./usersView/UsersBuyVouchers";
-import ClientesCanjearVouchersPage from "./usersView/UsersExchangeVouchers";
+import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
+import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
 import NegocioPerfilPage from "./usersView/NegocioPerfil"
 import IniciarSesionPage from "./usersView/SignInPage";
 import RegistrarsePage from "./usersView/SignUpPage";
 import OlvidoContraseniaPage from "./usersView/ForgotPasswordPage";
-import navegacion from './utils/Navegacion';
+import navegacion from './utils/navegacion';
 
 import {
   BrowserRouter as Router,

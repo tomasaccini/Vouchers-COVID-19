@@ -5,6 +5,7 @@ import GridContainer from "components/Grid/GridContainer";
 import GridItem from "components/Grid/GridItem";
 import "./styles.css";
 import clientAPI from '../services/ClientAPI.js';
+import constantes from "../utils/constantes";
 
 
 class ClientePerfil extends Component{
@@ -26,7 +27,7 @@ class ClientePerfil extends Component{
     render() {
         return (
             <div>
-                <UserNavbar title="Profile" />
+                <UserNavbar title={constantes.miPerfilTitulo} />
                 <GridContainer className="businessProfileGrid">
                     <GridItem xs={12}>
                         <h1 class="clientTitle">{this.state.profile.fullName}</h1>

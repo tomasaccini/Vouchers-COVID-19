@@ -7,8 +7,9 @@ import UserNavbar from "./UserNavbar.js";
 import {SERVER_URL} from 'config';
 import voucherAPI from "../services/VoucherAPI";
 import "./styles.css";
+import constantes from "../utils/constantes";
 
-class UsersBuyVouchers extends Component {
+class ClienteComprarVouchers extends Component {
 
     constructor() {
         super();
@@ -152,7 +153,7 @@ class UsersBuyVouchers extends Component {
     render() {
         return (
             <div>
-                <UserNavbar title="Comprar Vouchers" />
+                <UserNavbar title={constantes.comprarVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
                         <VouchersList vouchers={this.state.counterfoils}/>
@@ -163,4 +164,4 @@ class UsersBuyVouchers extends Component {
     }
 }
 
-export default UsersBuyVouchers;
+export default ClienteComprarVouchers;

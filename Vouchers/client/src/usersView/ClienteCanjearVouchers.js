@@ -4,9 +4,10 @@ import GridItem from "components/Grid/GridItem.js";
 import VouchersList from "./VouchersList.js";
 import UserNavbar from "./UserNavbar.js";
 import "./styles.css";
+import constantes from '../utils/constantes'
 import voucherAPI from "../services/VoucherAPI";
 
-class UsersExchangeVouchers extends Component {
+class ClienteCanjearVouchers extends Component {
 
     constructor() {
         super();
@@ -52,7 +53,7 @@ class UsersExchangeVouchers extends Component {
     render() {
         return (
             <div>
-                <UserNavbar title="Canjear Vouchers" />
+                <UserNavbar title={constantes.canjearVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
                         <VouchersList vouchers={this.state.vouchers}/>
@@ -63,4 +64,4 @@ class UsersExchangeVouchers extends Component {
     }
 }
 
-export default UsersExchangeVouchers;
+export default ClienteCanjearVouchers;

@@ -14,8 +14,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import FeedbackIcon from '@material-ui/icons/Feedback';
 import Button from 'components/CustomButtons/Button.js';
-import navegacion from '../utils/Navegacion';
+import navegacion from '../utils/navegacion';
+import constantes from "../utils/constantes";
 
 const drawerWidth = 240;
 
@@ -111,21 +113,21 @@ export default function DenseAppBar(props) {
               </IconButton>
             </div>
             <List>
-              <ListItem button key={"Comprar Vouchers"} onClick={redirigirAComprarVouchers}>
+              <ListItem button key={constantes.comprarVouchersTitulo} onClick={redirigirAComprarVouchers}>
                 <ListItemIcon><ShoppingCartIcon/></ListItemIcon>
-                <ListItemText primary={"Comprar Vouchers"} />
+                <ListItemText primary={constantes.comprarVouchersTitulo} />
               </ListItem>
-              <ListItem button key={"Canjear mis Vouchers"} onClick={redirigirACanjearVouchers}>
+              <ListItem button key={constantes.canjearVouchersTitulo} onClick={redirigirACanjearVouchers}>
                 <ListItemIcon><StorefrontIcon/></ListItemIcon>
-                <ListItemText primary={"Canjear mis Vouchers"} />
+                <ListItemText primary={constantes.canjearVouchersTitulo} />
               </ListItem>
-              <ListItem button key={"Reclamos"} onClick={redirigirAReclamos}>
-                <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                <ListItemText primary={"Reclamos"} />
+              <ListItem button key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
+                <ListItemIcon> <FeedbackIcon /> </ListItemIcon>
+                <ListItemText primary={constantes.reclamosTitulo} />
               </ListItem>
-              <ListItem button key={"Mi Perfil"} onClick={redirigirAMiPerfil}>
+              <ListItem button key={constantes.miPerfilTitulo} onClick={redirigirAMiPerfil}>
                 <ListItemIcon> <InboxIcon /> </ListItemIcon>
-                <ListItemText primary={"Mi Perfil"} />
+                <ListItemText primary={constantes.miPerfilTitulo} />
               </ListItem>
             </List>
           </div>

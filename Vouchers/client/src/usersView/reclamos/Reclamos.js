@@ -9,6 +9,7 @@ import GridItem from "components/Grid/GridItem";
 import "../styles.css";
 import { Typography } from '@material-ui/core';
 import businessAPI from '../../services/BusinessAPI.js';
+import constantes from "../../utils/constantes";
 
 
 class Reclamos extends Component{
@@ -35,7 +36,7 @@ class Reclamos extends Component{
     render() {
         return (
             <div>
-                <UserNavbar title="Reclamos" />
+                <UserNavbar title={constantes.reclamosTitulo} />
                 <GridContainer className="businessProfileGrid">
                 </GridContainer>
             </div>
