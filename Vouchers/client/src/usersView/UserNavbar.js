@@ -14,7 +14,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from "components/CustomButtons/Button.js";
+import Button from 'components/CustomButtons/Button.js';
+import navegacion from '../utils/Navegacion';
 
 const drawerWidth = 240;
 
@@ -62,16 +63,20 @@ export default function DenseAppBar(props) {
     setOpen(false);
   };
 
-  const redirectToBuy = () => {
-    window.location.replace('/users/comprar');
+  const redirigirAComprarVouchers = () => {
+    window.location.replace(navegacion.getClienteComprarVoucherUrl());
   };
 
-  const redirectToExchange = () => {
-    window.location.replace('/users/canjear');
+  const redirigirACanjearVouchers = () => {
+    window.location.replace(navegacion.getClienteCanjearVoucherUrl());
   };
 
-  const redirectToProfile = () => {
-    window.location.replace('/users/profile');
+  const redirigirAMiPerfil = () => {
+    window.location.replace(navegacion.getNegocioPerfilUrl());
+  };
+
+  const redirigirAReclamos = () => {
+    window.location.replace(navegacion.getReclamos());
   };
 
   const classes = useStyles();
@@ -106,15 +111,19 @@ export default function DenseAppBar(props) {
               </IconButton>
             </div>
             <List>
-              <ListItem button key={"Comprar Vouchers"} onClick={redirectToBuy}>
+              <ListItem button key={"Comprar Vouchers"} onClick={redirigirAComprarVouchers}>
                 <ListItemIcon><ShoppingCartIcon/></ListItemIcon>
                 <ListItemText primary={"Comprar Vouchers"} />
               </ListItem>
-              <ListItem button key={"Canjear mis Vouchers"} onClick={redirectToExchange}>
+              <ListItem button key={"Canjear mis Vouchers"} onClick={redirigirACanjearVouchers}>
                 <ListItemIcon><StorefrontIcon/></ListItemIcon>
                 <ListItemText primary={"Canjear mis Vouchers"} />
               </ListItem>
-              <ListItem button key={"Mi Perfil"} onClick={redirectToProfile}>
+              <ListItem button key={"Reclamos"} onClick={redirigirAReclamos}>
+                <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                <ListItemText primary={"Reclamos"} />
+              </ListItem>
+              <ListItem button key={"Mi Perfil"} onClick={redirigirAMiPerfil}>
                 <ListItemIcon> <InboxIcon /> </ListItemIcon>
                 <ListItemText primary={"Mi Perfil"} />
               </ListItem>

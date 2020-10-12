@@ -11,7 +11,7 @@ import { Typography } from '@material-ui/core';
 import businessAPI from '../services/BusinessAPI.js';
 
 
-class BusinessProfile extends Component{
+class NegocioPerfil extends Component{
 
     constructor() {
         super();
@@ -64,4 +64,4 @@ class BusinessProfile extends Component{
 
 }
 
-export default BusinessProfile
+export default NegocioPerfil

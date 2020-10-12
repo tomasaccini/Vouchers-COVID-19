@@ -7,7 +7,7 @@ import "./styles.css";
 import clientAPI from '../services/ClientAPI.js';
 
 
-class ClientProfile extends Component{
+class ClientePerfil extends Component{
 
     constructor() {
         super();
@@ -44,4 +44,4 @@ class ClientProfile extends Component{
 
 }
 
-export default ClientProfile
+export default ClientePerfil
