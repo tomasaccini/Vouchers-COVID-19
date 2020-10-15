@@ -10,7 +10,7 @@ import "../styles.css";
 import { Typography } from '@material-ui/core';
 import businessAPI from '../../services/BusinessAPI.js';
 import constantes from "../../utils/constantes";
-import { ThemeProvider, AgentBar, Column, Avatar, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from "@livechat/ui-kit";
+import { ThemeProvider, AgentBar, Column, Avatar, TextComposer, Row, Fill, TextInput, Fit, SendButton, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from "@livechat/ui-kit";
 
 
 class Reclamos extends Component{
@@ -30,15 +30,31 @@ class Reclamos extends Component{
     }
 
     render() {
+        /*
+                const events = [];
+        const parseUrl = (a) => "";
+        const getAvatarForUser = (a, b) => ""
+        const ownId = "id"
+        const sendMessage = (a) => "";
+        const users = [];
+        const onMessageSend = (a) => "";
+        const minimize = () => null;
+        const currentAgent = {}
+        const chatState = 'CHATTING';
+        const rateGood = () => null;
+        const rateBad = () => null;
+        const rate = "";
+
+         */
         return (
             <div>
                 <UserNavbar title={constantes.reclamosTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem xs={4}>
                     </GridItem>
-                    <GridItem xs={7}>
+                    <GridItem xs={3}>
                         <ThemeProvider>
-                            <div style={{ maxWidth: '100%' }}>
+                            <div style={{ maxWidth: '100%', height: '400px' }}>
                                 <MessageList active>
                                     <MessageGroup
                                       avatar="https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg"
@@ -54,7 +70,7 @@ class Reclamos extends Component{
                                             <MessageMedia>
                                                 <img src="https://static.staging.livechatinc.com/1520/P10B78E30V/dfd1830ebb68b4eefe6432d7ac2be2be/Cat-BusinessSidekick_Wallpapers.png" />
                                             </MessageMedia>
-                                            <MessageText>
+                                            <MessageText style={{ background: 'lightgrey', borderRadius: '6px' }}>
                                                 The fastest way to help your customers - start chatting with visitors
                                             </MessageText>
                                             <MessageButtons>
@@ -76,14 +92,14 @@ class Reclamos extends Component{
                                     </MessageGroup>
                                     <MessageGroup onlyFirstWithMeta>
                                         <Message date="21:38" isOwn={true} authorName="Visitor">
-                                            <MessageText>
+                                            <MessageText style={{ background: 'blue', color: 'white', borderRadius: '6px' }}>
                                                 I love them
                                                 sooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                                                 much!
                                             </MessageText>
                                         </Message>
                                         <Message date="21:38" isOwn={true} authorName="Visitor">
-                                            <MessageText>This helps me a lot</MessageText>
+                                            <MessageText  style={{ background: 'blue', color: 'white', borderRadius: '6px' }}>This helps me a lot</MessageText>
                                         </Message>
                                     </MessageGroup>
                                     <MessageGroup
@@ -91,7 +107,7 @@ class Reclamos extends Component{
                                       onlyFirstWithMeta
                                     >
                                         <Message authorName="Jon Smith" date="21:37">
-                                            <MessageText>No problem!</MessageText>
+                                            <MessageText style={{ background: 'lightgrey', borderRadius: '6px' }}>No problem!</MessageText>
                                         </Message>
                                         <Message
                                           authorName="Jon Smith"
@@ -179,6 +195,16 @@ class Reclamos extends Component{
                                         </Message>
                                     </MessageGroup>
                                 </MessageList>
+                                <TextComposer onSend={() => null}>
+                                    <Row align="center">
+                                        <Fill>
+                                            <TextInput />
+                                        </Fill>
+                                        <Fit>
+                                            <SendButton />
+                                        </Fit>
+                                    </Row>
+                                </TextComposer>
                             </div>
                         </ThemeProvider>
                     </GridItem>
