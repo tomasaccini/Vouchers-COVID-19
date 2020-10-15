@@ -10,6 +10,7 @@ import "../styles.css";
 import { Typography } from '@material-ui/core';
 import businessAPI from '../../services/BusinessAPI.js';
 import constantes from "../../utils/constantes";
+import { ThemeProvider, AgentBar, Column, Avatar, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from "@livechat/ui-kit";
 
 
 class Reclamos extends Component{
@@ -24,23 +25,28 @@ class Reclamos extends Component{
         this.state = { profile: {}};
     }
 
-    async getBusinessProfile(id) {
-        return await businessAPI.getBusiness(id);
-    }
-
     async componentDidMount() {
-        const profile = await this.getBusinessProfile(1);
-        this.setState({ profile: profile })
+        this.setState({ profile: {} })
     }
 
     render() {
         return (
             <div>
                 <UserNavbar title={constantes.reclamosTitulo} />
-                <GridContainer className="businessProfileGrid">
+                <GridContainer className="vouchersGrid">
+                    <GridItem>
+                        <ThemeProvider>
+                            <AgentBar>
+                                <Avatar imgUrl="https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg" />
+                                <Column>
+                                    <Title>{'Jon Snow'}</Title>
+                                    <Subtitle>{'Support hero'}</Subtitle>
+                                </Column>
+                            </AgentBar>
+                        </ThemeProvider>
+                    </GridItem>
                 </GridContainer>
             </div>
-
         );
     }
 
