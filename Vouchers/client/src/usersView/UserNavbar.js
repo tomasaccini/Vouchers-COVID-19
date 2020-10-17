@@ -8,7 +8,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import List from '@material-ui/core/List';
-import Button from "components/CustomButtons/Button.js";
+import Button from "../components/CustomButtons/Button.js";
 import NavbarBusiness from './NavbarBusiness';
 import NavbarClient from './NavbarClient';
 
@@ -18,6 +18,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
+import FeedbackIcon from '@material-ui/icons/Feedback';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import StorefrontIcon from '@material-ui/icons/Storefront';
+import InboxIcon from '@material-ui/icons/Inbox';
+import navegacion from '../utils/navegacion';
+import constantes from "../utils/constantes";
 
 const drawerWidth = 240;
 
@@ -71,6 +77,22 @@ export default function DenseAppBar(props) {
 
   const redirectToComplaints = () => {
     window.location.replace('/complaints');
+  }
+
+  const redirigirAComprarVouchers = () => {
+    window.location.replace(navegacion.getClienteComprarVoucherUrl());
+  };
+
+  const redirigirACanjearVouchers = () => {
+    window.location.replace(navegacion.getClienteCanjearVoucherUrl());
+  };
+
+  const redirigirAMiPerfil = () => {
+    window.location.replace(navegacion.getNegocioPerfilUrl());
+  };
+
+  const redirigirAReclamos = () => {
+    window.location.replace(navegacion.getReclamos());
   };
 
   const classes = useStyles();
@@ -110,13 +132,25 @@ export default function DenseAppBar(props) {
                 <NavbarBusiness></NavbarBusiness> : 
                 <NavbarClient></NavbarClient>
               }
-              <ListItem button key={"Complaints"} onClick={redirectToComplaints}>
-                <ListItemIcon> <ErrorOutlineIcon /> </ListItemIcon>
-                <ListItemText primary={"Quejas"} />
+              <ListItem button key={constantes.miPerfilTitulo} onClick={redirigirAMiPerfil}>
+                <ListItemIcon> <InboxIcon /> </ListItemIcon>
+                <ListItemText primary={constantes.miPerfilTitulo} />
               </ListItem>
-              <ListItem button key={"Log out"}>
+              <ListItem button key={constantes.comprarVouchersTitulo} onClick={redirigirAComprarVouchers}>
+                <ListItemIcon> <ShoppingCartIcon/> </ListItemIcon>
+                <ListItemText primary={constantes.comprarVouchersTitulo} />
+              </ListItem>
+              <ListItem button key={constantes.canjearVouchersTitulo} onClick={redirigirACanjearVouchers}>
+                <ListItemIcon> <StorefrontIcon/> </ListItemIcon>
+                <ListItemText primary={constantes.canjearVouchersTitulo} />
+              </ListItem>
+              <ListItem button key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
+                <ListItemIcon> <FeedbackIcon /> </ListItemIcon>
+                <ListItemText primary={constantes.reclamosTitulo} />
+              </ListItem>
+              <ListItem button key={constantes.cerrarSesionTitulo}>
                 <ListItemIcon> <ExitToAppIcon /> </ListItemIcon>
-                <ListItemText primary={"Cerrar Sesión"} />
+                <ListItemText primary={constantes.cerrarSesionTitulo} />
               </ListItem>
             </List>
           </div>

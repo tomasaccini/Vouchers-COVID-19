@@ -9,9 +9,10 @@ import GridItem from "components/Grid/GridItem";
 import "./styles.css";
 import { Typography } from '@material-ui/core';
 import businessAPI from '../services/BusinessAPI.js';
+import constantes from "../utils/constantes";
 
 
-class BusinessProfile extends Component{
+class NegocioPerfil extends Component{
 
     constructor() {
         super();
@@ -35,7 +36,7 @@ class BusinessProfile extends Component{
     render() {
         return (
             <div>
-                <UserNavbar title="Profile" />
+                <UserNavbar title={constantes.miPerfilTitulo} />
                 <GridContainer className="businessProfileGrid">
                     <GridItem xs={12}>
                         <h1 class="businessTitle">{this.state.profile.name}</h1>
@@ -64,4 +65,4 @@ class BusinessProfile extends Component{
 
 }
 
-export default BusinessProfile
+export default NegocioPerfil

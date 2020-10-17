@@ -1,44 +1,50 @@
 import React, {Component} from 'react';
 import GrailsApp from "./GrailsApp";
-import UsersBuyVouchers from "./usersView/UsersBuyVouchers";
-import UsersExchangeVouchers from "./usersView/UsersExchangeVouchers";
-import BusinessProfile from "./usersView/BusinessProfile"
-import SignInPage from "./usersView/SignInPage";
-import SignUpPage from "./usersView/SignUpPage";
-import ForgotPasswordPage from "./usersView/ForgotPasswordPage";
+import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
+import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
+import NegocioPerfilPage from "./usersView/NegocioPerfil"
+import IniciarSesionPage from "./usersView/SignInPage";
+import RegistrarsePage from "./usersView/SignUpPage";
+import OlvidoContraseniaPage from "./usersView/ForgotPasswordPage";
+import navegacion from './utils/navegacion';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
-import ClientProfile from './usersView/ClientProfile';
 import Complaints from './usersView/Complaints';
+import ClientePerfilPage from './usersView/ClientePerfil';
+import Reclamos from "./usersView/reclamos/Reclamos";
 
 class App extends Component {
     render() {
         return (
             <Router>
                 <Switch>
-                    <Route path="/signin">
-                        <SignInPage />
+                    <Route path={navegacion.geIniciarSesionUrl()}>
+                        <IniciarSesionPage />
                     </Route>
-                    <Route path="/signup">
-                        <SignUpPage />
+                    <Route path={navegacion.getRegistrarseUrl()}>
+                        <RegistrarsePage />
                     </Route>
-                    <Route path="/forgotpassword">
-                        <ForgotPasswordPage />
+                    <Route path={navegacion.getOlvidoContraseniaUrl()}>
+                        <OlvidoContraseniaPage />
                     </Route>
-                    <Route path="/business/profile">
-                        <BusinessProfile />
+                    <Route path={navegacion.getNegocioPerfilUrl()}>
+                        <NegocioPerfilPage />
                     </Route>
-                    <Route path="/users/profile">
-                        <ClientProfile />
+                    <Route path={navegacion.getUsuarioPerfilUrl()}>
+                        <ClientePerfilPage />
                     </Route>
-                    <Route path="/users/comprar">
-                        <UsersBuyVouchers />
+                    <Route path={navegacion.getClienteComprarVoucherUrl()}>
+                        <ClienteComprarVouchersPage />
                     </Route>
-                    <Route path="/users/canjear">
-                        <UsersExchangeVouchers />
+                    <Route path={navegacion.getClienteCanjearVoucherUrl()}>
+                        <ClientesCanjearVouchersPage />
+                    </Route>
+                    <Route path={navegacion.getReclamos()}>
+                        <Reclamos />
                     </Route>
                     <Route path="/complaints">
                         <Complaints/>

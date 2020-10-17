@@ -75,5 +75,4 @@ class ComplaintController extends RestfulController{
         complaint.save()
         render (["id": complaintId] as JSON)
     }
-
 }
