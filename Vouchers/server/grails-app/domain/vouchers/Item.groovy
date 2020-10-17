@@ -2,11 +2,11 @@ package vouchers
 
 class Item {
 
-    Product product
-    Integer quantity
+    Producto producto
+    Integer cantidad
 
     static constraints = {
-        product     nullable: false
-        quantity    nullable: false, default: 1, min: 1
+        producto     nullable: false
+        cantidad    nullable: false, default: 1, min: 1
     }
 }

@@ -1,10 +1,10 @@
 package enums.states
 
 enum VoucherState {
-    BOUGHT('Bought'),
-    PENDING_CONFIRMATION('Pending Confirmation'),
-    RETIRED('Retired'),
-    EXPIRED('Expired')
+    Comprado('Comprado'),
+    ConfirmacionPendiente('ConfirmacionPendiente'),
+    Retirado('Retirado'),
+    Expirado('Expirado')
     String id
 
     VoucherState(String id){

@@ -1,0 +1,13 @@
+import vouchers.Negocio
+
+model {
+    Iterable<Negocio> businesses
+    Integer businessCount
+    Integer max // optional, defaults to 10
+    Integer offset // optional, defaults to 0
+    String sort // optional
+    String order // optional
+}
+json {
+    hal.paginate(Negocio, businessCount, max, offset, sort, order)
+}

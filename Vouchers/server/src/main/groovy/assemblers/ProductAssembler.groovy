@@ -2,13 +2,13 @@ package assemblers
 
 import commands.ProductCommand
 import templates.ConcreteObjectAssembler
-import vouchers.Product
+import vouchers.Producto
 
-class ProductAssembler extends ConcreteObjectAssembler<Product, ProductCommand> {
+class ProductAssembler extends ConcreteObjectAssembler<Producto, ProductCommand> {
 
     @Override
-    protected Product getEntity(Long id) {
-        return (id == null || id == 0) ? new Product() : Product.get(id)
+    protected Producto getEntity(Long id) {
+        return (id == null || id == 0) ? new Producto() : Producto.get(id)
     }
 
     @Override
@@ -17,7 +17,7 @@ class ProductAssembler extends ConcreteObjectAssembler<Product, ProductCommand> 
     }
 
     @Override
-    ProductCommand toBean(Product domain) {
+    ProductCommand toBean(Producto domain) {
 
         ProductCommand bean = super.toBean(domain)
 
@@ -25,9 +25,9 @@ class ProductAssembler extends ConcreteObjectAssembler<Product, ProductCommand> 
     }
 
     @Override
-    Product fromBean(ProductCommand bean) {
+    Producto fromBean(ProductCommand bean) {
 
-        Product domain = super.fromBean(bean)
+        Producto domain = super.fromBean(bean)
 
         return domain
     }

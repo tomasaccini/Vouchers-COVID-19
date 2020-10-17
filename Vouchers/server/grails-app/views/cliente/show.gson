@@ -1,0 +1,6 @@
+import vouchers.Cliente
+
+model{
+    Cliente client
+}
+json g.render(template:"client", model: [client: client])

@@ -1,7 +1,6 @@
 package vouchers
 
 import assemblers.VoucherAssembler
-import assemblers.VoucherInformationAssembler
 import commands.VoucherCommand
 import enums.states.VoucherState
 import grails.gorm.transactions.Transactional
@@ -50,7 +49,7 @@ class VoucherService {
             //TODO: Throw Excepction
             return
         }
-        modifyState(voucher, VoucherState.RETIRED)
+        modifyState(voucher, VoucherState.Retirado)
     }
 
     def retire(Long id) {
@@ -59,7 +58,7 @@ class VoucherService {
             //TODO: Throw Excepction
             return
         }
-        modifyState(voucher, VoucherState.PENDING_CONFIRMATION)
+        modifyState(voucher, VoucherState.ConfirmacionPendiente)
     }
 
     def modifyState(Voucher voucher, VoucherState newState) {
@@ -72,9 +71,9 @@ class VoucherService {
         }
     }
 
-    Voucher createVoucher(VoucherInformation vi) {
+    Voucher createVoucher(InformacionVoucher vi) {
         Voucher voucher = new Voucher()
-        voucher.voucherInformation = vi
+        voucher.informacionVoucher = vi
         try {
             voucher.save(flush: true, failOnError: true)
         } catch (ValidationException e) {
@@ -91,18 +90,18 @@ class VoucherService {
     }
 
     private List<Voucher> mockVoucherList() {
-        VoucherInformation vi = createVoucherInformation()
-        Voucher v = new Voucher(voucherInformation: vi)
+        InformacionVoucher vi = createVoucherInformation()
+        Voucher v = new Voucher(informacionVoucher: vi)
         return [v]
     }
 
-    private VoucherInformation createVoucherInformation(valid_until = new Date('2020/12/31')) {
-        Product p1 = new Product(name:"Hamburguesa", description: "Doble cheddar")
-        Product p2 = new Product(name:"Pinta cerveza", description: "Cerveza artesanal de la casa")
-        Item i1 = new Item(product: p1, quantity: 1)
-        Item i2 = new Item(product: p2, quantity: 2)
+    private InformacionVoucher createVoucherInformation(valid_until = new Date('2020/12/31')) {
+        Producto p1 = new Producto(nombre:"Hamburguesa", descripcion: "Doble cheddar")
+        Producto p2 = new Producto(nombre:"Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
+        Item i1 = new Item(producto: p1, cantidad: 1)
+        Item i2 = new Item(producto: p2, cantidad: 2)
 
-        VoucherInformation vi = new VoucherInformation(price: 400, description: "Promo verano", validFrom: new Date('2020/08/01'), validUntil: valid_until, items: [i1, i2])
+        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: valid_until, items: [i1, i2])
         vi
     }
 }

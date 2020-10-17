@@ -2,12 +2,11 @@ package services
 
 import enums.ProductType
 import enums.TrackingType
-import vouchers.Client
-import vouchers.Counterfoil
-import vouchers.CounterfoilService
+import vouchers.Cliente
+import vouchers.Tarifario
+import vouchers.TarifarioService
 import vouchers.Tracking
 import vouchers.TrackingService
-import vouchers.Voucher
 
 class RecommendationService {
 
@@ -15,7 +14,7 @@ class RecommendationService {
     static final Long THANKS_POINTS_MULTIPLIER = 20
 
     TrackingService trackingService
-    CounterfoilService counterfoilService
+    TarifarioService counterfoilService
 
     private static Long getPointsMultiplierForTrackingType(TrackingType trackingType) {
         switch (trackingType) {
@@ -35,10 +34,10 @@ class RecommendationService {
      * If it does have purchases, it will return the counterfoils after grouping them by the client
      * product type preferences and concatenating each block of counterfoils (by product type).
     */
-    List<Counterfoil> recommendCounterfoils(Client client) {
+    List<Tarifario> recommendCounterfoils(Cliente client) {
         Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count = trackingService.countyByProductTypeAndTrackingType(client)
 
-        List<Counterfoil> sortedCounterfoils = defaultCounterfoils()
+        List<Tarifario> sortedCounterfoils = defaultCounterfoils()
         List<ProductType> sortedProductTypes = calculateProductTypesWithDecreasingPriority(count)
 
         if (sortedProductTypes.indexOf()) {
@@ -50,21 +49,21 @@ class RecommendationService {
 
     def defaultCounterfoils() {
         counterfoilService.list().findAll { it.isActive }
-                .sort { -it.amountSold }
+                .sort { -it.cantidadVendida }
     }
 
-    List<Counterfoil> personalizeCounterfoils(List<Counterfoil> sortedCounterfoils, List<ProductType> sortedProductTypes) {
+    List<Tarifario> personalizeCounterfoils(List<Tarifario> sortedCounterfoils, List<ProductType> sortedProductTypes) {
         Map<ProductType, Integer> priorityPerProductType = sortedProductTypes.withIndex().collectEntries { ProductType entry, int i -> [(entry): i] }
-        Map<ProductType, List<Counterfoil>> counterfoilsPerProductType = sortedCounterfoils.groupBy { it.voucherInformation.product.type }
+        Map<ProductType, List<Tarifario>> counterfoilsPerProductType = sortedCounterfoils.groupBy { it.informacionVoucher.product.type }
 
-        List<Tuple2<Long, List<Counterfoil>>> prioritiesAndCounterFoils = counterfoilsPerProductType.keySet().collect { productType ->
+        List<Tuple2<Long, List<Tarifario>>> prioritiesAndCounterFoils = counterfoilsPerProductType.keySet().collect { productType ->
             Long productPriority = priorityPerProductType[productType]
-            List<Counterfoil> counterfoils = counterfoilsPerProductType[productType]
+            List<Tarifario> counterfoils = counterfoilsPerProductType[productType]
 
             new Tuple2(productPriority, counterfoils)
         }
 
-        List<Counterfoil> personalizedCounterfoils =  (List<Counterfoil>) prioritiesAndCounterFoils.sort { it.first }
+        List<Tarifario> personalizedCounterfoils =  (List<Tarifario>) prioritiesAndCounterFoils.sort { it.first }
                 .collect { it.second }
                 .flatten()
 

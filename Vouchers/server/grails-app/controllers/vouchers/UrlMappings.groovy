@@ -9,7 +9,7 @@ class UrlMappings {
 
         //Business
         "/businesses"(resources:"business")
-        "/businesses/getCounterfoils/$id"(controller: 'business', action: 'getCounterfoils')
+        "/businesses/getCounterfoils/$id"(controller: 'negocio', action: 'getCounterfoils')
 
         //Voucher
         "/vouchers"(resources:"voucher")
@@ -20,13 +20,13 @@ class UrlMappings {
 
         //Products
         "/products"(resources:"product")
-        "/products/getByBusiness/$businessId"(controller: 'product', action: 'getByBusiness')
+        "/products/getByBusiness/$businessId"(controller: 'producto', action: 'getByBusiness')
 
-        //Complaints
-        "/complaints"(resources:"complaint")
-        "/complaints/getByBusiness/$businessId"(controller: 'complaint', action: 'getByBusiness')
-        "/complaints/getByClient/$clientId"(controller: 'complaint', action: 'getByClient')
-        "/complaints/closeComplaint/$complaintId"(controller: 'complaint', action: 'closeComplaint')
+        // Reclamos
+        "/reclamos"(resources:"complaint")
+        "/reclamos/getPorNegocio/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
+        "/reclamos/getPorCliente/$clienteId"(controller: 'reclamo', action: 'getPorCliente')
+        "/reclamos/cerrarReclamo/$reclamoId"(controller: 'reclamo', action: 'cerrarReclamo')
 
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")

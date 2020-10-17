@@ -2,15 +2,15 @@ package assemblers
 
 import commands.ClientCommand
 import templates.ConcreteObjectAssembler
-import vouchers.Client
+import vouchers.Cliente
 
-class ClientAssembler extends ConcreteObjectAssembler<Client, ClientCommand>{
+class ClientAssembler extends ConcreteObjectAssembler<Cliente, ClientCommand>{
 
     VoucherAssembler voucherAssembler
 
     @Override
     protected getEntity(Long id) {
-        return (id == null || id == 0) ? new Client() : Client.get(id)
+        return (id == null || id == 0) ? new Cliente() : Cliente.get(id)
     }
 
     @Override
@@ -19,7 +19,7 @@ class ClientAssembler extends ConcreteObjectAssembler<Client, ClientCommand>{
     }
 
     @Override
-    ClientCommand toBean(Client domain) {
+    ClientCommand toBean(Cliente domain) {
         ClientCommand bean = super.toBean(domain)
 
         if (domain.vouchers){
@@ -30,8 +30,8 @@ class ClientAssembler extends ConcreteObjectAssembler<Client, ClientCommand>{
     }
 
     @Override
-    Client fromBean(ClientCommand bean) {
-        Client domain = super.fromBean(bean)
+    Cliente fromBean(ClientCommand bean) {
+        Cliente domain = super.fromBean(bean)
 
         if (bean.vouchersCommand){
             domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())

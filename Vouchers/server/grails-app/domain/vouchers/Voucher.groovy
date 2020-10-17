@@ -4,33 +4,33 @@ import enums.states.VoucherState
 
 class Voucher {
 
-    VoucherInformation voucherInformation
+    InformacionVoucher informacionVoucher
     Date dateCreated = new Date()
-    VoucherState state = VoucherState.BOUGHT
+    VoucherState state = VoucherState.Comprado
     Date lastStateChange = new Date()
-    Complaint complaint
-    Client client
-    Counterfoil counterfoil
+    Reclamo reclamo
+    Cliente cliente
+    Tarifario tarifario
 
     static constraints = {
-        voucherInformation     nullable: false, blank: true
+        informacionVoucher     nullable: false, blank: true
         dateCreated            nullable: false
-        state                  nullable: false, blank: false, default: VoucherState.BOUGHT
+        state                  nullable: false, blank: false, default: VoucherState.Comprado
         lastStateChange        nullable: true
-        complaint              nullable: true
-        client                 nullable:true
-        counterfoil            nullable:true
+        reclamo              nullable: true
+        cliente                 nullable:true
+        tarifario            nullable:true
     }
 
     boolean isRetirable() {
-        if (new Date() >= voucherInformation.validUntil) {
-            state = VoucherState.EXPIRED
+        if (new Date() >= informacionVoucher.validoHasta) {
+            state = VoucherState.Expirado
             lastStateChange = new Date()
         }
-        return state == VoucherState.BOUGHT
+        return state == VoucherState.Comprado
     }
 
     boolean isConfirmable() {
-        return state == VoucherState.PENDING_CONFIRMATION
+        return state == VoucherState.ConfirmacionPendiente
     }
 }

@@ -1,7 +1,7 @@
 package commands
 
 import grails.validation.Validateable
-import vouchers.Counterfoil
+import vouchers.Tarifario
 
 class CounterfoilCommand implements Validateable {
 
@@ -13,6 +13,6 @@ class CounterfoilCommand implements Validateable {
     String businessName
 
     static constraints = {
-        importFrom Counterfoil
+        importFrom Tarifario
     }
 }

@@ -5,12 +5,12 @@ import enums.TrackingType
 class Tracking {
 
     TrackingType type
-    Client client
-    VoucherInformation voucherInformation
+    Cliente cliente
+    InformacionVoucher informacionVoucher
 
     static constraints = {
         type nullable: false
-        client nullable: false
-        voucherInformation nullable: false
+        cliente nullable: false
+        informacionVoucher nullable: false
     }
 }

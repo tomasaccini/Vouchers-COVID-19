@@ -1,6 +1,0 @@
-import vouchers.Business
-
-model {
-    Business business
-}
-json g.render(template:"business", model: [business: business])

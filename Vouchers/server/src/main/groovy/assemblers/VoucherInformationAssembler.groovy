@@ -2,15 +2,15 @@ package assemblers
 
 import commands.VoucherInformationCommand
 import templates.ConcreteObjectAssembler
-import vouchers.VoucherInformation
+import vouchers.InformacionVoucher
 
-class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInformation, VoucherInformationCommand> {
+class VoucherInformationAssembler  extends ConcreteObjectAssembler<InformacionVoucher, VoucherInformationCommand> {
 
     ItemAssembler itemAssembler
 
     @Override
-    protected VoucherInformation getEntity(Long id) {
-        return (id == null || id == 0) ? new VoucherInformation() : VoucherInformation.get(id)
+    protected InformacionVoucher getEntity(Long id) {
+        return (id == null || id == 0) ? new InformacionVoucher() : InformacionVoucher.get(id)
     }
 
     @Override
@@ -19,7 +19,7 @@ class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInform
     }
 
     @Override
-    VoucherInformationCommand toBean(VoucherInformation domain) {
+    VoucherInformationCommand toBean(InformacionVoucher domain) {
 
         VoucherInformationCommand bean = super.toBean(domain)
 
@@ -31,9 +31,9 @@ class VoucherInformationAssembler  extends ConcreteObjectAssembler<VoucherInform
     }
 
     @Override
-    VoucherInformation fromBean(VoucherInformationCommand bean) {
+    InformacionVoucher fromBean(VoucherInformationCommand bean) {
 
-        VoucherInformation domain = super.fromBean(bean)
+        InformacionVoucher domain = super.fromBean(bean)
 
         if (bean.itemsCommand){
             domain.items = itemAssembler.fromBeans(bean.itemsCommand.asList())

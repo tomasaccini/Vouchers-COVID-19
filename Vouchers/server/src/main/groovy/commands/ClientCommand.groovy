@@ -1,8 +1,7 @@
 package commands
 
 import grails.validation.Validateable
-import vouchers.Client
-import vouchers.Voucher
+import vouchers.Cliente
 
 class ClientCommand implements Validateable {
 
@@ -12,6 +11,6 @@ class ClientCommand implements Validateable {
     List<VoucherCommand> vouchersCommand
 
     static constraints = {
-        importFrom Client
+        importFrom Cliente
     }
 }

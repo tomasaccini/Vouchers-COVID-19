@@ -25,10 +25,10 @@ class TrackingService {
     }
 
     // TODO Add filter by client's trackings !!!!
-    Map<Tuple2<TrackingType, ProductType>, List<Tracking>> countyByProductTypeAndTrackingType(Client client) {
+    Map<Tuple2<TrackingType, ProductType>, List<Tracking>> countyByProductTypeAndTrackingType(Cliente client) {
         try {
             Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count = Tracking.list()
-                    .groupBy { tracking -> new Tuple2(tracking.type, tracking.voucherInformation.product.type) }
+                    .groupBy { tracking -> new Tuple2(tracking.type, tracking.informacionVoucher.product.type) }
             count
         } catch (ValidationException e) {
             throw new ServiceException(e.message)

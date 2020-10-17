@@ -2,7 +2,7 @@ package commands
 
 import enums.ProductType
 import grails.validation.Validateable
-import vouchers.Product
+import vouchers.Producto
 
 class ProductCommand implements Validateable {
 
@@ -13,6 +13,6 @@ class ProductCommand implements Validateable {
     ProductType type
 
     static constraints = {
-        importFrom Product
+        importFrom Producto
     }
 }

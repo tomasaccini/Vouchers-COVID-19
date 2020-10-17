@@ -1,8 +1,7 @@
 package commands
 
 import grails.validation.Validateable
-import vouchers.Item
-import vouchers.VoucherInformation
+import vouchers.InformacionVoucher
 
 class VoucherInformationCommand  implements Validateable{
 
@@ -15,6 +14,6 @@ class VoucherInformationCommand  implements Validateable{
     List itemsCommand
 
     static constraints = {
-        importFrom VoucherInformation
+        importFrom InformacionVoucher
     }
 }

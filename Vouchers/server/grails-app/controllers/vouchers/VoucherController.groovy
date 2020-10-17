@@ -3,16 +3,13 @@ package vouchers
 import assemblers.VoucherAssembler
 import commands.VoucherCommand
 import grails.rest.*
-import grails.converters.*
-
-import static org.springframework.http.HttpStatus.CREATED
 
 class VoucherController extends RestfulController {
 
     VoucherAssembler voucherAssembler
     VoucherService voucherService
-    CounterfoilService counterfoilService
-    ClientService clientService
+    TarifarioService tarifarioService
+    ClienteService clienteService
 
     static responseFormats = ['json', 'xml']
 
@@ -78,8 +75,8 @@ class VoucherController extends RestfulController {
         return respond(voucherAssembler.toBean(v))
         // ------------------
 
-        Counterfoil counterfoil = counterfoilService.get(counterfoilId)
-        Voucher voucher = clientService.buyVoucher(clientId, counterfoil)
+        Tarifario counterfoil = tarifarioService.get(counterfoilId)
+        Voucher voucher = clienteService.buyVoucher(clientId, counterfoil)
         VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
         respond voucherCommand
     }

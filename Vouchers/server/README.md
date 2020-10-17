@@ -28,3 +28,5 @@ The typical workflow is:
 * If having troubles running the application with IntelliJ, delete the `.idea` directory and open the project from the `Vouchers` directory.
 
 Documentation for this plugin: https://grails-plugins.github.io/grails-database-migration/3.0.x/index.html#introduction
+
+# TMP  for development

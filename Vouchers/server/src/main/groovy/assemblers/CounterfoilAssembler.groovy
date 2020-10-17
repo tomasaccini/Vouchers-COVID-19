@@ -2,16 +2,16 @@ package assemblers
 
 import commands.CounterfoilCommand
 import templates.ConcreteObjectAssembler
-import vouchers.Counterfoil
+import vouchers.Tarifario
 
-class CounterfoilAssembler extends ConcreteObjectAssembler<Counterfoil, CounterfoilCommand> {
+class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, CounterfoilCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
     VoucherAssembler voucherAssembler
     
     @Override
-    protected Counterfoil getEntity(Long id) {
-        return (id == null || id == 0) ? new Counterfoil() : Counterfoil.get(id)
+    protected Tarifario getEntity(Long id) {
+        return (id == null || id == 0) ? new Tarifario() : Tarifario.get(id)
     }
 
     @Override
@@ -20,11 +20,11 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Counterfoil, Counterf
     }
 
     @Override
-    CounterfoilCommand toBean(Counterfoil domain) {
+    CounterfoilCommand toBean(Tarifario domain) {
 
         CounterfoilCommand bean = super.toBean(domain)
 
-        bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.voucherInformation)
+        bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
         if (domain.vouchers){
             bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
@@ -34,11 +34,11 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Counterfoil, Counterf
     }
 
     @Override
-    Counterfoil fromBean(CounterfoilCommand bean) {
+    Tarifario fromBean(CounterfoilCommand bean) {
 
-        Counterfoil domain 	= super.fromBean(bean)
+        Tarifario domain 	= super.fromBean(bean)
 
-        domain.voucherInformation = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
+        domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
 
         if (bean.vouchersCommand){
             domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())
