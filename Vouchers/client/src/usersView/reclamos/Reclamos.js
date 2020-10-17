@@ -10,9 +10,9 @@ import "../styles.css";
 import { Typography } from '@material-ui/core';
 import businessAPI from '../../services/BusinessAPI.js';
 import constantes from "../../utils/constantes";
-import { ThemeProvider, AgentBar, Column, Avatar, TextComposer, Row, Fill, TextInput, Fit, SendButton, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from "@livechat/ui-kit";
+import { ThemeProvider, ChatList, ChatListItem, AgentBar, Column, Avatar, TextComposer, Row, Fill, TextInput, Fit, SendButton, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from "@livechat/ui-kit";
 
-
+// https://developers.livechat.com/docs/react-chat-ui-kit/
 class Reclamos extends Component{
 
     constructor() {
@@ -49,11 +49,49 @@ class Reclamos extends Component{
         return (
             <div>
                 <UserNavbar title={constantes.reclamosTitulo} />
+                <ThemeProvider>
                 <GridContainer className="vouchersGrid">
-                    <GridItem xs={4}>
+                    <GridItem xs={1}>
                     </GridItem>
-                    <GridItem xs={3}>
-                        <ThemeProvider>
+                    <GridItem xs={4}>
+                        <ChatList style={{ maxWidth: 300 }}>
+                            <ChatListItem>
+                                <Avatar letter="K" />
+                                <Column fill>
+                                    <Row justify>
+                                        <Title ellipsis>{'Konrad'}</Title>
+                                        <Subtitle nowrap>{'14:31 PM'}</Subtitle>
+                                    </Row>
+                                    <Subtitle ellipsis>
+                                        {'Hello, how can I help you? We have a lot to talk about'}
+                                    </Subtitle>
+                                </Column>
+                            </ChatListItem>
+                            <ChatListItem active>
+                                <Avatar letter="J" />
+                                <Column fill>
+                                    <Row justify>
+                                        <Title ellipsis>{'Andrew'}</Title>
+                                        <Subtitle nowrap>{'14:31 PM'}</Subtitle>
+                                    </Row>
+                                    <Subtitle ellipsis>{'actually I just emailed you back'}</Subtitle>
+                                </Column>
+                            </ChatListItem>
+                            <ChatListItem>
+                                <Avatar imgUrl="https://livechat.s3.amazonaws.com/default/avatars/male_8.jpg" />
+                                <Column fill>
+                                    <Row justify>
+                                        <Title ellipsis>{'Michael'}</Title>
+                                        <Subtitle nowrap>{'14:31 PM'}</Subtitle>
+                                    </Row>
+                                    <Subtitle ellipsis>
+                                        {"Ok, thanks for the details, I'll get back to you tomorrow."}
+                                    </Subtitle>
+                                </Column>
+                            </ChatListItem>
+                        </ChatList>
+                    </GridItem>
+                    <GridItem xs={5}>
                             <div style={{ maxWidth: '100%', height: '400px' }}>
                                 <MessageList active>
                                     <MessageGroup
@@ -77,7 +115,7 @@ class Reclamos extends Component{
                                                 <MessageButton label="View more" primary />
                                                 <MessageButton label="Cancel" />
                                             </MessageButtons>
-                                            <MessageText>
+                                            <MessageText style={{ background: 'lightgrey', borderRadius: '6px' }}>
                                                 The fastest way to help your customers - start chatting with visitors
                                                 who need your help using a free 30-day trial.
                                             </MessageText>
@@ -92,14 +130,14 @@ class Reclamos extends Component{
                                     </MessageGroup>
                                     <MessageGroup onlyFirstWithMeta>
                                         <Message date="21:38" isOwn={true} authorName="Visitor">
-                                            <MessageText style={{ background: 'blue', color: 'white', borderRadius: '6px' }}>
+                                            <MessageText style={{ background: 'lightblue', color: 'white', borderRadius: '6px' }}>
                                                 I love them
                                                 sooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
                                                 much!
                                             </MessageText>
                                         </Message>
                                         <Message date="21:38" isOwn={true} authorName="Visitor">
-                                            <MessageText  style={{ background: 'blue', color: 'white', borderRadius: '6px' }}>This helps me a lot</MessageText>
+                                            <MessageText  style={{ background: 'lightblue', color: 'white', borderRadius: '6px' }}>This helps me a lot</MessageText>
                                         </Message>
                                     </MessageGroup>
                                     <MessageGroup
@@ -114,7 +152,7 @@ class Reclamos extends Component{
                                           imageUrl="https://static.staging.livechatinc.com/1520/P10B78E30V/dfd1830ebb68b4eefe6432d7ac2be2be/Cat-BusinessSidekick_Wallpapers.png"
                                           date="21:39"
                                         >
-                                            <MessageText>
+                                            <MessageText style={{ background: 'lightgrey', borderRadius: '6px' }}>
                                                 The fastest way to help your customers - start chatting with visitors
                                                 who need your help using a free 30-day trial.
                                             </MessageText>
@@ -206,10 +244,10 @@ class Reclamos extends Component{
                                     </Row>
                                 </TextComposer>
                             </div>
-                        </ThemeProvider>
                     </GridItem>
                 </GridContainer>
-            </div>
+            </ThemeProvider>
+    </div>
         );
     }
 
