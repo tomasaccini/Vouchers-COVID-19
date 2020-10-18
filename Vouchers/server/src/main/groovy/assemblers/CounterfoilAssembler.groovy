@@ -1,10 +1,10 @@
 package assemblers
 
-import commands.CounterfoilCommand
+import commands.TarifarioCommand
 import templates.ConcreteObjectAssembler
 import vouchers.Tarifario
 
-class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, CounterfoilCommand> {
+class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, TarifarioCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
     VoucherAssembler voucherAssembler
@@ -15,14 +15,14 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, Counterfoi
     }
 
     @Override
-    protected CounterfoilCommand createBean() {
-        return new CounterfoilCommand()
+    protected TarifarioCommand createBean() {
+        return new TarifarioCommand()
     }
 
     @Override
-    CounterfoilCommand toBean(Tarifario domain) {
+    TarifarioCommand toBean(Tarifario domain) {
 
-        CounterfoilCommand bean = super.toBean(domain)
+        TarifarioCommand bean = super.toBean(domain)
 
         bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
@@ -34,7 +34,7 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, Counterfoi
     }
 
     @Override
-    Tarifario fromBean(CounterfoilCommand bean) {
+    Tarifario fromBean(TarifarioCommand bean) {
 
         Tarifario domain 	= super.fromBean(bean)
 

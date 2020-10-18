@@ -32,5 +32,4 @@ class TrackingAssembler extends ConcreteObjectAssembler<Tracking, TrackingComman
 
         return domain
     }
-
 }

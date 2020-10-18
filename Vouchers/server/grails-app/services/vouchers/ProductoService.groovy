@@ -1,6 +1,6 @@
 package vouchers
 
-import commands.ProductCommand
+import commands.ProductoCommand
 import grails.gorm.transactions.Transactional
 import org.hibernate.service.spi.ServiceException
 import javax.xml.bind.ValidationException
@@ -11,7 +11,7 @@ class ProductoService {
     def productAssembler
     NegocioService negocioService
 
-    Producto save(ProductCommand productCommand, Long businessId) {
+    Producto save(ProductoCommand productCommand, Long businessId) {
         Producto product = productAssembler.fromBean(productCommand)
         negocioService.addProduct(businessId, product)
         try {
@@ -21,7 +21,7 @@ class ProductoService {
         }
     }
 
-    def update(ProductCommand productCommand) {
+    def update(ProductoCommand productCommand) {
         Producto product = productAssembler.fromBean(productCommand)
         product.save(flush: true, failOnError: true)
     }

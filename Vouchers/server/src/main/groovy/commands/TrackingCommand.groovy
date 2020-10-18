@@ -8,7 +8,7 @@ class TrackingCommand implements Validateable {
 
     Long id
     Long version
-    ClientCommand clientCommand
+    ClienteCommand clientCommand
     TrackingType type
 
 

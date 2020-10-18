@@ -4,7 +4,7 @@ import enums.ProductType
 import grails.validation.Validateable
 import vouchers.Producto
 
-class ProductCommand implements Validateable {
+class ProductoCommand implements Validateable {
 
     Long id
     Long version

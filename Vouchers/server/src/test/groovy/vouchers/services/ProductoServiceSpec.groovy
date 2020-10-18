@@ -1,6 +1,6 @@
 package vouchers.services
 
-import commands.ProductCommand
+import commands.ProductoCommand
 import enums.ProductType
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
@@ -45,7 +45,7 @@ class ProductoServiceSpec extends Specification {
         business.website = "bluedog.com"
         business.save(flush: true, failOnError: true)
 
-        ProductCommand productCommand = new ProductCommand()
+        ProductoCommand productCommand = new ProductoCommand()
         productCommand.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
         productCommand.name = "Hamburguesa Blue Dog"
         productCommand.type = ProductType.FAST_FOOD
@@ -64,7 +64,7 @@ class ProductoServiceSpec extends Specification {
 
     void "save creates a Product"() {
         given:
-        ProductCommand productCommand = new ProductCommand()
+        ProductoCommand productCommand = new ProductoCommand()
         productCommand.name = "Patagonia IPA"
         productCommand.description = "Cerveza IPA artesanal industrial de la más alta calidad."
         productCommand.type = ProductType.FAST_FOOD
@@ -81,7 +81,7 @@ class ProductoServiceSpec extends Specification {
 
     def "update properly modifies the Product"() {
         given:
-        ProductCommand productCommand = new ProductCommand()
+        ProductoCommand productCommand = new ProductoCommand()
         productCommand.id = 1
         productCommand.name = "Hamburguesa PURPLE DOG"
         productCommand.description = "ahora con mas queso"

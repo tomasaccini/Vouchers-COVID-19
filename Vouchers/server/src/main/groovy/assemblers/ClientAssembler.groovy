@@ -1,10 +1,10 @@
 package assemblers
 
-import commands.ClientCommand
+import commands.ClienteCommand
 import templates.ConcreteObjectAssembler
 import vouchers.Cliente
 
-class ClientAssembler extends ConcreteObjectAssembler<Cliente, ClientCommand> {
+class ClientAssembler extends ConcreteObjectAssembler<Cliente, ClienteCommand> {
 
     VoucherAssembler voucherAssembler
 
@@ -15,12 +15,12 @@ class ClientAssembler extends ConcreteObjectAssembler<Cliente, ClientCommand> {
 
     @Override
     protected createBean() {
-        return new ClientCommand()
+        return new ClienteCommand()
     }
 
     @Override
-    ClientCommand toBean(Cliente domain) {
-        ClientCommand bean = super.toBean(domain)
+    ClienteCommand toBean(Cliente domain) {
+        ClienteCommand bean = super.toBean(domain)
 
         if (domain.vouchers){
             bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
@@ -30,7 +30,7 @@ class ClientAssembler extends ConcreteObjectAssembler<Cliente, ClientCommand> {
     }
 
     @Override
-    Cliente fromBean(ClientCommand bean) {
+    Cliente fromBean(ClienteCommand bean) {
         Cliente domain = super.fromBean(bean)
 
         if (bean.vouchersCommand){

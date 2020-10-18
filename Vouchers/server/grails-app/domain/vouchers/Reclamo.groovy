@@ -26,6 +26,7 @@ class Reclamo {
         if (cliente != duenio) {
             throw new RuntimeException("El duenio del mensaje no es el cliente relacionado con el reclamo")
         }
+
         _agregarMensaje(mensaje, duenio)
     }
 

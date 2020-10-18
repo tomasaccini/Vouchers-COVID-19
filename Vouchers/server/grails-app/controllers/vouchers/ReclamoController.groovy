@@ -1,6 +1,7 @@
 package vouchers
 
-
+import assemblers.ReclamoAssembler
+import commands.ReclamoCommand
 import grails.rest.*
 import grails.converters.*
 
@@ -8,6 +9,7 @@ class ReclamoController extends RestfulController{
 
 	static responseFormats = ['json', 'xml']
     ReclamoService reclamoService
+    ReclamoAssembler reclamoAssembler = new ReclamoAssembler()
 
     ReclamoController() {
         super(Reclamo)
@@ -29,6 +31,15 @@ class ReclamoController extends RestfulController{
     List<Reclamo> obtenerTodos() {
         println("Request obtener todos los reclamos")
         respond reclamoService.obtenerTodos()
+    }
+
+    ReclamoCommand obtenerReclamo(Long reclamoId) {
+        println("Request obtener el reclamo con id: ${reclamoId}")
+
+        Reclamo reclamo = reclamoService.obtener(reclamoId)
+        ReclamoCommand reclamoCommand = reclamoAssembler.toBean(reclamo)
+
+        respond reclamoCommand
     }
 
     def crearReclamo() {

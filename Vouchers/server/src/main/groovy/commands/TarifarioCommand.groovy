@@ -3,11 +3,11 @@ package commands
 import grails.validation.Validateable
 import vouchers.Tarifario
 
-class CounterfoilCommand implements Validateable {
+class TarifarioCommand implements Validateable {
 
     Long id
     Long version
-    VoucherInformationCommand voucherInformationCommand
+    InformacionVoucherCommand voucherInformationCommand
     Boolean active
     Integer stock
     String businessName

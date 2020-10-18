@@ -1,10 +1,10 @@
 package assemblers
 
-import commands.ProductCommand
+import commands.ProductoCommand
 import templates.ConcreteObjectAssembler
 import vouchers.Producto
 
-class ProductAssembler extends ConcreteObjectAssembler<Producto, ProductCommand> {
+class ProductAssembler extends ConcreteObjectAssembler<Producto, ProductoCommand> {
 
     @Override
     protected Producto getEntity(Long id) {
@@ -12,20 +12,20 @@ class ProductAssembler extends ConcreteObjectAssembler<Producto, ProductCommand>
     }
 
     @Override
-    protected ProductCommand createBean() {
-        return new ProductCommand()
+    protected ProductoCommand createBean() {
+        return new ProductoCommand()
     }
 
     @Override
-    ProductCommand toBean(Producto domain) {
+    ProductoCommand toBean(Producto domain) {
 
-        ProductCommand bean = super.toBean(domain)
+        ProductoCommand bean = super.toBean(domain)
 
         return bean
     }
 
     @Override
-    Producto fromBean(ProductCommand bean) {
+    Producto fromBean(ProductoCommand bean) {
 
         Producto domain = super.fromBean(bean)
 

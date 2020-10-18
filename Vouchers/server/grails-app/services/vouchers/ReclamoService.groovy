@@ -10,6 +10,10 @@ class ReclamoService {
         return Reclamo.findAll()
     }
 
+    Reclamo obtener(Long reclamoId) {
+        return Reclamo.findById(reclamoId)
+    }
+
     Reclamo crearReclamo(Long voucherId, String descripcion) {
         Voucher voucher = Voucher.findById(voucherId)
 

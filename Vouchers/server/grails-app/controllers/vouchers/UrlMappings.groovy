@@ -28,6 +28,7 @@ class UrlMappings {
         // Reclamos
         // "/reclamos"(resources:"complaint")
         "/reclamos"(controller: 'reclamo', action: 'obtenerTodos')
+        "/reclamos/$reclamoId"(controller: 'reclamo', action: 'obtenerReclamo')
         post "/reclamos"(controller: 'reclamo', action: 'crearReclamo')
         "/reclamos/negocios/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
         "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'getPorCliente')

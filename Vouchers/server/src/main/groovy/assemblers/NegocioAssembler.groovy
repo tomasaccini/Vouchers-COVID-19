@@ -1,9 +1,8 @@
 package assemblers
 
-import commands.ClientCommand
+
 import commands.NegocioCommand
 import templates.ConcreteObjectAssembler
-import vouchers.Cliente
 import vouchers.Negocio
 
 class NegocioAssembler extends ConcreteObjectAssembler<Negocio, NegocioCommand> {

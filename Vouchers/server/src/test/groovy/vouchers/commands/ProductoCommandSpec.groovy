@@ -1,6 +1,6 @@
 package vouchers.commands
 
-import commands.ProductCommand
+import commands.ProductoCommand
 import spock.lang.Specification
 
 class ProductoCommandSpec extends Specification {
@@ -13,13 +13,13 @@ class ProductoCommandSpec extends Specification {
     }
 
     void "constructor"() {
-        ProductCommand p = new ProductCommand(name: "Potatoes", description: "chips")
+        ProductoCommand p = new ProductoCommand(name: "Potatoes", description: "chips")
         expect:"product constructed correctly"
         p != null && p.name == "Potatoes" && p.description == "chips"
     }
 
     void "productCommand can't have empty string as name"() {
-        ProductCommand p = new ProductCommand(name: "", description: "chips")
+        ProductoCommand p = new ProductoCommand(name: "", description: "chips")
         when:
         p.name = ""
         then:
@@ -28,7 +28,7 @@ class ProductoCommandSpec extends Specification {
     }
 
     void "productCommand can't have empty string as description"() {
-        ProductCommand p = new ProductCommand(name: "Potatoe", description: "")
+        ProductoCommand p = new ProductoCommand(name: "Potatoe", description: "")
         when:
         p.description = ""
         then:
@@ -37,7 +37,7 @@ class ProductoCommandSpec extends Specification {
     }
 
     void "productCommand's name can't be null"() {
-        ProductCommand p = new ProductCommand(name: null, description: "chips")
+        ProductoCommand p = new ProductoCommand(name: null, description: "chips")
         when:
         p.name = null
         then:
@@ -46,7 +46,7 @@ class ProductoCommandSpec extends Specification {
     }
 
     void "productCommand's description can be null"() {
-        ProductCommand p = new ProductCommand(name: "Potatoe", description: null)
+        ProductoCommand p = new ProductoCommand(name: "Potatoe", description: null)
         when:
         p.description = null
         then:
