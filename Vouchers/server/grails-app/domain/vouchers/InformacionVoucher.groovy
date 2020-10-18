@@ -25,7 +25,6 @@ class InformacionVoucher {
 
     // TODO Isn't there something like deep clone not to do this manually?
     InformacionVoucher duplicar() {
-        println("!!!! items ${items}")
         new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta, items: items.clone())
     }
 }

@@ -28,7 +28,7 @@ class ReclamoController extends RestfulController{
 
     List<Reclamo> obtenerTodos() {
         println("Request obtener todos los reclamos")
-        return reclamoService.obtenerTodos()
+        respond reclamoService.obtenerTodos()
     }
 
     def crearReclamo() {
@@ -40,6 +40,7 @@ class ReclamoController extends RestfulController{
 
         try {
             Reclamo reclamo = reclamoService.crearReclamo(voucherId, descripcion)
+            respond reclamo
         } catch (RuntimeException re) {
             response.sendError(400, re.message)
         }

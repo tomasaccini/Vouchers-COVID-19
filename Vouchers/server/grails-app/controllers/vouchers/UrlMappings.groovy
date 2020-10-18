@@ -26,8 +26,8 @@ class UrlMappings {
         "/products/getByBusiness/$businessId"(controller: 'producto', action: 'getByBusiness')
 
         // Reclamos
-        "/reclamos"(resources:"complaint")
-        "/reclamos/obtenerTodos"(controller: 'reclamo', action: 'obtenerTodos')
+        // "/reclamos"(resources:"complaint")
+        "/reclamos"(controller: 'reclamo', action: 'obtenerTodos')
         post "/reclamos"(controller: 'reclamo', action: 'crearReclamo')
         "/reclamos/negocios/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
         "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'getPorCliente')

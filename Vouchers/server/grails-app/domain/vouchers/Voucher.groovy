@@ -11,8 +11,7 @@ class Voucher {
     Date dateCreated = new Date()
     VoucherState state = VoucherState.Comprado
     Date lastStateChange = new Date()
-    // !!!! Optional
-    Reclamo reclamo
+    Reclamo reclamo = null
     Cliente cliente
     Tarifario tarifario
 
@@ -36,5 +35,17 @@ class Voucher {
 
     boolean esConfirmable() {
         return state == VoucherState.ConfirmacionPendiente
+    }
+
+    Reclamo iniciarReclamo(String descripcion) {
+        Reclamo nuevoReclamo = new Reclamo(voucher: this, cliente: cliente, negocio: tarifario.negocio, descripcion: descripcion)
+
+        nuevoReclamo.agregarMensaje(descripcion, cliente)
+        reclamo = nuevoReclamo
+
+        nuevoReclamo.save(flush: true, failOnError: true)
+        this.save(flush: true, failOnError: true)
+
+        nuevoReclamo
     }
 }

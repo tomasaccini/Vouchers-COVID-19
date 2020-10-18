@@ -10,17 +10,14 @@ class ReclamoService {
         return Reclamo.findAll()
     }
 
-    def crearReclamo(Long voucherId, String descripcion) {
+    Reclamo crearReclamo(Long voucherId, String descripcion) {
         Voucher voucher = Voucher.findById(voucherId)
 
         if (voucher == null) {
             throw new RuntimeException('No se puede crear un reclamo por un voucher invalido')
         }
 
-
-        Reclamo nuevoReclamo = new Reclamo(cliente: voucher.cliente, negocio: voucher.tarifario.negocio, descripcion: descripcion)
-        nuevoReclamo.agregarMensaje(descripcion, voucher.cliente)
-        nuevoReclamo.save()
+        Reclamo nuevoReclamo = voucher.iniciarReclamo(descripcion)
 
         nuevoReclamo
     }

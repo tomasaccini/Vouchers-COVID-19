@@ -9,7 +9,7 @@ class Reclamo {
     Cliente cliente
     Negocio negocio
     ReclamoState state = ReclamoState.Abierto
-    Set mensajes = []
+    Set<MensajeReclamo> mensajes = []
 
     static belongsTo = [voucher: Voucher]
 
@@ -37,7 +37,7 @@ class Reclamo {
         _agregarMensaje(mensaje, duenio)
     }
 
-    private void _agregarMensaje(String mensaje, Usuario owner){
+    private void _agregarMensaje(String mensaje, Usuario owner) {
         if (state == ReclamoState.Cerrado) {
             throw new RuntimeException("No se pueden agregar mas mensajes a un reclamo cerrado")
         }

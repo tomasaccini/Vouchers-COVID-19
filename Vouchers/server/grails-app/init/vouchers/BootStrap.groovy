@@ -8,6 +8,7 @@ class BootStrap {
     NegocioService negocioService
     VoucherService voucherService
     ClienteService clienteService
+    ReclamoService reclamoService
 
     def init = { servletContext ->
 
@@ -71,7 +72,9 @@ class BootStrap {
 
         Negocio.get(2).addToProducts(Producto.get(2))
 
-        clienteService.comprarVoucher(cliente1.id, tarifario1.id)
+        def voucher1 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)
+
+        reclamoService.crearReclamo(voucher1.id, "Initial message !!!!")
     }
 
     def destroy = {

@@ -37,11 +37,7 @@ class Tarifario {
             throw new RuntimeException("Voucher does not have stock")
         }
 
-        println("!!!! ${informacionVoucher}")
-        Voucher voucher = new Voucher(
-                informacionVoucher: informacionVoucher.duplicar(),
-                cliente: cliente,
-                tarifario: this
+        Voucher voucher = new Voucher(informacionVoucher: informacionVoucher.duplicar(), cliente: cliente, tarifario: this
         )
 
         //TODO: This must be propably an atomic attribute
@@ -53,7 +49,7 @@ class Tarifario {
         try {
             voucher.informacionVoucher.save(flush: true, failOnError: true)
             voucher.save(flush: true, failOnError: true)
-            save(flush:true, failOnError:true)
+            this.save(flush:true, failOnError:true)
             cliente.save(flush:true, failOnError:true)
         } catch (ValidationException e){
             throw new ServiceException(e.message)

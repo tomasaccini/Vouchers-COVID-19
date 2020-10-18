@@ -93,7 +93,6 @@ class TarifarioController extends RestfulController{
 
     @Transactional
     def update(Tarifario counterfoil) {
-        println "!!!! update"
         if (counterfoil == null) {
             render status: NOT_FOUND
             return
