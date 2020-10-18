@@ -13,10 +13,14 @@ class ClienteService {
 
     // TODO mover a tarifarioController? !!!!
     Voucher comprarVoucher(Long clienteId, Long tarifarioId) {
+        println("ClienteService.comprarVoucher(${clienteId}, ${tarifarioId})")
+
         Tarifario tarifario = tarifarioService.get(tarifarioId)
         Cliente cliente = Cliente.get(clienteId)
 
         Voucher voucher = tarifario.crearVoucher(cliente)
+
+        println("ClienteService.comprarVoucher() => ${voucher}")
 
         voucher
     }

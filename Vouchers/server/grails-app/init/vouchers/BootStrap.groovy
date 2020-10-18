@@ -73,8 +73,12 @@ class BootStrap {
         Negocio.get(2).addToProducts(Producto.get(2))
 
         def voucher1 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)
+        def voucher2 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)
 
-        reclamoService.crearReclamo(voucher1.id, "Initial message !!!!")
+        def reclamo1 = reclamoService.crearReclamo(voucher1.id, "Initial message !!!!")
+        reclamoService.nuevoMensaje(reclamo1.id, tarifario1.negocio.id, "Respuesta del negocio")
+
+        def reclamo2 = reclamoService.crearReclamo(voucher2.id, "Initial message 2 !!!!")
     }
 
     def destroy = {

@@ -25,6 +25,13 @@ class InformacionVoucher {
 
     // TODO Isn't there something like deep clone not to do this manually?
     InformacionVoucher duplicar() {
-        new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta, items: items.clone())
+        Set<Item> nuevosItems = []
+
+        for (def item : items) {
+            Item nuevoItem = new Item(producto: item.producto, cantidad: item.cantidad)
+            nuevosItems.add(nuevoItem)
+        }
+
+        new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta, items: nuevosItems)
     }
 }

@@ -38,6 +38,9 @@ class Voucher {
     }
 
     Reclamo iniciarReclamo(String descripcion) {
+        if (reclamo != null) {
+            throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
+        }
         Reclamo nuevoReclamo = new Reclamo(voucher: this, cliente: cliente, negocio: tarifario.negocio, descripcion: descripcion)
 
         nuevoReclamo.agregarMensaje(descripcion, cliente)
