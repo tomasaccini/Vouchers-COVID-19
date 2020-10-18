@@ -5,7 +5,7 @@ import enums.states.ReclamoState
 class Reclamo {
 
     String descripcion
-    Date dateCreated = new Date()
+    Date dateCreated
     Cliente cliente
     Negocio negocio
     ReclamoState state = ReclamoState.Abierto
@@ -23,16 +23,16 @@ class Reclamo {
     }
 
     void agregarMensaje(String mensaje, Cliente duenio) {
-        if (cliente != duenio) {
-            throw new RuntimeException("El duenio del mensaje no es el cliente relacionado con el reclamo")
+        if (cliente.id != duenio.id) {
+            throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el cliente relacionado con el reclamo (${cliente.id})")
         }
 
         _agregarMensaje(mensaje, duenio)
     }
 
     void agregarMensaje(String mensaje, Negocio duenio) {
-        if (negocio != duenio) {
-            throw new RuntimeException("El duenio del mensaje no es el negocio relacionado con el reclamo")
+        if (negocio.id != duenio.id) {
+            throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${negocio.id})")
         }
 
         _agregarMensaje(mensaje, duenio)
@@ -43,8 +43,13 @@ class Reclamo {
             throw new RuntimeException("No se pueden agregar mas mensajes a un reclamo cerrado")
         }
 
-        this.addToMensajes(new MensajeReclamo(duenio: owner, texto: mensaje))
+        MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: owner, texto: mensaje, fecha: new Date())
+        mensajeReclamo.save(flush:true, failOnError: true)
+
+        this.addToMensajes(mensajeReclamo)
         state = ReclamoState.Respondido
+
+        this.save(flush:true, failOnError: true)
     }
 
     void cerrar() {

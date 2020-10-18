@@ -28,7 +28,7 @@ class BootStrap {
                     numeroTelefonico: '123',
                     direccion: Direccion.get(1),
                     categoria: "food",
-                    email: "asdf@sadf.com",
+                    email: "negocio1@sadf.com",
                     contrasenia: "topSecret",
                     cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
@@ -36,7 +36,7 @@ class BootStrap {
                 numeroTelefonico: '123',
                 direccion: Direccion.get(2),
                 categoria: "food",
-                email: "asdf@sadf.com",
+                email: "negocio2@sadf.com",
                 contrasenia: "topSecret",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
@@ -54,7 +54,7 @@ class BootStrap {
 
         def cliente1 = new Cliente(fullName: "Pepe Argento",
                 phoneNumber: "1234",
-                email: "asdf@asdf.com",
+                email: "cliente@asdf.com",
                 contrasenia: "1234",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 

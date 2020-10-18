@@ -15,7 +15,6 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
 
     @Override
     protected VoucherCommand createBean() {
-        // !!!!!
         return new VoucherCommand()
     }
 

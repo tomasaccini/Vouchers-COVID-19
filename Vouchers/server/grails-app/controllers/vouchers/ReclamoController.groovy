@@ -57,6 +57,21 @@ class ReclamoController extends RestfulController{
         }
     }
 
+    def nuevoMensaje(Long reclamoId) {
+        println("Request para crear un reclamo")
+
+        Object requestBody = request.JSON
+        Long usuarioId = requestBody['usuarioId']
+        String mensaje = requestBody['mensaje']
+
+        try {
+            Reclamo reclamo = reclamoService.nuevoMensaje(reclamoId, usuarioId, mensaje)
+            respond reclamo
+        } catch (RuntimeException re) {
+            response.sendError(400, re.message)
+        }
+    }
+
     /*
     * Returns list of businesses's complaints. If specified, it returns a max amount of them.
     * A business complaint is a complaint created by a Client for a voucher

@@ -20,17 +20,21 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
 
     @Override
     ReclamoCommand toBean(Reclamo reclamo) {
-        ReclamoCommand reclamoCommand = new ReclamoCommand(id: reclamo.id)
+        ReclamoCommand reclamoCommand = new ReclamoCommand(
+                id: reclamo.id,
+                clienteId: reclamo.cliente.id,
+                negocioId: reclamo.negocio.id,
+        )
 
         List<MensajeReclamo> mensajes = reclamo.mensajes.toList()
-        mensajes = mensajes.sort { it.dateCreated }
+        mensajes = mensajes.sort { it.fecha }
 
         for (def mensaje : mensajes) {
             MensajeReclamoCommand mensajeCommand = new MensajeReclamoCommand(
                     duenioId: mensaje.duenio.id,
                     duenioEmail: mensaje.duenio.email,
                     texto: mensaje.texto,
-                    fecha: mensaje.dateCreated,
+                    fecha: mensaje.fecha,
             )
             reclamoCommand.mensajes.add(mensajeCommand)
         }

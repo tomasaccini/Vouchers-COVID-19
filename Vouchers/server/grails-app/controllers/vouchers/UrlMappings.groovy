@@ -30,6 +30,7 @@ class UrlMappings {
         "/reclamos"(controller: 'reclamo', action: 'obtenerTodos')
         "/reclamos/$reclamoId"(controller: 'reclamo', action: 'obtenerReclamo')
         post "/reclamos"(controller: 'reclamo', action: 'crearReclamo')
+        post "/reclamos/$reclamoId/nuevoMensaje"(controller: 'reclamo', action: 'nuevoMensaje')
         "/reclamos/negocios/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
         "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'getPorCliente')
         post "/reclamos/cerrar/$reclamoId"(controller: 'reclamo', action: 'cerrarReclamo')
