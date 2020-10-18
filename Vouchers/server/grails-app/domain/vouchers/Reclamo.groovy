@@ -6,8 +6,10 @@ class Reclamo {
 
     String descripcion
     Date dateCreated
+    Date fechaUltimoMensaje = new Date()
     Cliente cliente
     Negocio negocio
+    // TODO: corregir la logica de negocio de esto al ser chat. Tener en cuenta que el primer mensaje se agrega a mano y ya pasa a respondido !!!!
     ReclamoState state = ReclamoState.Abierto
     Set<MensajeReclamo> mensajes = []
 
@@ -48,6 +50,7 @@ class Reclamo {
 
         this.addToMensajes(mensajeReclamo)
         state = ReclamoState.Respondido
+        fechaUltimoMensaje = new Date()
 
         this.save(flush:true, failOnError: true)
     }

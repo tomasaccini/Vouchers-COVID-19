@@ -34,15 +34,6 @@ class ReclamoService {
         nuevoReclamo
     }
 
-    def reclamosPorUsuario(Long usuarioId) {
-        // !!!!! Chequear si es cliente o negocio
-        Negocio negocio = Negocio.findById(usuarioId)
-
-        List<Reclamo> reclamos = Reclamo.findAllByNegocio(negocio)
-
-        return reclamos
-    }
-
     def nuevoMensaje(Long reclamoId, Long usuarioId, String mensaje) {
         Reclamo reclamo = Reclamo.findById(reclamoId)
         if (reclamo == null) {
@@ -54,6 +45,25 @@ class ReclamoService {
         reclamo.agregarMensaje(mensaje, usuario)
 
         return reclamo
+    }
+
+    List<Reclamo> obtenerPorUsuario(Long usuarioId) {
+        Usuario usuario = usuarioService.obtener(usuarioId)
+        List<Reclamo> reclamos =  _obtenerPorUsuario(usuario)
+
+        reclamos.sort { - it.fechaUltimoMensaje.seconds }
+    }
+
+    private List<Reclamo> _obtenerPorUsuario(Cliente cliente) {
+        List<Reclamo> reclamos = Reclamo.findAllByCliente(cliente)
+
+        return reclamos
+    }
+
+    private List<Reclamo> _obtenerPorUsuario(Negocio negocio) {
+        List<Reclamo> reclamos = Reclamo.findAllByNegocio(negocio)
+
+        return reclamos
     }
 
     // !!!! cerrarReclamo

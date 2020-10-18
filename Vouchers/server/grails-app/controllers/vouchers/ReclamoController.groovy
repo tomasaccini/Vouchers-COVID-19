@@ -72,6 +72,18 @@ class ReclamoController extends RestfulController{
         }
     }
 
+    def getPorUsuario(Long usuarioId) {
+        List<Reclamo> reclamos = reclamoService.obtenerPorUsuario(usuarioId)
+
+        List<ReclamoCommand> reclamosCommand = []
+
+        for (def reclamo : reclamos) {
+            reclamosCommand.add(reclamoAssembler.toBean(reclamo))
+        }
+
+        respond reclamosCommand
+    }
+
     /*
     * Returns list of businesses's complaints. If specified, it returns a max amount of them.
     * A business complaint is a complaint created by a Client for a voucher

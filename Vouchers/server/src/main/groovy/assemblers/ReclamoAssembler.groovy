@@ -24,6 +24,7 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
                 id: reclamo.id,
                 clienteId: reclamo.cliente.id,
                 negocioId: reclamo.negocio.id,
+                fechaUltimoMensaje: reclamo.fechaUltimoMensaje
         )
 
         List<MensajeReclamo> mensajes = reclamo.mensajes.toList()
