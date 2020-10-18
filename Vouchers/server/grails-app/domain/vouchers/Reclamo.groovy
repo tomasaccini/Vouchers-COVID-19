@@ -22,27 +22,27 @@ class Reclamo {
         state nullable: false
     }
 
-    void agregarMensaje(String message, Cliente owner) {
-        if (cliente != owner) {
+    void agregarMensaje(String mensaje, Cliente duenio) {
+        if (cliente != duenio) {
             throw new RuntimeException("El duenio del mensaje no es el cliente relacionado con el reclamo")
         }
-        _agregarMensaje(message, owner)
+        _agregarMensaje(mensaje, duenio)
     }
 
-    void agregarMensaje(String message, Negocio duenio) {
+    void agregarMensaje(String mensaje, Negocio duenio) {
         if (negocio != duenio) {
             throw new RuntimeException("El duenio del mensaje no es el negocio relacionado con el reclamo")
         }
 
-        _agregarMensaje(message, duenio)
+        _agregarMensaje(mensaje, duenio)
     }
 
-    private void _agregarMensaje(String message, Usuario owner){
+    private void _agregarMensaje(String mensaje, Usuario owner){
         if (state == ReclamoState.Cerrado) {
             throw new RuntimeException("No se pueden agregar mas mensajes a un reclamo cerrado")
         }
 
-        this.addToMensajes(new MensajeReclamo(duenio: owner, texto: message))
+        this.addToMensajes(new MensajeReclamo(duenio: owner, texto: mensaje))
         state = ReclamoState.Respondido
     }
 

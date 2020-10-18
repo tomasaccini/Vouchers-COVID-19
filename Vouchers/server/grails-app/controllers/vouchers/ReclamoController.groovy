@@ -7,8 +7,9 @@ import grails.converters.*
 class ReclamoController extends RestfulController{
 
 	static responseFormats = ['json', 'xml']
+    ReclamoService reclamoService
 
-    ReclamoController(){
+    ReclamoController() {
         super(Reclamo)
     }
 
@@ -16,12 +17,31 @@ class ReclamoController extends RestfulController{
     * Returns complaint requested by Id
     * URL/complaints/{id}
     */
-    def show(Reclamo reclamo){
+    def show(Reclamo reclamo) {
         println("Request for a complaint by id")
-        if (!reclamo){
+        if (!reclamo) {
             response.sendError(404)
         } else {
             respond reclamo
+        }
+    }
+
+    List<Reclamo> obtenerTodos() {
+        println("Request obtener todos los reclamos")
+        return reclamoService.obtenerTodos()
+    }
+
+    def crearReclamo() {
+        println("Request para crear un reclamo")
+
+        Object requestBody = request.JSON
+        Long voucherId = requestBody['voucherId']
+        String descripcion = requestBody['descripcion']
+
+        try {
+            Reclamo reclamo = reclamoService.crearReclamo(voucherId, descripcion)
+        } catch (RuntimeException re) {
+            response.sendError(400, re.message)
         }
     }
 
@@ -31,10 +51,10 @@ class ReclamoController extends RestfulController{
     * URL/complaints/getByBusiness/businessId -> When max is not specified
     * URL/complaints/getByBusiness/businessId?max=n -> When max is specified
     */
-    def getPorNegocio(Long negocioId, Integer max){
+    def getPorNegocio(Long negocioId, Integer max) {
         Negocio negocio = Negocio.get(negocioId)
         params.max = Math.min(max ?: 10, 100)
-        if (!negocio){
+        if (!negocio) {
             // TODO: Mejores mensajes de error / no encontrado
             response.sendError(404)
         }
@@ -48,10 +68,10 @@ class ReclamoController extends RestfulController{
     * URL/complaints/getByClient/clientId -> When max is not specified
     * URL/complaints/getByClient/clientId?max=n -> When max is specified
     */
-    def getPorCliente(Long clienteId, Integer max){
+    def getPorCliente(Long clienteId, Integer max) {
         Cliente client = Cliente.get(clienteId)
         params.max = Math.min(max ?: 10, 100)
-        if (!client){
+        if (!client) {
             response.sendError(404)
         }
         println("Request for client complaints, clientId: ${client?.id}")
@@ -62,12 +82,12 @@ class ReclamoController extends RestfulController{
     * Closes complaint given by Id
     * URL/complaints/closeComplaint/{id}
     */
-    def cerrarReclamo(Long reclamoId){
+    def cerrarReclamo(Long reclamoId) {
         Reclamo complaint = Reclamo.get(reclamoId)
-        if (!complaint){
+        if (!complaint) {
             response.sendError(404)
         }
-        if (complaint.estaCerrado()){
+        if (complaint.estaCerrado()) {
             //TODO: Mejorar mensajes
             render (["message":"Complaint already closed", "id": reclamoId] as JSON)
         }

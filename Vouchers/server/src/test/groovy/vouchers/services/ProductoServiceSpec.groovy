@@ -9,7 +9,7 @@ import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
 import vouchers.Direccion
 import vouchers.Negocio
-import vouchers.Pais
+
 import vouchers.Producto
 import vouchers.ProductoService
 
@@ -39,9 +39,7 @@ class ProductoServiceSpec extends Specification {
         newAddress.numero = "123"
         newAddress.departamento = "11D"
         newAddress.provincia = "Buenos Aires"
-        Pais country = new Pais()
-        country.name = "Argentina"
-        newAddress.pais = country
+        newAddress.pais = "Argentina"
 
         business.direccion = newAddress
         business.website = "bluedog.com"

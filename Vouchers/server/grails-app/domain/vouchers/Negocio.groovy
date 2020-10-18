@@ -30,5 +30,4 @@ class Negocio extends Usuario {
     boolean isOwnerOfCounterfoil(Long id) {
         this.tarifarios.any{ c -> c.id == id}
     }
-
 }

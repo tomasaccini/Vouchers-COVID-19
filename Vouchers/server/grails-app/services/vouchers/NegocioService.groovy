@@ -52,7 +52,7 @@ class NegocioService {
         if (!business.isOwnerOfVoucher(voucher)) {
             throw new RuntimeException("The business is not the owner of the Voucher")
         }
-        if (!voucher.isConfirmable()) {
+        if (!voucher.esConfirmable()) {
             throw new RuntimeException("Voucher is not confirmable")
         }
         voucherService.confirm(voucher.id)
@@ -80,5 +80,11 @@ class NegocioService {
             throw new RuntimeException("The business is not the owner of the Counterfoil")
         }
         tarifarioService.deactivate(counterfoilId)
+    }
+
+    List<Negocio> obtenerTodos() {
+        def a = Negocio.findAll()
+        println("\n\n\n\n\n !!!! ${a}")
+        a
     }
 }

@@ -13,7 +13,7 @@ import vouchers.Cliente
 import vouchers.ClienteService
 import vouchers.Tarifario
 import vouchers.TarifarioService
-import vouchers.Pais
+
 import vouchers.Item
 import vouchers.Producto
 import vouchers.Voucher
@@ -52,9 +52,7 @@ class TarifarioServiceSpec extends Specification{
         newAddress.numero = "123"
         newAddress.departamento = "11D"
         newAddress.provincia = "Buenos Aires"
-        Pais country = new Pais()
-        country.name = "Argentina"
-        newAddress.pais = country
+        newAddress.pais = "Argentina"
 
         business.direccion = newAddress
         business.website = "bluedog.com"
@@ -105,7 +103,7 @@ class TarifarioServiceSpec extends Specification{
     }
 
     void "buy vouchers"() {
-        Voucher v = clientService.buyVoucher(clientId, counterfoil_active)
+        Voucher v = clientService.comprarVoucher(clientId, counterfoil_active)
         counterfoil_active = Tarifario.findById(counterfoil_active.id)
         expect:"Voucher bought correctly"
         v != null && counterfoil_active.stock == 2 && counterfoil_active.informacionVoucher.id == vi.id && counterfoil_active.getVouchers().size() == 1 && counterfoil_active. getVouchers()[0] == v && counterfoil_active.activo
@@ -113,7 +111,7 @@ class TarifarioServiceSpec extends Specification{
 
     void "buy vouchers without stock"() {
         when:
-        Voucher v = clientService.buyVoucher(clientId, counterfoil_no_stock)
+        Voucher v = clientService.comprarVoucher(clientId, counterfoil_no_stock)
         then: "Throw error"
         thrown RuntimeException
     }

@@ -12,7 +12,7 @@ import vouchers.Negocio
 import vouchers.Cliente
 import vouchers.ClienteService
 import vouchers.Tarifario
-import vouchers.Pais
+
 import vouchers.Item
 import vouchers.Producto
 import vouchers.Voucher
@@ -44,9 +44,7 @@ class ClienteServiceSpec extends Specification{
         newAddress.numero = "123"
         newAddress.departamento = "11D"
         newAddress.provincia = "Buenos Aires"
-        Pais country = new Pais()
-        country.name = "Argentina"
-        newAddress.pais = country
+        newAddress.pais = "Argentina"
 
         business.direccion = newAddress
         business.website = "bluedog.com"
@@ -86,7 +84,7 @@ class ClienteServiceSpec extends Specification{
     void "buy one voucher"() {
         Tarifario counterfoil = Tarifario.findById(1)
 
-        Voucher v = clientService.buyVoucher(clientId, counterfoil)
+        Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
         expect:"Voucher bought correctly"
         v?.id != null
@@ -97,8 +95,8 @@ class ClienteServiceSpec extends Specification{
     void "buy two vouchers"() {
         Tarifario counterfoil = Tarifario.findById(1)
 
-        Voucher v1 = clientService.buyVoucher(clientId, counterfoil)
-        Voucher v2 = clientService.buyVoucher(clientId, counterfoil)
+        Voucher v1 = clientService.comprarVoucher(clientId, counterfoil)
+        Voucher v2 = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
         expect:"Voucher bought correctly"
         v1?.id != null
@@ -110,9 +108,9 @@ class ClienteServiceSpec extends Specification{
     void "retire Voucher"() {
         Tarifario counterfoil = Tarifario.findById(1)
 
-        Voucher v = clientService.buyVoucher(clientId, counterfoil)
+        Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
-        clientService.retireVoucher(clientId, v)
+        clientService.retirarVoucher(clientId, v)
         expect:"Vouchers status in pending retire"
         v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.ConfirmacionPendiente
     }
@@ -124,9 +122,9 @@ class ClienteServiceSpec extends Specification{
         Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3, isActive: true)
         b.addToTarifarios(counterfoil)
         b.save(flush: true, failOnError: true)
-        Voucher v = clientService.buyVoucher(clientId, counterfoil)
+        Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         when:
-        clientService.retireVoucher(clientId, v)
+        clientService.retirarVoucher(clientId, v)
         then: "Throw error"
         thrown RuntimeException
         v.state == VoucherState.Expirado
@@ -138,9 +136,9 @@ class ClienteServiceSpec extends Specification{
         c2.cuentaVerificada = true
         c2.save(flush:true, failOnError:true)
         Tarifario counterfoil = Tarifario.findById(1)
-        Voucher v = clientService.buyVoucher(c1.id, counterfoil)
+        Voucher v = clientService.comprarVoucher(c1.id, counterfoil)
         when:
-        clientService.retireVoucher(c2.id, v)
+        clientService.retirarVoucher(c2.id, v)
         then: "Throw error"
         thrown RuntimeException
         v.state == VoucherState.Comprado

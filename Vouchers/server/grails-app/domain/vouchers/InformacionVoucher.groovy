@@ -7,6 +7,8 @@ class InformacionVoucher {
     String descripcion
     Date validoDesde
     Date validoHasta
+    Set<Item> items = []
+
 
     static hasMany = [items: Item]
 
@@ -23,6 +25,7 @@ class InformacionVoucher {
 
     // TODO Isn't there something like deep clone not to do this manually?
     InformacionVoucher duplicar() {
+        println("!!!! items ${items}")
         new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta, items: items.clone())
     }
 }

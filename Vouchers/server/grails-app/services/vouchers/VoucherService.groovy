@@ -45,7 +45,7 @@ class VoucherService {
 
     def confirm(Long id) {
         Voucher voucher = Voucher.get(id)
-        if (!voucher.isConfirmable()) {
+        if (!voucher.esConfirmable()) {
             //TODO: Throw Excepction
             return
         }
@@ -54,7 +54,7 @@ class VoucherService {
 
     def retire(Long id) {
         Voucher voucher = Voucher.get(id)
-        if (!voucher.isRetirable()) {
+        if (!voucher.esRetirable()) {
             //TODO: Throw Excepction
             return
         }
@@ -64,16 +64,6 @@ class VoucherService {
     def modifyState(Voucher voucher, VoucherState newState) {
         voucher.state = newState
         voucher.lastStateChange = new Date()
-        try {
-            voucher.save(flush: true, failOnError: true)
-        } catch (ValidationException e) {
-            throw new ServiceException(e.message)
-        }
-    }
-
-    Voucher createVoucher(InformacionVoucher vi) {
-        Voucher voucher = new Voucher()
-        voucher.informacionVoucher = vi
         try {
             voucher.save(flush: true, failOnError: true)
         } catch (ValidationException e) {

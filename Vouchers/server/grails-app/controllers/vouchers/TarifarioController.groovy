@@ -33,13 +33,41 @@ class TarifarioController extends RestfulController{
         respond tarifarioService.getAll()
     }
 
-    def create() {
-        respond tarifarioService.create(), [status: CREATED]
+    def crear() {
+        Object requestBody = request.JSON
+
+        String negocioId
+        Integer stock
+        Double precio
+        String descripcion
+        String validoDesdeStr
+        String validoHastaStr
+
+        try {
+            negocioId = requestBody['negocioId']
+            stock = requestBody['stock']
+            Object informacionVoucher = requestBody['informacionVoucher']
+            precio = informacionVoucher['precio']
+            descripcion = informacionVoucher['descripcion']
+            validoDesdeStr = informacionVoucher['validoDesde']
+            validoHastaStr = informacionVoucher['validoHasta']
+        } catch (Exception e) {
+            println(e)
+            return response.sendError(400, "!!!! format")
+        }
+
+        try {
+            respond tarifarioService.createMock(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr), [status: CREATED]
+        } catch (RuntimeException re) {
+            response.sendError(400, re.message)
+        }
     }
+
+
 
     @Transactional
     def save(Tarifario counterfoil) {
-        respond tarifarioService.create(), [status: CREATED]
+        respond tarifarioService.createMock(), [status: CREATED]
 
         /*
         if (counterfoil == null) {

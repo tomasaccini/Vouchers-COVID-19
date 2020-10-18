@@ -11,26 +11,24 @@ class ClienteService {
     TarifarioService tarifarioService
     VoucherService voucherService
 
-    Voucher buyVoucher(Long clientId, Tarifario counterfoil) {
-        Cliente client = Cliente.get(clientId)
-        Voucher v = tarifarioService.createVoucher(counterfoil.id, clientId)
-        client.addToVouchers(v)
-        try {
-            client.save(flush:true, failOnError: true)
-        } catch (ValidationException e){
-            throw new ServiceException(e.message)
-        }
-        v
+    // TODO mover a tarifarioController? !!!!
+    Voucher comprarVoucher(Long clienteId, Long tarifarioId) {
+        Tarifario tarifario = tarifarioService.get(tarifarioId)
+        Cliente cliente = Cliente.get(clienteId)
+
+        Voucher voucher = tarifario.crearVoucher(cliente)
+
+        voucher
     }
 
-    def retireVoucher(Long id, Voucher v){
+    def retirarVoucher(Long id, Voucher voucher){
         Cliente client = Cliente.get(id)
-        if (!client?.vouchers?.contains(v)) {
+        if (!client?.vouchers?.contains(voucher)) {
             throw new RuntimeException("The client is not the owner of the Voucher")
         }
-        if (!v.isRetirable()) {
+        if (!voucher.esRetirable()) {
             throw new RuntimeException("Voucher has been already retired or is expired")
         }
-        voucherService.retire(v.id)
+        voucherService.retire(voucher.id)
     }
 }

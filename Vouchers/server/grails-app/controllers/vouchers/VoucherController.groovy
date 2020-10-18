@@ -8,7 +8,6 @@ class VoucherController extends RestfulController {
 
     VoucherAssembler voucherAssembler
     VoucherService voucherService
-    TarifarioService tarifarioService
     ClienteService clienteService
 
     static responseFormats = ['json', 'xml']
@@ -27,6 +26,17 @@ class VoucherController extends RestfulController {
         println("Asking for vouchers list, maz size: ${params.max}")
         params.max = Math.min(max ?: 10, 100)
         respond Voucher.list(params)
+    }
+
+    List<VoucherCommand> getAll() {
+        List<Voucher> vouchers = voucherService.list()
+
+        List<VoucherCommand> voucherCommands = new ArrayList<VoucherCommand>()
+        for (def v : vouchers) {
+            voucherCommands.add(voucherAssembler.toBean(v))
+        }
+
+        respond voucherCommands
     }
 
     /*
@@ -59,26 +69,24 @@ class VoucherController extends RestfulController {
         println("Voucher creationg requestes")
         println(request.JSON)
         Object requestBody = request.JSON
-        Long clientId = requestBody['clientId']
-        Long counterfoilId = requestBody['counterfoilId']
 
-        println('Create a new Voucher with clientId: ' + clientId + ", counterfoilId: " + counterfoilId + ".")
-
-        if (clientId == null || counterfoilId == null) {
-            // TODO respond 400 instead of throwing exception !!!!
-            throw new IllegalArgumentException("Both 'clientId' and 'counterfoilId' are needed")
+        Long clienteId
+        Long tarifarioId
+        try {
+            clienteId = requestBody['clientId']
+            tarifarioId = requestBody['counterfoilId']
+        } catch (Exception e) {
+            return response.sendError(400, "Error en el formato del body del request")
         }
 
-        // TODO remove this mock. Now is just getting a random mocked voucher !!!!
-        // ------------------
-        Voucher v = voucherService.list()[0]
-        return respond(voucherAssembler.toBean(v))
-        // ------------------
+        println('Create a new Voucher with clientId: ' + clienteId + ", counterfoilId: " + tarifarioId + ".")
 
-        Tarifario counterfoil = tarifarioService.get(counterfoilId)
-        Voucher voucher = clienteService.buyVoucher(clientId, counterfoil)
-        VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
-        respond voucherCommand
+        try {
+            Voucher voucher = clienteService.comprarVoucher(clienteId, tarifarioId)
+            VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
+            respond voucherCommand
+        } catch (RuntimeException re) {
+            return response.sendError(400, "!!!! asdasdfsa")
+        }
     }
-
 }

@@ -9,10 +9,13 @@ class UrlMappings {
 
         //Business
         "/businesses"(resources:"business")
+        "/negocios"(controller: 'negocio', action: 'obtenerTodos')
+        post "/negocios"(controller: 'negocio', action: 'crear')
         "/businesses/getCounterfoils/$id"(controller: 'negocio', action: 'getCounterfoils')
 
         //Voucher
-        "/vouchers"(resources:"voucher")
+        // "/vouchers"(resources:"voucher")
+        "/vouchers"(controller: 'voucher', action: 'getAll')
         "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
 
         //Client
@@ -24,9 +27,11 @@ class UrlMappings {
 
         // Reclamos
         "/reclamos"(resources:"complaint")
-        "/reclamos/getPorNegocio/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
-        "/reclamos/getPorCliente/$clienteId"(controller: 'reclamo', action: 'getPorCliente')
-        "/reclamos/cerrarReclamo/$reclamoId"(controller: 'reclamo', action: 'cerrarReclamo')
+        "/reclamos/obtenerTodos"(controller: 'reclamo', action: 'obtenerTodos')
+        post "/reclamos"(controller: 'reclamo', action: 'crearReclamo')
+        "/reclamos/negocios/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
+        "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'getPorCliente')
+        post "/reclamos/cerrar/$reclamoId"(controller: 'reclamo', action: 'cerrarReclamo')
 
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")
@@ -39,8 +44,9 @@ class UrlMappings {
         post "/vouchers"(controller: 'voucher', action: 'create')
         put "/vouchers"(controller: 'voucher', action: 'asd')
 
-        get "/counterfoils"(controller: 'counterfoil', action: 'getAll')
-        post "/counterfoils"(controller: 'counterfoil', action: 'save')
+        "/tarifarios"(controller: 'tarifario', action: 'getAll')
+        // post "/tarifarios"(controller: 'tarifario', action: 'create')
+        post "/tarifarios"(controller: 'tarifario', action: 'crear')
 
         get "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
 

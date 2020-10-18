@@ -6,7 +6,7 @@ class Direccion {
     String numero
     String departamento
     String provincia
-    Pais pais
+    String pais
 
 
     static constraints = {

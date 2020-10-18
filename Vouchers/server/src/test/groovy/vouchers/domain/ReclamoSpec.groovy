@@ -8,7 +8,7 @@ import vouchers.Negocio
 import vouchers.Cliente
 import vouchers.Reclamo
 import vouchers.Tarifario
-import vouchers.Pais
+
 import vouchers.Item
 import vouchers.Producto
 import vouchers.Voucher
@@ -38,7 +38,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "constructor"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         expect:"complaint constructed correctly"
@@ -46,7 +46,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "add message from business"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         String msg = "First msg from business"
@@ -56,7 +56,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "add message from client"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         String msg = "First msg from client"
@@ -66,7 +66,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "add two messages"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         String msg1 = "First msg from business"
@@ -78,7 +78,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "add message from business and close"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         String msg = "First msg from business"
@@ -89,7 +89,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "add message from business, close and reopen"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         String msg = "First msg from business"
@@ -101,7 +101,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
     }
 
     void "close and reopen without messages"() {
-        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: new Pais(name: "Argentina")), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Negocio b = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Reclamo complaint = createComplaint(b, c)
         complaint.cerrar()
