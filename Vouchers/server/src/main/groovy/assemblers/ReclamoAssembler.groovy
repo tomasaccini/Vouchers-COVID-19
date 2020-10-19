@@ -23,7 +23,9 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
         ReclamoCommand reclamoCommand = new ReclamoCommand(
                 id: reclamo.id,
                 clienteId: reclamo.cliente.id,
+                clienteEmail: reclamo.cliente.email,
                 negocioId: reclamo.negocio.id,
+                negocioEmail: reclamo.negocio.email,
                 fechaUltimoMensaje: reclamo.fechaUltimoMensaje
         )
 
