@@ -28,17 +28,6 @@ class VoucherController extends RestfulController {
         respond Voucher.list(params)
     }
 
-    List<VoucherCommand> getAll() {
-        List<Voucher> vouchers = voucherService.list()
-
-        List<VoucherCommand> voucherCommands = new ArrayList<VoucherCommand>()
-        for (def v : vouchers) {
-            voucherCommands.add(voucherAssembler.toBean(v))
-        }
-
-        respond voucherCommands
-    }
-
     /*
     * Given an user id, it respond with all vouchers owned by the user.
     * Max value returned can be specified
@@ -47,21 +36,15 @@ class VoucherController extends RestfulController {
     */
     def getByUser(String userId, Integer max) {
         println("Vouchers requested by user id: ${userId}")
+        Cliente cliente = Cliente.get(userId)
 
-        if (!userId){
+        if (!cliente){
             response.sendError(404)
             return
         }
 
         params.max = Math.min(max ?: 10, 100)
-        params.userId = userId
-        List<Voucher> vouchers = voucherService.listByUserId(userId)
-
-//        List<VoucherCommand> voucherCommands = new ArrayList<VoucherCommand>()
-//        for (def v : vouchers) {
-//            voucherCommands.add(voucherAssembler.toBean(v))
-//        }
-        respond vouchers
+        respond Voucher.findAllByCliente(cliente, params)
     }
 
     // !!!!

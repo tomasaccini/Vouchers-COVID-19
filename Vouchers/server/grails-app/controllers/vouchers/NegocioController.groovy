@@ -17,20 +17,20 @@ class NegocioController extends RestfulController {
 
     /*
     * Returns business requested by Id
-    * URL/businesses/{id}
+    * URL/negocios/{id}
     */
-    def show(Negocio business){
+    def show(Negocio negocio){
         println("Request for a business by id")
-        if (!business){
+        if (!negocio){
             response.sendError(404)
         } else {
-            respond business
+            respond negocio
         }
     }
 
     /*
     * Returns counterfoils requested by Id
-    * URL/businesses/getCounterfoils/{id}
+    * URL/negocios/getCounterfoils/{id}
     */
     def getCounterfoils(Long id){
         Negocio negocio = Negocio.get(id)
