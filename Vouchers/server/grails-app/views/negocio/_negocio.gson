@@ -1,0 +1,14 @@
+import vouchers.Negocio
+
+model {
+    Negocio negocio
+}
+
+json {
+    name negocio.nombre
+    phone_number negocio.numeroTelefonico
+    address hal.render(negocio.direccion, [deep:true])
+    website negocio.website
+    category negocio.categoria
+    counterfoils hal.render(negocio.tarifarios, [deep:true])
+}
