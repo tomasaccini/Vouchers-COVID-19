@@ -70,7 +70,6 @@ class ChatBox extends Component {
 
   render() {
     const { usuarioId, mensajes, onSend } = this.props;
-    console.log('!!!!', mensajes, onSend);
 
     return (
       <div style={{ maxWidth: '100%', height: '400px' }}>

@@ -10,24 +10,7 @@ class ReclamoAPI {
     return this._transformarReclamos(reclamosDto);
   }
 
-  // TODO not needed, only to optimize
-  /*
-  async getReclamoChat(usuarioId) {
-    const url = `${SERVER_URL}reclamos/usuarios/${usuarioId}`;
-    console.log(`debug | getReclamoChat URL es: ${url}`);
-    const res = await fetch(url, {
-      method: 'POST',
-      // TODO change body
-      body: JSON.stringify({ clientId: usuarioId, counterfoilId: counterfoilId })
-    });
-    const reclamoChatDto = await res.json();
-    console.log(`debug | getReclamoChat: `, reclamoChatDto);
-    return this._transformarReclamoChat(reclamoChatDto);
-  }
-   */
-
   async enviarMensaje(reclamoId, usuarioId, mensaje) {
-    // TODO not needed, only to optimize
     const url = `${SERVER_URL}reclamos/${reclamoId}/nuevoMensaje`;
     console.log(`debug | enviarMensaje URL es: ${url}`);
     const res = await fetch(url, {
@@ -45,7 +28,6 @@ class ReclamoAPI {
 
   _transformarReclamo(reclamoDto) {
     return {
-      // TODO change title, maybe something with items !!!!
       id: reclamoDto.id,
       clienteId: reclamoDto.clienteId,
       clienteEmail: reclamoDto.clienteEmail,
@@ -63,10 +45,6 @@ class ReclamoAPI {
       fecha: mensajeDto.fecha,
       texto: mensajeDto.texto,
     }
-  }
-
-  _transformarReclamoChat(reclamoChatDto) {
-    // !!!!!
   }
 }
 

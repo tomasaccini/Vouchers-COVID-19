@@ -36,7 +36,6 @@ class Reclamos extends Component{
     }
 
     enviarMensajeBuilder() {
-        console.log('!!!! check', this.props, this.state)
         const { usuarioId } = this.props;
         const { reclamos, indexReclamoActivo } = this.state;
         if (reclamos === undefined || reclamos.length === 0) return;
@@ -46,7 +45,6 @@ class Reclamos extends Component{
         const updateReclamos = this.updateReclamos;
 
         async function innerEnviarMensaje(mensaje) {
-            console.log('!!!! innerEnviarMensaje', mensaje);
             await reclamoAPI.enviarMensaje(reclamoActivo.id, usuarioId, mensaje);
             updateReclamos(usuarioId, setState);
         }
@@ -77,7 +75,6 @@ class Reclamos extends Component{
          */
         const { usuarioId } = this.props;
         const { reclamos, indexReclamoActivo } = this.state;
-        console.log("!!!! render", reclamos, indexReclamoActivo)
         const mensajes = reclamos === undefined || reclamos.length === 0 ? [] : reclamos[indexReclamoActivo].mensajes;
 
         return (
