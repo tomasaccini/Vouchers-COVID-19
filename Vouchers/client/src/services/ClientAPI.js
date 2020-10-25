@@ -5,8 +5,8 @@ class ClientAPI {
 
   async getClient(clientId){
     const url = `${SERVER_URL}clients/${clientId}`;
-    const response = await fetch(url);
-    const client = await response.json();
+    const res = await fetch(url);
+    const client = await res.json();
     return this._transformClient(client)
   }
 

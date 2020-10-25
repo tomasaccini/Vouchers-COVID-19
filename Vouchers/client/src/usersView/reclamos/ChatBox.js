@@ -10,12 +10,13 @@ import {
   MessageTitle, Row, SendButton, TextComposer, TextInput
 } from '@livechat/ui-kit';
 import GridItem from '../../components/Grid/GridItem';
-
+import fechasHelper from '../../utils/fechasHelper';
 
 class ChatBox extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
       mensajes: [
         {
@@ -30,6 +31,8 @@ class ChatBox extends Component {
         },
       ],
     };
+
+    // TODO hacerlo bien
     this.estilos = {
       false: { background: 'lightgrey', borderRadius: '6px' },
       true: { background: 'lightblue', color: 'white', borderRadius: '6px' },
@@ -42,7 +45,7 @@ class ChatBox extends Component {
         avatarLetter={mensaje.duenioEmail[0]}
         onlyFirstWithMeta
       >
-        <Message authorName={mensaje.duenioEmail} date="21:37">
+        <Message authorName={mensaje.duenioEmail} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
           <MessageText style={this.estilos[false]}>
             {mensaje.texto}
           </MessageText>
@@ -56,7 +59,7 @@ class ChatBox extends Component {
       <MessageGroup isOwn={true}
                     onlyFirstWithMeta
       >
-        <Message isOwn={true} authorName={"Enviado"} date="21:37">
+        <Message isOwn={true} authorName={"Enviado"} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
           <MessageText style={this.estilos[true]}>
             {mensaje.texto}
           </MessageText>
@@ -66,8 +69,8 @@ class ChatBox extends Component {
   }
 
   render() {
-    const { usuarioId } = this.props
-    const { mensajes } = this.state
+    const { usuarioId, mensajes, onSend } = this.props;
+    console.log('!!!!', mensajes, onSend);
 
     return (
       <div style={{ maxWidth: '100%', height: '400px' }}>
@@ -82,7 +85,7 @@ class ChatBox extends Component {
             return this.renderMensajeAjeno(mensaje)
           })}
         </MessageList>
-        <TextComposer onSend={() => "!!!!"}>
+        <TextComposer onSend={onSend}>
           <Row align="center">
             <Fill>
               <TextInput />

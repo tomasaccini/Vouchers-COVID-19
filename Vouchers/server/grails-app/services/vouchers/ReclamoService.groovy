@@ -46,7 +46,7 @@ class ReclamoService {
 
         Usuario usuario = usuarioService.obtener(usuarioId)
 
-        reclamo.agregarMensaje(mensaje, usuario)
+        agregarMensaje(reclamo, usuario, mensaje)
 
         return reclamo
     }
@@ -68,6 +68,14 @@ class ReclamoService {
         List<Reclamo> reclamos = Reclamo.findAllByNegocio(negocio)
 
         return reclamos
+    }
+
+    private def agregarMensaje(Reclamo reclamo, Cliente duenio, String mensaje) {
+        reclamo.agregarMensaje(mensaje, duenio)
+    }
+
+    private def agregarMensaje(Reclamo reclamo, Negocio duenio, String mensaje) {
+        reclamo.agregarMensaje(mensaje, duenio)
     }
 
     // !!!! cerrarReclamo

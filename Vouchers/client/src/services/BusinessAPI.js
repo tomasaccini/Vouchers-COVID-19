@@ -5,8 +5,8 @@ class BusinessAPI {
 
   async getBusiness(businessId){
     const url = `${SERVER_URL}businesses/${businessId}`;
-    const response = await fetch(url);
-    const business = await response.json();
+    const res = await fetch(url);
+    const business = await res.json();
     return this._transformBusiness(business)
   }
 

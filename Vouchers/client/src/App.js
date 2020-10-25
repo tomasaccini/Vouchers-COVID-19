@@ -17,6 +17,7 @@ import Complaints from './usersView/Complaints';
 import ClientePerfilPage from './usersView/ClientePerfil';
 import Reclamos from "./usersView/reclamos/Reclamos";
 
+// TODO hardcodeado el usuarioId !!!!
 class App extends Component {
     render() {
         return (
@@ -44,7 +45,7 @@ class App extends Component {
                         <ClientesCanjearVouchersPage />
                     </Route>
                     <Route path={navegacion.getReclamos()}>
-                        <Reclamos />
+                        <Reclamos usuarioId={1} />
                     </Route>
                     <Route path="/complaints">
                         <Complaints/>

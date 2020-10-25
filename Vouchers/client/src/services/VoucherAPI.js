@@ -5,8 +5,8 @@ class VoucherAPI {
   async getCounterfoils(userId) {
     const url = `${SERVER_URL}recommendations?userId=${userId}`;
     console.log(`debug | getCounterfoils URL is: ${url}`);
-    const response = await fetch(url);
-    const counterfoils = await response.json();
+    const res = await fetch(url);
+    const counterfoils = await res.json();
     console.log(`debug | getCounterfoils: `, counterfoils);
     return counterfoils.map((c) => this._transformCounterfoil(c));
   }
@@ -16,8 +16,8 @@ class VoucherAPI {
   async getVouchers(userId) {
     const url = `${SERVER_URL}vouchers?userId=${userId}`;
     console.log(`debug | getVouchers URL is: ${url}`);
-    const response = await fetch(url);
-    const vouchers = await response.json();
+    const res = await fetch(url);
+    const vouchers = await res.json();
     console.log(`debug | getVouchers: `, vouchers);
     return vouchers.map((v) => this._transformVoucher(v));
   }
@@ -25,11 +25,11 @@ class VoucherAPI {
   async buyVoucher(userId, counterfoilId) {
     const url = `${SERVER_URL}vouchers`;
     console.log(`debug | buyVoucher URL is: ${url}`);
-    const response = await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ clientId: userId, counterfoilId: counterfoilId })
     });
-    const voucher = await response.json();
+    const voucher = await res.json();
     console.log(`debug | bough voucher: `, voucher);
     return this._transformVoucher(voucher);
   }
