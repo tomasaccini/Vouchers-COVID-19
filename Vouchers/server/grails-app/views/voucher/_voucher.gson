@@ -1,0 +1,19 @@
+import vouchers.Voucher
+
+model {
+    Voucher voucher
+}
+json {
+    dateCreated voucher.dateCreated
+    state voucher.state
+    tieneReclamo voucher.reclamo!= null
+    info {
+        precio voucher.informacionVoucher.precio
+        descripcion voucher.informacionVoucher.descripcion
+        validoDesde voucher.informacionVoucher.validoDesde
+        validoHasta voucher.informacionVoucher.validoHasta
+    }
+    cliente {
+        id voucher.cliente.id
+    }
+}

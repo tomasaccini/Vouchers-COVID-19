@@ -1,0 +1,15 @@
+import vouchers.Tarifario
+
+model {
+    Tarifario tarifario
+}
+json {
+    stock tarifario.stock
+    cantidadVendida tarifario.cantidadVendida
+    info {
+        precio tarifario.informacionVoucher.precio
+        descripcion tarifario.informacionVoucher.descripcion
+        validoDesde tarifario.informacionVoucher.validoDesde
+        validoHasta tarifario.informacionVoucher.validoHasta
+    }
+}

@@ -7,19 +7,19 @@ class UrlMappings {
         //Country
         "/countries"(resources:"country")
 
-        //Business
-        "/businesses"(resources:"business")
+        //Negocio
+        "/negocios"(resources:"negocio")
         "/negocios"(controller: 'negocio', action: 'obtenerTodos')
         post "/negocios"(controller: 'negocio', action: 'crear')
-        "/businesses/getCounterfoils/$id"(controller: 'negocio', action: 'getCounterfoils')
+        "/negocios/getCounterfoils/$id"(controller: 'negocio', action: 'getCounterfoils')
 
         //Voucher
-        // "/vouchers"(resources:"voucher")
-        "/vouchers"(controller: 'voucher', action: 'getAll')
+        "/vouchers"(resources:"voucher")
         "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
 
         //Client
-        "/clients"(resources:"client")
+        "/clientes"(resources:"cliente")
+
 
         //Products
         "/products"(resources:"product")

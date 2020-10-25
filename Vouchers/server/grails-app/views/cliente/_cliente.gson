@@ -1,0 +1,11 @@
+import vouchers.Cliente
+
+model {
+    Cliente cliente
+}
+json {
+    fullName cliente.fullName
+    phoneNumber cliente.phoneNumber
+    email cliente.email
+    cuentaVerificada cliente.cuentaVerificada
+}
