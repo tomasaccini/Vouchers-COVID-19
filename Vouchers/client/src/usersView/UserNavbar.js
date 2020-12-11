@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import List from '@material-ui/core/List';
 import Button from "../components/CustomButtons/Button.js";
-import NavbarBusiness from './NavbarBusiness';
-import NavbarClient from './NavbarClient';
+import NavbarNegocio from './NavbarNegocio';
+import NavbarCliente from './NavbarCliente';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -129,8 +129,8 @@ export default function DenseAppBar(props) {
             <List>
               {/* True debe ser reemplazado por el verdadero chequeo de usario business/client */}
               { true ? 
-                <NavbarBusiness></NavbarBusiness> : 
-                <NavbarClient></NavbarClient>
+                <NavbarNegocio></NavbarNegocio> : 
+                <NavbarCliente></NavbarCliente>
               }
               <ListItem button key={constantes.miPerfilTitulo} onClick={redirigirAMiPerfil}>
                 <ListItemIcon> <InboxIcon /> </ListItemIcon>

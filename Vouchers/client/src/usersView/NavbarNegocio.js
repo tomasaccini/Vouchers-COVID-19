@@ -6,17 +6,17 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/Inbox';
 
 
-export default function NavbarBusiness() {
+export default function NavbarNegocio() {
     
-    const redirectToProfile = () => {
-        window.location.replace('/business/profile');
+    const redireccionarAPerfil = () => {
+        window.location.replace('/negocios/perfil');
     };
 
   return (
     <div>
-        <ListItem button key={"Mi Perfil"} onClick={redirectToProfile}>
+        <ListItem button key={"Mi Negocio"} onClick={redireccionarAPerfil}>
             <ListItemIcon> <InboxIcon /> </ListItemIcon>
-            <ListItemText primary={"Mi Perfil"} />
+            <ListItemText primary={"Mi Negocio"} />
         </ListItem>
     </div>
   );
