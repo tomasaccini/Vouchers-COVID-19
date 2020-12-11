@@ -35,7 +35,7 @@ class App extends Component {
                     <Route path={navegacion.getNegocioPerfilUrl()}>
                         <NegocioPerfilPage />
                     </Route>
-                    <Route path={navegacion.getUsuarioPerfilUrl()}>
+                    <Route path={navegacion.getClientePerfilUrl()}>
                         <ClientePerfilPage />
                     </Route>
                     <Route path={navegacion.getClienteComprarVoucherUrl()}>

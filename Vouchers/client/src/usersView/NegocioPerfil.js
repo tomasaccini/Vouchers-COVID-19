@@ -8,7 +8,7 @@ import BusinessInfo from "./BusinessInfo.js";
 import GridItem from "components/Grid/GridItem";
 import "./styles.css";
 import { Typography } from '@material-ui/core';
-import businessAPI from '../services/BusinessAPI.js';
+import negocioAPI from '../services/NegocioAPI.js';
 import constantes from "../utils/constantes";
 
 
@@ -21,31 +21,32 @@ class NegocioPerfil extends Component{
             "lat": -34.599373,
             "lng": -58.438230,
           } // here until i learn react properly
-        this.state = { profile: {}};
+        this.state = { perfil: {}};
     }
 
-    async getBusinessProfile(id) {
-        return await businessAPI.getBusiness(id);
+    async getPerfilNegocio(id) {
+        return await negocioAPI.getNegocio(id);
     }
 
     async componentDidMount() {
-        const profile = await this.getBusinessProfile(1);
-        this.setState({ profile: profile })
+        const perfil = await this.getPerfilNegocio(1);
+        this.setState({ perfil: perfil })
+        console.log("DEBUG: ", this.state.perfil);
     }
 
     render() {
         return (
             <div>
-                <UserNavbar title={constantes.miPerfilTitulo} />
+                <UserNavbar title={constantes.miNegocioTitulo} />
                 <GridContainer className="businessProfileGrid">
                     <GridItem xs={12}>
-                        <h1 class="businessTitle">{this.state.profile.name}</h1>
+                        <h1 class="businessTitle">{this.state.perfil.nombre}</h1>
                     </GridItem>
                     <GridItem xs={12}>
                         <MapSection location={this.location} zoomLevel={17} />
                     </GridItem>
                     <GridItem xs={12}>
-                        <BusinessInfo info={this.state.profile}/>
+                        <BusinessInfo info={this.state.perfil}/>
                     </GridItem>
                     <GridItem xs={12}>
                         <Typography component="h1" variant="h5" className="businessSubTitle">
@@ -53,8 +54,8 @@ class NegocioPerfil extends Component{
                         </Typography>
                     </GridItem>
                     <GridItem>
-                        {this.state.profile.counterfoils ? 
-                            <VouchersList vouchers={this.state.profile.counterfoils}/> : 
+                        {this.state.perfil.tarifarios ? 
+                            <VouchersList vouchers={this.state.perfil.tarifarios}/> : 
                             <h1>Loading</h1> }
                             {/* TODO: Create loading component */}
                     </GridItem>

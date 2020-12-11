@@ -51,17 +51,17 @@ export default function VoucherCard(props) {
       <Card className={classes.textCenter}>
         <CardHeader color={props.data.Stock < 10 ? "danger" : "warning"}>QUEDAN {props.data.Stock} VOUCHERS</CardHeader>
         <CardBody>
-          <h2 className={classes.cardTitle}>{props.data.Title}</h2>
+          <h2 className={classes.cardTitle}>{props.data.Titulo}</h2>
           <p>
-          {props.data.Description}
+          {props.data.Descripcion}
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
             Comprar
           </Button>
         </CardBody>
         <CardFooter className={classes.textMuted}>
-          Creado el {props.data.CreationDate} <br/>
-          Finaliza el {props.data.EndDate}
+          Creado el {props.data.ValidoDesde} <br/>
+          Finaliza el {props.data.ValidoHasta}
         </CardFooter>
       </Card>
 
@@ -97,8 +97,8 @@ export default function VoucherCard(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h3>${props.data.Price}</h3>
-          <h5>¿Deseas confirmar la compra del voucher {props.data.Title}?</h5>
+          <h3>${props.data.Precio}</h3>
+          <h5>¿Deseas confirmar la compra del voucher {props.data.Titulo}?</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}
