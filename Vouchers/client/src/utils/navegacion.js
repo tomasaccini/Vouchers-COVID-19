@@ -4,7 +4,7 @@ export default {
   getRegistrarseUrl: () => '/registrarse',
   getOlvidoContraseniaUrl: () => '/olvidocontrasenia',
   getNegocioPerfilUrl: () => '/negocios/perfil',
-  getUsuarioPerfilUrl: () => '/clientes/perfil',
+  getClientePerfilUrl: () => '/clientes/perfil',
   getClienteComprarVoucherUrl: () => '/clientes/comprar',
   getClienteCanjearVoucherUrl: () => '/clientes/canjear',
   getReclamos: () => '/reclamos',

@@ -37,7 +37,7 @@ class NegocioPerfil extends Component{
     render() {
         return (
             <div>
-                <UserNavbar title={constantes.miPerfilTitulo} />
+                <UserNavbar title={constantes.miNegocioTitulo} />
                 <GridContainer className="businessProfileGrid">
                     <GridItem xs={12}>
                         <h1 class="businessTitle">{this.state.perfil.nombre}</h1>
