@@ -4,7 +4,7 @@ import {SERVER_URL} from '../config';
 class BusinessAPI {
 
   async getBusiness(businessId){
-    const url = `${SERVER_URL}businesses/${businessId}`;
+    const url = `${SERVER_URL}negocios/${businessId}`;
     const res = await fetch(url);
     const business = await res.json();
     return this._transformBusiness(business)
@@ -20,11 +20,11 @@ class BusinessAPI {
       'website': b.website,
       'phone_number': b.phone_number,
       'address': {
-        'street': b.address.street,
-        'province': b.address.province,
-        'country': b.address._embedded.country.name,
-        'number': b.address.number,
-        'apartment': b.address.apartment
+        'calle': b.address.calle,
+        'provincia': b.address.provincia,
+        'pais': b.address.pais,
+        'numero': b.address.numero,
+        'departamento': b.address.departamento
       },
       'counterfoils': counterfoils
     }
@@ -32,19 +32,19 @@ class BusinessAPI {
 
   _transformCounterfoil(counterfoil, business) {
 
-    const vi = counterfoil._embedded.voucherInformation
+    const iv = counterfoil._embedded.informacionVoucher;
 
     return {
-      'Title': 'Medialunas Veganas',
-      'Description': vi.description,
-      'Price': vi.price,
+      'Titulo': 'Medialunas Veganas',
+      'Descripcion': iv.descripcion,
+      'Precio': iv.precio,
       // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01 !!!!
-      'CreationDate': vi.validFrom,
-      'EndDate': vi.validUntil,
+      'ValidoDesde': iv.validoDesde,
+      'ValidoHasta': iv.validoHasta,
       'Stock': counterfoil.stock,
       // TODO no more owner !!!!
-      'isOwned': false,
-      'shopName': business.name
+      'tieneDuenio': false,
+      'NombreNegocio': business.name
     }
   }
 
