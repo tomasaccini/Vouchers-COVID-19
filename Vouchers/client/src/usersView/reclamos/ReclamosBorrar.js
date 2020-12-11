@@ -8,7 +8,7 @@ import BusinessInfo from '../BusinessInfo.js';
 import GridItem from 'components/Grid/GridItem';
 import '../styles.css';
 import { Typography } from '@material-ui/core';
-import businessAPI from '../../services/BusinessAPI.js';
+import negocioAPI from '../../services/NegocioAPI.js';
 import constantes from '../../utils/constantes';
 import { ThemeProvider, ChatList, ChatListItem, AgentBar, Column, Avatar, TextComposer, Row, Fill, TextInput, Fit, SendButton, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from '@livechat/ui-kit';
 import ChatBox from './ChatBox'

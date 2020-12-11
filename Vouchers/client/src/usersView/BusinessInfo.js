@@ -9,7 +9,7 @@ class BusinessInfo extends Component {
         return (
             <GridContainer spacing={3} className="businessInfoGrid">
                 <GridItem xs={4} className="businessDescription">
-                    {this.props.info.description}
+                    {this.props.info.descripcion}
                 </GridItem>
             </GridContainer>
         );
