@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {
   Fill, Fit,
-  Message, MessageButton,
-  MessageButtons,
+  Message,
   MessageGroup,
   MessageList,
-  MessageMedia,
   MessageText,
-  MessageTitle, Row, SendButton, TextComposer, TextInput
+  Row, SendButton, TextComposer, TextInput
 } from '@livechat/ui-kit';
-import GridItem from '../../components/Grid/GridItem';
 import fechasHelper from '../../utils/fechasHelper';
 
 class ChatBox extends Component {
