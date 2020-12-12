@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ForgotPasswordPage() {
+export default function OlvidoContrasenia() {
   const classes = useStyles();
 
   return (
@@ -67,10 +67,10 @@ export default function ForgotPasswordPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            FORGOT YOUR PASSWORD?
+            Olvidate tu contraseña?
           </Typography>
           <Typography component="h8" variant="h8">
-            Enter your email address below and we'll send you a link to reset your password.
+            Ingresa tu email y te enviaremos un mail para poder recuperarla.
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
@@ -91,12 +91,12 @@ export default function ForgotPasswordPage() {
               color="primary"
               className={classes.submit}
             >
-              Send Reset Link
+              Enviar mail de recuperación
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="/signin" variant="body2">
-                  {"Go back to Sign in page"}
+                <Link href="/iniciarsesion" variant="body2">
+                  {"Ir a la página de inicio de sesión"}
                 </Link>
               </Grid>
             </Grid>

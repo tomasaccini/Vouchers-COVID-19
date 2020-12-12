@@ -3,9 +3,9 @@ import GrailsApp from "./GrailsApp";
 import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
 import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
 import NegocioPerfilPage from "./usersView/NegocioPerfil"
-import IniciarSesionPage from "./usersView/SignInPage";
-import RegistrarsePage from "./usersView/SignUpPage";
-import OlvidoContraseniaPage from "./usersView/ForgotPasswordPage";
+import IniciarSesionPage from "./usersView/IniciarSesion";
+import RegistrarsePage from "./usersView/Registrarse";
+import OlvidoContraseniaPage from "./usersView/OlvidoContrasenia";
 import navegacion from './utils/navegacion';
 
 import {
