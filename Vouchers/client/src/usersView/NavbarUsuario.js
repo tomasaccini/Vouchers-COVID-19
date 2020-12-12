@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function DenseAppBar(props) {
+export default function NavbarUsuario(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {

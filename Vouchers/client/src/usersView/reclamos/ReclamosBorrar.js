@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import UserNavbar from '../UserNavbar.js';
+import NavbarUsuario from '../NavbarUsuario.js';
 import MapSection from '../Map.js'
 import GridContainer from 'components/Grid/GridContainer';
 import ListaVouchers from '../ListaVouchers.js';
@@ -45,7 +45,7 @@ class Reclamos extends Component{
          */
         return (
           <div>
-              <UserNavbar title={constantes.reclamosTitulo}/>
+              <NavbarUsuario title={constantes.reclamosTitulo}/>
               <ThemeProvider>
                   <GridContainer className="vouchersGrid">
                       <GridItem xs={1}>

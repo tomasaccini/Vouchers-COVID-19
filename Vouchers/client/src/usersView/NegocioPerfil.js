@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import UserNavbar from "./UserNavbar.js";
+import NavbarUsuario from "./NavbarUsuario.js";
 import MapSection from "./Map.js"
 import GridContainer from "components/Grid/GridContainer";
 import ListaVouchers from "./ListaVouchers.js";
@@ -37,7 +37,7 @@ class NegocioPerfil extends Component{
     render() {
         return (
             <div>
-                <UserNavbar title={constantes.miNegocioTitulo} />
+                <NavbarUsuario title={constantes.miNegocioTitulo} />
                 <GridContainer className="businessProfileGrid">
                     <GridItem xs={12}>
                         <h1 class="businessTitle">{this.state.perfil.nombre}</h1>

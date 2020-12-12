@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import ListaVouchers from "./ListaVouchers.js";
-import UserNavbar from "./UserNavbar.js";
+import NavbarUsuario from "./NavbarUsuario.js";
 import "./styles.css";
 import constantes from '../utils/constantes'
 import voucherAPI from "../services/VoucherAPI";
@@ -29,7 +29,7 @@ class ClienteCanjearVouchers extends Component {
     render() {
         return (
             <div>
-                <UserNavbar title={constantes.canjearVouchersTitulo} />
+                <NavbarUsuario title={constantes.canjearVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
                         <ListaVouchers vouchers={this.state.vouchers}/>

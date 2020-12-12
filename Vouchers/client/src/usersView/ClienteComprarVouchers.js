@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import ListaVouchers from "./ListaVouchers.js";
-import UserNavbar from "./UserNavbar.js";
+import NavbarUsuario from "./NavbarUsuario.js";
 import {SERVER_URL} from 'config';
 import voucherAPI from "../services/VoucherAPI";
 import "./styles.css";
@@ -153,7 +153,7 @@ class ClienteComprarVouchers extends Component {
     render() {
         return (
             <div>
-                <UserNavbar title={constantes.comprarVouchersTitulo} />
+                <NavbarUsuario title={constantes.comprarVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
                         <ListaVouchers vouchers={this.state.counterfoils}/>

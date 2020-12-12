@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { withStyles } from "@material-ui/core/styles";
-import UserNavbar from "./UserNavbar.js";
+import NavbarUsuario from "./NavbarUsuario.js";
 import ClientePerfilVer from "./ClientePerfilVer.js";
 import "./styles.css";
 import clienteAPI from '../services/ClienteAPI.js';
@@ -60,7 +60,7 @@ class ClientePerfil extends Component{
         const { classes } = this.props;
         return (
             <div>
-                <UserNavbar title={constantes.miPerfilTitulo} />
+                <NavbarUsuario title={constantes.miPerfilTitulo} />
                 <div className={classes.drawerHeader} />
                 <div className={classes.form}>
                 {this.state.perfil.nombreCompleto ? (
