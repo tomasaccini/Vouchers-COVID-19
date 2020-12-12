@@ -4,6 +4,7 @@ model {
     Tarifario tarifario
 }
 json {
+    id tarifario.id
     stock tarifario.stock
     cantidadVendida tarifario.cantidadVendida
     info {
@@ -12,4 +13,5 @@ json {
         validoDesde tarifario.informacionVoucher.validoDesde
         validoHasta tarifario.informacionVoucher.validoHasta
     }
+    nombre tarifario.negocio.nombre
 }
