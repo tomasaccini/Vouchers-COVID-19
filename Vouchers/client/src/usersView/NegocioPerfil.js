@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import UserNavbar from "./UserNavbar.js";
 import MapSection from "./Map.js"
 import GridContainer from "components/Grid/GridContainer";
-import VouchersList from "./VouchersList.js";
-import BusinessInfo from "./BusinessInfo.js";
+import ListaVouchers from "./ListaVouchers.js";
+import InformacionNegocio from "./InformacionNegocio.js";
 import GridItem from "components/Grid/GridItem";
 import "./styles.css";
 import { Typography } from '@material-ui/core';
@@ -46,7 +46,7 @@ class NegocioPerfil extends Component{
                         <MapSection location={this.location} zoomLevel={17} />
                     </GridItem>
                     <GridItem xs={12}>
-                        <BusinessInfo info={this.state.perfil}/>
+                        <InformacionNegocio info={this.state.perfil}/>
                     </GridItem>
                     <GridItem xs={12}>
                         <Typography component="h1" variant="h5" className="businessSubTitle">
@@ -55,7 +55,7 @@ class NegocioPerfil extends Component{
                     </GridItem>
                     <GridItem>
                         {this.state.perfil.tarifarios ? 
-                            <VouchersList vouchers={this.state.perfil.tarifarios}/> : 
+                            <ListaVouchers vouchers={this.state.perfil.tarifarios}/> : 
                             <h1>Loading</h1> }
                             {/* TODO: Create loading component */}
                     </GridItem>

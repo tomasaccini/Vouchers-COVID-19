@@ -36,32 +36,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function VoucherCard(props) {
+export default function VoucherSinDuenio(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
 
   const onClickBuyButton = async () => {
     setModal(false)
     // TODO pass actual parameters!!!!
-    voucherAPI.buyVoucher(1, 1)
+    voucherAPI.comprarVoucher(1, 1)
   };
 
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color={props.data.Stock < 10 ? "danger" : "warning"}>QUEDAN {props.data.Stock} VOUCHERS</CardHeader>
+        <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}>QUEDAN {props.data.stock} VOUCHERS</CardHeader>
         <CardBody>
-          <h2 className={classes.cardTitle}>{props.data.Titulo}</h2>
+          <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p>
-          {props.data.Descripcion}
+          {props.data.descripcion}
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
             Comprar
           </Button>
         </CardBody>
         <CardFooter className={classes.textMuted}>
-          Creado el {props.data.ValidoDesde} <br/>
-          Finaliza el {props.data.ValidoHasta}
+          Creado el {props.data.validoDesde} <br/>
+          Finaliza el {props.data.validoHasta}
         </CardFooter>
       </Card>
 
@@ -97,8 +97,8 @@ export default function VoucherCard(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h3>${props.data.Precio}</h3>
-          <h5>¿Deseas confirmar la compra del voucher {props.data.Titulo}?</h5>
+          <h3>${props.data.precio}</h3>
+          <h5>¿Deseas confirmar la compra del voucher {props.data.titulo}?</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}

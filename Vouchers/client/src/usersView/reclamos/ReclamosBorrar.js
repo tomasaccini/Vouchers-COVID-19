@@ -3,8 +3,8 @@ import React, {Component} from 'react';
 import UserNavbar from '../UserNavbar.js';
 import MapSection from '../Map.js'
 import GridContainer from 'components/Grid/GridContainer';
-import VouchersList from '../VouchersList.js';
-import BusinessInfo from '../BusinessInfo.js';
+import ListaVouchers from '../ListaVouchers.js';
+import InformacionNegocio from '../InformacionNegocio.js';
 import GridItem from 'components/Grid/GridItem';
 import '../styles.css';
 import { Typography } from '@material-ui/core';

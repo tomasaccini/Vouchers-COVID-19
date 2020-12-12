@@ -1,14 +1,15 @@
 import {SERVER_URL} from '../config';
+import { format } from 'date-fns';
 
 
 class VoucherAPI {
-  async getCounterfoils(userId) {
+  async getTalonarios(userId) {
     const url = `${SERVER_URL}recommendations?userId=${userId}`;
-    console.log(`debug | getCounterfoils URL is: ${url}`);
+    console.log(`debug | getTalonarios URL is: ${url}`);
     const res = await fetch(url);
     const counterfoils = await res.json();
-    console.log(`debug | getCounterfoils: `, counterfoils);
-    return counterfoils.map((c) => this._transformCounterfoil(c));
+    console.log(`debug | getTalonarios: `, counterfoils);
+    return counterfoils.map((c) => this._transformarTalonario(c));
   }
 
   // Returns vouchers owned by clients
@@ -19,55 +20,58 @@ class VoucherAPI {
     const res = await fetch(url);
     const vouchers = await res.json();
     console.log(`debug | getVouchers: `, vouchers);
-    return vouchers.map((v) => this._transformVoucher(v));
+    return vouchers.map((v) => this._transformarVoucher(v));
   }
 
-  async buyVoucher(userId, counterfoilId) {
+  async comprarVoucher(userId, counterfoilId) {
     const url = `${SERVER_URL}vouchers`;
-    console.log(`debug | buyVoucher URL is: ${url}`);
+    console.log(`debug | comprarVoucher URL is: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ clientId: userId, counterfoilId: counterfoilId })
     });
     const voucher = await res.json();
-    console.log(`debug | bough voucher: `, voucher);
-    return this._transformVoucher(voucher);
+    console.log(`debug | compro voucher: `, voucher);
+    return this._transformarVoucher(voucher);
   }
 
-  _transformCounterfoil(counterfoil) {
+  _transformarTalonario(counterfoil) {
     const vi = counterfoil.voucherInformationCommand;
 
-    return {
-      // TODO change title, maybe something with items !!!!
-      'Title': '2 Hamburguesas',
-      'Description': vi.description,
-      'Price': vi.price,
-      // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01 !!!!
-      'CreationDate': vi.validFrom,
-      'EndDate': vi.validUntil,
-      'Stock': counterfoil.stock,
-      // TODO no more owner !!!!
-      'isOwned': false,
-      // TODO not bringing business name yet
-      'shopName': 'Demo Restaurant'
-    }
-  }
+    const desde = new Date(vi.validoDesde);
+    const hasta = new Date(vi.validoHasta);
 
-  _transformVoucher(voucher) {
-    const vi = voucher.voucherInformationCommand
-    
     return {
-      'Title': '2 Hamburguesas',
-      'Description': vi.description,
-      'Price': vi.price,
-      // TODO format dates from 2020-08-01T03:00:00Z to 2020-08-01 !!!!
-      'CreationDate': vi.validFrom,
-      'EndDate': vi.validUntil,
-      'Stock': voucher.stock,
+      'titulo': '2 Hamburguesas',
+      'descripcion': vi.descripcion,
+      'precio': vi.precio,
+      'validoDesde': format(desde, 'yyyy/MM/dd'),
+      'validoHasta': format(hasta, 'yyyy/MM/dd'),
+      'stock': vi.stock,
       // TODO no more owner !!!!
       'isOwned': true,
       // TODO we don't have the information yet
-      'shopName': '!!!! MMMM'
+      'nombreNegocio': 'PLACEHOLDER NOMBRE NEGOCIO'
+    }
+  }
+
+  _transformarVoucher(voucher) {
+    const vi = voucher.info
+
+    const desde = new Date(vi.validoDesde);
+    const hasta = new Date(vi.validoHasta);
+
+    return {
+      'titulo': '2 Hamburguesas',
+      'descripcion': vi.descripcion,
+      'precio': vi.precio,
+      'validoDesde': format(desde, 'yyyy/MM/dd'),
+      'validoHasta': format(hasta, 'yyyy/MM/dd'),
+      'stock': voucher.stock,
+      // TODO no more owner !!!!
+      'isOwned': true,
+      // TODO we don't have the information yet
+      'nombreNegocio': 'PLACEHOLDER NOMBRE NEGOCIO'
     }
   }
 }

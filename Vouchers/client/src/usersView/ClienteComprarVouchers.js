@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import VouchersList from "./VouchersList.js";
+import ListaVouchers from "./ListaVouchers.js";
 import UserNavbar from "./UserNavbar.js";
 import {SERVER_URL} from 'config';
 import voucherAPI from "../services/VoucherAPI";
@@ -23,7 +23,7 @@ class ClienteComprarVouchers extends Component {
     }
 
     async getListOfVouchers() {
-        return await voucherAPI.getCounterfoils(null);
+        return await voucherAPI.getTalonarios(3);
 
         const l = [
             {
@@ -156,7 +156,7 @@ class ClienteComprarVouchers extends Component {
                 <UserNavbar title={constantes.comprarVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
-                        <VouchersList vouchers={this.state.counterfoils}/>
+                        <ListaVouchers vouchers={this.state.counterfoils}/>
                     </GridItem>
                 </GridContainer>
             </div>
