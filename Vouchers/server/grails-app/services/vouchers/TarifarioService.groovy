@@ -136,9 +136,12 @@ class TarifarioService {
         counterfoil.save(flush:true)
     }
 
-    List<Voucher> findSimilar(String q, Map map) {
+    List<Tarifario> findSimilar(String q, Map map) {
         String query = "select distinct(t) from Tarifario as t "
+        query += "join t.informacionVoucher.items as items"
         query += " where lower(t.informacionVoucher.descripcion) like :search "
+        query += " or lower(items.producto.descripcion) like :search "
+        query += " or lower(items.producto.nombre) like :search "
         Tarifario.executeQuery(query, [search: "%${q}%".toLowerCase()] , map)
     }
 

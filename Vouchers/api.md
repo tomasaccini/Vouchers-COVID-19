@@ -220,7 +220,10 @@
 
 ```md
 * Por razones de tiempos (más que nada en un escenario real) la búsqueda no se realiza si la cadena buscada es de 2 o menos caracteres.
-* Devuelve un listado de los tarifario que poseen la cadena buscada en su descripción.
+* Devuelve un listado de los tarifario que poseen la cadena en:
+ - nombre de alguno de sus productos
+ - descripcion de alguno de sus productos
+ - descripcion del tarifario
 ```
 
 #### Respuesta
