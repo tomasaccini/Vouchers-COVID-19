@@ -27,7 +27,7 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, TarifarioC
         bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
         if (domain.vouchers){
-            bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
+            bean.cantidadVendida = domain.vouchers.asList().size()
         }
 
         return bean
@@ -39,10 +39,6 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, TarifarioC
         Tarifario domain 	= super.fromBean(bean)
 
         domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
-
-        if (bean.vouchersCommand){
-            domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())
-        }
 
         return domain
     }

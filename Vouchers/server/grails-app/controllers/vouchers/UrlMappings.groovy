@@ -22,7 +22,7 @@ class UrlMappings {
 
 
         //Products
-        "/products"(resources:"product")
+        "/products"(resources:"producto")
         "/products/getByBusiness/$businessId"(controller: 'producto', action: 'getByBusiness')
 
         // Reclamos
@@ -36,6 +36,14 @@ class UrlMappings {
         "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'getPorCliente')
         post "/reclamos/cerrar/$reclamoId"(controller: 'reclamo', action: 'cerrarReclamo')
 
+        // Recomendaciones
+        "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
+
+        // Tarifarios
+        "/tarifarios"(controller: 'tarifario', action: 'getAll')
+        post "/tarifarios"(controller: 'tarifario', action: 'crear')
+
+
         delete "/$controller/$id(.$format)?"(action:"delete")
         get "/$controller(.$format)?"(action:"index")
         get "/$controller/$id(.$format)?"(action:"show")
@@ -47,11 +55,6 @@ class UrlMappings {
         post "/vouchers"(controller: 'voucher', action: 'create')
         put "/vouchers"(controller: 'voucher', action: 'asd')
 
-        "/tarifarios"(controller: 'tarifario', action: 'getAll')
-        // post "/tarifarios"(controller: 'tarifario', action: 'create')
-        post "/tarifarios"(controller: 'tarifario', action: 'crear')
-
-        get "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')

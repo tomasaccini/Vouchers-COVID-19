@@ -9,7 +9,6 @@ class Tarifario {
     InformacionVoucher informacionVoucher
     int stock
     Set vouchers = []
-    int cantidadVendida = 0
     boolean activo = false
 
     static belongsTo = [negocio: Negocio]
@@ -25,6 +24,9 @@ class Tarifario {
         activo blank:false, nullable: false, default: false
     }
 
+    Integer cantidadVendida() {
+        return vouchers ? vouchers.size() : 0
+    }
 
     /*
     * Creates voucher from counterfoil
