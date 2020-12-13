@@ -17,6 +17,7 @@ class UrlMappings {
         "/vouchers"(resources:"voucher")
         "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
         post "/vouchers/canjear"(controller: 'voucher', action: 'canjear')
+        post "/vouchers/confirmar"(controller: 'voucher', action: 'confirmar')
 
         //Client
         "/clientes"(resources:"cliente")

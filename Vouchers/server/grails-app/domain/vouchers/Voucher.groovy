@@ -38,6 +38,10 @@ class Voucher {
         return informacionVoucher.validoHasta >= new Date()
     }
 
+    boolean perteneceAlNegocio(Long negocioId){
+        return tarifario.negocio.id == negocioId
+    }
+
     Reclamo iniciarReclamo(String descripcion) {
         if (reclamo != null) {
             throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
