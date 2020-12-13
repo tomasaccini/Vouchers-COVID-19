@@ -12,7 +12,17 @@ json {
         descripcion tarifario.informacionVoucher.descripcion
         validoDesde tarifario.informacionVoucher.validoDesde
         validoHasta tarifario.informacionVoucher.validoHasta
-        items g.render(tarifario.informacionVoucher.items,[ excludes:['exclude_fields']])
+        items tarifario.informacionVoucher.items.collect {
+            [
+                    id: it.id,
+                    cantidad: it.cantidad,
+                    producto: [
+                            id: it.producto.id,
+                            nombre: it.producto.nombre,
+                            descripcion: it.producto.descripcion
+                    ]
+            ]
+        }
     }
     nombre tarifario.negocio.nombre
 }
