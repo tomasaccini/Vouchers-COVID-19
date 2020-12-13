@@ -44,6 +44,7 @@ class UrlMappings {
 
         // Tarifarios
         "/tarifarios"(controller: 'tarifario', action: 'getAll')
+        "/tarifarios/search"(controller: 'tarifario', action: 'search')
         post "/tarifarios"(controller: 'tarifario', action: 'crear')
 
 

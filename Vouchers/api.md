@@ -144,7 +144,7 @@
 }
 ```
 
-### URL/voucher/confirmar
+### URL/voucher/search
 
 #### Params
 
@@ -210,3 +210,22 @@
     [lista de tarifarios con los atributos mostrados en show]
 }
 ```
+
+### URL/tarifarios/search
+
+#### Params
+
+* URL/tarifarios/search?q={búsqueda}
+* URL/tarifarios/search?q={búsqueda}&max={máx resultado}
+
+```md
+* Por razones de tiempos (más que nada en un escenario real) la búsqueda no se realiza si la cadena buscada es de 2 o menos caracteres.
+* Devuelve un listado de los tarifario que poseen la cadena buscada en su descripción.
+```
+
+#### Respuesta
+
+```json
+{
+    listado de tarifario, ver formato en show
+}

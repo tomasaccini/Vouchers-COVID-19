@@ -124,4 +124,20 @@ class TarifarioController extends RestfulController{
 
         render status: NO_CONTENT
     }
+
+    /*
+    * Dada una cadena de largo mayor a 2
+    * URL/tarifario/search?q={busqueda}
+    * URL/tarifario/search?q={busqueda}&max={maximas respuestas deseadas}
+    * Devuelve listado de los tarifarios que poseen esa cadena en su descripcion
+    */
+    def search(String q, Integer max){
+        def map = [:]
+        map.max = Math.min( max ?: 10, 100)
+        if (q &&  q.length() > 2){
+            respond tarifarioService.findSimilar(q, map)
+        } else {
+            respond([])
+        }
+    }
 }

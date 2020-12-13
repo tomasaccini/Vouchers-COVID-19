@@ -3,8 +3,7 @@ package vouchers
 class InformacionVoucher {
 
     double precio
-    // TODO remove description because it should be in product
-    String descripcion
+    String descripcion // descripcion general del cupón
     Date validoDesde
     Date validoHasta
     Set<Item> items = []
