@@ -79,6 +79,12 @@ class VoucherService {
         return mockVoucherList()
     }
 
+    List<Voucher> findSimilar(String q, Map map) {
+        String query = "select distinct(v) from Voucher as v "
+        query += " where lower(v.informacionVoucher.descripcion) like :search "
+        Voucher.executeQuery(query, [search: "%${q}%".toLowerCase()]  , map)
+    }
+
     private List<Voucher> mockVoucherList() {
         InformacionVoucher vi = createVoucherInformation()
         Voucher v = new Voucher(informacionVoucher: vi)

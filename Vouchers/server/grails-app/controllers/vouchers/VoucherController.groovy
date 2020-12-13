@@ -76,6 +76,22 @@ class VoucherController extends RestfulController {
         respond Voucher.get(voucherId)
     }
 
+    /*
+    * Dada una cadena de largo mayor a 2
+    * URL/vouchers/search?q={busqueda}
+    * URL/vouchers/search?q={busqueda}&max={maximas respuestas deseadas}
+    * Devuelve listado de los voucher que poseen esa cadena en su descripcion
+    */
+    def search(String q, Integer max){
+        def map = [:]
+        map.max = Math.min( max ?: 10, 100)
+        if (q &&  q.length() > 2){
+            respond voucherService.findSimilar(q, map)
+        } else {
+            respond([])
+        }
+    }
+
     // !!!!
     VoucherCommand create() {
         println("Voucher creationg requestes")

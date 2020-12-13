@@ -144,6 +144,26 @@
 }
 ```
 
+### URL/voucher/confirmar
+
+#### Params
+
+* URL/voucher/search?q={búsqueda}
+* URL/voucher/search?q={búsqueda}&max={máx resultado}
+
+```md
+* Por razones de tiempos (más que nada en un escenario real) la búsqueda no se realiza si la cadena buscada es de 2 o menos caracteres.
+* Devuelve un listado de los vouchers que poseen la cadena buscada en su descripción.
+```
+
+#### Respuesta
+
+```json
+{
+    listado de vouchers, ver formato en show
+}
+```
+
 ## Tarifario
 
 ### URL/tarifario/{id}
