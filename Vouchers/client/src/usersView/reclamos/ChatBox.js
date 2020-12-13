@@ -73,7 +73,6 @@ class ChatBox extends Component {
         <MessageList active>
           { mensajes.map(mensaje => {
             const esDuenio = usuarioId === mensaje.duenioId
-
             if (esDuenio) {
               return this.renderMensajePropio(mensaje)
             }

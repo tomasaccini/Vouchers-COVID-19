@@ -22,7 +22,7 @@ class ClienteComprarVouchers extends Component {
     }
 
     async getListaDeTalonarios() {
-        return await voucherAPI.getTalonarios(3);
+        return await voucherAPI.getTalonarios(localStorage.getItem('userId'));
     }
 
 

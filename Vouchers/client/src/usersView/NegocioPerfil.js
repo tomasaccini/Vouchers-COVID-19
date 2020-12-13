@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import NavbarUsuario from "./NavbarUsuario.js";
 import MapSection from "./Map.js"
@@ -10,9 +10,10 @@ import "./styles.css";
 import { Typography } from '@material-ui/core';
 import negocioAPI from '../services/NegocioAPI.js';
 import constantes from "../utils/constantes";
+import navegacion from '../utils/navegacion';
 
 
-class NegocioPerfil extends Component{
+class NegocioPerfil extends Component {
 
     constructor() {
         super();
@@ -20,8 +21,8 @@ class NegocioPerfil extends Component{
             "address": 'Costumbres Argentinas',
             "lat": -34.599373,
             "lng": -58.438230,
-          } // here until i learn react properly
-        this.state = { perfil: {}};
+        } // here until i learn react properly
+        this.state = { perfil: {} };
     }
 
     async getPerfilNegocio(id) {
@@ -29,9 +30,14 @@ class NegocioPerfil extends Component{
     }
 
     async componentDidMount() {
-        const perfil = await this.getPerfilNegocio(1);
-        this.setState({ perfil: perfil })
-        console.log("DEBUG: ", this.state.perfil);
+        if (localStorage.getItem('tipoUsuario') === 'negocio') {
+            const perfil = await this.getPerfilNegocio(localStorage.getItem('userId'));
+            this.setState({ perfil: perfil });
+        } else if (localStorage.getItem('tipoUsuario') === 'cliente') {
+            window.location.replace(navegacion.getClientePerfilUrl());
+        } else {
+            window.location.replace(navegacion.getIniciarSesionUrl());
+        }
     }
 
     render() {
@@ -46,7 +52,7 @@ class NegocioPerfil extends Component{
                         <MapSection location={this.location} zoomLevel={17} />
                     </GridItem>
                     <GridItem xs={12}>
-                        <InformacionNegocio info={this.state.perfil}/>
+                        <InformacionNegocio info={this.state.perfil} />
                     </GridItem>
                     <GridItem xs={12}>
                         <Typography component="h1" variant="h5" className="businessSubTitle">
@@ -54,10 +60,10 @@ class NegocioPerfil extends Component{
                         </Typography>
                     </GridItem>
                     <GridItem>
-                        {this.state.perfil.tarifarios ? 
-                            <ListaVouchers vouchers={this.state.perfil.tarifarios}/> : 
-                            <h1>Cargando</h1> }
-                            {/* TODO: Create loading component */}
+                        {this.state.perfil.tarifarios ?
+                            <ListaVouchers vouchers={this.state.perfil.tarifarios} /> :
+                            <h1>Cargando</h1>}
+                        {/* TODO: Create loading component */}
                     </GridItem>
                 </GridContainer>
             </div>
