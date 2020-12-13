@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 
-import UserNavbar from '../UserNavbar.js';
-import MapSection from '../Map.js'
+import NavbarUsuario from '../NavbarUsuario.js';
 import GridContainer from 'components/Grid/GridContainer';
-import VouchersList from '../VouchersList.js';
-import BusinessInfo from '../BusinessInfo.js';
 import GridItem from 'components/Grid/GridItem';
 import '../styles.css';
-import { Typography } from '@material-ui/core';
-import negocioAPI from '../../services/NegocioAPI.js';
 import constantes from '../../utils/constantes';
-import { ThemeProvider, ChatList, ChatListItem, AgentBar, Column, Avatar, TextComposer, Row, Fill, TextInput, Fit, SendButton, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from '@livechat/ui-kit';
+import { ThemeProvider, ChatList, ChatListItem, Column, Avatar, Row, Subtitle, Title } from '@livechat/ui-kit';
 import ChatBox from './ChatBox'
 import reclamoAPI from '../../services/ReclamoAPI';
 import fechasHelper from '../../utils/fechasHelper';
@@ -57,29 +52,13 @@ class Reclamos extends Component{
     }
 
     render() {
-        /*
-                const events = [];
-        const parseUrl = (a) => "";
-        const getAvatarForUser = (a, b) => ""
-        const ownId = "id"
-        const sendMessage = (a) => "";
-        const users = [];
-        const onMessageSend = (a) => "";
-        const minimize = () => null;
-        const currentAgent = {}
-        const chatState = 'CHATTING';
-        const rateGood = () => null;
-        const rateBad = () => null;
-        const rate = "";
-
-         */
         const { usuarioId } = this.props;
         const { reclamos, indexReclamoActivo } = this.state;
         const mensajes = reclamos === undefined || reclamos.length === 0 ? [] : reclamos[indexReclamoActivo].mensajes;
 
         return (
           <div>
-              <UserNavbar title={constantes.reclamosTitulo}/>
+              <NavbarUsuario title={constantes.reclamosTitulo}/>
               <ThemeProvider>
                   <GridContainer className="vouchersGrid">
                       <GridItem xs={1}>

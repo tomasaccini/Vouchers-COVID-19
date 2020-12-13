@@ -16,9 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
-import navegacion from '../utils/navegacion';
 import constantes from "../utils/constantes";
 
 const drawerWidth = 240;
@@ -60,7 +58,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function DenseAppBar(props) {
+export default function NavbarUsuario(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {

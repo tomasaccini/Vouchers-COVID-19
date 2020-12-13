@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
-class BusinessInfo extends Component {
+class InformacionNegocio extends Component {
 
     // Complete real info
     render() {
         return (
-            <GridContainer spacing={3} className="businessInfoGrid">
+            <GridContainer spacing={3} className="informacionNegocioGrid">
                 <GridItem xs={4} className="businessDescription">
                     {this.props.info.descripcion}
                 </GridItem>
@@ -16,4 +16,4 @@ class BusinessInfo extends Component {
     }
 }
 
-export default BusinessInfo;
+export default InformacionNegocio;

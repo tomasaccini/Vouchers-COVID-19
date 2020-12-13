@@ -35,24 +35,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function OwnedVoucherCard(props) {
+export default function VoucherConDuenio(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color="success"><b>{props.data.shopName}</b></CardHeader>
+        <CardHeader color="success"><b>{props.data.nombreNegocio}</b></CardHeader>
         <CardBody>
-          <h2 className={classes.cardTitle}>{props.data.Title}</h2>
+          <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p>
-          {props.data.Description}
+          {props.data.descripcion}
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
             Canjear
           </Button>
         </CardBody>
         <CardFooter className={classes.textMuted}>
-          Retirar antes del {props.data.EndDate}
+          Retirar antes del {props.data.validoHasta}
         </CardFooter>
       </Card>
 
@@ -88,7 +88,7 @@ export default function OwnedVoucherCard(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Deseas confirmar el canje del voucher {props.data.Title}?</h5>
+          <h5>¿Deseas confirmar el canje del voucher {props.data.titulo}?</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}

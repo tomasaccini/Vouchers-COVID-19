@@ -13,7 +13,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Complaints from './usersView/Complaints';
 import ClientePerfilPage from './usersView/ClientePerfil';
 import Reclamos from "./usersView/reclamos/Reclamos";
 
@@ -46,9 +45,6 @@ class App extends Component {
                     </Route>
                     <Route path={navegacion.getReclamos()}>
                         <Reclamos usuarioId={1} />
-                    </Route>
-                    <Route path="/complaints">
-                        <Complaints/>
                     </Route>
                     <Route path="/">
                         <GrailsApp />
