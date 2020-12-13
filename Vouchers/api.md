@@ -104,4 +104,53 @@
 }
 ```
 
-## Voucher
+### URL/voucher
+
+...
+
+## Tarifario
+
+### URL/tarifario/{id}
+
+#### Params
+
+* URL/tarifario/{id}
+
+```md
+* Devuelve el tarifario con el id indicado
+```
+
+#### Respuesta
+
+```json
+{
+    id: <long:id>
+    stock: <int:cantidad disponible para comprar>
+    cantidadVendida: <int:cantidad que ya se vendió>
+    nombre: <string:nombre del negocio dueño del tarifario>
+    info: {
+        precio: <long: precio de un voucher>
+        descripcion: <string: descripcion del tarifario>
+        validoDesde: <date>
+        validoHasta: <date>
+        items: <listado de los items que lo componen>
+    }
+}
+```
+
+### URL/tarifarios
+
+* URL/tarifarios
+* URL/tarifarios?max=n
+
+```md
+* Devuele lista de todos los tarifarios, excepto que se indique un máximo
+```
+
+#### Respuesta
+
+```json
+{
+    [lista de tarifarios con los atributos mostrados en show]
+}
+```

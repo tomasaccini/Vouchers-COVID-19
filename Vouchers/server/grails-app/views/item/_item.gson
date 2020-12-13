@@ -1,0 +1,14 @@
+import vouchers.Item
+
+model {
+    Item item
+}
+json {
+    id item.id
+    cantidad item.cantidad
+    producto {
+        id item.producto.id
+        nombre item.producto.nombre
+        descripcion item.producto.descripcion
+    }
+}

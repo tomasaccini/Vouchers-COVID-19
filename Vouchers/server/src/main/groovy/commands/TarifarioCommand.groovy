@@ -8,9 +8,10 @@ class TarifarioCommand implements Validateable {
     Long id
     Long version
     InformacionVoucherCommand voucherInformationCommand
-    Boolean active
+    Boolean activo
     Integer stock
-    String businessName
+    String nombre
+    Integer cantidadVendida
 
     static constraints = {
         importFrom Tarifario

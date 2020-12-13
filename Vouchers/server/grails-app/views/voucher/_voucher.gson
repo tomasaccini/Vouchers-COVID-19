@@ -16,4 +16,8 @@ json {
     cliente {
         id voucher.cliente.id
     }
+    negocio {
+        id voucher.tarifario.negocio.id
+        nombre voucher.tarifario.negocio.nombre
+    }
 }

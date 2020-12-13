@@ -7,10 +7,10 @@ class InformacionVoucherCommand implements Validateable{
 
     Long id
     Long version
-    Double price
-    String description
-    Date validFrom
-    Date validUntil
+    Double precio
+    String descripcion
+    Date validoDesde
+    Date validoHasta
     List itemsCommand
 
     static constraints = {

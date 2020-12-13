@@ -15,20 +15,12 @@ class RecommendationController {
 	
     def index() { }
 
-    def getRecommendationsForUser() {
+    def getRecommendationsForUser(Long userId) {
         // TODO validate param !!!!
-        String userIdParam = params.userId
+        println("Asking for recommendations for: ${userId}")
 
-        List<Tarifario> counterfoils = tarifarioService.getAll()
+        List<Tarifario> tarifarios = tarifarioService.getAll()
 
-        List<TarifarioCommand> counterfoilCommands = []
-        for (def c : counterfoils) {
-            counterfoilCommands.add(counterfoilAssembler.toBean(c))
-        }
-
-        // TODO throws exception but works
-        JSON.use("deep") {
-            render counterfoilCommands as JSON
-        }
+        respond tarifarios
     }
 }
