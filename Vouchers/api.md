@@ -144,6 +144,26 @@
 }
 ```
 
+### URL/voucher/search
+
+#### Params
+
+* URL/voucher/search?q={búsqueda}
+* URL/voucher/search?q={búsqueda}&max={máx resultado}
+
+```md
+* Por razones de tiempos (más que nada en un escenario real) la búsqueda no se realiza si la cadena buscada es de 2 o menos caracteres.
+* Devuelve un listado de los vouchers que poseen la cadena buscada en su descripción.
+```
+
+#### Respuesta
+
+```json
+{
+    listado de vouchers, ver formato en show
+}
+```
+
 ## Tarifario
 
 ### URL/tarifario/{id}
@@ -190,3 +210,25 @@
     [lista de tarifarios con los atributos mostrados en show]
 }
 ```
+
+### URL/tarifarios/search
+
+#### Params
+
+* URL/tarifarios/search?q={búsqueda}
+* URL/tarifarios/search?q={búsqueda}&max={máx resultado}
+
+```md
+* Por razones de tiempos (más que nada en un escenario real) la búsqueda no se realiza si la cadena buscada es de 2 o menos caracteres.
+* Devuelve un listado de los tarifario que poseen la cadena en:
+ - nombre de alguno de sus productos
+ - descripcion de alguno de sus productos
+ - descripcion del tarifario
+```
+
+#### Respuesta
+
+```json
+{
+    listado de tarifario, ver formato en show
+}

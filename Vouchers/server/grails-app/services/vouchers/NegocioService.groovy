@@ -87,4 +87,10 @@ class NegocioService {
         println("\n\n\n\n\n !!!! ${a}")
         a
     }
+
+    List<Negocio> findSimilar(String q, Map map) {
+        String query = "select distinct(n) from Negocio as n "
+        query += " where lower(n.nombre) like :search "
+        Negocio.executeQuery(query, [search: "%${q}%".toLowerCase()] , map)
+    }
 }

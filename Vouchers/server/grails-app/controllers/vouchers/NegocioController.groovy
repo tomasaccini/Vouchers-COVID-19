@@ -84,4 +84,20 @@ class NegocioController extends RestfulController {
         params.max = Math.min(max ?: 10, 100)
         respond Negocio.list(params)
     }
+
+    /*
+    * Dada una cadena de largo mayor a 2
+    * URL/negocios/search?q={busqueda}
+    * URL/negocios/search?q={busqueda}&max={maximas respuestas deseadas}
+    * Devuelve listado de los negocios que poseen esa cadena en su nombre
+    */
+    def search(String q, Integer max){
+        def map = [:]
+        map.max = Math.min( max ?: 10, 100)
+        if (q &&  q.length() > 2){
+            respond negocioService.findSimilar(q, map)
+        } else {
+            respond([])
+        }
+    }
 }

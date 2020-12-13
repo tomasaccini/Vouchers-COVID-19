@@ -10,12 +10,14 @@ class UrlMappings {
         //Negocio
         "/negocios"(resources:"negocio")
         "/negocios"(controller: 'negocio', action: 'obtenerTodos')
+        "/negocios/search"(controller: 'negocio', action: 'search')
         post "/negocios"(controller: 'negocio', action: 'crear')
         "/negocios/getCounterfoils/$id"(controller: 'negocio', action: 'getCounterfoils')
 
         //Voucher
         "/vouchers"(resources:"voucher")
         "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
+        "/vouchers/search"(controller: 'voucher', action: 'search')
         post "/vouchers/canjear"(controller: 'voucher', action: 'canjear')
         post "/vouchers/confirmar"(controller: 'voucher', action: 'confirmar')
 
@@ -43,6 +45,7 @@ class UrlMappings {
 
         // Tarifarios
         "/tarifarios"(controller: 'tarifario', action: 'getAll')
+        "/tarifarios/search"(controller: 'tarifario', action: 'search')
         post "/tarifarios"(controller: 'tarifario', action: 'crear')
 
 
