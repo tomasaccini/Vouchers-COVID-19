@@ -10,6 +10,7 @@ class UrlMappings {
         //Negocio
         "/negocios"(resources:"negocio")
         "/negocios"(controller: 'negocio', action: 'obtenerTodos')
+        "/negocios/search"(controller: 'negocio', action: 'search')
         post "/negocios"(controller: 'negocio', action: 'crear')
         "/negocios/getCounterfoils/$id"(controller: 'negocio', action: 'getCounterfoils')
 
