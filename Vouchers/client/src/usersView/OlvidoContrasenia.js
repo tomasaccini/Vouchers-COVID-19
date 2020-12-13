@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -57,6 +57,22 @@ const useStyles = makeStyles((theme) => ({
 export default function OlvidoContrasenia() {
   const classes = useStyles();
 
+  const [datos, setDatos] = useState({
+    email: ''
+  })
+
+  const olvidoContraseniaSubmit = (event) => {
+    event.preventDefault()
+    console.log('submit! enviariamos datos...' + datos.email)
+  }
+
+  const handleInputChange = (event) => {
+    setDatos({
+      ...datos,
+      [event.target.name]: event.target.value
+    })
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -72,7 +88,7 @@ export default function OlvidoContrasenia() {
           <Typography component="h8" variant="h8">
             Ingresa tu email y te enviaremos un mail para poder recuperarla.
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={olvidoContraseniaSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -82,6 +98,7 @@ export default function OlvidoContrasenia() {
               label="Email"
               name="email"
               autoComplete="email"
+              onChange={handleInputChange}
               autoFocus
             />
             <Button

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
         Vouchers-Covid-19
-        {' '}
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -59,6 +59,23 @@ const useStyles = makeStyles((theme) => ({
 export default function IniciarSesion() {
   const classes = useStyles();
 
+  const [datos, setDatos] = useState({
+    email: '',
+    contrasenia: ''
+  })
+
+  const iniciarSesionSubmit = (event) => {
+    event.preventDefault()
+    console.log('submit! enviariamos datos...' + datos.email + ' ' + datos.contrasenia)
+  }
+
+  const handleInputChange = (event) => {
+    setDatos({
+      ...datos,
+      [event.target.name]: event.target.value
+    })
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -71,7 +88,7 @@ export default function IniciarSesion() {
           <Typography component="h1" variant="h5">
             Iniciar Sesión
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={iniciarSesionSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -81,6 +98,7 @@ export default function IniciarSesion() {
               label="Email"
               name="email"
               autoComplete="email"
+              onChange={handleInputChange}
               autoFocus
             />
             <TextField
@@ -88,11 +106,12 @@ export default function IniciarSesion() {
               margin="normal"
               required
               fullWidth
-              name="constasenia"
+              name="contrasenia"
               label="Contraseña"
-              type="constasenia"
-              id="constasenia"
+              type="contrasenia"
+              id="contrasenia"
               autoComplete="current-password"
+              onChange={handleInputChange}
             />
             <Button
               type="submit"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
         Vouchers-Covid-19
-        {' '}
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -59,6 +59,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Registrarse() {
   const classes = useStyles();
 
+  const [datos, setDatos] = useState({
+    nombre: '',
+    apellido: '',
+    email: '',
+    contrasenia: ''
+  })
+
+  const registrarseSubmit = (event) => {
+    event.preventDefault()
+    console.log('submit! enviariamos datos...' + datos.nombre + ' ' + datos.apellido + ' ' + datos.email + ' ' + datos.contrasenia)
+  }
+
+  const handleInputChange = (event) => {
+    setDatos({
+      ...datos,
+      [event.target.name]: event.target.value
+    })
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -71,81 +90,85 @@ export default function Registrarse() {
           <Typography component="h1" variant="h5">
             Registrarse
           </Typography>
-          <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="nombre"
-                variant="outlined"
-                required
-                fullWidth
-                id="nombre"
-                label="Nombre"
-                autoFocus
-              />
+          <form className={classes.form} noValidate onSubmit={registrarseSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  autoComplete="fname"
+                  name="nombre"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="nombre"
+                  label="Nombre"
+                  onChange={handleInputChange}
+                  autoFocus
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="apellido"
+                  label="Apellido"
+                  name="apellido"
+                  autoComplete="lname"
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email"
+                  name="email"
+                  autoComplete="email"
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="contrasenia"
+                  label="Contraseña"
+                  type="password"
+                  id="contrasenia"
+                  autoComplete="current-password"
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="permitirEmailsExtras" color="primary" />}
+                  label="Quiero recibir promociones por email."
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="apellido"
-                label="Apellido"
-                name="apellido"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="contrasenia"
-                label="Contraseña"
-                type="password"
-                id="contrasenia"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="permitirEmailsExtras" color="primary" />}
-                label="Quiero recibir promociones por email."
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Registrarse
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Registrarse
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link href="/iniciarsesion" variant="body2">
-                Ya tienes una cuenta? Iniciar sesión
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Link href="/iniciarsesion" variant="body2">
+                  Ya tienes una cuenta? Iniciar sesión
               </Link>
+              </Grid>
             </Grid>
-          </Grid>
             <Box mt={5}>
-                <Copyright />
+              <Copyright />
             </Box>
-        </form>
+          </form>
         </div>
       </Grid>
     </Grid>
