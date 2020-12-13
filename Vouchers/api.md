@@ -104,9 +104,27 @@
 }
 ```
 
-### URL/voucher
+## Voucher
 
-...
+### URL/voucher/canjear
+
+#### Params
+
+* URL/voucher/canjear?clientId={id}&voucherId={id}
+
+```md
+* Por razones de chequeo se indica tanto el voucher a canjear como el id del cliente dueño de este
+* Devuelve el voucher modificado
+```
+
+#### Respuesta
+
+```json
+{
+    voucher, ver formato en show
+}
+```
+
 
 ## Tarifario
 
