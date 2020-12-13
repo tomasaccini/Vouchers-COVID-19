@@ -35,23 +35,23 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
-  _transformarTalonario(counterfoil) {
-    const vi = counterfoil.voucherInformationCommand;
+  _transformarTalonario(talonario) {
+    const info = talonario.info;
 
-    const desde = new Date(vi.validoDesde);
-    const hasta = new Date(vi.validoHasta);
+    const desde = new Date(info.validoDesde);
+    const hasta = new Date(info.validoHasta);
 
     return {
       'titulo': '2 Hamburguesas',
-      'descripcion': vi.descripcion,
-      'precio': vi.precio,
+      'descripcion': info.descripcion,
+      'precio': info.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
-      'stock': vi.stock,
+      'stock': talonario.stock,
       // TODO no more owner !!!!
-      'isOwned': true,
+      'isOwned': false,
       // TODO we don't have the information yet
-      'nombreNegocio': 'PLACEHOLDER NOMBRE NEGOCIO'
+      'nombreNegocio': talonario.nombre
     }
   }
 
@@ -71,7 +71,7 @@ class VoucherAPI {
       // TODO no more owner !!!!
       'isOwned': true,
       // TODO we don't have the information yet
-      'nombreNegocio': 'PLACEHOLDER NOMBRE NEGOCIO'
+      'nombreNegocio': voucher.negocio.nombre
     }
   }
 }

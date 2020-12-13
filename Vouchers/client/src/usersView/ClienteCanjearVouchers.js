@@ -22,7 +22,7 @@ class ClienteCanjearVouchers extends Component {
     }
 
     async getListaDeVouchers() {
-        return await voucherAPI.getVouchers(3);
+        return await voucherAPI.getVouchers(localStorage.getItem('userId'));
     }
 
 

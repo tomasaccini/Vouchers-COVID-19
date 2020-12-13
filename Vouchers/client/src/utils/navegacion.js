@@ -1,6 +1,6 @@
 
 export default {
-  geIniciarSesionUrl: () => '/iniciarsesion',
+  getIniciarSesionUrl: () => '/iniciarsesion',
   getRegistrarseUrl: () => '/registrarse',
   getOlvidoContraseniaUrl: () => '/olvidocontrasenia',
   getNegocioPerfilUrl: () => '/negocios/perfil',

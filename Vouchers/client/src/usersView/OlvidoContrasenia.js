@@ -1,10 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
@@ -56,8 +54,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignInPage() {
+export default function OlvidoContrasenia() {
   const classes = useStyles();
+
+  const [datos, setDatos] = useState({
+    email: ''
+  })
+
+  const olvidoContraseniaSubmit = (event) => {
+    event.preventDefault()
+    console.log('submit! enviariamos datos...' + datos.email)
+  }
+
+  const handleInputChange = (event) => {
+    setDatos({
+      ...datos,
+      [event.target.name]: event.target.value
+    })
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -69,34 +83,23 @@ export default function SignInPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Olvidate tu contraseña?
           </Typography>
-          <form className={classes.form} noValidate>
+          <Typography component="h8" variant="h8">
+            Ingresa tu email y te enviaremos un mail para poder recuperarla.
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={olvidoContraseniaSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
+              onChange={handleInputChange}
               autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
             />
             <Button
               type="submit"
@@ -105,17 +108,12 @@ export default function SignInPage() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              Enviar mail de recuperación
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="/forgotpassword" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/iniciarsesion" variant="body2">
+                  {"Ir a la página de inicio de sesión"}
                 </Link>
               </Grid>
             </Grid>

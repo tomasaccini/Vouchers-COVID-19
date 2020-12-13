@@ -16,7 +16,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-
+import navegacion from '../utils/navegacion';
 import constantes from "../utils/constantes";
 
 const drawerWidth = 240;
@@ -71,6 +71,12 @@ export default function NavbarUsuario(props) {
 
   const classes = useStyles();
 
+  const cerrarSesion = () => {
+    localStorage.setItem('userId', -1);
+    localStorage.setItem('tipoUsuario', '');
+    window.location.replace(navegacion.getIniciarSesionUrl());
+  }
+
   return (
     <div className="root">
       <AppBar position="fixed">
@@ -81,7 +87,7 @@ export default function NavbarUsuario(props) {
           <Typography variant="h6" className={classes.title}>
             {props.title}
           </Typography>
-          <Button className="signOutButton" simple>
+          <Button className="signOutButton" simple onClick={cerrarSesion}>
             Cerrar sesión
           </Button>
         </Toolbar>
@@ -101,10 +107,11 @@ export default function NavbarUsuario(props) {
               </IconButton>
             </div>
             <List>
-              {/* True debe ser reemplazado por el verdadero chequeo de usario business/client */}
-              <NavbarNegocio />
-              <NavbarCliente />
-              <ListItem button key={constantes.cerrarSesionTitulo}>
+              {
+                localStorage.getItem('tipoUsuario') === 'cliente' ?
+                  <NavbarCliente /> : <NavbarNegocio />
+              }
+              <ListItem button key={constantes.cerrarSesionTitulo} onClick={cerrarSesion}>
                 <ListItemIcon> <ExitToAppIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.cerrarSesionTitulo} />
               </ListItem>

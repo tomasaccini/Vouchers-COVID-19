@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,13 +10,14 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import navegacion from '../utils/navegacion';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
         Vouchers-Covid-19
-        {' '}
+      {' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -54,8 +55,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ForgotPasswordPage() {
+export default function IniciarSesion(props) {
   const classes = useStyles();
+
+  const [datos, setDatos] = useState({
+    email: '',
+    contrasenia: ''
+  })
+
+  const iniciarSesionSubmit = (event) => {
+    event.preventDefault()
+    //TODO: integrate with backend
+    console.log('submit! enviariamos datos...' + datos.email + ' ' + datos.contrasenia)
+    if (datos.email.includes('negocio')) {
+      localStorage.setItem('tipoUsuario', 'negocio');
+      localStorage.setItem('userId', 1);
+      console.log(localStorage);
+      window.location.href = navegacion.getNegocioPerfilUrl();
+    } else {
+      localStorage.setItem('tipoUsuario', 'cliente');
+      localStorage.setItem('userId', 3);
+      console.log(localStorage);
+      window.location.href = navegacion.getClientePerfilUrl();
+    }
+  }
+
+  const handleInputChange = (event) => {
+    setDatos({
+      ...datos,
+      [event.target.name]: event.target.value
+    })
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -67,22 +97,32 @@ export default function ForgotPasswordPage() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            FORGOT YOUR PASSWORD?
+            Iniciar Sesión
           </Typography>
-          <Typography component="h8" variant="h8">
-            Enter your email address below and we'll send you a link to reset your password.
-          </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={iniciarSesionSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
+              onChange={handleInputChange}
               autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="contrasenia"
+              label="Contraseña"
+              type="contrasenia"
+              id="contrasenia"
+              autoComplete="current-password"
+              onChange={handleInputChange}
             />
             <Button
               type="submit"
@@ -91,12 +131,17 @@ export default function ForgotPasswordPage() {
               color="primary"
               className={classes.submit}
             >
-              Send Reset Link
+              Iniciar Sesión
             </Button>
             <Grid container>
+              <Grid item xs>
+                <Link href="/olvidocontrasenia" variant="body2">
+                  Olvidaste tu contraseña?
+                </Link>
+              </Grid>
               <Grid item>
-                <Link href="/signin" variant="body2">
-                  {"Go back to Sign in page"}
+                <Link href="/registrarse" variant="body2">
+                  {"No tenes una cuenta? Registrate!"}
                 </Link>
               </Grid>
             </Grid>

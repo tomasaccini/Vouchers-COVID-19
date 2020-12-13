@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { withStyles } from "@material-ui/core/styles";
 import NavbarUsuario from "./NavbarUsuario.js";
 import ClientePerfilVer from "./ClientePerfilVer.js";
 import "./styles.css";
 import clienteAPI from '../services/ClienteAPI.js';
 import constantes from "../utils/constantes";
+import navegacion from '../utils/navegacion';
 
 const drawerWidth = 240;
 
@@ -40,38 +41,38 @@ const styles = theme => ({
   },
 });
 
-class ClientePerfil extends Component{
+class ClientePerfil extends Component {
 
-    constructor() {
-        super();
-        this.state = { perfil: {}};
-    }
+  constructor() {
+    super();
+    this.state = { perfil: {} };
+  }
 
-    async getPerfilCliente(id) {
-        return await clienteAPI.getCliente(id);
-    }
+  async getPerfilCliente(id) {
+    return await clienteAPI.getCliente(id);
+  }
 
-    async componentDidMount() {
-        const perfil = await this.getPerfilCliente(3);
-        this.setState({ perfil: perfil })
-    }
+  async componentDidMount() {
+    const perfil = await this.getPerfilCliente(localStorage.getItem('userId'));
+    this.setState({ perfil: perfil });
+  }
 
-    render() {
-        const { classes } = this.props;
-        return (
-            <div>
-                <NavbarUsuario title={constantes.miPerfilTitulo} />
-                <div className={classes.drawerHeader} />
-                <div className={classes.form}>
-                {this.state.perfil.nombreCompleto ? (
-                    <ClientePerfilVer perfil={this.state.perfil} />
-                ) : (
-                    <div>No hay datos del usuario</div>
-                )}
-                </div>
-            </div>
-        );
-    }
+  render() {
+    const { classes } = this.props;
+    return (
+      <div>
+        <NavbarUsuario title={constantes.miPerfilTitulo} />
+        <div className={classes.drawerHeader} />
+        <div className={classes.form}>
+          {this.state.perfil.nombreCompleto ? (
+            <ClientePerfilVer perfil={this.state.perfil} />
+          ) : (
+              <div>No hay datos del usuario</div>
+            )}
+        </div>
+      </div>
+    );
+  }
 
 }
 
