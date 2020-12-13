@@ -4,6 +4,7 @@ import enums.states.VoucherState
 import org.hibernate.service.spi.ServiceException
 
 import javax.xml.bind.ValidationException
+import java.text.SimpleDateFormat
 
 class Voucher {
 
@@ -26,15 +27,15 @@ class Voucher {
     }
 
     boolean esRetirable() {
-        if (new Date() >= informacionVoucher.validoHasta) {
-            state = VoucherState.Expirado
-            lastStateChange = new Date()
-        }
-        return state == VoucherState.Comprado
+        return !estaExpirado() && state == VoucherState.Comprado
     }
 
     boolean esConfirmable() {
         return state == VoucherState.ConfirmacionPendiente
+    }
+
+    boolean estaExpirado(){
+        return informacionVoucher.validoHasta >= new Date()
     }
 
     Reclamo iniciarReclamo(String descripcion) {
