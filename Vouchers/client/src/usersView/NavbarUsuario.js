@@ -101,9 +101,10 @@ export default function NavbarUsuario(props) {
               </IconButton>
             </div>
             <List>
-              {/* True debe ser reemplazado por el verdadero chequeo de usario business/client */}
-              <NavbarNegocio />
-              <NavbarCliente />
+              {
+                localStorage.getItem('tipoUsuario') === 'cliente' ?
+                  <NavbarCliente /> : <NavbarNegocio />
+              }
               <ListItem button key={constantes.cerrarSesionTitulo}>
                 <ListItemIcon> <ExitToAppIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.cerrarSesionTitulo} />
