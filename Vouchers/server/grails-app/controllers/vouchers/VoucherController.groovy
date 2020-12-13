@@ -47,6 +47,35 @@ class VoucherController extends RestfulController {
         respond Voucher.findAllByCliente(cliente, params)
     }
 
+    /*
+    * Dado el id del cliente y el id del voucher a cambiar
+    * URL/vouchers/canjear?clienteId={id}&voucherId={id}
+    */
+    def canjear(Long clienteId, Long voucherId) {
+        Cliente cliente = Cliente.get(clienteId)
+        if (!cliente || !cliente.getVoucher(voucherId)){
+            respond 404
+            return
+        }
+        voucherService.retire(voucherId)
+        respond Voucher.get(voucherId)
+    }
+
+    /*
+    * Dado el id del cliente y el id del voucher a cambiar
+    * URL/vouchers/confirmar?negocioId={id}&voucherId={id}
+    */
+    def confirmar(Long negocioId, Long voucherId) {
+        Negocio negocio = Negocio.get(negocioId)
+        Voucher voucher = Voucher.get(voucherId)
+        if (!negocio || !voucher.perteneceAlNegocio(negocioId)){
+            respond 404
+            return
+        }
+        voucherService.confirm(voucherId)
+        respond Voucher.get(voucherId)
+    }
+
     // !!!!
     VoucherCommand create() {
         println("Voucher creationg requestes")

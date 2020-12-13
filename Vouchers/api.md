@@ -104,9 +104,45 @@
 }
 ```
 
-### URL/voucher
+## Voucher
 
-...
+### URL/voucher/canjear
+
+#### Params
+
+* post URL/voucher/canjear?clienteId={id}&voucherId={id}
+
+```md
+* Por razones de chequeo se indica tanto el voucher a canjear como el id del cliente dueño de este
+* Devuelve el voucher modificado, con estado a confirmar
+```
+
+#### Respuesta
+
+```json
+{
+    voucher, ver formato en show
+}
+```
+
+### URL/voucher/confirmar
+
+#### Params
+
+* post URL/voucher/confirmar?negocioId={id}&voucherId={id}
+
+```md
+* Por razones de chequeo se indica tanto el voucher a confimar como el id del negocio dueño de este
+* Devuelve el voucher modificado, con estado retirado
+```
+
+#### Respuesta
+
+```json
+{
+    voucher, ver formato en show
+}
+```
 
 ## Tarifario
 
