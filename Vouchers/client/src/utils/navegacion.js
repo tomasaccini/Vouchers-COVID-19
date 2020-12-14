@@ -8,4 +8,5 @@ export default {
   getClienteComprarVoucherUrl: () => '/clientes/comprar',
   getClienteCanjearVoucherUrl: () => '/clientes/canjear',
   getReclamos: () => '/reclamos',
+  getTarifarios: () => '/tarifarios',
 }

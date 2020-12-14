@@ -4,6 +4,7 @@ export default {
   miNegocioTitulo: 'Mi Negocio',
   comprarVouchersTitulo: 'Comprar Vouchers',
   canjearVouchersTitulo: 'Canjear Vouchers',
+  misTarifariosTitulo: 'Mis Tarifarios',
   reclamosTitulo: 'Reclamos',
   cerrarSesionTitulo: 'Cerrar Sesión',
 }
