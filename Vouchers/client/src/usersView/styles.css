@@ -1,5 +1,4 @@
 .vouchersGrid {
-  margin: 80px;
   padding-left: 30px;
   padding-right: 30px;
 }
@@ -49,3 +48,51 @@
 }
 
 /* \-- Business Profile  --*/
+
+
+/* -- Comprar Vouchers -- */
+
+.buyVoucher{
+  display: flex;
+  flex-direction: column;
+  margin-top: 5em;
+  justify-content: space-around;
+}
+
+.searchBars {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+.searchBar {
+  width: 40%;
+  background:rgb(255, 255, 255);
+  border: none;
+  padding: 0.5rem;
+  margin: 5px;
+  text-align: center;
+  letter-spacing: 1.2px;
+}
+
+/* \-- Comprar Vouchers  --*/
+
+
+/* -- Canjear Vouchers -- */
+
+.canjearVouchers {
+  margin-top: 5em;
+}
+
+/* \-- Canjear Vouchers  --*/
+
+
+/* -- Reclamos -- */
+
+.reclamos {
+  margin-top: 6em;
+}
+
+/* \-- Reclamos -- */

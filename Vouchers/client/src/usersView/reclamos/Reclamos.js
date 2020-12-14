@@ -57,7 +57,7 @@ class Reclamos extends Component{
         const mensajes = reclamos === undefined || reclamos.length === 0 ? [] : reclamos[indexReclamoActivo].mensajes;
 
         return (
-          <div>
+          <div className="reclamos">
               <NavbarUsuario title={constantes.reclamosTitulo}/>
               <ThemeProvider>
                   <GridContainer className="vouchersGrid">

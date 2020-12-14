@@ -28,7 +28,7 @@ class ClienteCanjearVouchers extends Component {
 
     render() {
         return (
-            <div>
+            <div className="canjearVouchers">
                 <NavbarUsuario title={constantes.canjearVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
