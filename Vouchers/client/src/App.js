@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GrailsApp from "./GrailsApp";
+import HomePage from "./usersView/Home";
 import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
 import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
 import NegocioPerfilPage from "./usersView/NegocioPerfil"
@@ -91,7 +91,7 @@ class App extends Component {
                         {this.validarSesionInciadaNegocio(<TarifariosPage />)}
                     </Route>
                     <Route path="/">
-                        <GrailsApp />
+                        <HomePage />
                     </Route>
                 </Switch>
             </Router>
