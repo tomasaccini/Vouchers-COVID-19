@@ -18,6 +18,7 @@ import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 
 import { cardTitle } from "assets/jss/material-kit-react.js";
 import voucherAPI from "../services/VoucherAPI";
+import './styles.css';
 
 const styles = {
   cardTitle,
@@ -36,12 +37,26 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
+function _item(item){
+  return(
+    <div className="itemList">
+      <div className="itemInfo">
+        <h1>{item.nombre}</h1>
+        <h2>{item.descripcion}</h2>
+      </div>
+      <h1>{item.cantidad}</h1>
+    </div>
+  );
+}
+
 export default function VoucherSinDuenio(props) {
   const [modal, setModal] = React.useState(false);
+  const [modalProducts, setModalProducts] = React.useState(false);
   const classes = useStyles();
 
   const onClickBuyButton = async () => {
     setModal(false)
+    setModalProducts(false)
     // TODO pass actual parameters!!!!
     voucherAPI.comprarVoucher(1, 1)
   };
@@ -57,6 +72,9 @@ export default function VoucherSinDuenio(props) {
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
             Comprar
+          </Button>
+          <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
+            Ver productos
           </Button>
         </CardBody>
         <CardFooter className={classes.textMuted}>
@@ -107,6 +125,50 @@ export default function VoucherSinDuenio(props) {
           <Button onClick={onClickBuyButton} color="success">
             Confirmar
           </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        classes={{
+          root: classes.center,
+          paper: classes.modal
+        }}
+        className="productDialog"
+        open={modalProducts}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setModalProducts(false)}
+        aria-labelledby="modal-slide-title"
+        aria-describedby="modal-slide-description"
+      >
+        <DialogTitle
+          id="classic-modal-slide-title"
+          disableTypography
+          className={classes.modalHeader}
+        >
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModalProducts(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h4 className={classes.modalTitle}>Productos</h4>
+        </DialogTitle>
+        <DialogContent
+          id="modal-slide-description"
+          className={classes.modalBody}
+        >
+          {props.data.items.map((item) =>
+                    _item(item)
+                )}
+        </DialogContent>
+        <DialogActions
+          className={classes.modalFooter + " " + classes.modalFooterCenter}
+        >
+          <Button onClick={() => setModalProducts(false)}>Cerrar</Button>
         </DialogActions>
       </Dialog>
     </div>
