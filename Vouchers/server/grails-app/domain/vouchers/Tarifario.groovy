@@ -39,7 +39,10 @@ class Tarifario {
             throw new RuntimeException("Voucher does not have stock")
         }
 
-        Voucher voucher = new Voucher(informacionVoucher: informacionVoucher.duplicar(), cliente: cliente, tarifario: this
+        Voucher voucher = new Voucher(
+                informacionVoucher: informacionVoucher.duplicar(),
+                cliente: cliente,
+                tarifario: this
         )
 
         //TODO: This must be propably an atomic attribute
