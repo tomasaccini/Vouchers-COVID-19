@@ -240,10 +240,11 @@ Se crea un nuevo voucher a partir del tarifario dado y se lo asigna al cliente i
 
 #### Params
 
-* post URL/tarifarios/comprar?tarifarioId={id}&clienteId={id}
+* post URL/tarifarios/comprar
+    con body {tarifarioId: {id}, clienteId: {id}}
 
 #### Respuesta
 
 ```json
-{}
+ responde con el voucher creado, en caso de éxito
 ```

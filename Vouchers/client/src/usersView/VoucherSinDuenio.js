@@ -20,6 +20,8 @@ import { cardTitle } from "assets/jss/material-kit-react.js";
 import voucherAPI from "../services/VoucherAPI";
 import './styles.css';
 import ProductListDialog from '../dialogs/ProductListDialog';
+import { Redirect } from "react-router-dom";
+import navegacion from '../utils/navegacion';
 
 const styles = {
   cardTitle,
@@ -41,16 +43,22 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function VoucherSinDuenio(props) {
   const [modal, setModal] = React.useState(false);
   const [modalProducts, setModalProducts] = React.useState(false);
+  const [comprado, setComprado] = React.useState(false);
   const classes = useStyles();
 
   const onClickBuyButton = async () => {
     setModal(false)
     setModalProducts(false)
-    // TODO pass actual parameters!!!!
-    voucherAPI.comprarVoucher(1, 1)
+    // TODO pass actual user id!!!!
+    voucherAPI.comprarVoucher(3, props.data.id)
+    setComprado(true)
   };
 
+  if (comprado) {
+    return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
+  }
   return (
+
     <div>
       <Card className={classes.textCenter}>
         <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}>QUEDAN {props.data.stock} VOUCHERS</CardHeader>
