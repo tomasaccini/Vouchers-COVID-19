@@ -40,18 +40,20 @@ class TarifarioController extends RestfulController{
     */
     @Transactional
     def comprar(Long tarifarioId, Long clienteId){
+        Object requestBody = request.JSON
+        clienteId = clienteId ? clienteId : requestBody['clienteId'].toLong()
+        tarifarioId = tarifarioId ? tarifarioId : requestBody['tarifarioId'].toLong()
         Cliente cliente = Cliente.get(clienteId)
         Tarifario tarifario = Tarifario.get(tarifarioId)
         if (!cliente || !tarifario){
-            respond 404
-            return
+            return response.sendError(400, "Cliente o tarifario no especificado")
         }
         try {
-            tarifario.crearVoucher(cliente)
-            respond 202
+            Voucher voucher = tarifario.crearVoucher(cliente)
+            respond voucher
         } catch (Exception e) {
             println(e)
-            return response.sendError(400, "Voucher could not be created")
+            return response.sendError(400, "El Voucher no pudo ser creado")
         }
     }
 

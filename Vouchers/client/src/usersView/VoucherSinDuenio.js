@@ -46,8 +46,9 @@ export default function VoucherSinDuenio(props) {
   const onClickBuyButton = async () => {
     setModal(false)
     setModalProducts(false)
-    // TODO pass actual parameters!!!!
-    voucherAPI.comprarVoucher(1, 1)
+    // TODO pass actual user id!!!!
+    voucherAPI.comprarVoucher(3, props.data.id)
+    // Todo que lo lleve a la página de canje
   };
 
   return (

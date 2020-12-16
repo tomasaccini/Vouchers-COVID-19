@@ -23,12 +23,12 @@ class VoucherAPI {
     return vouchers.map((v) => this._transformarVoucher(v));
   }
 
-  async comprarVoucher(userId, counterfoilId) {
-    const url = `${SERVER_URL}vouchers`;
+  async comprarVoucher(clienteId, tarifarioId) {
+    const url = `${SERVER_URL}tarifarios/comprar`;
     console.log(`debug | comprarVoucher URL is: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ clientId: userId, counterfoilId: counterfoilId })
+      body: JSON.stringify({ clienteId: clienteId, tarifarioId: tarifarioId })
     });
     const voucher = await res.json();
     console.log(`debug | compro voucher: `, voucher);
@@ -50,6 +50,7 @@ class VoucherAPI {
     const hasta = new Date(info.validoHasta);
 
     return {
+      'id': talonario.id,
       'titulo': '2 Hamburguesas',
       'descripcion': info.descripcion,
       'precio': info.precio,
@@ -71,6 +72,7 @@ class VoucherAPI {
     const hasta = new Date(vi.validoHasta);
 
     return {
+      'id': vi.id,
       'titulo': '2 Hamburguesas',
       'descripcion': vi.descripcion,
       'precio': vi.precio,
