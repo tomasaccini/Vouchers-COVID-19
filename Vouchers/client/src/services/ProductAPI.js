@@ -10,6 +10,22 @@ class ProductAPI {
         return productos.map((p) => this._transformarProducto(p));
     }
 
+    async crearProducto(negocioId, producto) {
+      const url = `${SERVER_URL}productos/crear`;
+      console.log(`debug | crearProducto URL is: ${url}`);
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(
+          { negocioId: negocioId, 
+            nombre: producto.titulo,
+            descripcion: producto.descripcion
+          })
+      });
+      const nuevoProducto = await res.json();
+      console.log(`debug | creo Producto: `, nuevoProducto);
+      return this._transformarProducto(nuevoProducto);
+    }
+
     _transformarProducto(producto) {
         return {
           'id': producto.id,

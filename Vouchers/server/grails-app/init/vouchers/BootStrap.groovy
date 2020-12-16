@@ -60,14 +60,14 @@ class BootStrap {
 
         new Producto(nombre: "Medialunas",
                 descripcion: "veganas",
-                business: Negocio.get(1),
+                negocio: Negocio.get(1),
                 type: ProductType.FAST_FOOD).save(failOnError:true)
 
         Negocio.get(1).addToProducts(Producto.get(1))
 
         new Producto(nombre: "Hamburguuesas",
                 descripcion: "veganas",
-                business: Negocio.get(2),
+                negocio: Negocio.get(2),
                 type: ProductType.FAST_FOOD).save(failOnError:true)
 
         def item1 = new Item(

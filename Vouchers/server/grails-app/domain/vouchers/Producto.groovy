@@ -8,7 +8,7 @@ class Producto {
     String descripcion
     ProductType type
 
-    static belongsTo = [business: Negocio]
+    static belongsTo = [negocio: Negocio]
 
     static constraints = {
         nombre                blank: false, nullable: false

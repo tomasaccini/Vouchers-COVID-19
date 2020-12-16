@@ -26,6 +26,7 @@ class UrlMappings {
 
         //Products
         "/productos"(resources:"producto")
+        "/productos/crear"(controller: 'producto', action: 'crear')
         "/productos/obtenerPorNegocio/$negocioId"(controller: 'producto', action: 'obtenerPorNegocio')
 
         // Reclamos
