@@ -13,15 +13,14 @@ class ProductoController extends RestfulController {
 
     /*
     * Returns list of businesses's products. If specified, it returns a max amount of them.
-    * URL/products/getByBusiness/businessId -> When max is not specified
-    * URL/products/getByBusiness/businessId?max=n -> When max is specified
+    * URL/products/obtenerPorNegocio/negocioId -> When max is not specified
+    * URL/products/obtenerPorNegocio/negocioId?max=n -> When max is specified
     */
-    def getByBusiness(Long businessId, Integer max){
-        Negocio business = Negocio.get(businessId)
+    def obtenerPorNegocio(Long negocioId, Integer max){
+        Negocio business = Negocio.get(negocioId)
         params.max = Math.min(max ?: 10, 100)
         if (!business){
-            // TODO: Mejores mensajes de error / no encontrado
-            response.sendError(404)
+            return response.sendError(400, "Negocio inexistente")
         }
         println("Request for business products, businessid: ${business?.id}")
         respond Producto.findAllByBusiness(business)

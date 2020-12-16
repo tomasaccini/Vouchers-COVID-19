@@ -25,8 +25,8 @@ class UrlMappings {
         "/clientes"(resources:"cliente")
 
         //Products
-        "/products"(resources:"producto")
-        "/products/getByBusiness/$businessId"(controller: 'producto', action: 'getByBusiness')
+        "/productos"(resources:"producto")
+        "/productos/obtenerPorNegocio/$negocioId"(controller: 'producto', action: 'obtenerPorNegocio')
 
         // Reclamos
         // "/reclamos"(resources:"complaint")
