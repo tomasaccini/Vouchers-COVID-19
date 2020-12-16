@@ -18,6 +18,8 @@ import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 
 import { cardTitle } from "assets/jss/material-kit-react.js";
 import voucherAPI from "../services/VoucherAPI";
+import './styles.css';
+import ProductListDialog from '../dialogs/ProductListDialog';
 
 const styles = {
   cardTitle,
@@ -38,10 +40,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function VoucherSinDuenio(props) {
   const [modal, setModal] = React.useState(false);
+  const [modalProducts, setModalProducts] = React.useState(false);
   const classes = useStyles();
 
   const onClickBuyButton = async () => {
     setModal(false)
+    setModalProducts(false)
     // TODO pass actual parameters!!!!
     voucherAPI.comprarVoucher(1, 1)
   };
@@ -57,6 +61,9 @@ export default function VoucherSinDuenio(props) {
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
             Comprar
+          </Button>
+          <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
+            Ver productos
           </Button>
         </CardBody>
         <CardFooter className={classes.textMuted}>
@@ -109,6 +116,14 @@ export default function VoucherSinDuenio(props) {
           </Button>
         </DialogActions>
       </Dialog>
+
+      <ProductListDialog 
+        classes={classes} 
+        setModalProducts={setModalProducts} 
+        modalProducts={modalProducts}
+        items={props.data.items}
+        transition={Transition}/
+      >
     </div>
   );
 }

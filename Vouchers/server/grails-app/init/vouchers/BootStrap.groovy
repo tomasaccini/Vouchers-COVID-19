@@ -75,9 +75,15 @@ class BootStrap {
                 producto: Producto.get(1)
         ).save(failOnError:true)
 
+        def item2 = new Item(
+                cantidad: 5,
+                producto: Producto.get(2)
+        ).save(failOnError:true)
+
 
         Negocio.get(2).addToProducts(Producto.get(2))
         Tarifario.get(1).informacionVoucher.addToItems(item1)
+        Tarifario.get(1).informacionVoucher.addToItems(item2)
 
         def voucher1 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)
         def voucher2 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)

@@ -96,3 +96,30 @@
 }
 
 /* \-- Reclamos -- */
+
+/* -- Dialog Productos -- */
+
+.itemList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-width: 60vh;
+}
+
+.itemList h1{
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
+.itemList h2{
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  color: rgb(59, 59, 59);
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+/* \ -- Dialog Productos -- */

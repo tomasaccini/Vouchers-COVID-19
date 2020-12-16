@@ -24,7 +24,6 @@ class UrlMappings {
         //Client
         "/clientes"(resources:"cliente")
 
-
         //Products
         "/products"(resources:"producto")
         "/products/getByBusiness/$businessId"(controller: 'producto', action: 'getByBusiness')
@@ -46,6 +45,7 @@ class UrlMappings {
         // Tarifarios
         "/tarifarios"(controller: 'tarifario', action: 'getAll')
         "/tarifarios/search"(controller: 'tarifario', action: 'search')
+        post "/tarifarios/comprar"(controller: 'tarifario', action: 'comprar')
         post "/tarifarios"(controller: 'tarifario', action: 'crear')
 
 

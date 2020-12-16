@@ -232,3 +232,18 @@
 {
     listado de tarifario, ver formato en show
 }
+```
+
+### URL/tarifarios/comprar
+
+Se crea un nuevo voucher a partir del tarifario dado y se lo asigna al cliente indicado
+
+#### Params
+
+* post URL/tarifarios/comprar?tarifarioId={id}&clienteId={id}
+
+#### Respuesta
+
+```json
+{}
+```

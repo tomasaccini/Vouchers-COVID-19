@@ -35,6 +35,14 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
+  _transformarItems(item){
+    return {
+      'cantidad': item.cantidad,
+      'nombre':  item.producto.nombre,
+      'descripcion':  item.producto.descripcion
+    }
+  }
+
   _transformarTalonario(talonario) {
     const info = talonario.info;
 
@@ -48,6 +56,7 @@ class VoucherAPI {
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'stock': talonario.stock,
+      'items': info.items.map((i) => this._transformarItems(i)),
       // TODO no more owner !!!!
       'isOwned': false,
       // TODO we don't have the information yet
