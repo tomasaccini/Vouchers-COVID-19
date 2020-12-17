@@ -3,6 +3,8 @@ import React, {Component} from 'react';
 import NavbarUsuario from "./NavbarUsuario.js";
 import ProductosList from "./productos/ProductosList";
 import productoAPI from "../services/ProductAPI";
+import navegacion from '../utils/navegacion';
+import { Link } from "react-router-dom";
 import Button from "../components/CustomButtons/Button.js";
 
 import './styles.css';
@@ -31,9 +33,11 @@ class ProductosVer extends Component {
                 <div className="productosVista">
                     <div className="tituloProductos">
                         <h1>Mis Productos</h1>
-                        <Button color="primary" size="large" onClick={() => console.log('d')}>
-                            + Crear nuevo
-                        </Button>
+                        <Link to={navegacion.getProductosCrear()} >
+                            <Button color="primary" size="large" onClick={() => console.log('d')}>
+                                + Crear nuevo
+                            </Button>
+                        </Link>
                     </div>
                     <div className="productosDisplay">
                         <ProductosList productos={this.state.productos} />

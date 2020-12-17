@@ -124,7 +124,7 @@
 
 /* \ -- Dialog Productos -- */
 
-/* -- Productos -- */
+/* -- Productos Ver -- */
 
 .productosVista {
   display: flex;
@@ -191,4 +191,21 @@
   width: 100%;
 }
 
-/* \-- Productos  --*/
+/* \-- Productos Ver--*/
+
+/* -- Productos Crear--*/
+
+.productoCrear {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4em;
+  margin: 8%;
+}
+
+.productoCrearForm {
+  display: flex;
+  flex-direction: column;
+  width: inherit;
+}
+
+/* \-- Productos Crear--*/

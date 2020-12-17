@@ -17,7 +17,7 @@ class ProductAPI {
         method: 'POST',
         body: JSON.stringify(
           { negocioId: negocioId, 
-            nombre: producto.titulo,
+            nombre: producto.nombre,
             descripcion: producto.descripcion
           })
       });

@@ -5,6 +5,7 @@ import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
 import NegocioPerfilPage from "./usersView/NegocioPerfil"
 import TarifariosPage from "./usersView/Tarifarios"
 import ProductosPage from "./usersView/ProductosVer"
+import ProductosCrearPage from "./usersView/ProductoCrear"
 import IniciarSesionPage from "./usersView/IniciarSesion";
 import RegistrarsePage from "./usersView/Registrarse";
 import OlvidoContraseniaPage from "./usersView/OlvidoContrasenia";
@@ -90,6 +91,9 @@ class App extends Component {
                     </Route>
                     <Route path={navegacion.getTarifarios()}>
                         {this.validarSesionInciadaNegocio(<TarifariosPage />)}
+                    </Route>
+                    <Route path={navegacion.getProductosCrear()}>
+                        {this.validarSesionInciadaNegocio(<ProductosCrearPage />)}
                     </Route>
                     <Route path={navegacion.getProductos()}>
                         {this.validarSesionInciadaNegocio(<ProductosPage />)}
