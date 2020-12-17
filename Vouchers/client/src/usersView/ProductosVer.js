@@ -34,7 +34,7 @@ class ProductosVer extends Component {
                     <div className="tituloProductos">
                         <h1>Mis Productos</h1>
                         <Link to={navegacion.getProductosCrear()} >
-                            <Button color="primary" size="large" onClick={() => console.log('d')}>
+                            <Button color="primary" size="large">
                                 + Crear nuevo
                             </Button>
                         </Link>
