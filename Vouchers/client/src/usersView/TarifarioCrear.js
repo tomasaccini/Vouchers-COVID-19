@@ -52,7 +52,7 @@ class TarifarioCrear extends Component {
     
     render() {
         if (this.state.creado) {
-            return <Redirect to={navegacion.getProductos()} />
+            return <Redirect to={navegacion.getTarifarios()} />
         }
         return (
             <div>
