@@ -3,12 +3,22 @@ import { format } from 'date-fns';
 
 
 class VoucherAPI {
+
   async getTalonarios(userId) {
     const url = `${SERVER_URL}recommendations?userId=${userId}`;
     console.log(`debug | getTalonarios URL is: ${url}`);
     const res = await fetch(url);
     const counterfoils = await res.json();
     console.log(`debug | getTalonarios: `, counterfoils);
+    return counterfoils.map((c) => this._transformarTalonario(c));
+  }
+
+  async getTalonariosPorNegocio(negocioId){
+    const url = `${SERVER_URL}negocios/obtenerTarifarios/${negocioId}`;
+    console.log(`debug | getTalonariosPorNegocio URL is: ${url}`);
+    const res = await fetch(url);
+    const counterfoils = await res.json();
+    console.log(`debug | getTalonariosPorNegocio: `, counterfoils);
     return counterfoils.map((c) => this._transformarTalonario(c));
   }
 

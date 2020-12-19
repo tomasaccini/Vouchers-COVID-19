@@ -4,6 +4,7 @@ import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
 import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
 import NegocioPerfilPage from "./usersView/NegocioPerfil"
 import TarifariosPage from "./usersView/Tarifarios"
+import TarifariosCrearPage from "./usersView/TarifarioCrear"
 import ProductosPage from "./usersView/ProductosVer"
 import ProductosCrearPage from "./usersView/ProductoCrear"
 import IniciarSesionPage from "./usersView/IniciarSesion";
@@ -88,6 +89,9 @@ class App extends Component {
                     </Route>
                     <Route path={navegacion.getReclamos()}>
                         {this.validarSesionIniciada(<Reclamos usuarioId={parseInt(localStorage.getItem('userId'))}/>)}
+                    </Route>
+                    <Route path={navegacion.getTarifariosCrear()}>
+                        {this.validarSesionInciadaNegocio(<TarifariosCrearPage />)}
                     </Route>
                     <Route path={navegacion.getTarifarios()}>
                         {this.validarSesionInciadaNegocio(<TarifariosPage />)}
