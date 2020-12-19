@@ -30,16 +30,15 @@ class NegocioController extends RestfulController {
 
     /*
     * Returns counterfoils requested by Id
-    * URL/negocios/getCounterfoils/{id}
+    * URL/negocios/obtenerTarifarios/{id}
     */
-    def getCounterfoils(Long id){
+    def obtenerTarifarios(Long id){
         Negocio negocio = Negocio.get(id)
-        println("Request counterfoils of business")
+        println("Request: tarifarios de negocio")
         if (!negocio){
-            response.sendError(404)
-        } else {
-            respond negocio.tarifarios
+            return response.sendError(400, "Negocio inexistente")
         }
+        respond negocio.tarifarios
     }
 
     List<NegocioCommand> obtenerTodos() {
