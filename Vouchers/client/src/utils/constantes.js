@@ -5,6 +5,7 @@ export default {
   comprarVouchersTitulo: 'Comprar Vouchers',
   canjearVouchersTitulo: 'Canjear Vouchers',
   misTarifariosTitulo: 'Mis Tarifarios',
+  misProductosTitulo: 'Mis Productos',
   reclamosTitulo: 'Reclamos',
   cerrarSesionTitulo: 'Cerrar Sesión',
 }

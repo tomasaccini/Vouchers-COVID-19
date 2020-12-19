@@ -55,9 +55,9 @@ function ProductListDialog(props){
           id="modal-slide-description"
           className={props.classes.modalBody}
         >
-          {props.items.map((item) =>
-                    _item(item)
-                )}
+          {props.items ? props.items.map((item) =>
+                    _item(item)) :
+                    <h3> No tiene productos </h3>}
         </DialogContent>
         <DialogActions
           className={props.classes.modalFooter + " " + props.classes.modalFooterCenter}

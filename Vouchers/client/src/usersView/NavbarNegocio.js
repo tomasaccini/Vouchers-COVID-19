@@ -20,6 +20,10 @@ export default function NavbarNegocio() {
     window.location.replace(navegacion.getTarifarios());
   };
 
+  const redirigirAProductos = () => {
+    window.location.replace(navegacion.getProductos());
+  };
+
   const redirigirAReclamos = () => {
     window.location.replace(navegacion.getReclamos());
   };
@@ -33,6 +37,10 @@ export default function NavbarNegocio() {
       <ListItem button key={constantes.misTarifariosTitulo} onClick={redirigirACrearTarifarios}>
         <ListItemIcon> <CreateIcon /> </ListItemIcon>
         <ListItemText primary={constantes.misTarifariosTitulo} />
+      </ListItem>
+      <ListItem button key={constantes.misProductosTitulo} onClick={redirigirAProductos}>
+        <ListItemIcon> <CreateIcon /> </ListItemIcon>
+        <ListItemText primary={constantes.misProductosTitulo} />
       </ListItem>
       <ListItem button key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
         <ListItemIcon> <FeedbackIcon /> </ListItemIcon>
