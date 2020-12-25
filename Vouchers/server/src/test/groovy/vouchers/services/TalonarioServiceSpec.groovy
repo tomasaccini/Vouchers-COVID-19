@@ -11,8 +11,8 @@ import vouchers.Negocio
 import vouchers.NegocioService
 import vouchers.Cliente
 import vouchers.ClienteService
-import vouchers.Tarifario
-import vouchers.TarifarioService
+import vouchers.Talonario
+import vouchers.TalonarioService
 
 import vouchers.Item
 import vouchers.Producto
@@ -22,18 +22,18 @@ import vouchers.InformacionVoucher
 @Integration
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class TarifarioServiceSpec extends Specification{
+class TalonarioServiceSpec extends Specification{
 
     @Autowired
     NegocioService businessService
     ClienteService clientService
-    TarifarioService counterfoilService
+    TalonarioService counterfoilService
 
     private static Boolean setupIsDone = false
     static Long businessId
-    static Tarifario counterfoil_active
-    static Tarifario counterfoil_inactive
-    static Tarifario counterfoil_no_stock
+    static Talonario counterfoil_active
+    static Talonario counterfoil_inactive
+    static Talonario counterfoil_no_stock
     static InformacionVoucher vi
     static Long clientId
 
@@ -67,12 +67,12 @@ class TarifarioServiceSpec extends Specification{
         Item item = new Item(producto: product, cantidad: 1)
         vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
         vi.addToItems(item)
-        counterfoil_active = new Tarifario(informacionVoucher: vi, stock: 3, activo: true)
-        business.addToTarifarios(counterfoil_active)
-        counterfoil_inactive = new Tarifario(informacionVoucher: vi, stock: 10, activo: false)
-        business.addToTarifarios(counterfoil_inactive)
-        counterfoil_no_stock = new Tarifario(informacionVoucher: vi, stock: 0, activo: true)
-        business.addToTarifarios(counterfoil_no_stock)
+        counterfoil_active = new Talonario(informacionVoucher: vi, stock: 3, activo: true)
+        business.addToTalonarios(counterfoil_active)
+        counterfoil_inactive = new Talonario(informacionVoucher: vi, stock: 10, activo: false)
+        business.addToTalonarios(counterfoil_inactive)
+        counterfoil_no_stock = new Talonario(informacionVoucher: vi, stock: 0, activo: true)
+        business.addToTalonarios(counterfoil_no_stock)
 
         business.save(flush: true, failOnError: true)
 
@@ -92,7 +92,7 @@ class TarifarioServiceSpec extends Specification{
         expect:
         Negocio.count() == 1
         Producto.count() == 1
-        Tarifario.count() == 3
+        Talonario.count() == 3
     }
 
     void "constructor"() {
@@ -104,7 +104,7 @@ class TarifarioServiceSpec extends Specification{
 
     void "buy vouchers"() {
         Voucher v = clientService.comprarVoucher(clientId, counterfoil_active)
-        counterfoil_active = Tarifario.findById(counterfoil_active.id)
+        counterfoil_active = Talonario.findById(counterfoil_active.id)
         expect:"Voucher bought correctly"
         v != null && counterfoil_active.stock == 2 && counterfoil_active.informacionVoucher.id == vi.id && counterfoil_active.getVouchers().size() == 1 && counterfoil_active. getVouchers()[0] == v && counterfoil_active.activo
     }
@@ -118,7 +118,7 @@ class TarifarioServiceSpec extends Specification{
 
     void "activate counterfoil"() {
         counterfoilService.activate(counterfoil_inactive.id)
-        counterfoil_inactive = Tarifario.findById(counterfoil_inactive.id)
+        counterfoil_inactive = Talonario.findById(counterfoil_inactive.id)
         expect:"Counterfoil is active"
         counterfoil_inactive.activo
     }
@@ -126,7 +126,7 @@ class TarifarioServiceSpec extends Specification{
     void "activate and deactivate counterfoil"() {
         counterfoilService.activate(counterfoil_inactive.id)
         counterfoilService.deactivate(counterfoil_inactive.id)
-        counterfoil_inactive = Tarifario.findById(counterfoil_inactive.id)
+        counterfoil_inactive = Talonario.findById(counterfoil_inactive.id)
         expect:"Counterfoil is not active"
         !counterfoil_inactive.activo
     }

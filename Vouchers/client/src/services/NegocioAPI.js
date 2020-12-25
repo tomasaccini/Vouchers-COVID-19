@@ -11,7 +11,7 @@ class NegocioAPI {
   }
 
   _transformarNegocio(n) {
-    const tarifarios = n.counterfoils._embedded.map((t) => this._transformarTarifario(t, n));
+    const talonarios = n.counterfoils._embedded.map((t) => this._transformarTalonario(t, n));
 
     return {
       'nombre': n.name,
@@ -26,13 +26,13 @@ class NegocioAPI {
         'numero': n.address.numero,
         'departamento': n.address.departamento
       },
-      'tarifarios': tarifarios
+      'talonarios': talonarios
     }
   }
 
-  _transformarTarifario(tarifario, negocio) {
+  _transformarTalonario(talonario, negocio) {
 
-    const iv = tarifario._embedded.informacionVoucher;
+    const iv = talonario._embedded.informacionVoucher;
 
     const desde = new Date(iv.validoDesde);
     const hasta = new Date(iv.validoHasta);
@@ -43,7 +43,7 @@ class NegocioAPI {
       'Precio': iv.precio,
       'ValidoDesde': format(desde, 'yyyy/MM/dd'),
       'ValidoHasta': format(hasta, 'yyyy/MM/dd'),
-      'Stock': tarifario.stock,
+      'Stock': talonario.stock,
       // TODO no more owner !!!!
       'tieneDuenio': false,
       'NombreNegocio': negocio.name

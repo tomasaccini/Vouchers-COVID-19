@@ -14,7 +14,7 @@ class VoucherAPI {
   }
 
   async getTalonariosPorNegocio(negocioId){
-    const url = `${SERVER_URL}negocios/obtenerTarifarios/${negocioId}`;
+    const url = `${SERVER_URL}negocios/obtenerTalonarios/${negocioId}`;
     console.log(`debug | getTalonariosPorNegocio URL is: ${url}`);
     const res = await fetch(url);
     const counterfoils = await res.json();
@@ -33,19 +33,26 @@ class VoucherAPI {
     return vouchers.map((v) => this._transformarVoucher(v));
   }
 
-  async comprarVoucher(clienteId, tarifarioId) {
-    const url = `${SERVER_URL}tarifarios/comprar`;
+  async comprarVoucher(clienteId, talonarioId) {
+    const url = `${SERVER_URL}talonarios/comprar`;
     console.log(`debug | comprarVoucher URL is: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ clienteId: clienteId, tarifarioId: tarifarioId })
+      body: JSON.stringify({ clienteId: clienteId, talonarioId: talonarioId })
     });
+
+    console.log(res);
+    if (res.status !== 200 || res.status !== 201) {
+      window.alert(res.message);
+      return null;
+    }
+
     const voucher = await res.json();
     console.log(`debug | compro voucher: `, voucher);
     return this._transformarVoucher(voucher);
   }
 
-  _transformarItems(item){
+  _transformarItems(item) {
     return {
       'cantidad': item.cantidad,
       'nombre':  item.producto.nombre,

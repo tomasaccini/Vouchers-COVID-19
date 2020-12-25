@@ -12,7 +12,7 @@ class UrlMappings {
         "/negocios"(controller: 'negocio', action: 'obtenerTodos')
         "/negocios/search"(controller: 'negocio', action: 'search')
         post "/negocios"(controller: 'negocio', action: 'crear')
-        "/negocios/obtenerTarifarios/$id"(controller: 'negocio', action: 'obtenerTarifarios')
+        "/negocios/obtenerTalonarios/$id"(controller: 'negocio', action: 'obtenerTalonarios')
 
         //Voucher
         "/vouchers"(resources:"voucher")
@@ -43,11 +43,11 @@ class UrlMappings {
         // Recomendaciones
         "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
 
-        // Tarifarios
-        "/tarifarios"(controller: 'tarifario', action: 'getAll')
-        "/tarifarios/search"(controller: 'tarifario', action: 'search')
-        post "/tarifarios/comprar"(controller: 'tarifario', action: 'comprar')
-        post "/tarifarios"(controller: 'tarifario', action: 'crear')
+        // Talonarios
+        "/talonarios"(controller: 'talonario', action: 'getAll')
+        "/talonarios/search"(controller: 'talonario', action: 'search')
+        post "/talonarios/comprar"(controller: 'talonario', action: 'comprar')
+        post "/talonarios"(controller: 'talonario', action: 'crear')
 
 
         delete "/$controller/$id(.$format)?"(action:"delete")

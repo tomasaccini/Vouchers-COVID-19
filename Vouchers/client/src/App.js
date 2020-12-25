@@ -3,8 +3,8 @@ import HomePage from "./usersView/Home";
 import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
 import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
 import NegocioPerfilPage from "./usersView/NegocioPerfil"
-import TarifariosPage from "./usersView/Tarifarios"
-import TarifariosCrearPage from "./usersView/TarifarioCrear"
+import TalonariosPage from "./usersView/Talonarios"
+import TalonariosCrearPage from "./usersView/TalonarioCrear"
 import ProductosPage from "./usersView/ProductosVer"
 import ProductosCrearPage from "./usersView/ProductoCrear"
 import IniciarSesionPage from "./usersView/IniciarSesion";
@@ -90,11 +90,11 @@ class App extends Component {
                     <Route path={navegacion.getReclamos()}>
                         {this.validarSesionIniciada(<Reclamos usuarioId={parseInt(localStorage.getItem('userId'))}/>)}
                     </Route>
-                    <Route path={navegacion.getTarifariosCrear()}>
-                        {this.validarSesionInciadaNegocio(<TarifariosCrearPage />)}
+                    <Route path={navegacion.getTalonariosCrear()}>
+                        {this.validarSesionInciadaNegocio(<TalonariosCrearPage />)}
                     </Route>
-                    <Route path={navegacion.getTarifarios()}>
-                        {this.validarSesionInciadaNegocio(<TarifariosPage />)}
+                    <Route path={navegacion.getTalonarios()}>
+                        {this.validarSesionInciadaNegocio(<TalonariosPage />)}
                     </Route>
                     <Route path={navegacion.getProductosCrear()}>
                         {this.validarSesionInciadaNegocio(<ProductosCrearPage />)}

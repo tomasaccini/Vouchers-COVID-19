@@ -99,18 +99,18 @@ class VoucherController extends RestfulController {
         Object requestBody = request.JSON
 
         Long clienteId
-        Long tarifarioId
+        Long talonarioId
         try {
             clienteId = requestBody['clientId']
-            tarifarioId = requestBody['counterfoilId']
+            talonarioId = requestBody['counterfoilId']
         } catch (Exception e) {
             return response.sendError(400, "Error en el formato del body del request")
         }
 
-        println('Create a new Voucher with clientId: ' + clienteId + ", counterfoilId: " + tarifarioId + ".")
+        println('Create a new Voucher with clientId: ' + clienteId + ", counterfoilId: " + talonarioId + ".")
 
         try {
-            Voucher voucher = clienteService.comprarVoucher(clienteId, tarifarioId)
+            Voucher voucher = clienteService.comprarVoucher(clienteId, talonarioId)
             VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
             respond voucherCommand
         } catch (RuntimeException re) {

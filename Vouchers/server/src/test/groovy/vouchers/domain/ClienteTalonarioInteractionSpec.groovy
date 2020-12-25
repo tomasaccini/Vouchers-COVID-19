@@ -4,13 +4,13 @@ import enums.InteraccionType
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 import vouchers.Cliente
-import vouchers.InteraccionClienteTarifario
-import vouchers.Tarifario
+import vouchers.InteraccionClienteTalonario
+import vouchers.Talonario
 import vouchers.Item
 import vouchers.Producto
 import vouchers.InformacionVoucher
 
-class ClienteTarifarioInteractionSpec extends Specification implements DomainUnitTest<InteraccionClienteTarifario> {
+class ClienteTalonarioInteractionSpec extends Specification implements DomainUnitTest<InteraccionClienteTalonario> {
 
     def createVoucherInformation(valid_until = new Date('2020/12/31')) {
         Producto p1 = new Producto(nombre:"Hamburguesa", descripcion: "Doble cheddar")
@@ -28,18 +28,18 @@ class ClienteTarifarioInteractionSpec extends Specification implements DomainUni
     void "constructor view"() {
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         InformacionVoucher vi = createVoucherInformation()
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3)
-        InteraccionClienteTarifario cci = new InteraccionClienteTarifario(cliente: c, tarifario: counterfoil, interaccion: InteraccionType.Visto)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3)
+        InteraccionClienteTalonario cci = new InteraccionClienteTalonario(cliente: c, talonario: counterfoil, interaccion: InteraccionType.Visto)
         expect:"interaction constructed correctly"
-        cci != null && cci.cliente == c && cci.tarifario == counterfoil && cci.dateCreated != null && cci.interaccion == InteraccionType.Visto
+        cci != null && cci.cliente == c && cci.talonario == counterfoil && cci.dateCreated != null && cci.interaccion == InteraccionType.Visto
     }
 
     void "constructor buy"() {
         Cliente c = new Cliente(full_name: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         InformacionVoucher vi = createVoucherInformation()
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3)
-        InteraccionClienteTarifario cci = new InteraccionClienteTarifario(cliente: c, tarifario: counterfoil, interaccion: InteraccionType.Comprado)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3)
+        InteraccionClienteTalonario cci = new InteraccionClienteTalonario(cliente: c, talonario: counterfoil, interaccion: InteraccionType.Comprado)
         expect:"interaction constructed correctly"
-        cci != null && cci.cliente == c && cci.tarifario == counterfoil && cci.dateCreated != null && cci.interaccion == InteraccionType.Comprado
+        cci != null && cci.cliente == c && cci.talonario == counterfoil && cci.dateCreated != null && cci.interaccion == InteraccionType.Comprado
     }
 }

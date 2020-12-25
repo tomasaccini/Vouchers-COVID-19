@@ -164,16 +164,16 @@
 }
 ```
 
-## Tarifario
+## Talonario
 
-### URL/tarifario/{id}
+### URL/talonario/{id}
 
 #### Params
 
-* URL/tarifario/{id}
+* URL/talonario/{id}
 
 ```md
-* Devuelve el tarifario con el id indicado
+* Devuelve el talonario con el id indicado
 ```
 
 #### Respuesta
@@ -183,10 +183,10 @@
     id: <long:id>
     stock: <int:cantidad disponible para comprar>
     cantidadVendida: <int:cantidad que ya se vendió>
-    nombre: <string:nombre del negocio dueño del tarifario>
+    nombre: <string:nombre del negocio dueño del talonario>
     info: {
         precio: <long: precio de un voucher>
-        descripcion: <string: descripcion del tarifario>
+        descripcion: <string: descripcion del talonario>
         validoDesde: <date>
         validoHasta: <date>
         items: <listado de los items que lo componen>
@@ -194,54 +194,54 @@
 }
 ```
 
-### URL/tarifarios
+### URL/talonarios
 
-* URL/tarifarios
-* URL/tarifarios?max=n
+* URL/talonarios
+* URL/talonarios?max=n
 
 ```md
-* Devuele lista de todos los tarifarios, excepto que se indique un máximo
+* Devuele lista de todos los talonarios, excepto que se indique un máximo
 ```
 
 #### Respuesta
 
 ```json
 {
-    [lista de tarifarios con los atributos mostrados en show]
+    [lista de talonarios con los atributos mostrados en show]
 }
 ```
 
-### URL/tarifarios/search
+### URL/talonarios/search
 
 #### Params
 
-* URL/tarifarios/search?q={búsqueda}
-* URL/tarifarios/search?q={búsqueda}&max={máx resultado}
+* URL/talonarios/search?q={búsqueda}
+* URL/talonarios/search?q={búsqueda}&max={máx resultado}
 
 ```md
 * Por razones de tiempos (más que nada en un escenario real) la búsqueda no se realiza si la cadena buscada es de 2 o menos caracteres.
-* Devuelve un listado de los tarifario que poseen la cadena en:
+* Devuelve un listado de los talonario que poseen la cadena en:
  - nombre de alguno de sus productos
  - descripcion de alguno de sus productos
- - descripcion del tarifario
+ - descripcion del talonario
 ```
 
 #### Respuesta
 
 ```json
 {
-    listado de tarifario, ver formato en show
+    listado de talonario, ver formato en show
 }
 ```
 
-### URL/tarifarios/comprar
+### URL/talonarios/comprar
 
-Se crea un nuevo voucher a partir del tarifario dado y se lo asigna al cliente indicado
+Se crea un nuevo voucher a partir del talonario dado y se lo asigna al cliente indicado
 
 #### Params
 
-* post URL/tarifarios/comprar
-    con body {tarifarioId: {id}, clienteId: {id}}
+* post URL/talonarios/comprar
+    con body {talonarioId: {id}, clienteId: {id}}
 
 #### Respuesta
 

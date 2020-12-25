@@ -1,28 +1,28 @@
 package assemblers
 
-import commands.TarifarioCommand
+import commands.TalonarioCommand
 import templates.ConcreteObjectAssembler
-import vouchers.Tarifario
+import vouchers.Talonario
 
-class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, TarifarioCommand> {
+class CounterfoilAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
     VoucherAssembler voucherAssembler
     
     @Override
-    protected Tarifario getEntity(Long id) {
-        return (id == null || id == 0) ? new Tarifario() : Tarifario.get(id)
+    protected Talonario getEntity(Long id) {
+        return (id == null || id == 0) ? new Talonario() : Talonario.get(id)
     }
 
     @Override
-    protected TarifarioCommand createBean() {
-        return new TarifarioCommand()
+    protected TalonarioCommand createBean() {
+        return new TalonarioCommand()
     }
 
     @Override
-    TarifarioCommand toBean(Tarifario domain) {
+    TalonarioCommand toBean(Talonario domain) {
 
-        TarifarioCommand bean = super.toBean(domain)
+        TalonarioCommand bean = super.toBean(domain)
 
         bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
@@ -34,9 +34,9 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Tarifario, TarifarioC
     }
 
     @Override
-    Tarifario fromBean(TarifarioCommand bean) {
+    Talonario fromBean(TalonarioCommand bean) {
 
-        Tarifario domain 	= super.fromBean(bean)
+        Talonario domain 	= super.fromBean(bean)
 
         domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
 

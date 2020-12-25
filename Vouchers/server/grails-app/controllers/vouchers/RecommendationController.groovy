@@ -1,14 +1,12 @@
 package vouchers
 
 import assemblers.CounterfoilAssembler
-import commands.TarifarioCommand
-import grails.converters.*
 import services.RecommendationService
 
 class RecommendationController {
 
     RecommendationService recommendationService
-    TarifarioService tarifarioService
+    TalonarioService talonarioService
     CounterfoilAssembler counterfoilAssembler
 
 	static responseFormats = ['json']
@@ -19,8 +17,8 @@ class RecommendationController {
         // TODO validate param !!!!
         println("Asking for recommendations for: ${userId}")
 
-        List<Tarifario> tarifarios = tarifarioService.getAll()
+        List<Talonario> talonarios = talonarioService.getAll()
 
-        respond tarifarios
+        respond talonarios
     }
 }

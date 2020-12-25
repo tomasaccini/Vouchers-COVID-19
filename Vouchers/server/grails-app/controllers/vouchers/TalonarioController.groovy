@@ -9,50 +9,50 @@ import static org.springframework.http.HttpStatus.OK
 
 import grails.gorm.transactions.Transactional
 
-class TarifarioController extends RestfulController{
+class TalonarioController extends RestfulController{
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [getAll: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
-    TarifarioService tarifarioService
+    TalonarioService talonarioService
 
-    TarifarioController() {
-        super(Tarifario)
+    TalonarioController() {
+        super(Talonario)
     }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond tarifarioService.list(params), model:[counterfoilCount: tarifarioService.count()]
+        respond talonarioService.list(params), model:[counterfoilCount: talonarioService.count()]
     }
 
     def show(Long id) {
-        respond tarifarioService.get(id)
+        respond talonarioService.get(id)
     }
 
-    List<Tarifario> getAll() {
-        respond tarifarioService.getAll()
+    List<Talonario> getAll() {
+        respond talonarioService.getAll()
     }
 
     /*
-    * Crea un voucher del tarifario indicado
+    * Crea un voucher del talonario indicado
     * Se lo asigna al cliente indicado
-    * URL/tarifarios/comprar
-    * body: { tarifarioId={id}, clienteId={id} }
+    * URL/talonarios/comprar
+    * body: { talonarioId={id}, clienteId={id} }
     */
     @Transactional
     def comprar(){
         Object requestBody = request.JSON
         Cliente cliente = Cliente.get(requestBody['clienteId']?.toLong())
-        Tarifario tarifario = Tarifario.get(requestBody['tarifarioId']?.toLong())
-        if (!cliente || !tarifario){
-            return response.sendError(400, "Cliente o tarifario erroneo")
+        Talonario talonario = Talonario.get(requestBody['talonarioId']?.toLong())
+        if (!cliente || !talonario){
+            return response.sendError(400, "Cliente o talonario erroneo")
         }
         try {
-            Voucher voucher = tarifario.crearVoucher(cliente)
+            Voucher voucher = talonario.crearVoucher(cliente)
             respond voucher
         } catch (Exception e) {
             println(e)
-            return response.sendError(400, "El Voucher no pudo ser creado")
+            return response.sendError(400, "El Voucher no pudo ser creado: " + e.message)
         }
     }
 
@@ -80,7 +80,7 @@ class TarifarioController extends RestfulController{
         }
 
         try {
-            respond tarifarioService.createMock(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr), [status: CREATED]
+            respond talonarioService.createMock(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr), [status: CREATED]
         } catch (RuntimeException re) {
             response.sendError(400, re.message)
         }
@@ -89,8 +89,8 @@ class TarifarioController extends RestfulController{
 
 
     @Transactional
-    def save(Tarifario counterfoil) {
-        respond tarifarioService.createMock(), [status: CREATED]
+    def save(Talonario counterfoil) {
+        respond talonarioService.createMock(), [status: CREATED]
 
         /*
         if (counterfoil == null) {
@@ -115,7 +115,7 @@ class TarifarioController extends RestfulController{
     }
 
     @Transactional
-    def update(Tarifario counterfoil) {
+    def update(Talonario counterfoil) {
         if (counterfoil == null) {
             render status: NOT_FOUND
             return
@@ -127,7 +127,7 @@ class TarifarioController extends RestfulController{
         }
 
         try {
-            tarifarioService.save(counterfoil)
+            talonarioService.save(counterfoil)
         } catch (ValidationException e) {
             respond counterfoil.errors
             return
@@ -143,22 +143,22 @@ class TarifarioController extends RestfulController{
             return
         }
 
-        tarifarioService.delete(id)
+        talonarioService.delete(id)
 
         render status: NO_CONTENT
     }
 
     /*
     * Dada una cadena de largo mayor a 2
-    * URL/tarifario/search?q={busqueda}
-    * URL/tarifario/search?q={busqueda}&max={maximas respuestas deseadas}
-    * Devuelve listado de los tarifarios que poseen esa cadena en su descripcion
+    * URL/talonario/search?q={busqueda}
+    * URL/talonario/search?q={busqueda}&max={maximas respuestas deseadas}
+    * Devuelve listado de los talonarios que poseen esa cadena en su descripcion
     */
     def search(String q, Integer max){
         def map = [:]
         map.max = Math.min( max ?: 10, 100)
         if (q &&  q.length() > 2){
-            respond tarifarioService.findSimilar(q, map)
+            respond talonarioService.findSimilar(q, map)
         } else {
             respond([])
         }

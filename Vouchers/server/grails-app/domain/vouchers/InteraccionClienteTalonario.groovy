@@ -2,17 +2,17 @@ package vouchers
 
 import enums.InteraccionType
 
-class InteraccionClienteTarifario {
+class InteraccionClienteTalonario {
 
     InteraccionType interaccion
     Date dateCreated = new Date()
     Cliente cliente
-    Tarifario tarifario
+    Talonario talonario
 
     static constraints = {
         interaccion nullable: false
         dateCreated nullable: false
         cliente nullable: false
-        tarifario nullable: false
+        talonario nullable: false
     }
 }
