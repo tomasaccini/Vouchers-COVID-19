@@ -42,7 +42,7 @@ class VoucherAPI {
     });
 
     console.log(res);
-    if (res.status !== 200 || res.status !== 201) {
+    if (res.status !== 200 && res.status !== 201) {
       window.alert(res.message);
       return null;
     }
