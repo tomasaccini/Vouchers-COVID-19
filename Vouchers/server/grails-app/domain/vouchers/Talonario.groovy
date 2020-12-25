@@ -4,7 +4,7 @@ import org.hibernate.service.spi.ServiceException
 
 import javax.xml.bind.ValidationException
 
-class Tarifario {
+class Talonario {
 
     InformacionVoucher informacionVoucher
     int stock
@@ -36,13 +36,13 @@ class Tarifario {
     Voucher crearVoucher(Cliente cliente) {
 
         if (stock <= 0) {
-            throw new RuntimeException("Voucher does not have stock")
+            throw new RuntimeException("Talonario no tiene suficiente stock")
         }
 
         Voucher voucher = new Voucher(
                 informacionVoucher: informacionVoucher.duplicar(),
                 cliente: cliente,
-                tarifario: this
+                talonario: this
         )
 
         //TODO: This must be propably an atomic attribute

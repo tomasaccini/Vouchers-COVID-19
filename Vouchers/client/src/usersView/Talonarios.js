@@ -12,7 +12,7 @@ import voucherAPI from "../services/VoucherAPI";
 
 import './styles.css';
 
-class Tarifarios extends Component {
+class Talonarios extends Component {
 
     constructor() {
         super();
@@ -33,10 +33,10 @@ class Tarifarios extends Component {
     render() {
         return (
             <div>
-                <NavbarUsuario title={constantes.misTarifariosTitulo} />
+                <NavbarUsuario title={constantes.misTalonariosTitulo} />
                 <div className="tituloProductos">
-                    <h1>Mis Tarifarios</h1>
-                    <Link to={navegacion.getTarifariosCrear()} >
+                    <h1>Mis Talonarios</h1>
+                    <Link to={navegacion.getTalonariosCrear()} >
                         <Button color="primary" size="large">
                             + Crear nuevo
                         </Button>
@@ -52,4 +52,4 @@ class Tarifarios extends Component {
     }
 }
 
-export default Tarifarios;
+export default Talonarios;

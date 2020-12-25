@@ -7,9 +7,9 @@ import org.hibernate.SessionFactory
 
 @Integration
 @Rollback
-class TarifarioServiceSpec extends Specification {
+class TalonarioServiceSpec extends Specification {
 
-    TarifarioService counterfoilService
+    TalonarioService counterfoilService
     SessionFactory sessionFactory
 
     private Long setupData() {
@@ -34,7 +34,7 @@ class TarifarioServiceSpec extends Specification {
         setupData()
 
         when:
-        List<Tarifario> counterfoilList = counterfoilService.list(max: 2, offset: 2)
+        List<Talonario> counterfoilList = counterfoilService.list(max: 2, offset: 2)
 
         then:
         counterfoilList.size() == 2
@@ -65,7 +65,7 @@ class TarifarioServiceSpec extends Specification {
     void "test save"() {
         when:
         assert false, "TODO: Provide a valid instance to save"
-        Tarifario counterfoil = new Tarifario()
+        Talonario counterfoil = new Talonario()
         counterfoilService.save(counterfoil)
 
         then:

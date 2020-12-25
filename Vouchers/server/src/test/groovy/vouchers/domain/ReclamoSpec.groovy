@@ -7,7 +7,7 @@ import vouchers.Direccion
 import vouchers.Negocio
 import vouchers.Cliente
 import vouchers.Reclamo
-import vouchers.Tarifario
+import vouchers.Talonario
 
 import vouchers.Item
 import vouchers.Producto
@@ -28,8 +28,8 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
 
     def createComplaint(Negocio b, Cliente c) {
         InformacionVoucher vi = createVoucherInformation()
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3)
-        b.addToTarifarios(counterfoil)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3)
+        b.addToTalonarios(counterfoil)
         Voucher v = new Voucher(informacionVoucher: vi)
         c.addToVouchers(v)
         Reclamo complaint = new Reclamo(cliente: c, negocio: b, descripcion: "Description of my problem")

@@ -2,20 +2,17 @@ package vouchers
 
 import enums.ProductType
 import grails.gorm.transactions.Transactional
-import org.hibernate.service.spi.ServiceException
-
-import javax.xml.bind.ValidationException
 
 @Transactional
-class TarifarioService {
+class TalonarioService {
 
     VoucherService voucherService
 
     // !!!!
-    List<Tarifario> counterfoilDB = []
+    List<Talonario> counterfoilDB = []
 
     // !!!!
-    TarifarioService() {
+    TalonarioService() {
         /*
         counterfoilDB = [
                 createMock("Restaurant 1"),
@@ -28,28 +25,28 @@ class TarifarioService {
     }
 
     // !!!!
-    Tarifario createMock(String name) {
+    Talonario createMock(String name) {
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 5)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 5)
         counterfoil.negocio = mockBusiness(name)
         counterfoilDB.add(counterfoil)
         return counterfoil
     }
 
-    Tarifario createMock(String negocioId, Integer stock, Double precio, String descripcion, String validoDesdeStr, String validoHastaStr) {
+    Talonario createMock(String negocioId, Integer stock, Double precio, String descripcion, String validoDesdeStr, String validoHastaStr) {
         Negocio negocio = Negocio.findById(negocioId)
         if (negocio == null) {
-            throw new RuntimeException('No se puede crear un tarifario para un voucher invalido')
+            throw new RuntimeException('No se puede crear un talonario para un voucher invalido')
         }
 
         if (stock < 0) {
-            throw new RuntimeException('No se puede crear un tarifario con stock negativo')
+            throw new RuntimeException('No se puede crear un talonario con stock negativo')
         }
         if (precio < 0) {
-            throw new RuntimeException('No se puede crear un tarifario con precio negativo')
+            throw new RuntimeException('No se puede crear un talonario con precio negativo')
         }
         if (descripcion.isEmpty()) {
-            throw new RuntimeException('No se puede crear un tarifario con descripcion vacia')
+            throw new RuntimeException('No se puede crear un talonario con descripcion vacia')
         }
         Date validoDesde = new Date(validoDesdeStr)
         Date validoHasta = new Date(validoHastaStr)
@@ -57,14 +54,14 @@ class TarifarioService {
         println("!!!!" + validoDesde)
 
         InformacionVoucher vi = new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta:  validoHasta)
-        Tarifario tarifario = new Tarifario(informacionVoucher: vi, stock: stock, negocio: negocio)
-        tarifario.save()
+        Talonario talonario = new Talonario(informacionVoucher: vi, stock: stock, negocio: negocio)
+        talonario.save()
 
-        tarifario
+        talonario
     }
 
-    List<Tarifario> getAll() {
-        return Tarifario.findAll()
+    List<Talonario> getAll() {
+        return Talonario.findAll()
     }
 
     // !!!!
@@ -102,12 +99,12 @@ class TarifarioService {
         return business
     }
 
-    Tarifario get(Long counterfoilId) {
-        return Tarifario.findById(counterfoilId)
+    Talonario get(Long counterfoilId) {
+        return Talonario.findById(counterfoilId)
     }
 
-    List<Tarifario> list(Map args) {
-        Tarifario.list(args)
+    List<Talonario> list(Map args) {
+        Talonario.list(args)
     }
 
     /*
@@ -115,7 +112,7 @@ class TarifarioService {
     * If already active, nothing happens
     */
     def activate(Long id) {
-        Tarifario counterfoil = Tarifario.get(id)
+        Talonario counterfoil = Talonario.get(id)
         if (counterfoil.activo) {
             return
         }
@@ -128,7 +125,7 @@ class TarifarioService {
     * If already not active, nothing happens
     */
     def deactivate(Long id) {
-        Tarifario counterfoil = Tarifario.get(id)
+        Talonario counterfoil = Talonario.get(id)
         if (!counterfoil.activo) {
             return
         }
@@ -136,13 +133,13 @@ class TarifarioService {
         counterfoil.save(flush:true)
     }
 
-    List<Tarifario> findSimilar(String q, Map map) {
-        String query = "select distinct(t) from Tarifario as t "
+    List<Talonario> findSimilar(String q, Map map) {
+        String query = "select distinct(t) from Talonario as t "
         query += "join t.informacionVoucher.items as items"
         query += " where lower(t.informacionVoucher.descripcion) like :search "
         query += " or lower(items.producto.descripcion) like :search "
         query += " or lower(items.producto.nombre) like :search "
-        Tarifario.executeQuery(query, [search: "%${q}%".toLowerCase()] , map)
+        Talonario.executeQuery(query, [search: "%${q}%".toLowerCase()] , map)
     }
 
 }

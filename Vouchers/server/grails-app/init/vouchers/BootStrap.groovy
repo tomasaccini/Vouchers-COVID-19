@@ -1,6 +1,6 @@
 package vouchers
 
-import ch.qos.logback.core.net.server.Client
+
 import enums.ProductType
 
 class BootStrap {
@@ -45,12 +45,12 @@ class BootStrap {
                     validoDesde: new Date(),
                     validoHasta: new Date()).save(failOnError:true)
 
-        def tarifario1 = new Tarifario(stock: 10,
+        def talonario1 = new Talonario(stock: 3,
                         informacionVoucher: InformacionVoucher.get(1),
                         negocio: Negocio.get(1)
                         ).save(failOnError:true)
 
-        Negocio.get(1).addToTarifarios(Tarifario.get(1))
+        Negocio.get(1).addToTalonarios(Talonario.get(1))
 
         def cliente1 = new Cliente(fullName: "Pepe Argento",
                 phoneNumber: "1234",
@@ -65,7 +65,7 @@ class BootStrap {
 
         Negocio.get(1).addToProducts(Producto.get(1))
 
-        new Producto(nombre: "Hamburguuesas",
+        new Producto(nombre: "Hamburgüesas",
                 descripcion: "veganas",
                 negocio: Negocio.get(2),
                 type: ProductType.FAST_FOOD).save(failOnError:true)
@@ -82,14 +82,14 @@ class BootStrap {
 
 
         Negocio.get(2).addToProducts(Producto.get(2))
-        Tarifario.get(1).informacionVoucher.addToItems(item1)
-        Tarifario.get(1).informacionVoucher.addToItems(item2)
+        Talonario.get(1).informacionVoucher.addToItems(item1)
+        Talonario.get(1).informacionVoucher.addToItems(item2)
 
-        def voucher1 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)
-        def voucher2 = clienteService.comprarVoucher(cliente1.id, tarifario1.id)
+        def voucher1 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        def voucher2 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
 
         def reclamo1 = reclamoService.crearReclamo(voucher1.id, "Initial message !!!!")
-        reclamoService.nuevoMensaje(reclamo1.id, tarifario1.negocio.id, "Respuesta del negocio")
+        reclamoService.nuevoMensaje(reclamo1.id, talonario1.negocio.id, "Respuesta del negocio")
 
         def reclamo2 = reclamoService.crearReclamo(voucher2.id, "Initial message 2 !!!!")
     }

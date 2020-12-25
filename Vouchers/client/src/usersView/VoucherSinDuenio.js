@@ -47,18 +47,21 @@ export default function VoucherSinDuenio(props) {
   const classes = useStyles();
 
   const onClickBuyButton = async () => {
-    setModal(false)
-    setModalProducts(false)
+    setModal(false);
+    setModalProducts(false);
     // TODO pass actual user id!!!!
-    voucherAPI.comprarVoucher(3, props.data.id)
-    setComprado(true)
+    const voucherCreado = await voucherAPI.comprarVoucher(3, props.data.id);
+
+    if (voucherCreado !== null) {
+      setComprado(true);
+    }
   };
 
   if (comprado) {
     return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
   }
-  return (
 
+  return (
     <div>
       <Card className={classes.textCenter}>
         <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}>QUEDAN {props.data.stock} VOUCHERS</CardHeader>
@@ -130,8 +133,8 @@ export default function VoucherSinDuenio(props) {
         setModalProducts={setModalProducts} 
         modalProducts={modalProducts}
         items={props.data.items}
-        transition={Transition}/
-      >
+        transition={Transition}
+      />
     </div>
   );
 }

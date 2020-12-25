@@ -1,24 +1,22 @@
 package vouchers
 
-import org.hibernate.service.spi.ServiceException
-import grails.gorm.transactions.Transactional
 
-import javax.xml.bind.ValidationException
+import grails.gorm.transactions.Transactional
 
 @Transactional
 class ClienteService {
 
-    TarifarioService tarifarioService
+    TalonarioService talonarioService
     VoucherService voucherService
 
-    // TODO mover a tarifarioController? !!!!
-    Voucher comprarVoucher(Long clienteId, Long tarifarioId) {
-        println("ClienteService.comprarVoucher(${clienteId}, ${tarifarioId})")
+    // TODO mover a talonarioController? !!!!
+    Voucher comprarVoucher(Long clienteId, Long talonarioId) {
+        println("ClienteService.comprarVoucher(${clienteId}, ${talonarioId})")
 
-        Tarifario tarifario = tarifarioService.get(tarifarioId)
+        Talonario talonario = talonarioService.get(talonarioId)
         Cliente cliente = Cliente.get(clienteId)
 
-        Voucher voucher = tarifario.crearVoucher(cliente)
+        Voucher voucher = talonario.crearVoucher(cliente)
 
         println("ClienteService.comprarVoucher() => ${voucher}")
 

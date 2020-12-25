@@ -60,8 +60,8 @@ class NegocioPerfil extends Component {
                         </Typography>
                     </GridItem>
                     <GridItem>
-                        {this.state.perfil.tarifarios ?
-                            <ListaVouchers vouchers={this.state.perfil.tarifarios} /> :
+                        {this.state.perfil.talonarios ?
+                            <ListaVouchers vouchers={this.state.perfil.talonarios} /> :
                             <h1>Cargando</h1>}
                         {/* TODO: Create loading component */}
                     </GridItem>

@@ -1,0 +1,28 @@
+import vouchers.Talonario
+
+model {
+    Talonario talonario
+}
+json {
+    id talonario.id
+    stock talonario.stock
+    cantidadVendida talonario.cantidadVendida()
+    info {
+        precio talonario.informacionVoucher.precio
+        descripcion talonario.informacionVoucher.descripcion
+        validoDesde talonario.informacionVoucher.validoDesde
+        validoHasta talonario.informacionVoucher.validoHasta
+        items talonario.informacionVoucher.items.collect {
+            [
+                    id: it.id,
+                    cantidad: it.cantidad,
+                    producto: [
+                            id: it.producto.id,
+                            nombre: it.producto.nombre,
+                            descripcion: it.producto.descripcion
+                    ]
+            ]
+        }
+    }
+    nombre talonario.negocio.nombre
+}

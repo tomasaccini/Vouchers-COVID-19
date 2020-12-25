@@ -9,7 +9,7 @@ import javax.xml.bind.ValidationException
 class NegocioService {
 
     VoucherService voucherService
-    TarifarioService tarifarioService
+    TalonarioService talonarioService
 
     /*
     * Gets a product and adds it to business
@@ -37,9 +37,9 @@ class NegocioService {
     /*
     * Gets a counterfoil and adds it to business
     */
-    void addCounterfoil(Long id, Tarifario c) {
+    void addCounterfoil(Long id, Talonario c) {
         Negocio business = Negocio.get(id)
-        business.addToTarifarios(c)
+        business.addToTalonarios(c)
         try {
             business.save(flush:true, failOnError: true)
         } catch (ValidationException e){
@@ -67,7 +67,7 @@ class NegocioService {
         if (!business.isOwnerOfCounterfoil(counterfoilId)) {
             throw new RuntimeException("The business is not the owner of the Counterfoil")
         }
-        tarifarioService.activate(counterfoilId)
+        talonarioService.activate(counterfoilId)
     }
 
     /*
@@ -79,7 +79,7 @@ class NegocioService {
         if (!business.isOwnerOfCounterfoil(counterfoilId)) {
             throw new RuntimeException("The business is not the owner of the Counterfoil")
         }
-        tarifarioService.deactivate(counterfoilId)
+        talonarioService.deactivate(counterfoilId)
     }
 
     List<Negocio> obtenerTodos() {

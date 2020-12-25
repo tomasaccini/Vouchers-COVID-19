@@ -6,12 +6,12 @@ import { Redirect } from "react-router-dom";
 import navegacion from "../utils/navegacion";
 import './styles.css';
 
-class TarifarioCrear extends Component {
+class TalonarioCrear extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          creado: false,  
+          creado: false,
           nombre: '',
           descripcion: '',
         };
@@ -26,7 +26,7 @@ class TarifarioCrear extends Component {
     mySubmitHandler = (event) => {
         event.preventDefault();
         // sacar el harcodeo de negocio
-        //VoucherAPI.crearTarifario(1, this.state);
+        //VoucherAPI.crearTalonario(1, this.state);
         this.setState({comprado: true});
     }
 
@@ -52,13 +52,13 @@ class TarifarioCrear extends Component {
     
     render() {
         if (this.state.creado) {
-            return <Redirect to={navegacion.getTarifarios()} />
+            return <Redirect to={navegacion.getTalonarios()} />
         }
         return (
             <div>
                 <NavbarUsuario />
                 <div className="productoCrear">
-                    <h1>Crear Nuevo Tarifario</h1>
+                    <h1>Crear Nuevo Talonario</h1>
                     {this._form()}
                 </div>
             </div>
@@ -66,4 +66,4 @@ class TarifarioCrear extends Component {
     }
 }
 
-export default TarifarioCrear;
+export default TalonarioCrear;

@@ -11,7 +11,7 @@ import vouchers.Direccion
 import vouchers.Negocio
 import vouchers.Cliente
 import vouchers.ClienteService
-import vouchers.Tarifario
+import vouchers.Talonario
 
 import vouchers.Item
 import vouchers.Producto
@@ -59,8 +59,8 @@ class ClienteServiceSpec extends Specification{
         Item item = new Item(producto: product, cantidad: 1)
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
         vi.addToItems(item)
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3, isActive: true)
-        business.addToTarifarios(counterfoil)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3, isActive: true)
+        business.addToTalonarios(counterfoil)
         business.save(flush: true, failOnError: true)
 
         Cliente client = new Cliente(fullName: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
@@ -78,11 +78,11 @@ class ClienteServiceSpec extends Specification{
         expect:
         Negocio.count() == 1
         Producto.count() == 1
-        Tarifario.count() == 1
+        Talonario.count() == 1
     }
 
     void "buy one voucher"() {
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
 
         Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
@@ -93,7 +93,7 @@ class ClienteServiceSpec extends Specification{
     }
 
     void "buy two vouchers"() {
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
 
         Voucher v1 = clientService.comprarVoucher(clientId, counterfoil)
         Voucher v2 = clientService.comprarVoucher(clientId, counterfoil)
@@ -106,7 +106,7 @@ class ClienteServiceSpec extends Specification{
     }
 
     void "retire Voucher"() {
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
 
         Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
@@ -119,8 +119,8 @@ class ClienteServiceSpec extends Specification{
         Negocio b = Negocio.findById(1)
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2019/01/01'), validoHasta:  new Date('2020/01/01'))
         vi.addToItems(Item.findById(1))
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3, isActive: true)
-        b.addToTarifarios(counterfoil)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3, isActive: true)
+        b.addToTalonarios(counterfoil)
         b.save(flush: true, failOnError: true)
         Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         when:
@@ -135,7 +135,7 @@ class ClienteServiceSpec extends Specification{
         Cliente c2 = new Cliente(fullName: "Mariano Iudica", email: "iudica@gmail.com", contrasenia: "iudica1234")
         c2.cuentaVerificada = true
         c2.save(flush:true, failOnError:true)
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
         Voucher v = clientService.comprarVoucher(c1.id, counterfoil)
         when:
         clientService.retirarVoucher(c2.id, v)

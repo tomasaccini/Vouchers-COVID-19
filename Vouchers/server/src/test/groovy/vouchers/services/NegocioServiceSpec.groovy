@@ -12,7 +12,7 @@ import vouchers.Negocio
 import vouchers.NegocioService
 import vouchers.Cliente
 import vouchers.ClienteService
-import vouchers.Tarifario
+import vouchers.Talonario
 
 import vouchers.Item
 import vouchers.Producto
@@ -62,8 +62,8 @@ class NegocioServiceSpec extends Specification{
         Item item = new Item(producto: product, cantidad: 1)
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
         vi.addToItems(item)
-        Tarifario counterfoil = new Tarifario(informacionVoucher: vi, stock: 3, isActive: true)
-        business.addToTarifarios(counterfoil)
+        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3, isActive: true)
+        business.addToTalonarios(counterfoil)
         business.save(flush: true, failOnError: true)
 
         Cliente client = new Cliente(fullName: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
@@ -79,11 +79,11 @@ class NegocioServiceSpec extends Specification{
         expect:
         Negocio.count() == 1
         Producto.count() == 1
-        Tarifario.count() == 1
+        Talonario.count() == 1
     }
 
     void "confirm voucher retirement"() {
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
         Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
         clientService.retirarVoucher(clientId, v)
@@ -93,7 +93,7 @@ class NegocioServiceSpec extends Specification{
     }
 
     void "confirm voucher retirement before client retires it"() {
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
         Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         when:
         businessService.confirmRetireVoucher(businessId, v)
@@ -105,7 +105,7 @@ class NegocioServiceSpec extends Specification{
     void "confirm voucher from other business"() {
         Negocio b2 = new Negocio(nombre: "Mc", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Corrientes", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "mc@gmail.com", contrasenia: "mc1234")
         b2.save()
-        Tarifario counterfoil = Tarifario.findById(1)
+        Talonario counterfoil = Talonario.findById(1)
         Voucher v = clientService.comprarVoucher(clientId, counterfoil)
         Cliente client = Cliente.get(clientId)
         clientService.retirarVoucher(clientId, v)

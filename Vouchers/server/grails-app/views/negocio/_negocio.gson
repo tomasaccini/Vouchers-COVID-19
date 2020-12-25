@@ -10,5 +10,5 @@ json {
     address hal.render(negocio.direccion, [deep:true])
     website negocio.website
     category negocio.categoria
-    counterfoils hal.render(negocio.tarifarios, [deep:true])
+    counterfoils hal.render(negocio.talonarios, [deep:true])
 }

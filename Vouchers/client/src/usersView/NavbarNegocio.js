@@ -16,8 +16,8 @@ export default function NavbarNegocio() {
     window.location.replace(navegacion.getNegocioPerfilUrl());
   };
 
-  const redirigirACrearTarifarios = () => {
-    window.location.replace(navegacion.getTarifarios());
+  const redirigirACrearTalonarios = () => {
+    window.location.replace(navegacion.getTalonarios());
   };
 
   const redirigirAProductos = () => {
@@ -34,9 +34,9 @@ export default function NavbarNegocio() {
         <ListItemIcon> <InboxIcon /> </ListItemIcon>
         <ListItemText primary={constantes.miNegocioTitulo} />
       </ListItem>
-      <ListItem button key={constantes.misTarifariosTitulo} onClick={redirigirACrearTarifarios}>
+      <ListItem button key={constantes.misTalonariosTitulo} onClick={redirigirACrearTalonarios}>
         <ListItemIcon> <CreateIcon /> </ListItemIcon>
-        <ListItemText primary={constantes.misTarifariosTitulo} />
+        <ListItemText primary={constantes.misTalonariosTitulo} />
       </ListItem>
       <ListItem button key={constantes.misProductosTitulo} onClick={redirigirAProductos}>
         <ListItemIcon> <CreateIcon /> </ListItemIcon>

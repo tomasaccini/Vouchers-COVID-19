@@ -1,9 +1,9 @@
 package commands
 
 import grails.validation.Validateable
-import vouchers.Tarifario
+import vouchers.Talonario
 
-class TarifarioCommand implements Validateable {
+class TalonarioCommand implements Validateable {
 
     Long id
     Long version
@@ -14,6 +14,6 @@ class TarifarioCommand implements Validateable {
     Integer cantidadVendida
 
     static constraints = {
-        importFrom Tarifario
+        importFrom Talonario
     }
 }
