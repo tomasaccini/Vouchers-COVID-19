@@ -42,7 +42,7 @@ class ChatBox extends Component {
         avatarLetter={mensaje.duenioEmail[0]}
         onlyFirstWithMeta
       >
-        <Message authorName={mensaje.duenioEmail} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
+        <Message authorName={fechasHelper.extraerAnioMesDia(mensaje.fecha)} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
           <MessageText style={this.estilos[false]}>
             {mensaje.texto}
           </MessageText>
@@ -56,7 +56,7 @@ class ChatBox extends Component {
       <MessageGroup isOwn={true}
                     onlyFirstWithMeta
       >
-        <Message isOwn={true} authorName={"Enviado"} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
+        <Message isOwn={true} authorName={`Enviado ${fechasHelper.extraerAnioMesDia(mensaje.fecha)}`} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
           <MessageText style={this.estilos[true]}>
             {mensaje.texto}
           </MessageText>
