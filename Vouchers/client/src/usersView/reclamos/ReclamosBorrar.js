@@ -11,7 +11,7 @@ import { Typography } from '@material-ui/core';
 import negocioAPI from '../../services/NegocioAPI.js';
 import constantes from '../../utils/constantes';
 import { ThemeProvider, ChatList, ChatListItem, AgentBar, Column, Avatar, TextComposer, Row, Fill, TextInput, Fit, SendButton, Subtitle, Title, MessageList, Message, MessageGroup, MessageTitle, MessageMedia, MessageText, MessageButton, MessageButtons } from '@livechat/ui-kit';
-import ChatBox from './ChatBox'
+import ReclamoChatBox from './ReclamoChatBox'
 
 
 // https://developers.livechat.com/docs/react-chat-ui-kit/
@@ -295,7 +295,7 @@ class Reclamos extends Component{
                           </ChatList>
                       </GridItem>
                       <GridItem xs={5}>
-                          <ChatBox usuarioId={1}/>
+                          <ReclamoChatBox usuarioId={1}/>
                       </GridItem>
                       <GridItem xs={2}>
                       </GridItem>

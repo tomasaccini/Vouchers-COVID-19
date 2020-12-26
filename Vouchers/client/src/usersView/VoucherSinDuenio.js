@@ -116,7 +116,7 @@ export default function VoucherSinDuenio(props) {
           className={classes.modalBody}
         >
           <h3>${props.data.precio}</h3>
-          <h5>¿Deseas confirmar la compra del voucher {props.data.titulo}?</h5>
+          <h5>¿Desea confirmar la compra del voucher {props.data.titulo}?</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}

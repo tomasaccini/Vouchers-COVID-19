@@ -9,25 +9,10 @@ import {
 } from '@livechat/ui-kit';
 import fechasHelper from '../../utils/fechasHelper';
 
-class ChatBox extends Component {
+class ReclamoChatBox extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      mensajes: [
-        {
-          duenioEmail: "Asdsaldas",
-          texto: "Este es el mensaje",
-          duenioId: 3,
-        },
-        {
-          duenioEmail: "Asdsaldas",
-          texto: "Este es el mensaje",
-          duenioId: 1,
-        },
-      ],
-    };
 
     // TODO hacerlo bien
     this.estilos = {
@@ -42,7 +27,7 @@ class ChatBox extends Component {
         avatarLetter={mensaje.duenioEmail[0]}
         onlyFirstWithMeta
       >
-        <Message authorName={mensaje.duenioEmail} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
+        <Message authorName={fechasHelper.extraerAnioMesDia(mensaje.fecha)} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
           <MessageText style={this.estilos[false]}>
             {mensaje.texto}
           </MessageText>
@@ -56,7 +41,7 @@ class ChatBox extends Component {
       <MessageGroup isOwn={true}
                     onlyFirstWithMeta
       >
-        <Message isOwn={true} authorName={"Enviado"} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
+        <Message isOwn={true} authorName={`Enviado ${fechasHelper.extraerAnioMesDia(mensaje.fecha)}`} date={fechasHelper.extraerHoraYMinutos(mensaje.fecha)}>
           <MessageText style={this.estilos[true]}>
             {mensaje.texto}
           </MessageText>
@@ -95,4 +80,4 @@ class ChatBox extends Component {
   }
 }
 
-export default ChatBox
+export default ReclamoChatBox

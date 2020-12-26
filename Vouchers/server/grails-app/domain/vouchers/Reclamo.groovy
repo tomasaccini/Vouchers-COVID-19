@@ -37,7 +37,27 @@ class Reclamo {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${negocio.id})")
         }
 
+        state = ReclamoState.Respondido
+
         _agregarMensaje(mensaje, duenio)
+    }
+
+    void cerrar() {
+        if (state == ReclamoState.Cerrado) {
+            throw new RuntimeException("El reclamo ya fue cerrado")
+        }
+
+        state = ReclamoState.Cerrado
+        this.save(flush:true, failOnError: true)
+        println('!!!! RECLAMO CERRADO: ' + state.toString())
+    }
+
+    void reabrir() {
+        state = mensajes.size() == 0 ? ReclamoState.Abierto : ReclamoState.Respondido
+    }
+
+    Boolean estaCerrado() {
+        return state == ReclamoState.Cerrado
     }
 
     private void _agregarMensaje(String mensaje, Usuario owner) {
@@ -49,21 +69,8 @@ class Reclamo {
         mensajeReclamo.save(flush:true, failOnError: true)
 
         this.addToMensajes(mensajeReclamo)
-        state = ReclamoState.Respondido
         fechaUltimoMensaje = new Date()
 
         this.save(flush:true, failOnError: true)
-    }
-
-    void cerrar() {
-        state = ReclamoState.Cerrado
-    }
-
-    void reabrir() {
-        state = mensajes.size() == 0 ? ReclamoState.Abierto : ReclamoState.Respondido
-    }
-
-    Boolean estaCerrado() {
-        return state == ReclamoState.Cerrado
     }
 }

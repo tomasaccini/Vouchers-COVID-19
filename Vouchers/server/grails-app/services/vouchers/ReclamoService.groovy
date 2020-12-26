@@ -58,6 +58,12 @@ class ReclamoService {
         reclamos.sort { - it.fechaUltimoMensaje.seconds }
     }
 
+    def cerrarReclamo(Long reclamoId) {
+        Reclamo reclamo = Reclamo.get(reclamoId)
+        reclamo.cerrar()
+        return reclamo
+    }
+
     private List<Reclamo> _obtenerPorUsuario(Cliente cliente) {
         List<Reclamo> reclamos = Reclamo.findAllByCliente(cliente)
 
@@ -77,6 +83,4 @@ class ReclamoService {
     private def agregarMensaje(Reclamo reclamo, Negocio duenio, String mensaje) {
         reclamo.agregarMensaje(mensaje, duenio)
     }
-
-    // !!!! cerrarReclamo
 }

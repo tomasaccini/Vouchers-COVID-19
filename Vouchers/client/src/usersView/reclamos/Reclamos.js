@@ -6,17 +6,18 @@ import GridItem from 'components/Grid/GridItem';
 import '../styles.css';
 import constantes from '../../utils/constantes';
 import { ThemeProvider, ChatList, ChatListItem, Column, Avatar, Row, Subtitle, Title } from '@livechat/ui-kit';
-import ChatBox from './ChatBox'
+import ReclamoChatBox from './ReclamoChatBox'
 import reclamoAPI from '../../services/ReclamoAPI';
 import fechasHelper from '../../utils/fechasHelper';
+import ReclamoChatListItem from "./ReclamoChatListItem";
 
 // https://developers.livechat.com/docs/react-chat-ui-kit/
+// TODO: show something in case there are no reclamos !!!!
 class Reclamos extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
     async componentDidMount() {
@@ -61,34 +62,32 @@ class Reclamos extends Component{
               <NavbarUsuario title={constantes.reclamosTitulo}/>
               <ThemeProvider>
                   <GridContainer className="vouchersGrid">
-                      <GridItem xs={1}>
+                      <GridItem xs={0} md={2} lg={2}>
                       </GridItem>
-                      <GridItem xs={4}>
+                      <GridItem xs={5} md={3} lg={3}>
                           <ChatList style={{maxWidth: 300}}>
                               { reclamos && reclamos.map((reclamo, index) => {
                                   const email = usuarioId === reclamo.clienteId ? reclamo.negocioEmail : reclamo.clienteEmail
 
-                                  return (
-                                    <ChatListItem active={index === indexReclamoActivo} onClick={() => this.updateIndexReclamoActivo(index)}>
-                                        <Avatar letter={email[0]}/>
-                                        <Column fill>
-                                            <Row justify>
-                                                <Title ellipsis>{email}</Title>
-                                                <Subtitle nowrap>{fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}</Subtitle>
-                                            </Row>
-                                            <Subtitle ellipsis>
-                                                {reclamo.mensajes[reclamo.mensajes.length-1].texto}
-                                            </Subtitle>
-                                        </Column>
-                                    </ChatListItem>
-                                  )
+                                  return <ReclamoChatListItem
+                                    active={index === indexReclamoActivo}
+                                    reclamoId={reclamo.id}
+                                    email={email}
+                                    subtitulo={reclamo.mensajes[reclamo.mensajes.length-1].texto}
+                                    fecha={fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}
+                                    onclick={() => this.updateIndexReclamoActivo(index)}
+                                  />
                               })}
                           </ChatList>
                       </GridItem>
-                      <GridItem xs={5}>
-                          <ChatBox usuarioId={usuarioId} mensajes={mensajes} onSend={this.enviarMensajeBuilder()} />
+                      <GridItem xs={7} md={5} lg={5}>
+                          <ReclamoChatBox
+                            usuarioId={usuarioId}
+                            mensajes={mensajes}
+                            onSend={this.enviarMensajeBuilder()}
+                          />
                       </GridItem>
-                      <GridItem xs={2}>
+                      <GridItem xs={0} md={2} lg={2}>
                       </GridItem>
                   </GridContainer>
               </ThemeProvider>
