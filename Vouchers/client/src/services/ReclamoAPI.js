@@ -22,11 +22,13 @@ class ReclamoAPI {
     return nuevoMensaje;
   }
 
-  async cerrarReclamo(reclamoId) {
+  async cerrarReclamo(reclamoId, usuarioId) {
+    console.log(reclamoId, usuarioId)
     const url = `${SERVER_URL}reclamos/${reclamoId}/cerrar`;
     console.log(`debug | cerrarReclamo URL es: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
+      body: JSON.stringify({ usuarioId: usuarioId })
     });
 
     if (res.status !== 200) {

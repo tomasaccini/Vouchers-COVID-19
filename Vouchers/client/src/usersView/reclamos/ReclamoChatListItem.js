@@ -37,7 +37,8 @@ export default function ReclamoChatListItem(props) {
 
   const xxx = async (reclamoId) => {
     setModal(false);
-    await reclamoAPI.cerrarReclamo(reclamoId);
+    const usuarioId = localStorage.getItem('userId');
+    await reclamoAPI.cerrarReclamo(reclamoId, usuarioId);
   };
 
   return (

@@ -28,7 +28,7 @@ class BootStrap {
                     numeroTelefonico: '123',
                     direccion: Direccion.get(1),
                     categoria: "food",
-                    email: "negocio1aaaaaaaaaaaa@sadfaaaa.com",
+                    email: "negocionombrelargo@negocio.com",
                     contrasenia: "topSecret",
                     cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 

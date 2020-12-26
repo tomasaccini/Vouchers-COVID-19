@@ -122,8 +122,14 @@ class ReclamoController extends RestfulController{
     * URL/complaints/closeComplaint/{id}
     */
     def cerrarReclamo(Long reclamoId) {
+        println("Request para cerrar un reclamo")
+
+        Object requestBody = request.JSON
+        String usuarioIdStr = requestBody['usuarioId']
+        Long usuarioId = usuarioIdStr.toLong()
+
         try {
-            Reclamo reclamo = reclamoService.cerrarReclamo(reclamoId)
+            Reclamo reclamo = reclamoService.cerrarReclamo(reclamoId, usuarioId)
             ReclamoCommand reclamoCommand = reclamoAssembler.toBean(reclamo)
             respond reclamoCommand
         } catch (RuntimeException re) {

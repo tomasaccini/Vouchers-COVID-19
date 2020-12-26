@@ -42,7 +42,11 @@ class Reclamo {
         _agregarMensaje(mensaje, duenio)
     }
 
-    void cerrar() {
+    void cerrar(Usuario usuarioCerrador) {
+        if (usuarioCerrador != cliente) {
+            throw new RuntimeException("El usuario " + usuarioCerrador.id + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
+        }
+
         if (state == ReclamoState.Cerrado) {
             throw new RuntimeException("El reclamo ya fue cerrado")
         }

@@ -58,9 +58,10 @@ class ReclamoService {
         reclamos.sort { - it.fechaUltimoMensaje.seconds }
     }
 
-    def cerrarReclamo(Long reclamoId) {
+    def cerrarReclamo(Long reclamoId, usuarioId) {
         Reclamo reclamo = Reclamo.get(reclamoId)
-        reclamo.cerrar()
+        Usuario usuario = Usuario.get(usuarioId)
+        reclamo.cerrar(usuario)
         return reclamo
     }
 
