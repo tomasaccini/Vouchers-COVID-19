@@ -41,6 +41,8 @@ export default function ReclamoChatListItem(props) {
     await reclamoAPI.cerrarReclamo(reclamoId, usuarioId);
   };
 
+  const esCliente = localStorage.getItem('tipoUsuario') === 'cliente';
+
   return (
     <ChatListItem active={active} onClick={onclick}>
       <Avatar letter={email[0]}/>
@@ -49,7 +51,7 @@ export default function ReclamoChatListItem(props) {
           <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
           <div style={{'display': 'flex'}}>
             <Subtitle nowrap>{fecha}</Subtitle>
-            <Button color="rose" size="sm" onClick={() => setModal(true)} style={{'margin': '0 0 0 10px'}}>X</Button>
+            { !esCliente ? null : <Button color="rose" size="sm" onClick={() => setModal(true)} style={{'margin': '0 0 0 10px'}}>X</Button> }
           </div>
         </Row>
         <Subtitle ellipsis>
