@@ -6,18 +6,28 @@ import GridItem from 'components/Grid/GridItem';
 import '../styles.css';
 import constantes from '../../utils/constantes';
 import { ThemeProvider, ChatList, ChatListItem, Column, Avatar, Row, Subtitle, Title } from '@livechat/ui-kit';
-import ChatBox from './ChatBox'
+import ReclamoChatBox from './ReclamoChatBox'
 import reclamoAPI from '../../services/ReclamoAPI';
 import fechasHelper from '../../utils/fechasHelper';
 import Button from 'components/CustomButtons/Button.js';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import modalStyle from 'assets/jss/material-kit-react/modalStyle.js';
+import Slide from '@material-ui/core/Slide';
+import { makeStyles } from '@material-ui/core/styles';
+import {cardTitle} from "../../assets/jss/material-kit-react";
+import ReclamoChatListItem from "./ReclamoChatListItem";
 
 // https://developers.livechat.com/docs/react-chat-ui-kit/
 class Reclamos extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {
-        }
+        this.state = {}
     }
 
     async componentDidMount() {
@@ -62,33 +72,29 @@ class Reclamos extends Component{
               <NavbarUsuario title={constantes.reclamosTitulo}/>
               <ThemeProvider>
                   <GridContainer className="vouchersGrid">
-                      <GridItem xs={1}>
+                      <GridItem xs={3}>
                       </GridItem>
-                      <GridItem xs={4}>
+                      <GridItem xs={3}>
                           <ChatList style={{maxWidth: 300}}>
                               { reclamos && reclamos.map((reclamo, index) => {
                                   const email = usuarioId === reclamo.clienteId ? reclamo.negocioEmail : reclamo.clienteEmail
 
-                                  return (
-                                    <ChatListItem active={index === indexReclamoActivo} onClick={() => this.updateIndexReclamoActivo(index)}>
-                                        <Avatar letter={email[0]}/>
-                                        <Column fill style={{'width': '100%'}}>
-                                            <Row justify>
-                                                <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
-                                                <Subtitle nowrap>{fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}</Subtitle>
-                                                <Button color="rose" size="sm">X</Button>
-                                            </Row>
-                                            <Subtitle ellipsis>
-                                                {reclamo.mensajes[reclamo.mensajes.length-1].texto}
-                                            </Subtitle>
-                                        </Column>
-                                    </ChatListItem>
-                                  )
+                                  return <ReclamoChatListItem
+                                    active={index === indexReclamoActivo}
+                                    email={email}
+                                    subtitulo={reclamo.mensajes[reclamo.mensajes.length-1].texto}
+                                    fecha={fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}
+                                    onclick={() => this.updateIndexReclamoActivo(index)}
+                                  />
                               })}
                           </ChatList>
                       </GridItem>
-                      <GridItem xs={5}>
-                          <ChatBox usuarioId={usuarioId} mensajes={mensajes} onSend={this.enviarMensajeBuilder()} />
+                      <GridItem xs={3}>
+                          <ReclamoChatBox
+                            usuarioId={usuarioId}
+                            mensajes={mensajes}
+                            onSend={this.enviarMensajeBuilder()}
+                          />
                       </GridItem>
                       <GridItem xs={2}>
                       </GridItem>

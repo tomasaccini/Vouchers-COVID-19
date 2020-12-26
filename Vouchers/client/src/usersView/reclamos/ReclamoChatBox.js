@@ -9,7 +9,7 @@ import {
 } from '@livechat/ui-kit';
 import fechasHelper from '../../utils/fechasHelper';
 
-class ChatBox extends Component {
+class ReclamoChatBox extends Component {
 
   constructor(props) {
     super(props);
@@ -80,4 +80,4 @@ class ChatBox extends Component {
   }
 }
 
-export default ChatBox
+export default ReclamoChatBox

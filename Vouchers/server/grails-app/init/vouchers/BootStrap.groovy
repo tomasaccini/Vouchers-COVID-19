@@ -24,15 +24,15 @@ class BootStrap {
                 provincia: "province",
                 pais: "Argentina").save(failOnError:true)
 
-        new Negocio(nombre:"The Stand",
+        def negocio1 = new Negocio(nombre:"The Stand",
                     numeroTelefonico: '123',
                     direccion: Direccion.get(1),
                     categoria: "food",
-                    email: "negocio1@sadf.com",
+                    email: "negocio1aaaaaaaaaaaa@sadfaaaa.com",
                     contrasenia: "topSecret",
                     cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
-        new Negocio(nombre:"Mc Dollar",
+        def negocio2 = new Negocio(nombre:"Mc Dollar",
                 numeroTelefonico: '123',
                 direccion: Direccion.get(2),
                 categoria: "food",
@@ -40,17 +40,26 @@ class BootStrap {
                 contrasenia: "topSecret",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
-        new InformacionVoucher(precio: 3.0,
-                    descripcion: "Rico",
-                    validoDesde: new Date(),
-                    validoHasta: new Date()).save(failOnError:true)
+        def informacionVoucher1 = new InformacionVoucher(precio: 3.0,
+                descripcion: "Rico",
+                validoDesde: new Date(),
+                validoHasta: new Date()).save(failOnError:true)
+
+        def informacionVoucher2 = new InformacionVoucher(precio: 3.0,
+                descripcion: "Feo",
+                validoDesde: new Date(),
+                validoHasta: new Date()).save(failOnError:true)
 
         def talonario1 = new Talonario(stock: 3,
-                        informacionVoucher: InformacionVoucher.get(1),
-                        negocio: Negocio.get(1)
-                        ).save(failOnError:true)
+                        informacionVoucher: informacionVoucher1,
+                        negocio: negocio1).save(failOnError:true)
 
-        Negocio.get(1).addToTalonarios(Talonario.get(1))
+        def talonario2 = new Talonario(stock: 3,
+                informacionVoucher: informacionVoucher2,
+                negocio: negocio2).save(failOnError:true)
+
+        negocio1.addToTalonarios(talonario1)
+        negocio2.addToTalonarios(talonario2)
 
         def cliente1 = new Cliente(fullName: "Pepe Argento",
                 phoneNumber: "1234",
@@ -63,7 +72,7 @@ class BootStrap {
                 negocio: Negocio.get(1),
                 type: ProductType.FAST_FOOD).save(failOnError:true)
 
-        Negocio.get(1).addToProducts(Producto.get(1))
+        negocio1.addToProducts(Producto.get(1))
 
         new Producto(nombre: "Hamburgüesas",
                 descripcion: "veganas",
@@ -72,26 +81,26 @@ class BootStrap {
 
         def item1 = new Item(
                 cantidad: 5,
-                producto: Producto.get(1)
-        ).save(failOnError:true)
+                producto: Producto.get(1)).save(failOnError:true)
 
         def item2 = new Item(
                 cantidad: 5,
-                producto: Producto.get(2)
-        ).save(failOnError:true)
+                producto: Producto.get(2)).save(failOnError:true)
 
 
         Negocio.get(2).addToProducts(Producto.get(2))
-        Talonario.get(1).informacionVoucher.addToItems(item1)
-        Talonario.get(1).informacionVoucher.addToItems(item2)
+        talonario1.informacionVoucher.addToItems(item1)
+        talonario1.informacionVoucher.addToItems(item2)
 
-        def voucher1 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
-        def voucher2 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        def voucher11 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        def voucher12 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        def voucher21 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
 
-        def reclamo1 = reclamoService.crearReclamo(voucher1.id, "Initial message !!!!")
-        reclamoService.nuevoMensaje(reclamo1.id, talonario1.negocio.id, "Respuesta del negocio")
+        def reclamo11 = reclamoService.crearReclamo(voucher11.id, "Initial message !!!!")
+        reclamoService.nuevoMensaje(reclamo11.id, talonario1.negocio.id, "Respuesta del negocio")
 
-        def reclamo2 = reclamoService.crearReclamo(voucher2.id, "Initial message 2 !!!!")
+        def reclamo12 = reclamoService.crearReclamo(voucher12.id, "Initial message 2 !!!!")
+        def reclamo21 = reclamoService.crearReclamo(voucher21.id, "Initial message 3 !!!!")
     }
 
     def destroy = {
