@@ -41,7 +41,6 @@ class VoucherAPI {
       body: JSON.stringify({ clienteId: clienteId, talonarioId: talonarioId })
     });
 
-    console.log(res);
     if (res.status !== 200 && res.status !== 201) {
       window.alert(res.message);
       return null;

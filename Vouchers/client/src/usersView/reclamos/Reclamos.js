@@ -9,20 +9,10 @@ import { ThemeProvider, ChatList, ChatListItem, Column, Avatar, Row, Subtitle, T
 import ReclamoChatBox from './ReclamoChatBox'
 import reclamoAPI from '../../services/ReclamoAPI';
 import fechasHelper from '../../utils/fechasHelper';
-import Button from 'components/CustomButtons/Button.js';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import IconButton from '@material-ui/core/IconButton';
-import Close from '@material-ui/icons/Close';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import modalStyle from 'assets/jss/material-kit-react/modalStyle.js';
-import Slide from '@material-ui/core/Slide';
-import { makeStyles } from '@material-ui/core/styles';
-import {cardTitle} from "../../assets/jss/material-kit-react";
 import ReclamoChatListItem from "./ReclamoChatListItem";
 
 // https://developers.livechat.com/docs/react-chat-ui-kit/
+// TODO: show something in case there are no reclamos !!!!
 class Reclamos extends Component{
 
     constructor(props) {
@@ -72,15 +62,16 @@ class Reclamos extends Component{
               <NavbarUsuario title={constantes.reclamosTitulo}/>
               <ThemeProvider>
                   <GridContainer className="vouchersGrid">
-                      <GridItem xs={3}>
+                      <GridItem xs={0} md={2} lg={2}>
                       </GridItem>
-                      <GridItem xs={3}>
+                      <GridItem xs={5} md={3} lg={3}>
                           <ChatList style={{maxWidth: 300}}>
                               { reclamos && reclamos.map((reclamo, index) => {
                                   const email = usuarioId === reclamo.clienteId ? reclamo.negocioEmail : reclamo.clienteEmail
 
                                   return <ReclamoChatListItem
                                     active={index === indexReclamoActivo}
+                                    reclamoId={reclamo.id}
                                     email={email}
                                     subtitulo={reclamo.mensajes[reclamo.mensajes.length-1].texto}
                                     fecha={fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}
@@ -89,14 +80,14 @@ class Reclamos extends Component{
                               })}
                           </ChatList>
                       </GridItem>
-                      <GridItem xs={3}>
+                      <GridItem xs={7} md={5} lg={5}>
                           <ReclamoChatBox
                             usuarioId={usuarioId}
                             mensajes={mensajes}
                             onSend={this.enviarMensajeBuilder()}
                           />
                       </GridItem>
-                      <GridItem xs={2}>
+                      <GridItem xs={0} md={2} lg={2}>
                       </GridItem>
                   </GridContainer>
               </ThemeProvider>

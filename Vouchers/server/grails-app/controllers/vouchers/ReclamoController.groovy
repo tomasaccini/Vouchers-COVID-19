@@ -122,16 +122,12 @@ class ReclamoController extends RestfulController{
     * URL/complaints/closeComplaint/{id}
     */
     def cerrarReclamo(Long reclamoId) {
-        Reclamo complaint = Reclamo.get(reclamoId)
-        if (!complaint) {
-            response.sendError(404)
+        try {
+            Reclamo reclamo = reclamoService.cerrarReclamo(reclamoId)
+            ReclamoCommand reclamoCommand = reclamoAssembler.toBean(reclamo)
+            respond reclamoCommand
+        } catch (RuntimeException re) {
+            response.sendError(400, re.message)
         }
-        if (complaint.estaCerrado()) {
-            //TODO: Mejorar mensajes
-            render (["message":"Complaint already closed", "id": reclamoId] as JSON)
-        }
-        complaint.cerrar()
-        complaint.save()
-        render (["id": reclamoId] as JSON)
     }
 }

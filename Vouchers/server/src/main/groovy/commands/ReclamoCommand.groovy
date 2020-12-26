@@ -9,5 +9,6 @@ class ReclamoCommand {
     Long negocioId
     String negocioEmail
     Date fechaUltimoMensaje
+    String state
     List<MensajeReclamoCommand> mensajes = []
 }

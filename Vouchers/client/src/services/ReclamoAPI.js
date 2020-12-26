@@ -22,6 +22,24 @@ class ReclamoAPI {
     return nuevoMensaje;
   }
 
+  async cerrarReclamo(reclamoId) {
+    const url = `${SERVER_URL}reclamos/${reclamoId}/cerrar`;
+    console.log(`debug | cerrarReclamo URL es: ${url}`);
+    const res = await fetch(url, {
+      method: 'POST',
+    });
+
+    if (res.status !== 200) {
+      window.alert(res.message);
+      return null;
+    }
+
+    const nuevoMensaje = await res.json();
+    console.log(`debug | cerrarReclamo: `, nuevoMensaje);
+    return nuevoMensaje;
+  }
+
+
   _transformarReclamos(reclamosDto) {
     return reclamosDto.map(reclamoDto => this._transformarReclamo(reclamoDto))
   }
