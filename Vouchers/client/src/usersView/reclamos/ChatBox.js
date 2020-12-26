@@ -14,21 +14,6 @@ class ChatBox extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      mensajes: [
-        {
-          duenioEmail: "Asdsaldas",
-          texto: "Este es el mensaje",
-          duenioId: 3,
-        },
-        {
-          duenioEmail: "Asdsaldas",
-          texto: "Este es el mensaje",
-          duenioId: 1,
-        },
-      ],
-    };
-
     // TODO hacerlo bien
     this.estilos = {
       false: { background: 'lightgrey', borderRadius: '6px' },

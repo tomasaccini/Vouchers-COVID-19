@@ -9,6 +9,7 @@ import { ThemeProvider, ChatList, ChatListItem, Column, Avatar, Row, Subtitle, T
 import ChatBox from './ChatBox'
 import reclamoAPI from '../../services/ReclamoAPI';
 import fechasHelper from '../../utils/fechasHelper';
+import Button from 'components/CustomButtons/Button.js';
 
 // https://developers.livechat.com/docs/react-chat-ui-kit/
 class Reclamos extends Component{
@@ -71,10 +72,11 @@ class Reclamos extends Component{
                                   return (
                                     <ChatListItem active={index === indexReclamoActivo} onClick={() => this.updateIndexReclamoActivo(index)}>
                                         <Avatar letter={email[0]}/>
-                                        <Column fill>
+                                        <Column fill style={{'width': '100%'}}>
                                             <Row justify>
-                                                <Title ellipsis>{email}</Title>
+                                                <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
                                                 <Subtitle nowrap>{fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}</Subtitle>
+                                                <Button color="rose" size="sm">X</Button>
                                             </Row>
                                             <Subtitle ellipsis>
                                                 {reclamo.mensajes[reclamo.mensajes.length-1].texto}
