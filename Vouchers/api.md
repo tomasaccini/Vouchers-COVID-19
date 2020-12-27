@@ -133,7 +133,7 @@
 
 ```md
 * Por razones de chequeo se indica tanto el voucher a confimar como el id del negocio dueño de este
-* Devuelve el voucher modificado, con estado retirado
+* Devuelve el voucher modificado, con estado 'Canjeado'
 ```
 
 #### Respuesta

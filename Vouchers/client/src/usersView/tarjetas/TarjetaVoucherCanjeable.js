@@ -104,13 +104,13 @@ export default function TarjetaVoucherCanjeable(props) {
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h4 className={classes.modalTitle}>Confirmar solicitud de canje</h4>
+          <h4 className={classes.modalTitle}>Solicitar canje de voucher</h4>
         </DialogTitle>
         <DialogContent
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Desea confirmar el canje del voucher {props.data.titulo}?</h5>
+          <h5>¿Desea solicitar el canje del voucher {props.data.titulo}?</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}

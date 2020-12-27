@@ -14,6 +14,7 @@ class VoucherCommand implements Validateable {
     Date lastStateChange = new Date()
     NegocioCommand negocioCommand
     Boolean enReclamo
+    String clienteEmail
 
     static constraints = {
         importFrom Voucher

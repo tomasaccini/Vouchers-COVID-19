@@ -3,7 +3,7 @@ package enums.states
 enum VoucherState {
     Comprado('Comprado'),
     ConfirmacionPendiente('ConfirmacionPendiente'),
-    Retirado('Retirado'),
+    Canjeado('Canjeado'),
     Expirado('Expirado')
     String id
 

@@ -48,16 +48,16 @@ export default function TarjetaVoucherConfirmable(props) {
   const tipoUsuario = localStorage.getItem('tipoUsuario');
   const deshabilitarCanje = tipoUsuario !== 'negocio';
 
-  const tarjetaHeader = tipoUsuario === 'negocio' ? 'aSDSADSADSA' : props.data.nombreNegocio;
+  const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.nombreNegocio;
 
-  const solicitarCanjeDeVoucher = async () => {
+  const confirmarCanjeDeVoucher = async () => {
     const usuarioId = localStorage.getItem('userId');
-    await voucherAPI.solicitarCanje(props.data.id, usuarioId);
+    await voucherAPI.confirmarCanje(props.data.id, usuarioId);
     setActualizar(true);
   }
 
   if (actualizar) {
-    window.location.replace(navegacion.getClienteCanjearVoucherUrl());
+    window.location.replace(navegacion.getVouchersConfirmablesUrl());
   }
 
   return (
@@ -77,7 +77,9 @@ export default function TarjetaVoucherConfirmable(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <ReclamarVoucherButton voucherId={props.data.id} />
+          <div style={{'visibility': 'hidden'}}>
+            <ReclamarVoucherButton voucherId={props.data.id} />
+          </div>
         </div>
       </Card>
 
@@ -107,7 +109,7 @@ export default function TarjetaVoucherConfirmable(props) {
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h4 className={classes.modalTitle}>Confirmar solicitud de canje</h4>
+          <h4 className={classes.modalTitle}>Confirmar canje de voucher</h4>
         </DialogTitle>
         <DialogContent
           id="modal-slide-description"
@@ -119,7 +121,7 @@ export default function TarjetaVoucherConfirmable(props) {
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={solicitarCanjeDeVoucher} color="success">
+          <Button onClick={confirmarCanjeDeVoucher} color="success">
             Confirmar
           </Button>
         </DialogActions>

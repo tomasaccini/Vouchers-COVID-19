@@ -68,7 +68,7 @@ class VoucherService {
             throw new RuntimeException("El voucher " + voucher.id + " no puede ser confirmado")
         }
 
-        voucher.state = VoucherState.Retirado
+        voucher.state = VoucherState.Canjeado
         voucher.lastStateChange = new Date()
         voucher.save(flush: true, failOnError: true)
     }

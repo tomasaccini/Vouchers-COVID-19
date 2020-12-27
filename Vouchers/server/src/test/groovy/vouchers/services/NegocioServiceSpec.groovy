@@ -89,7 +89,7 @@ class NegocioServiceSpec extends Specification{
         clientService.retirarVoucher(clientId, v)
         businessService.confirmRetireVoucher(businessId, v)
         expect:"Vouchers status in retired"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.Retirado
+        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.Canjeado
     }
 
     void "confirm voucher retirement before client retires it"() {

@@ -62,6 +62,24 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
+  async confirmarCanje(voucherId, negocioId) {
+    const url = `${SERVER_URL}/vouchers/confirmarCanje/${voucherId}`;
+    console.log(`debug | confirmarCanje URL is: ${url}`);
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ negocioId: negocioId })
+    });
+
+    if (res.status !== 200) {
+      window.alert(res.message);
+      return null;
+    }
+
+    const voucher = await res.json();
+    console.log(`debug | confirmarCanje: `, voucher);
+    return this._transformarVoucher(voucher);
+  }
+
   async solicitarCanje(voucherId, clienteId) {
     const url = `${SERVER_URL}/vouchers/solicitarCanje/${voucherId}`;
     console.log(`debug | solicitarCanje URL is: ${url}`);
@@ -130,6 +148,7 @@ class VoucherAPI {
       'nombreNegocio': voucher.negocioCommand.nombre,
       'state': voucher.state,
       'enReclamo': voucher.enReclamo,
+      'clienteEmail': voucher.clienteEmail,
     }
   }
 }

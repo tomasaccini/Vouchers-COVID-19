@@ -16,16 +16,16 @@ class VouchersConfirmables extends Component {
 
   constructor() {
     super();
-    this.state = { talonarios: [] };
+    this.state = { vouchersConfirmables: [] };
   }
 
   async componentDidMount() {
-    const talonarios = await this.getListaDeTalonarios();
+    const vouchersConfirmables = await this.getVouchersConfirmables();
 
-    this.setState({ talonarios })
+    this.setState({ vouchersConfirmables: vouchersConfirmables })
   }
 
-  async getListaDeTalonarios() {
+  async getVouchersConfirmables() {
     const usuarioId = localStorage.getItem('userId')
     return await voucherAPI.getVouchersConfirmablesPorNegocio(usuarioId);
   }
@@ -39,7 +39,7 @@ class VouchersConfirmables extends Component {
         </div>
         <GridContainer className="vouchersGrid">
           <GridItem>
-            <ListaTarjetas vouchers={this.state.talonarios}/>
+            <ListaTarjetas vouchers={this.state.vouchersConfirmables}/>
           </GridItem>
         </GridContainer>
       </div>

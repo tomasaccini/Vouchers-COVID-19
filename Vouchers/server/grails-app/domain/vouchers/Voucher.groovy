@@ -1,9 +1,6 @@
 package vouchers
 
 import enums.states.VoucherState
-import org.hibernate.service.spi.ServiceException
-
-import javax.xml.bind.ValidationException
 
 class Voucher {
 
@@ -69,7 +66,7 @@ class Voucher {
             throw new RuntimeException("El voucher " + id + " no puede ser confirmado")
         }
 
-        state = VoucherState.Retirado
+        state = VoucherState.Canjeado
         lastStateChange = new Date()
         save(flush: true, failOnError: true)
     }
