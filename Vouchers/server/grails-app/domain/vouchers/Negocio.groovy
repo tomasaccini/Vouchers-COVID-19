@@ -30,4 +30,10 @@ class Negocio extends Usuario {
     boolean isOwnerOfCounterfoil(Long id) {
         this.talonarios.any{ c -> c.id == id}
     }
+
+    List<Voucher> obtenerVouchersConfirmables() {
+        List<Voucher> vouchers = talonarios.collect { it.vouchers }.flatten() as List<Voucher>
+        println(vouchers)
+        return vouchers.findAll { it.esConfirmable() }
+    }
 }

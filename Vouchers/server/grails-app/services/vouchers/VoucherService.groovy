@@ -45,7 +45,7 @@ class VoucherService {
 
     def confirmarCanje(Long voucherId, Long negocioId) {
 
-        Negocio negocio = Cliente.get(negocioId)
+        Negocio negocio = Negocio.get(negocioId)
         if (negocio == null) {
             throw new RuntimeException("El negocio " + negocioId + " no existe")
         }
@@ -133,5 +133,14 @@ class VoucherService {
 
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: valid_until, items: [i1, i2])
         vi
+    }
+
+    List<Voucher> obtenerConfirmables(Long negocioId) {
+        Negocio negocio = Negocio.get(negocioId)
+        if (negocio == null) {
+            throw new RuntimeException("El negocio " + negocioId + " no existe")
+        }
+
+        return negocio.obtenerVouchersConfirmables()
     }
 }

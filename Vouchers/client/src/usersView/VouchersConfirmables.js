@@ -26,9 +26,9 @@ class VouchersConfirmables extends Component {
   }
 
   async getListaDeTalonarios() {
-    return await voucherAPI.getTalonariosPorNegocio(1);
+    const usuarioId = localStorage.getItem('userId')
+    return await voucherAPI.getVouchersConfirmablesPorNegocio(usuarioId);
   }
-
 
   render() {
     return (

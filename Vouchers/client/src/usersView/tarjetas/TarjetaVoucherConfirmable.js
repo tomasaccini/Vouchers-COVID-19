@@ -45,7 +45,10 @@ export default function TarjetaVoucherConfirmable(props) {
   const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
 
-  const deshabilitarCanje = props.data.state !== 'Comprado';
+  const tipoUsuario = localStorage.getItem('tipoUsuario');
+  const deshabilitarCanje = tipoUsuario !== 'negocio';
+
+  const tarjetaHeader = tipoUsuario === 'negocio' ? 'aSDSADSADSA' : props.data.nombreNegocio;
 
   const solicitarCanjeDeVoucher = async () => {
     const usuarioId = localStorage.getItem('userId');
@@ -60,14 +63,14 @@ export default function TarjetaVoucherConfirmable(props) {
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color="success"><b>{props.data.nombreNegocio}</b></CardHeader>
+        <CardHeader color="info"><b>{tarjetaHeader}</b></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p>
             {props.data.descripcion}
           </p>
           <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
-            Canjear
+            Confirmar
           </Button>
         </CardBody>
         <div style={{'margin': '0 20px', 'display': 'flex', 'justify-content': 'space-between'}}>

@@ -22,7 +22,8 @@ class VoucherController extends RestfulController {
     * URL/vouchers -> When max is not specified
     * URL/vouchers?max=n -> When max is specified
     */
-    def index(Integer max){
+
+    def index(Integer max) {
         println("Asking for vouchers list, maz size: ${params.max}")
         params.max = Math.min(max ?: 10, 100)
         respond Voucher.list(params)
@@ -34,11 +35,12 @@ class VoucherController extends RestfulController {
     * URL/vouchers/obtenerPorUsuario/userId -> When max is not specified
     * URL/vouchers/obtenerPorUsuario/userId?max=n -> When max is specified
     */
+
     def obtenerPorUsuario(String userId, Integer max) {
         println("Vouchers requested by user id: ${userId}")
         Cliente cliente = Cliente.get(userId)
 
-        if (!cliente){
+        if (!cliente) {
             response.sendError(404)
             return
         }
@@ -59,6 +61,7 @@ class VoucherController extends RestfulController {
     * Dado el id del cliente y el id del voucher a cambiar
     * URL/vouchers/canjear?clienteId={id}&voucherId={id}
     */
+
     def solicitarCanje(Long voucherId) {
         println("Request de canjear voucher")
 
@@ -78,6 +81,7 @@ class VoucherController extends RestfulController {
     * Dado el id del cliente y el id del voucher a cambiar
     * URL/vouchers/confirmar?negocioId={id}&voucherId={id}
     */
+
     def confirmarCanje(Long voucherId) {
         println("Request de confirmar voucher")
 
@@ -91,7 +95,25 @@ class VoucherController extends RestfulController {
             println(e.stackTrace)
             response.sendError(400, e.message)
         }
+    }
 
+    def obtenerConfirmables(Long negocioId) {
+        println("Request de obtener vouchers confirmables")
+
+        try {
+            List<Voucher> vouchers = voucherService.obtenerConfirmables(negocioId)
+
+            List<VoucherCommand> voucherCommands = []
+
+            for (Voucher voucher : vouchers) {
+                voucherCommands.add(voucherAssembler.toBean(voucher))
+            }
+
+            respond voucherCommands
+        } catch (Exception e) {
+            println(e.stackTrace)
+            response.sendError(400, e.message)
+        }
     }
 
     /*
@@ -100,10 +122,11 @@ class VoucherController extends RestfulController {
     * URL/vouchers/search?q={busqueda}&max={maximas respuestas deseadas}
     * Devuelve listado de los voucher que poseen esa cadena en su descripcion
     */
-    def search(String q, Integer max){
+
+    def search(String q, Integer max) {
         def map = [:]
-        map.max = Math.min( max ?: 10, 100)
-        if (q &&  q.length() > 2){
+        map.max = Math.min(max ?: 10, 100)
+        if (q && q.length() > 2) {
             respond voucherService.findSimilar(q, map)
         } else {
             respond([])

@@ -10,17 +10,27 @@ class VoucherAPI {
     const res = await fetch(url);
     const talonarios = await res.json();
     console.log(`debug | getTalonarios: `, talonarios);
-    return talonarios.map((c) => this._transformarTalonario(c));
+    return talonarios.map((t) => this._transformarTalonario(t));
   }
 
-  async getTalonariosPorNegocio(negocioId){
+  async getTalonariosPorNegocio(negocioId) {
     const url = `${SERVER_URL}/negocios/obtenerTalonarios/${negocioId}`;
     console.log(`debug | getTalonariosPorNegocio URL is: ${url}`);
     const res = await fetch(url);
     const talonarios = await res.json();
     console.log(`debug | getTalonariosPorNegocio: `, talonarios);
-    return talonarios.map((c) => this._transformarTalonario(c));
+    return talonarios.map((t) => this._transformarTalonario(t));
   }
+
+  async getVouchersConfirmablesPorNegocio(negocioId) {
+    const url = `${SERVER_URL}/vouchers/obtenerConfirmables/${negocioId}`;
+    console.log(`debug | getVouchersConfirmablesPorNegocio URL is: ${url}`);
+    const res = await fetch(url);
+    const vouchers = await res.json();
+    console.log(`debug | getVouchersConfirmablesPorNegocio: `, vouchers);
+    return vouchers.map((v) => this._transformarVoucher(v));
+  }
+
 
   // Returns vouchers owned by clients
   // TODO: Modify and rename

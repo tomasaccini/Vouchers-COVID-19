@@ -40,11 +40,12 @@ class NegocioController extends RestfulController {
     * Returns counterfoils requested by Id
     * URL/negocios/obtenerTalonarios/{id}
     */
-    List<Talonario> obtenerTalonarios(Long id){
-        // TODO: pasar a un service el Negocio.get(id)
+
+    List<Talonario> obtenerTalonarios(Long id) {
+        // TODO: pasar a un service el Negocio.get(id) !!!!
         Negocio negocio = Negocio.get(id)
         println("Request: talonarios de negocio")
-        if (!negocio){
+        if (!negocio) {
             return response.sendError(400, "Negocio inexistente")
         }
         respond negocio.talonarios
