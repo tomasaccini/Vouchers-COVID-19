@@ -40,6 +40,8 @@ class Voucher {
     }
 
     Reclamo iniciarReclamo(String descripcion) {
+        println(reclamo)
+
         if (reclamo != null) {
             throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
         }

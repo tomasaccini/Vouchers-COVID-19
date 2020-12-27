@@ -1,6 +1,7 @@
-import assemblers.ClientAssembler
+import assemblers.ClienteAssembler
 import assemblers.CounterfoilAssembler
 import assemblers.ItemAssembler
+import assemblers.NegocioAssembler
 import assemblers.ProductAssembler
 import assemblers.VoucherAssembler
 import assemblers.VoucherInformationAssembler
@@ -24,9 +25,12 @@ beans = {
 
     voucherAssembler(VoucherAssembler) {
         voucherInformationAssembler = ref("voucherInformationAssembler")
+        negocioAssembler = ref("negocioAssembler")
     }
 
-    clientAssembler(ClientAssembler) {
+    clienteAssembler(ClienteAssembler) {
         voucherAssembler = ref("voucherAssembler")
     }
+
+    negocioAssembler(NegocioAssembler) {}
 }

@@ -16,7 +16,6 @@ class ClienteCanjearVouchers extends Component {
 
     async componentDidMount() {
         const vouchers = await this.getListaDeVouchers();
-        console.log('!!!!', vouchers)
 
         this.setState({ vouchers })
     }

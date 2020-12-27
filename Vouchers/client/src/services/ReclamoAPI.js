@@ -2,7 +2,7 @@ import {SERVER_URL} from '../config';
 
 class ReclamoAPI {
   async getReclamos(usuarioId) {
-    const url = `${SERVER_URL}reclamos/usuarios/${usuarioId}`;
+    const url = `${SERVER_URL}/reclamos/usuarios/${usuarioId}`;
     console.log(`debug | getReclamos URL es: ${url}`);
     const res = await fetch(url);
     const reclamosDto = await res.json();
@@ -11,7 +11,7 @@ class ReclamoAPI {
   }
 
   async enviarMensaje(reclamoId, usuarioId, mensaje) {
-    const url = `${SERVER_URL}reclamos/${reclamoId}/nuevoMensaje`;
+    const url = `${SERVER_URL}/reclamos/${reclamoId}/nuevoMensaje`;
     console.log(`debug | enviarMensaje URL es: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
@@ -23,8 +23,7 @@ class ReclamoAPI {
   }
 
   async cerrarReclamo(reclamoId, usuarioId) {
-    console.log(reclamoId, usuarioId)
-    const url = `${SERVER_URL}reclamos/${reclamoId}/cerrar`;
+    const url = `${SERVER_URL}/reclamos/${reclamoId}/cerrar`;
     console.log(`debug | cerrarReclamo URL es: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
@@ -36,9 +35,28 @@ class ReclamoAPI {
       return null;
     }
 
-    const nuevoMensaje = await res.json();
-    console.log(`debug | cerrarReclamo: `, nuevoMensaje);
-    return nuevoMensaje;
+    const reclamoCerrado = await res.json();
+    console.log(`debug | cerrarReclamo: `, reclamoCerrado);
+    return reclamoCerrado;
+  }
+
+  async iniciarReclamo(voucherId, usuarioId) {
+    const url = `${SERVER_URL}/reclamos`;
+    console.log(`debug | iniciarReclamo URL es: ${url}`);
+    const res = await fetch(url, {
+      method: 'POST',
+      // TODO: agregar descripcion/primer mensaje !!!!
+      body: JSON.stringify({ voucherId: voucherId, descripcion: 'EY WACHO ESTO ES MALISIMO' })
+    });
+
+    if (res.status !== 200) {
+      // !!!! window.alert(res.message);
+      return null;
+    }
+
+    const reclamoIniciado = await res.json();
+    console.log(`debug | iniciarReclamo: `, reclamoIniciado);
+    return reclamoIniciado;
   }
 
 

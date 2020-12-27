@@ -2,7 +2,7 @@ import {SERVER_URL} from '../config';
 
 class ProductAPI {
     async getProductos(negocioId) {
-        const url = `${SERVER_URL}productos/obtenerPorNegocio/${negocioId}`;
+        const url = `${SERVER_URL}/productos/obtenerPorNegocio/${negocioId}`;
         console.log(`debug | getProductos URL is: ${url}`);
         const res = await fetch(url);
         const productos = await res.json();
@@ -11,7 +11,7 @@ class ProductAPI {
     }
 
     async crearProducto(negocioId, producto) {
-      const url = `${SERVER_URL}productos/crear`;
+      const url = `${SERVER_URL}/productos/crear`;
       console.log(`debug | crearProducto URL is: ${url}`);
       const res = await fetch(url, {
         method: 'POST',

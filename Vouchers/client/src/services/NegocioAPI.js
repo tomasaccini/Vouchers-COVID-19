@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 class NegocioAPI {
 
   async getNegocio(negocioId){
-    const url = `${SERVER_URL}negocios/${negocioId}`;
+    const url = `${SERVER_URL}/negocios/${negocioId}`;
     const res = await fetch(url);
     const negocio = await res.json();
     return this._transformarNegocio(negocio)

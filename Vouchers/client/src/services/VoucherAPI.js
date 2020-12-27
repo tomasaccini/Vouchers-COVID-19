@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 class VoucherAPI {
 
   async getTalonarios(userId) {
-    const url = `${SERVER_URL}recommendations?userId=${userId}`;
+    const url = `${SERVER_URL}/recommendations?userId=${userId}`;
     console.log(`debug | getTalonarios URL is: ${url}`);
     const res = await fetch(url);
     const counterfoils = await res.json();
@@ -14,7 +14,7 @@ class VoucherAPI {
   }
 
   async getTalonariosPorNegocio(negocioId){
-    const url = `${SERVER_URL}negocios/obtenerTalonarios/${negocioId}`;
+    const url = `${SERVER_URL}/negocios/obtenerTalonarios/${negocioId}`;
     console.log(`debug | getTalonariosPorNegocio URL is: ${url}`);
     const res = await fetch(url);
     const counterfoils = await res.json();
@@ -25,8 +25,8 @@ class VoucherAPI {
   // Returns vouchers owned by clients
   // TODO: Modify and rename
   async getVouchers(userId) {
-    // const url = `${SERVER_URL}vouchers?userId=${userId}`;
-    const url = `${SERVER_URL}vouchers/getByUser/${userId}`;
+    // const url = `${SERVER_URL}/vouchers?userId=${userId}`;
+    const url = `${SERVER_URL}/vouchers/getByUser/${userId}`;
     console.log(`debug | getVouchers URL is: ${url}`);
     const res = await fetch(url);
     const vouchers = await res.json();
@@ -35,7 +35,7 @@ class VoucherAPI {
   }
 
   async comprarVoucher(clienteId, talonarioId) {
-    const url = `${SERVER_URL}talonarios/comprar`;
+    const url = `${SERVER_URL}/talonarios/comprar`;
     console.log(`debug | comprarVoucher URL is: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
@@ -88,8 +88,6 @@ class VoucherAPI {
     const desde = new Date(vi.validoDesde);
     const hasta = new Date(vi.validoHasta);
 
-    console.log(voucher)
-
     return {
       'id': voucher.id,
       'titulo': '2 Hamburguesas',
@@ -100,7 +98,7 @@ class VoucherAPI {
       // TODO no more owner !!!!
       'isOwned': true,
       // TODO we don't have the information yet
-      'nombreNegocio': voucher.negocio.nombre
+      'nombreNegocio': voucher.negocioCommand.nombre
     }
   }
 }

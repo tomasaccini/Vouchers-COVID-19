@@ -4,7 +4,7 @@ import commands.ClienteCommand
 import templates.ConcreteObjectAssembler
 import vouchers.Cliente
 
-class ClientAssembler extends ConcreteObjectAssembler<Cliente, ClienteCommand> {
+class ClienteAssembler extends ConcreteObjectAssembler<Cliente, ClienteCommand> {
 
     VoucherAssembler voucherAssembler
 

@@ -50,12 +50,12 @@ class BootStrap {
                 validoDesde: new Date(),
                 validoHasta: new Date()).save(failOnError:true)
 
-        def talonario1 = new Talonario(stock: 3,
+        def talonario1 = new Talonario(stock: 5,
                         informacionVoucher: InformacionVoucher.get(1),
                         negocio: Negocio.get(1)
                         ).save(failOnError:true)
 
-        def talonario2 = new Talonario(stock: 3,
+        def talonario2 = new Talonario(stock: 5,
                 informacionVoucher: informacionVoucher2,
                 negocio: negocio2).save(failOnError:true)
 
@@ -94,15 +94,21 @@ class BootStrap {
         talonario1.informacionVoucher.addToItems(item1)
         talonario1.informacionVoucher.addToItems(item2)
 
+        // Vouchers sin reclamar
         def voucher11 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
         def voucher12 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
         def voucher21 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
 
-        def reclamo11 = reclamoService.crearReclamo(voucher11.id, "Initial message !!!!")
+        // Vouchers reclamados
+        def voucher13 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        def voucher14 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        def voucher22 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
+
+        def reclamo13 = reclamoService.iniciarReclamo(voucher13.id, "Initial message !!!!")
         // reclamoService.nuevoMensaje(reclamo11.id, talonario1.negocio.id, "Respuesta del negocio")
 
-        def reclamo12 = reclamoService.crearReclamo(voucher12.id, "Initial message 2 !!!!")
-        def reclamo21 = reclamoService.crearReclamo(voucher21.id, "Initial message 3 !!!!")
+        def reclamo14 = reclamoService.iniciarReclamo(voucher14.id, "Initial message 2 !!!!")
+        def reclamo22 = reclamoService.iniciarReclamo(voucher22.id, "Initial message 3 !!!!")
     }
 
     def destroy = {

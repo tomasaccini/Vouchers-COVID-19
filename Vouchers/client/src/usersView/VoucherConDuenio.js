@@ -18,7 +18,7 @@ import modalStyle from 'assets/jss/material-kit-react/modalStyle.js';
 
 import { cardTitle } from 'assets/jss/material-kit-react.js';
 import {Row} from "reactstrap";
-import ReclamarVoucherBoton from "./ReclamarVoucherBoton";
+import ReclamarVoucherButton from "./ReclamarVoucherButton";
 
 const styles = {
   cardTitle,
@@ -40,7 +40,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function VoucherConDuenio(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
-  console.log(props)
 
   return (
     <div>
@@ -59,7 +58,7 @@ export default function VoucherConDuenio(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <ReclamarVoucherBoton voucherId={props.data.id} />
+          <ReclamarVoucherButton voucherId={props.data.id} />
         </div>
       </Card>
 

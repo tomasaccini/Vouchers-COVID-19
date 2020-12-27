@@ -22,8 +22,8 @@ class ReclamoService {
         return reclamo
     }
 
-    Reclamo crearReclamo(Long voucherId, String descripcion) {
-        println("RecalmoService.crearReclamo(${voucherId}, ${descripcion})")
+    Reclamo iniciarReclamo(Long voucherId, String descripcion) {
+        println("RecalmoService.iniciarReclamo(${voucherId}, ${descripcion})")
 
         Voucher voucher = Voucher.findById(voucherId)
 
@@ -33,7 +33,7 @@ class ReclamoService {
 
         Reclamo nuevoReclamo = voucher.iniciarReclamo(descripcion)
 
-        println("RecalmoService.crearReclamo() => ${nuevoReclamo}")
+        println("RecalmoService.iniciarReclamo() => ${nuevoReclamo}")
 
         nuevoReclamo
     }

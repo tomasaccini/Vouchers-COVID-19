@@ -3,7 +3,6 @@ package vouchers
 import assemblers.ReclamoAssembler
 import commands.ReclamoCommand
 import grails.rest.*
-import grails.converters.*
 
 class ReclamoController extends RestfulController{
 
@@ -42,7 +41,7 @@ class ReclamoController extends RestfulController{
         respond reclamoCommand
     }
 
-    def crearReclamo() {
+    def iniciarReclamo() {
         println("Request para crear un reclamo")
 
         Object requestBody = request.JSON
@@ -50,8 +49,8 @@ class ReclamoController extends RestfulController{
         String descripcion = requestBody['descripcion']
 
         try {
-            Reclamo reclamo = reclamoService.crearReclamo(voucherId, descripcion)
-            respond reclamo
+            Reclamo reclamo = reclamoService.iniciarReclamo(voucherId, descripcion)
+            respond reclamoAssembler.toBean(reclamo)
         } catch (RuntimeException re) {
             response.sendError(400, re.message)
         }

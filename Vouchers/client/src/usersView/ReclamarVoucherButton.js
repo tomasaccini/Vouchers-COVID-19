@@ -11,6 +11,8 @@ import {cardTitle} from "../assets/jss/material-kit-react";
 import modalStyle from "../assets/jss/material-kit-react/modalStyle";
 import {makeStyles} from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
+import voucherAPI from "../services/VoucherAPI";
+import reclamoAPI from "../services/ReclamoAPI";
 
 const styles = {
   cardTitle,
@@ -27,15 +29,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function ReclamarVoucherBoton(props) {
+export default function ReclamarVoucherButton(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
   const { voucherId } = props;
 
-  const crearReclamo = async () =>{
-    console.log('!!!!!', voucherId)
+  const usuarioId = localStorage.getItem('userId');
+
+  const iniciarReclamo = async () =>{
     setModal(false);
-    console.log('!!!!!', 'post')
+    reclamoAPI.iniciarReclamo(voucherId, usuarioId);
   }
 
   return (
@@ -82,7 +85,7 @@ export default function ReclamarVoucherBoton(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => crearReclamo(voucherId)} color="success">
+          <Button onClick={() => iniciarReclamo(voucherId)} color="success">
             Confirmar
           </Button>
         </DialogActions>
