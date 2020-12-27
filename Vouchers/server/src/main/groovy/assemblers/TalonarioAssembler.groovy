@@ -4,7 +4,7 @@ import commands.TalonarioCommand
 import templates.ConcreteObjectAssembler
 import vouchers.Talonario
 
-class CounterfoilAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCommand> {
+class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
     VoucherAssembler voucherAssembler
@@ -24,7 +24,7 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Talonario, TalonarioC
 
         TalonarioCommand bean = super.toBean(domain)
 
-        bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
+        bean.informacionVoucherCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
         if (domain.vouchers){
             bean.cantidadVendida = domain.vouchers.asList().size()
@@ -38,7 +38,7 @@ class CounterfoilAssembler extends ConcreteObjectAssembler<Talonario, TalonarioC
 
         Talonario domain 	= super.fromBean(bean)
 
-        domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
+        domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.informacionVoucherCommand)
 
         return domain
     }

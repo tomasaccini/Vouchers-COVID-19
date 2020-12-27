@@ -15,21 +15,21 @@ class NegocioAPI {
     return this._transformarNegocio(negocio)
   }
 
-  _transformarNegocio(n) {
-    const talonarios = n.counterfoils._embedded.map((t) => this._transformarTalonario(t, n));
+  _transformarNegocio(negocio) {
+    const talonarios = negocio.talonariosCommands.map(t => this._transformarTalonario(t, negocio));
 
     return {
-      'nombre': n.name,
-      'categoria': n.category,
+      'nombre': negocio.nombre,
+      'categoria': negocio.categoria,
       'descripcion': "Somos una panaderia que hace cosas con mucho amor. Con tu ayuda vamos a poder hacer más medialunas",
-      'paginaWeb': n.website,
-      'telefono': n.phone_number,
+      'paginaWeb': negocio.website,
+      'telefono': negocio.numeroTelefonico,
       'direccion': {
-        'calle': n.address.calle,
-        'provincia': n.address.provincia,
-        'pais': n.address.pais,
-        'numero': n.address.numero,
-        'departamento': n.address.departamento
+        'calle': negocio.direccion.calle,
+        'provincia': negocio.direccion.provincia,
+        'pais': negocio.direccion.pais,
+        'numero': negocio.direccion.numero,
+        'departamento': negocio.direccion.departamento
       },
       'talonarios': talonarios
     }
@@ -37,7 +37,10 @@ class NegocioAPI {
 
   _transformarTalonario(talonario, negocio) {
 
-    const iv = talonario._embedded.informacionVoucher;
+    console.log('talonario', talonario)
+
+    const iv = talonario.informacionVoucherCommand;
+    console.log('iv', iv)
 
     const desde = new Date(iv.validoDesde);
     const hasta = new Date(iv.validoHasta);
@@ -50,7 +53,7 @@ class NegocioAPI {
       'ValidoHasta': format(hasta, 'yyyy/MM/dd'),
       'Stock': talonario.stock,
       // TODO no more owner !!!!
-      'tieneDuenio': false,
+      'isOwned': false,
       'NombreNegocio': negocio.name
     }
   }

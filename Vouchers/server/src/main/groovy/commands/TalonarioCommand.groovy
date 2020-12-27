@@ -1,13 +1,14 @@
 package commands
 
 import grails.validation.Validateable
+import vouchers.Direccion
 import vouchers.Talonario
 
 class TalonarioCommand implements Validateable {
 
     Long id
     Long version
-    InformacionVoucherCommand voucherInformationCommand
+    InformacionVoucherCommand informacionVoucherCommand
     Boolean activo
     Integer stock
     String nombre

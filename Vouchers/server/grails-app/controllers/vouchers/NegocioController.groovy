@@ -19,6 +19,7 @@ class NegocioController extends RestfulController {
     * Returns business requested by Id
     * URL/negocios/{id}
     */
+    /*
     def show(Negocio negocio){
         println("Request for a business by id")
         if (!negocio){
@@ -27,12 +28,23 @@ class NegocioController extends RestfulController {
             respond negocio
         }
     }
+    */
+
+    NegocioCommand obtenerNegocio(Long negocioId) {
+        print("!!!! ASDADAS")
+        Negocio negocio = negocioService.obtener(negocioId)
+        print("!!!! ASDADAS " + negocioId)
+        NegocioCommand negocioCommand = negocioAssembler.toBean(negocio)
+        respond negocioCommand
+    }
 
     /*
     * Returns counterfoils requested by Id
     * URL/negocios/obtenerTalonarios/{id}
     */
-    def obtenerTalonarios(Long id){
+    List<Talonario> obtenerTalonarios(Long id){
+        print("!!!! BBBBBB")
+        // TODO: pasar a un service el Negocio.get(id)
         Negocio negocio = Negocio.get(id)
         println("Request: talonarios de negocio")
         if (!negocio){
@@ -42,6 +54,7 @@ class NegocioController extends RestfulController {
     }
 
     List<NegocioCommand> obtenerTodos() {
+        print("!!!! CCCCCCCC")
         List<NegocioCommand> negociosCommand = []
         List<Negocio> negocios = negocioService.obtenerTodos()
 
@@ -78,11 +91,13 @@ class NegocioController extends RestfulController {
     * URL/businesses -> When max is not specified
     * URL/businesses?max=n" -> When max is specified
     */
+    /*
     def index(Integer max){
         println("Request for business list, max size: ${params.max}")
         params.max = Math.min(max ?: 10, 100)
         respond Negocio.list(params)
     }
+     */
 
     /*
     * Dada una cadena de largo mayor a 2
@@ -90,6 +105,7 @@ class NegocioController extends RestfulController {
     * URL/negocios/search?q={busqueda}&max={maximas respuestas deseadas}
     * Devuelve listado de los negocios que poseen esa cadena en su nombre
     */
+    /*
     def search(String q, Integer max){
         def map = [:]
         map.max = Math.min( max ?: 10, 100)
@@ -99,4 +115,5 @@ class NegocioController extends RestfulController {
             respond([])
         }
     }
+    */
 }

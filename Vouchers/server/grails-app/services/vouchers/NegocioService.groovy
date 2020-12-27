@@ -82,6 +82,11 @@ class NegocioService {
         talonarioService.deactivate(counterfoilId)
     }
 
+    Negocio obtener(Long negocioId) {
+        def negocio = Negocio.findById(negocioId)
+        return negocio
+    }
+
     List<Negocio> obtenerTodos() {
         def a = Negocio.findAll()
         println("\n\n\n\n\n !!!! ${a}")

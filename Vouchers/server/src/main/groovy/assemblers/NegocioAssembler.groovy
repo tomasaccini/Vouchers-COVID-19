@@ -7,6 +7,8 @@ import vouchers.Negocio
 
 class NegocioAssembler extends ConcreteObjectAssembler<Negocio, NegocioCommand> {
 
+    TalonarioAssembler talonarioAssembler
+
     @Override
     protected getEntity(Long id) {
         return (id == null || id == 0) ? new Negocio() : Negocio.get(id)
@@ -19,7 +21,14 @@ class NegocioAssembler extends ConcreteObjectAssembler<Negocio, NegocioCommand> 
 
     @Override
     NegocioCommand toBean(Negocio negocio) {
-        return super.toBean(negocio)
+        NegocioCommand command =  super.toBean(negocio)
+        command.talonariosCommands = []
+
+        for (def talonario : negocio.talonarios) {
+            command.talonariosCommands.add(talonarioAssembler.toBean(talonario))
+        }
+
+        return command
     }
 
     @Override

@@ -8,8 +8,8 @@ class UrlMappings {
         "/countries"(resources:"country")
 
         //Negocio
-        "/negocios"(resources:"negocio")
-        "/negocios"(controller: 'negocio', action: 'obtenerTodos')
+        // "/negocios"(resources:"negocio")
+        "/negocios/$negocioId"(controller: "negocio", action: 'obtenerNegocio')
         "/negocios/search"(controller: 'negocio', action: 'search')
         post "/negocios"(controller: 'negocio', action: 'crear')
         "/negocios/obtenerTalonarios/$id"(controller: 'negocio', action: 'obtenerTalonarios')

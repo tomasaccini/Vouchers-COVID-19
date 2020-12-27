@@ -1,13 +1,13 @@
 package vouchers
 
-import assemblers.CounterfoilAssembler
+import assemblers.TalonarioAssembler
 import services.RecommendationService
 
 class RecommendationController {
 
     RecommendationService recommendationService
     TalonarioService talonarioService
-    CounterfoilAssembler counterfoilAssembler
+    TalonarioAssembler talonarioAssembler
 
 	static responseFormats = ['json']
 	

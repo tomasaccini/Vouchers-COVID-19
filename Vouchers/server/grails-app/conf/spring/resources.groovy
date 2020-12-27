@@ -1,5 +1,5 @@
 import assemblers.ClienteAssembler
-import assemblers.CounterfoilAssembler
+import assemblers.TalonarioAssembler
 import assemblers.ItemAssembler
 import assemblers.NegocioAssembler
 import assemblers.ProductAssembler
@@ -18,7 +18,7 @@ beans = {
         itemAssembler = ref("itemAssembler")
     }
 
-    counterfoilAssembler(CounterfoilAssembler) {
+    talonarioAssembler(TalonarioAssembler) {
         voucherInformationAssembler = ref("voucherInformationAssembler")
         voucherAssembler = ref("voucherAssembler")
     }
@@ -32,5 +32,7 @@ beans = {
         voucherAssembler = ref("voucherAssembler")
     }
 
-    negocioAssembler(NegocioAssembler) {}
+    negocioAssembler(NegocioAssembler) {
+        talonarioAssembler = ref("talonarioAssembler")
+    }
 }

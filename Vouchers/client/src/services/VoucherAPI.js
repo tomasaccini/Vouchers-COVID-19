@@ -8,18 +8,18 @@ class VoucherAPI {
     const url = `${SERVER_URL}/recommendations?userId=${userId}`;
     console.log(`debug | getTalonarios URL is: ${url}`);
     const res = await fetch(url);
-    const counterfoils = await res.json();
-    console.log(`debug | getTalonarios: `, counterfoils);
-    return counterfoils.map((c) => this._transformarTalonario(c));
+    const talonarios = await res.json();
+    console.log(`debug | getTalonarios: `, talonarios);
+    return talonarios.map((c) => this._transformarTalonario(c));
   }
 
   async getTalonariosPorNegocio(negocioId){
     const url = `${SERVER_URL}/negocios/obtenerTalonarios/${negocioId}`;
     console.log(`debug | getTalonariosPorNegocio URL is: ${url}`);
     const res = await fetch(url);
-    const counterfoils = await res.json();
-    console.log(`debug | getTalonariosPorNegocio: `, counterfoils);
-    return counterfoils.map((c) => this._transformarTalonario(c));
+    const talonarios = await res.json();
+    console.log(`debug | getTalonariosPorNegocio: `, talonarios);
+    return talonarios.map((c) => this._transformarTalonario(c));
   }
 
   // Returns vouchers owned by clients
@@ -83,16 +83,16 @@ class VoucherAPI {
   }
 
   _transformarVoucher(voucher) {
-    const vi = voucher.informacionVoucherCommand
+    const iv = voucher.informacionVoucherCommand
 
-    const desde = new Date(vi.validoDesde);
-    const hasta = new Date(vi.validoHasta);
+    const desde = new Date(iv.validoDesde);
+    const hasta = new Date(iv.validoHasta);
 
     return {
       'id': voucher.id,
       'titulo': '2 Hamburguesas',
-      'descripcion': vi.descripcion,
-      'precio': vi.precio,
+      'descripcion': iv.descripcion,
+      'precio': iv.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       // TODO no more owner !!!!

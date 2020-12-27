@@ -5,10 +5,10 @@ model {
 }
 
 json {
-    name negocio.nombre
-    phone_number negocio.numeroTelefonico
-    address hal.render(negocio.direccion, [deep:true])
+    nombre negocio.nombre
+    numeroTelefonico negocio.numeroTelefonico
+    direccion hal.render(negocio.direccion, [deep:true])
     website negocio.website
-    category negocio.categoria
-    counterfoils hal.render(negocio.talonarios, [deep:true])
+    categoria negocio.categoria
+    talonarios hal.render(negocio.talonarios, [deep:true])
 }
