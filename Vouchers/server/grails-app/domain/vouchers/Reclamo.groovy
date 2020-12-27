@@ -32,7 +32,6 @@ class Reclamo {
     }
 
     void agregarMensaje(String mensaje, Negocio duenio) {
-        println("!!!! Mensaje: " + mensaje)
         if (negocio.id != duenio.id) {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${negocio.id})")
         }

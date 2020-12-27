@@ -34,7 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ReclamarVoucherButton(props) {
-  const [modal, setModal] = React.useState(true);
+  const [modal, setModal] = React.useState(false);
   const [actualizar, setActualizar] = React.useState(false);
   const [descripcion, setDescripcion] = React.useState('');
   const classes = useStyles();
@@ -43,6 +43,11 @@ export default function ReclamarVoucherButton(props) {
   const usuarioId = localStorage.getItem('userId');
 
   const iniciarReclamo = async () =>{
+    if (descripcion === '') {
+      window.alert('La descripción no puede estar vacia');
+      return;
+    }
+
     setModal(false);
     await reclamoAPI.iniciarReclamo(voucherId, descripcion, usuarioId);
     setActualizar(true);
@@ -50,7 +55,6 @@ export default function ReclamarVoucherButton(props) {
 
   const myChangeHandler = (event) => {
     let val = event.target.value;
-    console.log(val)
 
     if (val) {
       setDescripcion(val);
