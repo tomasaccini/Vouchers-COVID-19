@@ -40,13 +40,13 @@ class ReclamoAPI {
     return reclamoCerrado;
   }
 
-  async iniciarReclamo(voucherId, usuarioId) {
+  async iniciarReclamo(voucherId, descripcion, usuarioId) {
     const url = `${SERVER_URL}/reclamos`;
     console.log(`debug | iniciarReclamo URL es: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
       // TODO: agregar descripcion/primer mensaje !!!!
-      body: JSON.stringify({ voucherId: voucherId, descripcion: 'EY WACHO ESTO ES MALISIMO' })
+      body: JSON.stringify({ voucherId: voucherId, descripcion: descripcion })
     });
 
     if (res.status !== 200) {

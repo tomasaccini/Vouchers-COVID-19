@@ -15,6 +15,8 @@ import voucherAPI from "../services/VoucherAPI";
 import reclamoAPI from "../services/ReclamoAPI";
 import {Redirect} from "react-router-dom";
 import navegacion from "../utils/navegacion";
+import {TextField} from "@material-ui/core";
+import {TextInput} from "@livechat/ui-kit";
 
 const styles = {
   cardTitle,
@@ -32,8 +34,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function ReclamarVoucherButton(props) {
-  const [modal, setModal] = React.useState(false);
+  const [modal, setModal] = React.useState(true);
   const [actualizar, setActualizar] = React.useState(false);
+  const [descripcion, setDescripcion] = React.useState('');
   const classes = useStyles();
   const { voucherId } = props;
 
@@ -41,8 +44,17 @@ export default function ReclamarVoucherButton(props) {
 
   const iniciarReclamo = async () =>{
     setModal(false);
-    await reclamoAPI.iniciarReclamo(voucherId, usuarioId);
+    await reclamoAPI.iniciarReclamo(voucherId, descripcion, usuarioId);
     setActualizar(true);
+  }
+
+  const myChangeHandler = (event) => {
+    let val = event.target.value;
+    console.log(val)
+
+    if (val) {
+      setDescripcion(val);
+    }
   }
 
   if (actualizar) {
@@ -87,7 +99,16 @@ export default function ReclamarVoucherButton(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Desea iniciar un reclamo para este voucher?</h5>
+          <h5>Ingrese una descripción para su reclamo:</h5>
+          <div style={{'width': '100%', 'margin': '10px 0'}}>
+            <TextField
+              style={{'width': '100%'}}
+              name="descripcion"
+              type="text"
+              label="Descripción"
+              onChange={myChangeHandler}
+            />
+          </div>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}
