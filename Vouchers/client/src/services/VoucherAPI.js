@@ -26,7 +26,7 @@ class VoucherAPI {
   // TODO: Modify and rename
   async getVouchers(userId) {
     // const url = `${SERVER_URL}/vouchers?userId=${userId}`;
-    const url = `${SERVER_URL}/vouchers/getByUser/${userId}`;
+    const url = `${SERVER_URL}/vouchers/obtenerPorUsuario/${userId}`;
     console.log(`debug | getVouchers URL is: ${url}`);
     const res = await fetch(url);
     const vouchers = await res.json();

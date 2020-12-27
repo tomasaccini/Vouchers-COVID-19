@@ -16,7 +16,7 @@ class UrlMappings {
 
         //Voucher
         "/vouchers"(resources:"voucher")
-        "/vouchers/getByUser/$userId"(controller: 'voucher', action: 'getByUser')
+        "/vouchers/obtenerPorUsuario/$userId"(controller: 'voucher', action: 'obtenerPorUsuario') // TODO Cambiar a obtenerPorUsuario
         "/vouchers/search"(controller: 'voucher', action: 'search')
         post "/vouchers/canjear"(controller: 'voucher', action: 'canjear')
         post "/vouchers/confirmar"(controller: 'voucher', action: 'confirmar')

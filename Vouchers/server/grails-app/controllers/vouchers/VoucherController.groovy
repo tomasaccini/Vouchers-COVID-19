@@ -31,10 +31,10 @@ class VoucherController extends RestfulController {
     /*
     * Given an user id, it respond with all vouchers owned by the user.
     * Max value returned can be specified
-    * URL/vouchers/getByUser/userId -> When max is not specified
-    * URL/vouchers/getByUser/userId?max=n -> When max is specified
+    * URL/vouchers/obtenerPorUsuario/userId -> When max is not specified
+    * URL/vouchers/obtenerPorUsuario/userId?max=n -> When max is specified
     */
-    def getByUser(String userId, Integer max) {
+    def obtenerPorUsuario(String userId, Integer max) {
         println("Vouchers requested by user id: ${userId}")
         Cliente cliente = Cliente.get(userId)
 
