@@ -97,7 +97,6 @@ class VoucherAPI {
       'stock': talonario.stock,
       // 'items': iv.items.map((i) => this._transformarItems(i)),
       // TODO no more owner !!!!
-      'isOwned': false,
       // TODO we don't have the information yet
       'nombreNegocio': talonario.nombre
     }
@@ -117,7 +116,6 @@ class VoucherAPI {
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       // TODO no more owner !!!!
-      'isOwned': true,
       // TODO we don't have the information yet
       'nombreNegocio': voucher.negocioCommand.nombre,
       'state': voucher.state,

@@ -26,10 +26,6 @@ class Voucher {
         talonario              nullable: false, blank: false
     }
 
-    boolean esConfirmable() {
-        return state == VoucherState.ConfirmacionPendiente
-    }
-
     boolean estaExpirado(){
         return informacionVoucher.validoHasta >= new Date()
     }
@@ -63,6 +59,21 @@ class Voucher {
         return reclamo != null && !reclamo.estaCerrado()
     }
 
+    void confirmarCanje(Negocio negocioConfirmador) {
+        def negocio = talonario.negocio.id
+        if (negocio != negocioConfirmador.id) {
+            throw new RuntimeException("El negocio " + negocio + " no puede confirmar el canje")
+        }
+
+        if (!esConfirmable()) {
+            throw new RuntimeException("El voucher " + id + " no puede ser confirmado")
+        }
+
+        state = VoucherState.Retirado
+        lastStateChange = new Date()
+        save(flush: true, failOnError: true)
+    }
+
     void solicitarCanje(Cliente clienteSolicitante) {
         if (cliente.id != clienteSolicitante.id) {
             throw new RuntimeException("El cliente " + clienteId + " no puede solicitar el canje. Solo el cliente que creo el voucher puede hacerlo")
@@ -80,5 +91,9 @@ class Voucher {
     // TODO: deberia ser privado !!!!
     boolean esCanjeable() {
         return !estaExpirado() && state == VoucherState.Comprado
+    }
+
+    boolean esConfirmable() {
+        return state == VoucherState.ConfirmacionPendiente
     }
 }

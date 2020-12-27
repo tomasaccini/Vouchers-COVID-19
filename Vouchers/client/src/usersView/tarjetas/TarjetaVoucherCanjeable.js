@@ -18,10 +18,10 @@ import modalStyle from 'assets/jss/material-kit-react/modalStyle.js';
 
 import { cardTitle } from 'assets/jss/material-kit-react.js';
 import {Row} from "reactstrap";
-import ReclamarVoucherButton from "./ReclamarVoucherButton";
-import voucherAPI from "../services/VoucherAPI";
+import ReclamarVoucherButton from "../ReclamarVoucherButton";
+import voucherAPI from "../../services/VoucherAPI";
 import {Redirect} from "react-router-dom";
-import navegacion from "../utils/navegacion";
+import navegacion from "../../utils/navegacion";
 
 const styles = {
   cardTitle,
@@ -40,7 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function VoucherConDuenio(props) {
+export default function TarjetaVoucherCanjeable(props) {
   const [modal, setModal] = React.useState(false);
   const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();

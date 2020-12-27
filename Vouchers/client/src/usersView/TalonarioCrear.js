@@ -52,7 +52,7 @@ class TalonarioCrear extends Component {
     
     render() {
         if (this.state.creado) {
-            return <Redirect to={navegacion.getTalonarios()} />
+            return <Redirect to={navegacion.getTalonariosUrl()} />
         }
         return (
             <div>

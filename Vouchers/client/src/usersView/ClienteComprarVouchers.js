@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import ListaVouchers from "./ListaVouchers.js";
+import ListaTarjetas from "./ListaTarjetas.js";
 import NavbarUsuario from "./NavbarUsuario.js";
 import voucherAPI from "../services/VoucherAPI";
 import "./styles.css";
@@ -56,7 +56,7 @@ class ClienteComprarVouchers extends Component {
                     </div>
                     <GridContainer className="vouchersGrid">
                         <GridItem>
-                            <ListaVouchers vouchers={this.state.talonarios}/>
+                            <ListaTarjetas vouchers={this.state.talonarios}/>
                         </GridItem>
                     </GridContainer>
                 </section>

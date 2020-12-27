@@ -43,13 +43,34 @@ class VoucherService {
         }
     }
 
-    def confirm(Long id) {
-        Voucher voucher = Voucher.get(id)
-        if (!voucher.esConfirmable()) {
-            //TODO: Throw Excepction
-            return
+    def confirmarCanje(Long voucherId, Long negocioId) {
+
+        Negocio negocio = Cliente.get(negocioId)
+        if (negocio == null) {
+            throw new RuntimeException("El negocio " + negocioId + " no existe")
         }
-        modifyState(voucher, VoucherState.Retirado)
+
+        Voucher voucher = Voucher.get(voucherId)
+        if (voucher == null) {
+            throw new RuntimeException("El voucher " + voucherId + " no existe")
+        }
+
+        // El codigo esta aca en vez de en voucher.confirmarCanje() porque no se actualizaba la DB cuando se pone ahi. Cosa rara de grails.
+        // voucher.confirmarCanje(negocio)
+
+        def negocioConfirmador = negocio
+        def negocioVoucher = voucher.talonario.negocio.id
+        if (negocioVoucher != negocioConfirmador.id) {
+            throw new RuntimeException("El negocio " + negocioVoucher + " no puede confirmar el canje")
+        }
+
+        if (!voucher.esConfirmable()) {
+            throw new RuntimeException("El voucher " + voucher.id + " no puede ser confirmado")
+        }
+
+        voucher.state = VoucherState.Retirado
+        voucher.lastStateChange = new Date()
+        voucher.save(flush: true, failOnError: true)
     }
 
     Voucher solicitarCanje(Long voucherId, Long clienteId) {
@@ -82,16 +103,6 @@ class VoucherService {
         voucher.save(flush: true, failOnError: true)
 
         return voucher
-    }
-
-    def modifyState(Voucher voucher, VoucherState newState) {
-        voucher.state = newState
-        voucher.lastStateChange = new Date()
-        try {
-            voucher.save(flush: true, failOnError: true)
-        } catch (ValidationException e) {
-            throw new ServiceException(e.message)
-        }
     }
 
     List<Voucher> list() {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import ListaVouchers from "./ListaVouchers.js";
+import ListaTarjetas from "./ListaTarjetas.js";
 import NavbarUsuario from "./NavbarUsuario.js";
 import "./styles.css";
 import constantes from '../utils/constantes'
@@ -31,7 +31,7 @@ class ClienteCanjearVouchers extends Component {
                 <NavbarUsuario title={constantes.canjearVouchersTitulo} />
                 <GridContainer className="vouchersGrid">
                     <GridItem>
-                        <ListaVouchers vouchers={this.state.vouchers}/>
+                        <ListaTarjetas vouchers={this.state.vouchers}/>
                     </GridItem>
                 </GridContainer>
             </div>

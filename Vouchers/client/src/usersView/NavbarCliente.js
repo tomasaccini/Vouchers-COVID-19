@@ -27,7 +27,7 @@ export default function NavbarCliente() {
     };
 
     const redirigirAReclamos = () => {
-        window.location.replace(navegacion.getReclamos());
+        window.location.replace(navegacion.getReclamosUrl());
     };
 
     return (

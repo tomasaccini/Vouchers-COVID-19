@@ -55,7 +55,7 @@ class NegocioService {
         if (!voucher.esConfirmable()) {
             throw new RuntimeException("Voucher is not confirmable")
         }
-        voucherService.confirm(voucher.id)
+        voucherService.confirmarCanje(voucher.id)
     }
 
     /*

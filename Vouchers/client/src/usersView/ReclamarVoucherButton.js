@@ -62,7 +62,7 @@ export default function ReclamarVoucherButton(props) {
   }
 
   if (actualizar) {
-    return <Redirect to={navegacion.getReclamos()} />
+    return <Redirect to={navegacion.getReclamosUrl()} />
   }
 
   return (

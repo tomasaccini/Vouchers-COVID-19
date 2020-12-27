@@ -52,7 +52,7 @@ class ProductoCrear extends Component {
     
     render() {
         if (this.state.comprado) {
-            return <Redirect to={navegacion.getProductos()} />
+            return <Redirect to={navegacion.getProductosUrl()} />
         }
         return (
             <div>

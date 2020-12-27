@@ -19,7 +19,7 @@ class UrlMappings {
         "/vouchers/obtenerPorUsuario/$userId"(controller: 'voucher', action: 'obtenerPorUsuario') // TODO Cambiar a obtenerPorUsuario
         "/vouchers/search"(controller: 'voucher', action: 'search')
         post "/vouchers/solicitarCanje/$voucherId"(controller: 'voucher', action: 'solicitarCanje')
-        post "/vouchers/confirmar"(controller: 'voucher', action: 'confirmar')
+        post "/vouchers/confirmarCanje"(controller: 'voucher', action: 'confirmarCanje')
 
         //Client
         "/clientes"(resources:"cliente")

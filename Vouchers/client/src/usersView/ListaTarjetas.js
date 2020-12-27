@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
 import GridContainer from "../components/Grid/GridContainer.js";
 import GridItem from "../components/Grid/GridItem.js";
-import VoucherSinDuenio from "./VoucherSinDuenio.js"
-import VoucherConDuenio from "./VoucherConDuenio.js"
+import TarjetaTalonario from "./tarjetas/TarjetaTalonario.js"
+import TarjetaVoucher from "./tarjetas/TarjetaVoucher.js"
+import voucherHelper from "../utils/voucherHelper";
 
-class ListaVouchers extends Component {
+class ListaTarjetas extends Component {
 
     render() {
-        const { habilitarCompra } = this.props;
-
         return (
             <GridContainer spacing={3}>
                 {this.props.vouchers.map((voucher) =>
                     <GridItem xs={4}>
-                        { voucher.isOwned
-                          ? <VoucherConDuenio data={voucher} />
-                          : <VoucherSinDuenio data={voucher} />
+                        { voucherHelper.esVoucher(voucher)
+                          ? <TarjetaVoucher data={voucher} />
+                          : <TarjetaTalonario data={voucher} />
                         }
                     </GridItem>
                 )}
@@ -24,4 +23,4 @@ class ListaVouchers extends Component {
     }
 }
 
-export default ListaVouchers;
+export default ListaTarjetas;

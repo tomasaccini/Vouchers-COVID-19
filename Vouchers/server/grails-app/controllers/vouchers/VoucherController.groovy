@@ -78,15 +78,20 @@ class VoucherController extends RestfulController {
     * Dado el id del cliente y el id del voucher a cambiar
     * URL/vouchers/confirmar?negocioId={id}&voucherId={id}
     */
-    def confirmar(Long negocioId, Long voucherId) {
-        Negocio negocio = Negocio.get(negocioId)
-        Voucher voucher = Voucher.get(voucherId)
-        if (!negocio || !voucher.perteneceAlNegocio(negocioId)){
-            respond 404
-            return
+    def confirmarCanje(Long voucherId) {
+        println("Request de confirmar voucher")
+
+        Object requestBody = request.JSON
+        Long negocioId = requestBody['negocioId'].toLong()
+
+        try {
+            Voucher voucher = voucherService.confirmarCanje(voucherId, negocioId)
+            respond voucherAssembler.toBean(voucher)
+        } catch (Exception e) {
+            println(e.stackTrace)
+            response.sendError(400, e.message)
         }
-        voucherService.confirm(voucherId)
-        respond Voucher.get(voucherId)
+
     }
 
     /*

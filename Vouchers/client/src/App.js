@@ -20,6 +20,7 @@ import {
 } from "react-router-dom";
 import ClientePerfilPage from './usersView/ClientePerfil';
 import Reclamos from "./usersView/reclamos/Reclamos";
+import VouchersConfirmables from "./usersView/VouchersConfirmables";
 
 // TODO hardcodeado el usuarioId !!!!
 class App extends Component {
@@ -103,31 +104,37 @@ class App extends Component {
                         {this.validarSesionInciadaCliente(<ClientesCanjearVouchersPage />)}
                     </Route>
                     <Route
-                      path={navegacion.getReclamos()}
+                      path={navegacion.getReclamosUrl()}
                       render={props => this.validarSesionIniciada(
                         props,
                         () => <Reclamos usuarioId={parseInt(localStorage.getItem('userId'))}/>)}
                     />
                     <Route
-                      path={navegacion.getTalonariosCrear()}
+                      path={navegacion.getTalonariosCrearUrl()}
                       render={props => this.validarSesionInciadaNegocio(
                         props,
                         () => <TalonariosCrearPage />)}
                     />
                     <Route
-                      path={navegacion.getTalonarios()}
+                      path={navegacion.getTalonariosUrl()}
                       render={props => this.validarSesionInciadaNegocio(
                         props,
                         () => <TalonariosPage />)}
                     />
                     <Route
-                      path={navegacion.getProductosCrear()}
+                      path={navegacion.getVouchersConfirmablesUrl()}
+                      render={props => this.validarSesionInciadaNegocio(
+                        props,
+                        () => <VouchersConfirmables />)}
+                    />
+                    <Route
+                      path={navegacion.getProductosCrearUrl()}
                       render={props => this.validarSesionInciadaNegocio(
                         props,
                         () => <ProductosCrearPage />)}
                     />
                     <Route
-                      path={navegacion.getProductos()}
+                      path={navegacion.getProductosUrl()}
                       render={props => this.validarSesionInciadaNegocio(
                         props,
                         () => <ProductosPage />)}

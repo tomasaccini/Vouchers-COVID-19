@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import NavbarUsuario from "./NavbarUsuario.js";
 import MapSection from "./Map.js"
 import GridContainer from "components/Grid/GridContainer";
-import ListaVouchers from "./ListaVouchers.js";
+import ListaTarjetas from "./ListaTarjetas.js";
 import InformacionNegocio from "./InformacionNegocio.js";
 import GridItem from "components/Grid/GridItem";
 import "./styles.css";
@@ -63,7 +63,7 @@ class NegocioPerfil extends Component {
                     </GridItem>
                     <GridItem>
                         {this.state.perfil.talonarios ?
-                            <ListaVouchers vouchers={this.state.perfil.talonarios} /> :
+                            <ListaTarjetas vouchers={this.state.perfil.talonarios} /> :
                             <h1>Cargando</h1>}
                         {/* TODO: Create loading component */}
                     </GridItem>

@@ -7,7 +7,7 @@ import Button from "../components/CustomButtons/Button.js";
 
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import ListaVouchers from "./ListaVouchers.js";
+import ListaTarjetas from "./ListaTarjetas.js";
 import voucherAPI from "../services/VoucherAPI";
 
 import './styles.css';
@@ -36,7 +36,7 @@ class Talonarios extends Component {
                 <NavbarUsuario title={constantes.misTalonariosTitulo} />
                 <div className="tituloProductos">
                     <h1>Mis Talonarios</h1>
-                    <Link to={navegacion.getTalonariosCrear()} >
+                    <Link to={navegacion.getTalonariosCrearUrl()} >
                         <Button color="primary" size="large">
                             + Crear nuevo
                         </Button>
@@ -44,7 +44,7 @@ class Talonarios extends Component {
                 </div>
                 <GridContainer className="vouchersGrid">
                     <GridItem>
-                        <ListaVouchers vouchers={this.state.talonarios}/>
+                        <ListaTarjetas vouchers={this.state.talonarios}/>
                     </GridItem>
                 </GridContainer>
             </div>

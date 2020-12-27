@@ -17,11 +17,11 @@ import Button from "components/CustomButtons/Button.js";
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 
 import { cardTitle } from "assets/jss/material-kit-react.js";
-import voucherAPI from "../services/VoucherAPI";
-import './styles.css';
-import ProductListDialog from '../dialogs/ProductListDialog';
+import voucherAPI from "../../services/VoucherAPI";
+import '../styles.css';
+import ProductListDialog from '../../dialogs/ProductListDialog';
 import { Redirect } from "react-router-dom";
-import navegacion from '../utils/navegacion';
+import navegacion from 'utils/navegacion';
 
 const styles = {
   cardTitle,
@@ -40,7 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function VoucherSinDuenio(props) {
+export default function TarjetaTalonario(props) {
   const [modal, setModal] = React.useState(false);
   const [modalProducts, setModalProducts] = React.useState(false);
   const [comprado, setComprado] = React.useState(false);

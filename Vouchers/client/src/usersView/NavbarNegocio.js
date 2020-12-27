@@ -6,6 +6,7 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/Inbox';
 import CreateIcon from '@material-ui/icons/AddCircle';
+import ThumbUp from "@material-ui/icons/ThumbUp";
 import navegacion from '../utils/navegacion';
 import constantes from "../utils/constantes";
 
@@ -18,16 +19,20 @@ export default function NavbarNegocio() {
     window.location.replace(navegacion.getNegocioPerfilUrl(usuarioId));
   };
 
+  const redirigirAVouchersConfirmables = () => {
+    window.location.replace(navegacion.getVouchersConfirmablesUrl());
+  };
+
   const redirigirACrearTalonarios = () => {
-    window.location.replace(navegacion.getTalonarios());
+    window.location.replace(navegacion.getTalonariosUrl());
   };
 
   const redirigirAProductos = () => {
-    window.location.replace(navegacion.getProductos());
+    window.location.replace(navegacion.getProductosUrl());
   };
 
   const redirigirAReclamos = () => {
-    window.location.replace(navegacion.getReclamos());
+    window.location.replace(navegacion.getReclamosUrl());
   };
 
   return (
@@ -35,6 +40,10 @@ export default function NavbarNegocio() {
       <ListItem button key={constantes.miNegocioTitulo} onClick={redirigirAMiNegocio}>
         <ListItemIcon> <InboxIcon /> </ListItemIcon>
         <ListItemText primary={constantes.miNegocioTitulo} />
+      </ListItem>
+      <ListItem button key={constantes.vouchersConfirmables} onClick={redirigirAVouchersConfirmables}>
+        <ListItemIcon> <ThumbUp /> </ListItemIcon>
+        <ListItemText primary={constantes.vouchersConfirmables} />
       </ListItem>
       <ListItem button key={constantes.misTalonariosTitulo} onClick={redirigirACrearTalonarios}>
         <ListItemIcon> <CreateIcon /> </ListItemIcon>

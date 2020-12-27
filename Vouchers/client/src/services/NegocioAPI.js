@@ -52,7 +52,6 @@ class NegocioAPI {
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'stock': talonario.stock,
       // TODO no more owner !!!!
-      'isOwned': false,
       'nombreNegocio': negocio.name
     }
   }
