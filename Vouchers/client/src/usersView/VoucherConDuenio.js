@@ -1,30 +1,32 @@
-import React from "react";
+import React from 'react';
 // material-ui components
-import { makeStyles } from "@material-ui/core/styles";
-import Slide from "@material-ui/core/Slide";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import IconButton from "@material-ui/core/IconButton";
-import Close from "@material-ui/icons/Close";
+import { makeStyles } from '@material-ui/core/styles';
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import IconButton from '@material-ui/core/IconButton';
+import Close from '@material-ui/icons/Close';
 // core components
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardFooter from "components/Card/CardFooter.js";
-import Button from "components/CustomButtons/Button.js";
-import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
+import Card from 'components/Card/Card.js';
+import CardBody from 'components/Card/CardBody.js';
+import CardHeader from 'components/Card/CardHeader.js';
+import CardFooter from 'components/Card/CardFooter.js';
+import Button from 'components/CustomButtons/Button.js';
+import modalStyle from 'assets/jss/material-kit-react/modalStyle.js';
 
-import { cardTitle } from "assets/jss/material-kit-react.js";
+import { cardTitle } from 'assets/jss/material-kit-react.js';
+import {Row} from "reactstrap";
+import ReclamarVoucherBoton from "./ReclamarVoucherBoton";
 
 const styles = {
   cardTitle,
   textCenter: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   textMuted: {
-    color: "#6c757d"
+    color: '#6c757d'
   },
   ...modalStyle
 };
@@ -38,6 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function VoucherConDuenio(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
+
   return (
     <div>
       <Card className={classes.textCenter}>
@@ -45,15 +48,18 @@ export default function VoucherConDuenio(props) {
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p>
-          {props.data.descripcion}
+            {props.data.descripcion}
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
             Canjear
           </Button>
         </CardBody>
-        <CardFooter className={classes.textMuted}>
-          Retirar antes del {props.data.validoHasta}
-        </CardFooter>
+        <div style={{'margin': '0 20px', 'display': 'flex', 'justify-content': 'space-between'}}>
+          <CardFooter className={classes.textMuted}>
+            Retirar antes del {props.data.validoHasta}
+          </CardFooter>
+          <ReclamarVoucherBoton></ReclamarVoucherBoton>
+        </div>
       </Card>
 
       <Dialog
@@ -91,7 +97,7 @@ export default function VoucherConDuenio(props) {
           <h5>¿Desea confirmar el canje del voucher {props.data.titulo}?</h5>
         </DialogContent>
         <DialogActions
-          className={classes.modalFooter + " " + classes.modalFooterCenter}
+          className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
           <Button onClick={() => setModal(false)} color="success">

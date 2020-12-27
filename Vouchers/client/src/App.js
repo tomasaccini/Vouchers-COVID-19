@@ -48,7 +48,6 @@ class App extends Component {
 
     validarSesionNoIniciada(componente) {
         const tipoUsuario = localStorage.getItem('tipoUsuario')
-        console.log('!!!! tipoUsuario', tipoUsuario)
         if (tipoUsuario === '') {
             return componente;
         } else if (tipoUsuario === 'cliente') {
