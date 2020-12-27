@@ -52,6 +52,25 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
+  async solicitarCanje(voucherId, clienteId) {
+    const url = `${SERVER_URL}/vouchers/solicitarCanje/${voucherId}`;
+    console.log(`debug | solicitarCanje URL is: ${url}`);
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ clienteId: clienteId })
+    });
+
+    if (res.status !== 200) {
+      window.alert(res.message);
+      return null;
+    }
+
+    const voucher = await res.json();
+    console.log(`debug | solicitarCanje: `, voucher);
+    return this._transformarVoucher(voucher);
+  }
+
+
   _transformarItems(item) {
     return {
       'cantidad': item.cantidad,
@@ -101,6 +120,7 @@ class VoucherAPI {
       'isOwned': true,
       // TODO we don't have the information yet
       'nombreNegocio': voucher.negocioCommand.nombre,
+      'state': voucher.state,
       'enReclamo': voucher.enReclamo,
     }
   }

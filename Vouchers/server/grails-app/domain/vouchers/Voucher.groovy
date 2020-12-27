@@ -1,6 +1,9 @@
 package vouchers
 
 import enums.states.VoucherState
+import org.hibernate.service.spi.ServiceException
+
+import javax.xml.bind.ValidationException
 
 class Voucher {
 
@@ -21,10 +24,6 @@ class Voucher {
         reclamo                nullable: true
         cliente                nullable: false, blank: false
         talonario              nullable: false, blank: false
-    }
-
-    boolean esRetirable() {
-        return !estaExpirado() && state == VoucherState.Comprado
     }
 
     boolean esConfirmable() {
@@ -62,5 +61,24 @@ class Voucher {
 
     Boolean enReclamo() {
         return reclamo != null && !reclamo.estaCerrado()
+    }
+
+    void solicitarCanje(Cliente clienteSolicitante) {
+        if (cliente.id != clienteSolicitante.id) {
+            throw new RuntimeException("El cliente " + clienteId + " no puede solicitar el canje. Solo el cliente que creo el voucher puede hacerlo")
+        }
+
+        if (!esCanjeable()) {
+            throw new RuntimeException("El voucher " + id + " no puede ser canjeado")
+        }
+
+        state = VoucherState.ConfirmacionPendiente
+        lastStateChange = new Date()
+        save(flush: true, failOnError: true)
+    }
+
+    // TODO: deberia ser privado !!!!
+    boolean esCanjeable() {
+        return !estaExpirado() && state == VoucherState.Comprado
     }
 }

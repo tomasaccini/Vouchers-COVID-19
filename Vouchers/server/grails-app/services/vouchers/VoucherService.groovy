@@ -52,13 +52,36 @@ class VoucherService {
         modifyState(voucher, VoucherState.Retirado)
     }
 
-    def retire(Long id) {
-        Voucher voucher = Voucher.get(id)
-        if (!voucher.esRetirable()) {
-            //TODO: Throw Excepction
-            return
+    Voucher solicitarCanje(Long voucherId, Long clienteId) {
+
+        Cliente cliente = Cliente.get(clienteId)
+        if (cliente == null) {
+            throw new RuntimeException("El cliente " + clienteId + " no existe")
         }
-        modifyState(voucher, VoucherState.ConfirmacionPendiente)
+
+        Voucher voucher = Voucher.get(voucherId)
+        if (voucher == null) {
+            throw new RuntimeException("El voucher " + voucherId + " no existe")
+        }
+
+        // El codigo esta aca en vez de en voucher.solicitarCanje() porque no se actualizaba la DB cuando se pone ahi. Cosa rara de grails.
+        // voucher.solicitarCanje(cliente)
+
+        Cliente clienteSolicitante = cliente
+
+        if (voucher.cliente.id != clienteSolicitante.id) {
+            throw new RuntimeException("El cliente " + clienteId + " no puede solicitar el canje. Solo el cliente que creo el voucher puede hacerlo")
+        }
+
+        if (!voucher.esCanjeable()) {
+            throw new RuntimeException("El voucher " + voucher.id + " no puede ser canjeado")
+        }
+
+        voucher.state = VoucherState.ConfirmacionPendiente
+        voucher.lastStateChange = new Date()
+        voucher.save(flush: true, failOnError: true)
+
+        return voucher
     }
 
     def modifyState(Voucher voucher, VoucherState newState) {
@@ -82,7 +105,7 @@ class VoucherService {
     List<Voucher> findSimilar(String q, Map map) {
         String query = "select distinct(v) from Voucher as v "
         query += " where lower(v.informacionVoucher.descripcion) like :search "
-        Voucher.executeQuery(query, [search: "%${q}%".toLowerCase()]  , map)
+        Voucher.executeQuery(query, [search: "%${q}%".toLowerCase()], map)
     }
 
     private List<Voucher> mockVoucherList() {
@@ -92,8 +115,8 @@ class VoucherService {
     }
 
     private InformacionVoucher createVoucherInformation(valid_until = new Date('2020/12/31')) {
-        Producto p1 = new Producto(nombre:"Hamburguesa", descripcion: "Doble cheddar")
-        Producto p2 = new Producto(nombre:"Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
+        Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar")
+        Producto p2 = new Producto(nombre: "Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
         Item i1 = new Item(producto: p1, cantidad: 1)
         Item i2 = new Item(producto: p2, cantidad: 2)
 

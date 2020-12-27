@@ -19,6 +19,9 @@ import modalStyle from 'assets/jss/material-kit-react/modalStyle.js';
 import { cardTitle } from 'assets/jss/material-kit-react.js';
 import {Row} from "reactstrap";
 import ReclamarVoucherButton from "./ReclamarVoucherButton";
+import voucherAPI from "../services/VoucherAPI";
+import {Redirect} from "react-router-dom";
+import navegacion from "../utils/navegacion";
 
 const styles = {
   cardTitle,
@@ -39,7 +42,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function VoucherConDuenio(props) {
   const [modal, setModal] = React.useState(false);
+  const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
+
+  const deshabilitarCanje = props.data.state !== 'Comprado';
+
+  const solicitarCanjeDeVoucher = async () => {
+    const usuarioId = localStorage.getItem('userId');
+    await voucherAPI.solicitarCanje(props.data.id, usuarioId);
+    setActualizar(true);
+  }
+
+  if (actualizar) {
+    window.location.replace(navegacion.getClienteCanjearVoucherUrl());
+  }
 
   return (
     <div>
@@ -50,7 +66,7 @@ export default function VoucherConDuenio(props) {
           <p>
             {props.data.descripcion}
           </p>
-          <Button color="primary" size="large" onClick={() => setModal(true)}>
+          <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
             Canjear
           </Button>
         </CardBody>
@@ -88,7 +104,7 @@ export default function VoucherConDuenio(props) {
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h4 className={classes.modalTitle}>Confirmar canje</h4>
+          <h4 className={classes.modalTitle}>Confirmar solicitud de canje</h4>
         </DialogTitle>
         <DialogContent
           id="modal-slide-description"
@@ -100,7 +116,7 @@ export default function VoucherConDuenio(props) {
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={() => setModal(false)} color="success">
+          <Button onClick={solicitarCanjeDeVoucher} color="success">
             Confirmar
           </Button>
         </DialogActions>

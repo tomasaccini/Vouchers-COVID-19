@@ -28,9 +28,9 @@ class ClienteService {
         if (!client?.vouchers?.contains(voucher)) {
             throw new RuntimeException("The client is not the owner of the Voucher")
         }
-        if (!voucher.esRetirable()) {
+        if (!voucher.esCanjeable()) {
             throw new RuntimeException("Voucher has been already retired or is expired")
         }
-        voucherService.retire(voucher.id)
+        voucherService.solicitarCanje(voucher.id)
     }
 }

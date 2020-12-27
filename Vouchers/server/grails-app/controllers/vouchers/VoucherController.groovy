@@ -59,15 +59,19 @@ class VoucherController extends RestfulController {
     * Dado el id del cliente y el id del voucher a cambiar
     * URL/vouchers/canjear?clienteId={id}&voucherId={id}
     */
-    def canjear(Long clienteId, Long voucherId) {
-        Cliente cliente = Cliente.get(clienteId)
-        if (!cliente || !cliente.getVoucher(voucherId)){
-            respond 404
-            return
-        }
+    def solicitarCanje(Long voucherId) {
+        println("Request de canjear voucher")
 
-        voucherService.retire(voucherId)
-        respond Voucher.get(voucherId)
+        Object requestBody = request.JSON
+        Long clienteId = requestBody['clienteId'].toLong()
+
+        try {
+            Voucher voucher = voucherService.solicitarCanje(voucherId, clienteId)
+            respond voucherAssembler.toBean(voucher)
+        } catch (Exception e) {
+            println(e.stackTrace)
+            response.sendError(400, e.message)
+        }
     }
 
     /*
@@ -101,7 +105,7 @@ class VoucherController extends RestfulController {
         }
     }
 
-    // !!!!
+    // !!!! creo que hay que borrar todo esto, no estoy seguro
     VoucherCommand create() {
         println("Voucher creationg requestes")
         println(request.JSON)
