@@ -14,8 +14,8 @@ class ListaVouchers extends Component {
                 {this.props.vouchers.map((voucher) =>
                     <GridItem xs={4}>
                         { voucher.isOwned
-                          ? <VoucherConDuenio data={voucher}/>
-                          : <VoucherSinDuenio data={voucher} habilitarCompra={habilitarCompra}/>
+                          ? <VoucherConDuenio data={voucher} />
+                          : <VoucherSinDuenio data={voucher} />
                         }
                     </GridItem>
                 )}

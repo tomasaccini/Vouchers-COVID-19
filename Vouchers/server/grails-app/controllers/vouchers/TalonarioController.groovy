@@ -1,5 +1,7 @@
 package vouchers
 
+import assemblers.TalonarioAssembler
+import assemblers.VoucherAssembler
 import grails.rest.*
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.CREATED
@@ -15,6 +17,8 @@ class TalonarioController extends RestfulController{
     static allowedMethods = [getAll: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     TalonarioService talonarioService
+    TalonarioAssembler talonarioAssembler = new TalonarioAssembler()
+    VoucherAssembler voucherAssembler = new VoucherAssembler()
 
     TalonarioController() {
         super(Talonario)
@@ -41,6 +45,8 @@ class TalonarioController extends RestfulController{
     */
     @Transactional
     def comprar(){
+        println('Comprar nuevo voucher')
+
         Object requestBody = request.JSON
         // TODO pasar a un service el get y todo en realidad !!!!!
         Cliente cliente = Cliente.get(requestBody['clienteId']?.toLong())
@@ -50,7 +56,7 @@ class TalonarioController extends RestfulController{
         }
         try {
             Voucher voucher = talonario.comprarVoucher(cliente)
-            respond voucher
+            respond voucherAssembler.toBean(voucher)
         } catch (Exception e) {
             println(e)
             return response.sendError(400, "El Voucher no pudo ser creado: " + e.message)
@@ -58,6 +64,8 @@ class TalonarioController extends RestfulController{
     }
 
     def crear() {
+        println('Creando nuevo voucher')
+
         Object requestBody = request.JSON
 
         String negocioId
@@ -81,7 +89,8 @@ class TalonarioController extends RestfulController{
         }
 
         try {
-            respond talonarioService.createMock(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr), [status: CREATED]
+            Talonario talonario = talonarioService.createMock(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr)
+            respond talonarioAssembler.toBean(talonario), [status: CREATED]
         } catch (RuntimeException re) {
             response.sendError(400, re.message)
         }

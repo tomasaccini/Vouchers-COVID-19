@@ -61,7 +61,9 @@ export default function VoucherSinDuenio(props) {
     return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
   }
 
-  const deshabilitarBotonComprar = !props.habilitarCompra || props.data.stock <= 0;
+  const tipoUsuario = localStorage.getItem('tipoUsuario');
+  const habilitarCompra = tipoUsuario === 'cliente';
+  const deshabilitarBotonComprar = !habilitarCompra || props.data.stock <= 0;
 
   return (
     <div>

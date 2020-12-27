@@ -61,7 +61,9 @@ class VoucherAPI {
   }
 
   _transformarTalonario(talonario) {
-    const iv = talonario.informacionVoucherCommand;
+    console.log(talonario)
+
+    const iv = talonario.info;
 
     const desde = new Date(iv.validoDesde);
     const hasta = new Date(iv.validoHasta);
