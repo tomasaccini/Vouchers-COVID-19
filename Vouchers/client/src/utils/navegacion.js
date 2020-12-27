@@ -3,7 +3,7 @@ export default {
   getIniciarSesionUrl: () => '/iniciarsesion',
   getRegistrarseUrl: () => '/registrarse',
   getOlvidoContraseniaUrl: () => '/olvidocontrasenia',
-  getNegocioPerfilUrl: () => '/negocios/perfil',
+  getNegocioPerfilUrl: (usuarioId) => `/negocios/perfil/${usuarioId}`,
   getClientePerfilUrl: () => '/clientes/perfil',
   getClienteComprarVoucherUrl: () => '/clientes/comprar',
   getClienteCanjearVoucherUrl: () => '/clientes/canjear',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import HomePage from "./usersView/Home";
 import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
 import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
-import NegocioPerfilPage from "./usersView/NegocioPerfil"
+import NegocioPerfil from "./usersView/NegocioPerfil"
 import TalonariosPage from "./usersView/Talonarios"
 import TalonariosCrearPage from "./usersView/TalonarioCrear"
 import ProductosPage from "./usersView/ProductosVer"
@@ -27,9 +27,14 @@ class App extends Component {
         super(props)
 
         if (!localStorage.hasOwnProperty('userId')) {
-            localStorage.setItem('userId', -1);
+            localStorage.setItem('userId', '-1');
             localStorage.setItem('tipoUsuario', '');
         }
+    }
+
+    inicioSesion() {
+        const usuarioId = localStorage.getItem('userId')
+        return usuarioId !== '-1';
     }
 
     validarSesionInciadaCliente(componente) {
@@ -39,27 +44,33 @@ class App extends Component {
         return <Redirect to={navegacion.getIniciarSesionUrl()} />
     }
 
-    validarSesionInciadaNegocio(componente) {
+    validarSesionInciadaNegocio(props, renderComponente) {
+        console.log('props', props)
+        const negocioId = props.match ? props.match.params.negocioId : '';
+
         if (localStorage.getItem('tipoUsuario') === 'negocio') {
-            return componente;
+            return renderComponente(negocioId);
         }
         return <Redirect to={navegacion.getIniciarSesionUrl()} />
     }
 
     validarSesionNoIniciada(componente) {
+        const usuarioId = localStorage.getItem('userId')
         const tipoUsuario = localStorage.getItem('tipoUsuario')
+
         if (tipoUsuario === '') {
             return componente;
         } else if (tipoUsuario === 'cliente') {
-            return <Redirect to={navegacion.getClientePerfilUrl()} />            
+            return <Redirect to={navegacion.getClientePerfilUrl()} />
         }
-        return <Redirect to={navegacion.getNegocioPerfilUrl()} />            
+        return <Redirect to={navegacion.getNegocioPerfilUrl(usuarioId)} />
     }
 
     validarSesionIniciada(componente) {
-        if (localStorage.getItem('tipoUsuario') !== '') {
+        if (this.inicioSesion()) {
             return componente;
         }
+
         return <Redirect to={navegacion.getIniciarSesionUrl()} />           
     }
 
@@ -76,9 +87,12 @@ class App extends Component {
                     <Route path={navegacion.getOlvidoContraseniaUrl()}>
                         {this.validarSesionNoIniciada(<OlvidoContraseniaPage />)}
                     </Route>
-                    <Route path={navegacion.getNegocioPerfilUrl()}>
-                        {this.validarSesionInciadaNegocio(<NegocioPerfilPage />)}
-                    </Route>
+                    <Route
+                      path={`${navegacion.getNegocioPerfilUrl('')}:negocioId`}
+                      render={props => this.validarSesionInciadaNegocio(
+                        props,
+                        negocioId => <NegocioPerfil adsadsa={'adssada'} negocioId={negocioId} />)}
+                    />
                     <Route path={navegacion.getClientePerfilUrl()}>
                         {this.validarSesionInciadaCliente(<ClientePerfilPage />)}
                     </Route>
@@ -91,18 +105,30 @@ class App extends Component {
                     <Route path={navegacion.getReclamos()}>
                         {this.validarSesionIniciada(<Reclamos usuarioId={parseInt(localStorage.getItem('userId'))}/>)}
                     </Route>
-                    <Route path={navegacion.getTalonariosCrear()}>
-                        {this.validarSesionInciadaNegocio(<TalonariosCrearPage />)}
-                    </Route>
-                    <Route path={navegacion.getTalonarios()}>
-                        {this.validarSesionInciadaNegocio(<TalonariosPage />)}
-                    </Route>
-                    <Route path={navegacion.getProductosCrear()}>
-                        {this.validarSesionInciadaNegocio(<ProductosCrearPage />)}
-                    </Route>
-                    <Route path={navegacion.getProductos()}>
-                        {this.validarSesionInciadaNegocio(<ProductosPage />)}
-                    </Route>
+                    <Route
+                      path={navegacion.getTalonariosCrear()}
+                      render={props => this.validarSesionInciadaNegocio(
+                        props,
+                        () => <TalonariosCrearPage />)}
+                    />
+                    <Route
+                      path={navegacion.getTalonarios()}
+                      render={props => this.validarSesionInciadaNegocio(
+                        props,
+                        () => <TalonariosPage />)}
+                    />
+                    <Route
+                      path={navegacion.getProductosCrear()}
+                      render={props => this.validarSesionInciadaNegocio(
+                        props,
+                        () => <ProductosCrearPage />)}
+                    />
+                    <Route
+                      path={navegacion.getProductos()}
+                      render={props => this.validarSesionInciadaNegocio(
+                        props,
+                        () => <ProductosPage />)}
+                    />
                     <Route path="/">
                         <HomePage />
                     </Route>

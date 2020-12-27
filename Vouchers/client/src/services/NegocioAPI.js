@@ -6,6 +6,11 @@ class NegocioAPI {
   async getNegocio(negocioId){
     const url = `${SERVER_URL}/negocios/${negocioId}`;
     const res = await fetch(url);
+
+    if (res.status !== 200) {
+      return null;
+    }
+
     const negocio = await res.json();
     return this._transformarNegocio(negocio)
   }

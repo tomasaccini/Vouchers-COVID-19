@@ -12,8 +12,10 @@ import constantes from "../utils/constantes";
 
 export default function NavbarNegocio() {
 
+  const usuarioId = localStorage.getItem('userId');
+
   const redirigirAMiNegocio = () => {
-    window.location.replace(navegacion.getNegocioPerfilUrl());
+    window.location.replace(navegacion.getNegocioPerfilUrl(usuarioId));
   };
 
   const redirigirACrearTalonarios = () => {

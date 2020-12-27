@@ -71,7 +71,8 @@ export default function IniciarSesion(props) {
       localStorage.setItem('tipoUsuario', 'negocio');
       localStorage.setItem('userId', 1);
       console.log(localStorage);
-      window.location.href = navegacion.getNegocioPerfilUrl();
+      const usuarioId = localStorage.getItem('userId');
+      window.location.href = navegacion.getNegocioPerfilUrl(usuarioId);
     } else {
       localStorage.setItem('tipoUsuario', 'cliente');
       localStorage.setItem('userId', 3);

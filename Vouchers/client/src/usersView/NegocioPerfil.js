@@ -30,8 +30,15 @@ class NegocioPerfil extends Component {
     }
 
     async componentDidMount() {
+        const { negocioId } = this.props;
+
         if (localStorage.getItem('tipoUsuario') === 'negocio') {
-            const perfil = await this.getPerfilNegocio(localStorage.getItem('userId'));
+            const perfil = await this.getPerfilNegocio(negocioId);
+            if (perfil === null) {
+                window.alert('El negocio al que quieres ir no existe');
+                return;
+            }
+
             this.setState({ perfil: perfil });
         } else if (localStorage.getItem('tipoUsuario') === 'cliente') {
             window.location.replace(navegacion.getClientePerfilUrl());
