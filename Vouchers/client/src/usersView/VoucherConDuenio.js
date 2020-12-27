@@ -40,6 +40,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function VoucherConDuenio(props) {
   const [modal, setModal] = React.useState(false);
   const classes = useStyles();
+  console.log(props)
 
   return (
     <div>
@@ -58,7 +59,7 @@ export default function VoucherConDuenio(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <ReclamarVoucherBoton></ReclamarVoucherBoton>
+          <ReclamarVoucherBoton voucherId={props.data.id} />
         </div>
       </Card>
 

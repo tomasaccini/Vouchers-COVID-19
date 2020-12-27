@@ -7,6 +7,7 @@ import vouchers.Voucher
 class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
 
     VoucherInformationAssembler voucherInformationAssembler
+    NegocioAssembler negocioAssembler = new NegocioAssembler()
 
     @Override
     protected Voucher getEntity(Long id) {
@@ -23,8 +24,13 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
         VoucherCommand bean = super.toBean(domain)
 
         if (domain.informacionVoucher){
-            bean.voucherInformationCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
+            bean.informacionVoucherCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
         }
+
+        println(negocioAssembler)
+        println(domain.talonario)
+        println(domain.talonario.negocio)
+        bean.negocio = negocioAssembler.toBean(domain.talonario.negocio)
 
         return bean
     }
@@ -34,8 +40,8 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
 
         Voucher domain = super.fromBean(bean)
 
-        if (bean.voucherInformationCommand){
-            domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.voucherInformationCommand)
+        if (bean.informacionVoucherCommand){
+            domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.informacionVoucherCommand)
         }
 
         return domain

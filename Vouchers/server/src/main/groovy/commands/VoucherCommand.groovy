@@ -8,10 +8,11 @@ class VoucherCommand implements Validateable {
 
     Long id
     Long version
-    InformacionVoucherCommand voucherInformationCommand
+    InformacionVoucherCommand informacionVoucherCommand
     Date dateCreated
     VoucherState state
     Date lastStateChange = new Date()
+    NegocioCommand negocio
 
     static constraints = {
         importFrom Voucher

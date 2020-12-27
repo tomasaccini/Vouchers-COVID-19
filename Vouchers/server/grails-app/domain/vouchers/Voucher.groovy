@@ -4,6 +4,7 @@ import enums.states.VoucherState
 
 class Voucher {
 
+    Long id
     InformacionVoucher informacionVoucher
     Date dateCreated = new Date()
     VoucherState state = VoucherState.Comprado

@@ -35,9 +35,9 @@ class UrlMappings {
         "/reclamos/$reclamoId"(controller: 'reclamo', action: 'obtenerReclamo')
         post "/reclamos"(controller: 'reclamo', action: 'crearReclamo')
         post "/reclamos/$reclamoId/nuevoMensaje"(controller: 'reclamo', action: 'nuevoMensaje')
-        "/reclamos/usuarios/$usuarioId"(controller: 'reclamo', action: 'getPorUsuario')
-        "/reclamos/negocios/$negocioId"(controller: 'reclamo', action: 'getPorNegocio')
-        "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'getPorCliente')
+        "/reclamos/usuarios/$usuarioId"(controller: 'reclamo', action: 'obtenerPorUsuario')
+        "/reclamos/negocios/$negocioId"(controller: 'reclamo', action: 'obtenerPorNegocio')
+        "/reclamos/clientes/$clienteId"(controller: 'reclamo', action: 'obtenerPorCliente')
         post "/reclamos/$reclamoId/cerrar"(controller: 'reclamo', action: 'cerrarReclamo')
 
         // Recomendaciones
@@ -56,10 +56,10 @@ class UrlMappings {
         post "/$controller(.$format)?"(action:"save")
         put "/$controller/$id(.$format)?"(action:"update")
         patch "/$controller/$id(.$format)?"(action:"patch")
-        // !!!!
-        get "/vouchers"(controller: 'voucher', action: 'getByUserId')
-        post "/vouchers"(controller: 'voucher', action: 'create')
-        put "/vouchers"(controller: 'voucher', action: 'asd')
+        // TODO delete all this !!!!
+        // get "/vouchers"(controller: 'voucher', action: 'getByUserId')
+        // post "/vouchers"(controller: 'voucher', action: 'create')
+        // put "/vouchers"(controller: 'voucher', action: 'asd')
 
 
         "/"(controller: 'application', action:'index')

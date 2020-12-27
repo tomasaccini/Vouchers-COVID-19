@@ -25,7 +25,8 @@ class VoucherAPI {
   // Returns vouchers owned by clients
   // TODO: Modify and rename
   async getVouchers(userId) {
-    const url = `${SERVER_URL}vouchers?userId=${userId}`;
+    // const url = `${SERVER_URL}vouchers?userId=${userId}`;
+    const url = `${SERVER_URL}vouchers/getByUser/${userId}`;
     console.log(`debug | getVouchers URL is: ${url}`);
     const res = await fetch(url);
     const vouchers = await res.json();
@@ -82,19 +83,20 @@ class VoucherAPI {
   }
 
   _transformarVoucher(voucher) {
-    const vi = voucher.info
+    const vi = voucher.informacionVoucherCommand
 
     const desde = new Date(vi.validoDesde);
     const hasta = new Date(vi.validoHasta);
 
+    console.log(voucher)
+
     return {
-      'id': vi.id,
+      'id': voucher.id,
       'titulo': '2 Hamburguesas',
       'descripcion': vi.descripcion,
       'precio': vi.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
-      'stock': voucher.stock,
       // TODO no more owner !!!!
       'isOwned': true,
       // TODO we don't have the information yet

@@ -35,7 +35,7 @@ export default function ReclamoChatListItem(props) {
   const classes = useStyles();
   const { email, onclick, active, subtitulo, fecha, reclamoId } = props;
 
-  const xxx = async (reclamoId) => {
+  const cerrarReclamo = async (reclamoId) => {
     setModal(false);
     const usuarioId = localStorage.getItem('userId');
     await reclamoAPI.cerrarReclamo(reclamoId, usuarioId);
@@ -97,7 +97,7 @@ export default function ReclamoChatListItem(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => xxx(reclamoId)} color="success">
+          <Button onClick={() => cerrarReclamo(reclamoId)} color="success">
             Confirmar
           </Button>
         </DialogActions>

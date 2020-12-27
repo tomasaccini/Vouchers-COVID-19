@@ -2,8 +2,9 @@ package enums.states
 
 enum ReclamoState {
     Abierto('Abierto'),
-    Respondido('Respondido'),
-    Cerrado('Cerrado')
+    Cerrado('Cerrado'),
+    Respondido('Respondido')
+
     String id
 
     ReclamoState(String id) {

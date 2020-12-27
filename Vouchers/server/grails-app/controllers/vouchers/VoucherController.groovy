@@ -44,7 +44,15 @@ class VoucherController extends RestfulController {
         }
 
         params.max = Math.min(max ?: 10, 100)
-        respond Voucher.findAllByCliente(cliente, params)
+        List<Voucher> vouchers = Voucher.findAllByCliente(cliente, params)
+
+        List<VoucherCommand> voucherCommands = []
+
+        for (Voucher voucher : vouchers) {
+            voucherCommands.add(voucherAssembler.toBean(voucher))
+        }
+
+        respond voucherCommands
     }
 
     /*
@@ -57,6 +65,7 @@ class VoucherController extends RestfulController {
             respond 404
             return
         }
+
         voucherService.retire(voucherId)
         respond Voucher.get(voucherId)
     }

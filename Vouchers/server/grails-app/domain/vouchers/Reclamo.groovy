@@ -9,7 +9,6 @@ class Reclamo {
     Date fechaUltimoMensaje = new Date()
     Cliente cliente
     Negocio negocio
-    // TODO: corregir la logica de negocio de esto al ser chat. Tener en cuenta que el primer mensaje se agrega a mano y ya pasa a respondido !!!!
     ReclamoState state = ReclamoState.Abierto
     Set<MensajeReclamo> mensajes = []
 
@@ -33,6 +32,7 @@ class Reclamo {
     }
 
     void agregarMensaje(String mensaje, Negocio duenio) {
+        println("!!!! Mensaje: " + mensaje)
         if (negocio.id != duenio.id) {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${negocio.id})")
         }
@@ -40,10 +40,14 @@ class Reclamo {
         state = ReclamoState.Respondido
 
         _agregarMensaje(mensaje, duenio)
+
+        // TODO: delete this
+        state = ReclamoState.Cerrado
+        this.save(flush:true, failOnError: true)
     }
 
     void cerrar(Usuario usuarioCerrador) {
-        if (usuarioCerrador != cliente) {
+        if (usuarioCerrador.id != cliente.id) {
             throw new RuntimeException("El usuario " + usuarioCerrador.id + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
         }
 

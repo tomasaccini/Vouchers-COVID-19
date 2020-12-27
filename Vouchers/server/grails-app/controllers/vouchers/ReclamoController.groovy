@@ -58,7 +58,7 @@ class ReclamoController extends RestfulController{
     }
 
     def nuevoMensaje(Long reclamoId) {
-        println("Request para crear un reclamo")
+        println("Request para agregar un mensaje a un reclamo")
 
         Object requestBody = request.JSON
         Long usuarioId = requestBody['usuarioId']
@@ -66,13 +66,13 @@ class ReclamoController extends RestfulController{
 
         try {
             Reclamo reclamo = reclamoService.nuevoMensaje(reclamoId, usuarioId, mensaje)
-            respond reclamo
+            respond reclamoAssembler.toBean(reclamo)
         } catch (RuntimeException re) {
             response.sendError(400, re.message)
         }
     }
 
-    def getPorUsuario(Long usuarioId) {
+    def obtenerPorUsuario(Long usuarioId) {
         List<Reclamo> reclamos = reclamoService.obtenerPorUsuario(usuarioId)
 
         List<ReclamoCommand> reclamosCommand = []
@@ -90,7 +90,7 @@ class ReclamoController extends RestfulController{
     * URL/complaints/getByBusiness/businessId -> When max is not specified
     * URL/complaints/getByBusiness/businessId?max=n -> When max is specified
     */
-    def getPorNegocio(Long negocioId, Integer max) {
+    def obtenerPorNegocio(Long negocioId, Integer max) {
         Negocio negocio = Negocio.get(negocioId)
         params.max = Math.min(max ?: 10, 100)
         if (!negocio) {
@@ -107,7 +107,7 @@ class ReclamoController extends RestfulController{
     * URL/complaints/getByClient/clientId -> When max is not specified
     * URL/complaints/getByClient/clientId?max=n -> When max is specified
     */
-    def getPorCliente(Long clienteId, Integer max) {
+    def obtenerPorCliente(Long clienteId, Integer max) {
         Cliente client = Cliente.get(clienteId)
         params.max = Math.min(max ?: 10, 100)
         if (!client) {
@@ -131,7 +131,8 @@ class ReclamoController extends RestfulController{
         try {
             Reclamo reclamo = reclamoService.cerrarReclamo(reclamoId, usuarioId)
             ReclamoCommand reclamoCommand = reclamoAssembler.toBean(reclamo)
-            respond reclamoCommand
+
+            respond obtenerPorUsuario(usuarioId)
         } catch (RuntimeException re) {
             response.sendError(400, re.message)
         }
