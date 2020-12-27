@@ -13,6 +13,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
 import voucherAPI from "../services/VoucherAPI";
 import reclamoAPI from "../services/ReclamoAPI";
+import {Redirect} from "react-router-dom";
+import navegacion from "../utils/navegacion";
 
 const styles = {
   cardTitle,
@@ -31,6 +33,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ReclamarVoucherButton(props) {
   const [modal, setModal] = React.useState(false);
+  const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
   const { voucherId } = props;
 
@@ -38,7 +41,12 @@ export default function ReclamarVoucherButton(props) {
 
   const iniciarReclamo = async () =>{
     setModal(false);
-    reclamoAPI.iniciarReclamo(voucherId, usuarioId);
+    await reclamoAPI.iniciarReclamo(voucherId, usuarioId);
+    setActualizar(true);
+  }
+
+  if (actualizar) {
+    return <Redirect to={navegacion.getReclamos()} />
   }
 
   return (

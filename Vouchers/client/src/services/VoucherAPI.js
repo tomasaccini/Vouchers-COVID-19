@@ -98,7 +98,8 @@ class VoucherAPI {
       // TODO no more owner !!!!
       'isOwned': true,
       // TODO we don't have the information yet
-      'nombreNegocio': voucher.negocioCommand.nombre
+      'nombreNegocio': voucher.negocioCommand.nombre,
+      'enReclamo': voucher.enReclamo,
     }
   }
 }

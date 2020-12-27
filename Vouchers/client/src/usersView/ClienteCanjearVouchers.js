@@ -21,9 +21,9 @@ class ClienteCanjearVouchers extends Component {
     }
 
     async getListaDeVouchers() {
-        return await voucherAPI.getVouchers(localStorage.getItem('userId'));
+        const vouchers = await voucherAPI.getVouchers(localStorage.getItem('userId'));
+        return vouchers.filter(voucher => !voucher.enReclamo);
     }
-
 
     render() {
         return (
