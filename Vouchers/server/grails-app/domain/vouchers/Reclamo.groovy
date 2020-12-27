@@ -39,10 +39,6 @@ class Reclamo {
         state = ReclamoState.Respondido
 
         _agregarMensaje(mensaje, duenio)
-
-        // TODO: delete this
-        state = ReclamoState.Cerrado
-        this.save(flush:true, failOnError: true)
     }
 
     void cerrar(Usuario usuarioCerrador) {
@@ -55,19 +51,18 @@ class Reclamo {
         }
 
         state = ReclamoState.Cerrado
-        this.save(flush:true, failOnError: true)
-        println('!!!! RECLAMO CERRADO: ' + state.toString())
+        this.save(flush: true, failOnError: true)
     }
 
     void reabrir() {
-        state = mensajes.size() == 0 ? ReclamoState.Abierto : ReclamoState.Respondido
+        state = ReclamoState.Abierto
     }
 
     Boolean estaCerrado() {
         return state == ReclamoState.Cerrado
     }
 
-    Boolean perteneceAUsuario(Usuario usuarioCerrador){
+    Boolean perteneceAUsuario(Usuario usuarioCerrador) {
         usuarioCerrador.id == cliente.id
     }
 
@@ -82,6 +77,6 @@ class Reclamo {
         this.addToMensajes(mensajeReclamo)
         fechaUltimoMensaje = new Date()
 
-        this.save(flush:true, failOnError: true)
+        this.save(flush: true, failOnError: true)
     }
 }

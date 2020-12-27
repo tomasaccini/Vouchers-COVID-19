@@ -13,6 +13,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import {Redirect} from "react-router-dom";
+import navegacion from "../../utils/navegacion";
 
 
 const styles = {
@@ -32,6 +34,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function ReclamoChatListItem(props) {
   const [modal, setModal] = React.useState(false);
+  const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
   const { email, onclick, active, subtitulo, fecha, reclamoId } = props;
 
@@ -39,9 +42,14 @@ export default function ReclamoChatListItem(props) {
     setModal(false);
     const usuarioId = localStorage.getItem('userId');
     await reclamoAPI.cerrarReclamo(reclamoId, usuarioId);
+    setActualizar(true);
   };
 
   const esCliente = localStorage.getItem('tipoUsuario') === 'cliente';
+
+  if (actualizar) {
+    return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
+  }
 
   return (
     <ChatListItem active={active} onClick={onclick}>

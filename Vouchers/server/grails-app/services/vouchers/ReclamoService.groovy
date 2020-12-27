@@ -53,22 +53,30 @@ class ReclamoService {
 
     List<Reclamo> obtenerPorUsuario(Long usuarioId) {
         Usuario usuario = usuarioService.obtener(usuarioId)
-        List<Reclamo> reclamos =  _obtenerPorUsuario(usuario)
+        List<Reclamo> reclamos = _obtenerPorUsuario(usuario)
 
-        reclamos.sort { - it.fechaUltimoMensaje.seconds }
+        reclamos.sort { -it.fechaUltimoMensaje.seconds }
     }
 
     def cerrarReclamo(Long reclamoId, usuarioId) {
         Reclamo reclamo = Reclamo.get(reclamoId)
         Usuario usuario = Usuario.get(usuarioId)
-        if (reclamo.estaCerrado()){
+
+        // El codigo esta aca en vez de en reclamo.cerrar() porque no se actualizaba la DB cuando se pone ahi. Cosa rara de grails.
+        // reclamo.cerrar(usuario)
+
+        if (reclamo.estaCerrado()) {
             throw new RuntimeException("El reclamo ya fue cerrado")
         }
-        if (!reclamo.perteneceAUsuario(usuario)){
+
+        if (!reclamo.perteneceAUsuario(usuario)) {
             throw new RuntimeException("El usuario " + usuarioId + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
         }
+
         reclamo.state = ReclamoState.Cerrado
-        reclamo.save(flush:true, failOnError: true)
+        reclamo.save(flush: true, failOnError: true)
+
+
         return reclamo
     }
 

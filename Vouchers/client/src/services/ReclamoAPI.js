@@ -71,6 +71,7 @@ class ReclamoAPI {
       clienteEmail: reclamoDto.clienteEmail,
       negocioId: reclamoDto.negocioId,
       negocioEmail: reclamoDto.negocioEmail,
+      state: reclamoDto.state,
       fechaUltimoMensaje: reclamoDto.fechaUltimoMensaje,
       mensajes: reclamoDto.mensajes.map(mensajeDto => this._transformarMensaje(mensajeDto)),
     }

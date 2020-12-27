@@ -42,17 +42,25 @@ class Voucher {
     Reclamo iniciarReclamo(String descripcion) {
         println(reclamo)
 
-        if (reclamo != null) {
+        if (enReclamo()) {
             throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
         }
-        Reclamo nuevoReclamo = new Reclamo(voucher: this, cliente: cliente, negocio: talonario.negocio, descripcion: descripcion)
 
-        nuevoReclamo.agregarMensaje(descripcion, cliente)
-        reclamo = nuevoReclamo
+        if (reclamo == null) {
+            reclamo = new Reclamo(voucher: this, cliente: cliente, negocio: talonario.negocio, descripcion: descripcion)
+        } else {
+            reclamo.reabrir()
+        }
 
-        nuevoReclamo.save(flush: true, failOnError: true)
+        reclamo.agregarMensaje(descripcion, cliente)
+
+        reclamo.save(flush: true, failOnError: true)
         this.save(flush: true, failOnError: true)
 
-        nuevoReclamo
+        reclamo
+    }
+
+    Boolean enReclamo() {
+        return reclamo != null && !reclamo.estaCerrado()
     }
 }
