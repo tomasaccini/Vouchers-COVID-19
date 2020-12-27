@@ -107,6 +107,24 @@ class TalonarioService {
         Talonario.list(args)
     }
 
+    Voucher comprarVoucher(talonarioId, clienteId) {
+        // TODO pasar a un service el get y todo en realidad !!!!!
+        Cliente cliente = Cliente.get(clienteId)
+        println(cliente)
+        println(Cliente.getAll())
+        Talonario talonario = Talonario.get(talonarioId)
+
+        if (cliente == null){
+            throw new RuntimeException("El cliente " + clienteId + " no existe")
+        }
+
+        if (talonario == null){
+            throw new RuntimeException("El talonario " + talonarioId + " no existe")
+        }
+
+        return talonario.comprarVoucher(cliente)
+    }
+
     /*
     * Activates counterfoil
     * If already active, nothing happens
@@ -141,5 +159,4 @@ class TalonarioService {
         query += " or lower(items.producto.nombre) like :search "
         Talonario.executeQuery(query, [search: "%${q}%".toLowerCase()] , map)
     }
-
 }

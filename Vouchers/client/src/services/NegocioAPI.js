@@ -44,6 +44,7 @@ class NegocioAPI {
     const hasta = new Date(iv.validoHasta);
 
     return {
+      'id': talonario.id,
       'titulo': 'Medialunas Veganas',
       'descripcion': iv.descripcion,
       'precio': iv.precio,

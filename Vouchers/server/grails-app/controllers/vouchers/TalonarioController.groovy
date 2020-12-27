@@ -44,18 +44,16 @@ class TalonarioController extends RestfulController{
     * body: { talonarioId={id}, clienteId={id} }
     */
     @Transactional
-    def comprar(){
+    def comprarVoucher(){
         println('Comprar nuevo voucher')
 
         Object requestBody = request.JSON
-        // TODO pasar a un service el get y todo en realidad !!!!!
-        Cliente cliente = Cliente.get(requestBody['clienteId']?.toLong())
-        Talonario talonario = Talonario.get(requestBody['talonarioId']?.toLong())
-        if (!cliente || !talonario){
-            return response.sendError(400, "Cliente o talonario erroneo")
-        }
+
+        Long clienteId = requestBody['clienteId']?.toLong()
+        Long talonarioId = requestBody['talonarioId']?.toLong()
+
         try {
-            Voucher voucher = talonario.comprarVoucher(cliente)
+            Voucher voucher = talonarioService.comprarVoucher(talonarioId, clienteId)
             respond voucherAssembler.toBean(voucher)
         } catch (Exception e) {
             println(e)

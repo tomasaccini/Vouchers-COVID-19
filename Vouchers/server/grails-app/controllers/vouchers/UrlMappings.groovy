@@ -46,7 +46,7 @@ class UrlMappings {
         // Talonarios
         "/talonarios"(controller: 'talonario', action: 'getAll')
         "/talonarios/search"(controller: 'talonario', action: 'search')
-        post "/talonarios/comprar"(controller: 'talonario', action: 'comprar')
+        post "/talonarios/comprar"(controller: 'talonario', action: 'comprarVoucher')
         post "/talonarios"(controller: 'talonario', action: 'crear')
 
 

@@ -46,11 +46,15 @@ export default function VoucherSinDuenio(props) {
   const [comprado, setComprado] = React.useState(false);
   const classes = useStyles();
 
+  const usuarioId = localStorage.getItem('userId');
+  const tipoUsuario = localStorage.getItem('tipoUsuario');
+  const habilitarCompra = tipoUsuario === 'cliente';
+  const deshabilitarBotonComprar = !habilitarCompra || props.data.stock <= 0;
+
   const onClickBuyButton = async () => {
     setModal(false);
     setModalProducts(false);
-    // TODO pass actual user id!!!!
-    const voucherCreado = await voucherAPI.comprarVoucher(3, props.data.id);
+    const voucherCreado = await voucherAPI.comprarVoucher(usuarioId, props.data.id);
 
     if (voucherCreado !== null) {
       setComprado(true);
@@ -60,10 +64,6 @@ export default function VoucherSinDuenio(props) {
   if (comprado) {
     return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
   }
-
-  const tipoUsuario = localStorage.getItem('tipoUsuario');
-  const habilitarCompra = tipoUsuario === 'cliente';
-  const deshabilitarBotonComprar = !habilitarCompra || props.data.stock <= 0;
 
   return (
     <div>
