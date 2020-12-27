@@ -1,6 +1,6 @@
 package vouchers
 
-
+import enums.states.ReclamoState
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -61,7 +61,14 @@ class ReclamoService {
     def cerrarReclamo(Long reclamoId, usuarioId) {
         Reclamo reclamo = Reclamo.get(reclamoId)
         Usuario usuario = Usuario.get(usuarioId)
-        reclamo.cerrar(usuario)
+        if (reclamo.estaCerrado()){
+            throw new RuntimeException("El reclamo ya fue cerrado")
+        }
+        if (!reclamo.perteneceAUsuario(usuario)){
+            throw new RuntimeException("El usuario " + usuarioId + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
+        }
+        reclamo.state = ReclamoState.Cerrado
+        reclamo.save(flush:true, failOnError: true)
         return reclamo
     }
 

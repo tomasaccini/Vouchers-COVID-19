@@ -67,6 +67,10 @@ class Reclamo {
         return state == ReclamoState.Cerrado
     }
 
+    Boolean perteneceAUsuario(Usuario usuarioCerrador){
+        usuarioCerrador.id == cliente.id
+    }
+
     private void _agregarMensaje(String mensaje, Usuario owner) {
         if (state == ReclamoState.Cerrado) {
             throw new RuntimeException("No se pueden agregar mas mensajes a un reclamo cerrado")

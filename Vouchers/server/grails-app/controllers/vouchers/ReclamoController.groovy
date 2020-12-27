@@ -118,7 +118,7 @@ class ReclamoController extends RestfulController{
 
     /*
     * Closes complaint given by Id
-    * URL/complaints/closeComplaint/{id}
+    * post - URL/reclamos/{id}/cerrar
     */
     def cerrarReclamo(Long reclamoId) {
         println("Request para cerrar un reclamo")
