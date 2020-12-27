@@ -1,5 +1,6 @@
 import {SERVER_URL} from '../config';
 import { format } from 'date-fns';
+import voucherAPI from "./VoucherAPI";
 
 class NegocioAPI {
 
@@ -37,24 +38,21 @@ class NegocioAPI {
 
   _transformarTalonario(talonario, negocio) {
 
-    console.log('talonario', talonario)
-
     const iv = talonario.informacionVoucherCommand;
-    console.log('iv', iv)
 
     const desde = new Date(iv.validoDesde);
     const hasta = new Date(iv.validoHasta);
 
     return {
-      'Titulo': 'Medialunas Veganas',
-      'Descripcion': iv.descripcion,
-      'Precio': iv.precio,
-      'ValidoDesde': format(desde, 'yyyy/MM/dd'),
-      'ValidoHasta': format(hasta, 'yyyy/MM/dd'),
-      'Stock': talonario.stock,
+      'titulo': 'Medialunas Veganas',
+      'descripcion': iv.descripcion,
+      'precio': iv.precio,
+      'validoDesde': format(desde, 'yyyy/MM/dd'),
+      'validoHasta': format(hasta, 'yyyy/MM/dd'),
+      'stock': talonario.stock,
       // TODO no more owner !!!!
       'isOwned': false,
-      'NombreNegocio': negocio.name
+      'nombreNegocio': negocio.name
     }
   }
 

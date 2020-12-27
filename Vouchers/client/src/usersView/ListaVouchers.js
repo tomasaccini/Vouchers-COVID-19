@@ -7,13 +7,15 @@ import VoucherConDuenio from "./VoucherConDuenio.js"
 class ListaVouchers extends Component {
 
     render() {
+        const { habilitarCompra } = this.props;
+
         return (
             <GridContainer spacing={3}>
                 {this.props.vouchers.map((voucher) =>
                     <GridItem xs={4}>
                         { voucher.isOwned
                           ? <VoucherConDuenio data={voucher}/>
-                          : <VoucherSinDuenio data={voucher}/>
+                          : <VoucherSinDuenio data={voucher} habilitarCompra={habilitarCompra}/>
                         }
                     </GridItem>
                 )}

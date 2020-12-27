@@ -33,7 +33,7 @@ class Talonario {
     * it associates voucher to client
     * decrease the quantity of stock
     */
-    Voucher crearVoucher(Cliente cliente) {
+    Voucher comprarVoucher(Cliente cliente) {
 
         if (stock <= 0) {
             throw new RuntimeException("Talonario no tiene suficiente stock")

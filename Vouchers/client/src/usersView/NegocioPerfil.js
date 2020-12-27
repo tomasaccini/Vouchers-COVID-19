@@ -43,6 +43,9 @@ class NegocioPerfil extends Component {
     }
 
     render() {
+        const tipoUsuario = localStorage.getItem('tipoUsuario');
+        const habilitarCompra = tipoUsuario === 'cliente';
+
         return (
             <div>
                 <NavbarUsuario title={constantes.miNegocioTitulo} />
@@ -63,7 +66,7 @@ class NegocioPerfil extends Component {
                     </GridItem>
                     <GridItem>
                         {this.state.perfil.talonarios ?
-                            <ListaVouchers vouchers={this.state.perfil.talonarios} /> :
+                            <ListaVouchers vouchers={this.state.perfil.talonarios} habilitarCompra={habilitarCompra} /> :
                             <h1>Cargando</h1>}
                         {/* TODO: Create loading component */}
                     </GridItem>

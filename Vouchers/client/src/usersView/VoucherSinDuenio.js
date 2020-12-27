@@ -61,6 +61,8 @@ export default function VoucherSinDuenio(props) {
     return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
   }
 
+  const deshabilitarBotonComprar = !props.habilitarCompra || props.data.stock <= 0;
+
   return (
     <div>
       <Card className={classes.textCenter}>
@@ -70,7 +72,7 @@ export default function VoucherSinDuenio(props) {
           <p>
           {props.data.descripcion}
           </p>
-          <Button color="primary" size="large" onClick={() => setModal(true)}>
+          <Button color="primary" size="large" disabled={deshabilitarBotonComprar} onClick={() => setModal(true)}>
             Comprar
           </Button>
           <Button color="primary" size="large" onClick={() => setModalProducts(true)}>

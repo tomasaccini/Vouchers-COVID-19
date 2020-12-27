@@ -16,7 +16,7 @@ class ClienteService {
         Talonario talonario = talonarioService.get(talonarioId)
         Cliente cliente = Cliente.get(clienteId)
 
-        Voucher voucher = talonario.crearVoucher(cliente)
+        Voucher voucher = talonario.comprarVoucher(cliente)
 
         println("ClienteService.comprarVoucher() => ${voucher}")
 

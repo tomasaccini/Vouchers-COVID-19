@@ -61,20 +61,20 @@ class VoucherAPI {
   }
 
   _transformarTalonario(talonario) {
-    const info = talonario.info;
+    const iv = talonario.informacionVoucherCommand;
 
-    const desde = new Date(info.validoDesde);
-    const hasta = new Date(info.validoHasta);
+    const desde = new Date(iv.validoDesde);
+    const hasta = new Date(iv.validoHasta);
 
     return {
       'id': talonario.id,
       'titulo': '2 Hamburguesas',
-      'descripcion': info.descripcion,
-      'precio': info.precio,
+      'descripcion': iv.descripcion,
+      'precio': iv.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'stock': talonario.stock,
-      'items': info.items.map((i) => this._transformarItems(i)),
+      // 'items': iv.items.map((i) => this._transformarItems(i)),
       // TODO no more owner !!!!
       'isOwned': false,
       // TODO we don't have the information yet

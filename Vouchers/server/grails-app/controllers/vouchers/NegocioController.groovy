@@ -31,9 +31,7 @@ class NegocioController extends RestfulController {
     */
 
     NegocioCommand obtenerNegocio(Long negocioId) {
-        print("!!!! ASDADAS")
         Negocio negocio = negocioService.obtener(negocioId)
-        print("!!!! ASDADAS " + negocioId)
         NegocioCommand negocioCommand = negocioAssembler.toBean(negocio)
         respond negocioCommand
     }
@@ -43,7 +41,6 @@ class NegocioController extends RestfulController {
     * URL/negocios/obtenerTalonarios/{id}
     */
     List<Talonario> obtenerTalonarios(Long id){
-        print("!!!! BBBBBB")
         // TODO: pasar a un service el Negocio.get(id)
         Negocio negocio = Negocio.get(id)
         println("Request: talonarios de negocio")
@@ -54,7 +51,6 @@ class NegocioController extends RestfulController {
     }
 
     List<NegocioCommand> obtenerTodos() {
-        print("!!!! CCCCCCCC")
         List<NegocioCommand> negociosCommand = []
         List<Negocio> negocios = negocioService.obtenerTodos()
 
