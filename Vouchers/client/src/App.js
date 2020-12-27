@@ -45,11 +45,8 @@ class App extends Component {
     }
 
     validarSesionInciadaNegocio(props, renderComponente) {
-        console.log('props', props)
-        const negocioId = props.match ? props.match.params.negocioId : '';
-
         if (localStorage.getItem('tipoUsuario') === 'negocio') {
-            return renderComponente(negocioId);
+            return renderComponente();
         }
         return <Redirect to={navegacion.getIniciarSesionUrl()} />
     }
@@ -66,9 +63,12 @@ class App extends Component {
         return <Redirect to={navegacion.getNegocioPerfilUrl(usuarioId)} />
     }
 
-    validarSesionIniciada(componente) {
+    validarSesionIniciada(props, renderComponente) {
+        console.log('!!!! props', props)
+        const negocioId = props.match ? props.match.params.negocioId : '';
+
         if (this.inicioSesion()) {
-            return componente;
+            return renderComponente({ negocioId });
         }
 
         return <Redirect to={navegacion.getIniciarSesionUrl()} />           
@@ -89,9 +89,9 @@ class App extends Component {
                     </Route>
                     <Route
                       path={`${navegacion.getNegocioPerfilUrl('')}:negocioId`}
-                      render={props => this.validarSesionInciadaNegocio(
+                      render={props => this.validarSesionIniciada(
                         props,
-                        negocioId => <NegocioPerfil adsadsa={'adssada'} negocioId={negocioId} />)}
+                        ({ negocioId }) => <NegocioPerfil adsadsa={'adssada'} negocioId={negocioId} />)}
                     />
                     <Route path={navegacion.getClientePerfilUrl()}>
                         {this.validarSesionInciadaCliente(<ClientePerfilPage />)}
@@ -102,9 +102,12 @@ class App extends Component {
                     <Route path={navegacion.getClienteCanjearVoucherUrl()}>
                         {this.validarSesionInciadaCliente(<ClientesCanjearVouchersPage />)}
                     </Route>
-                    <Route path={navegacion.getReclamos()}>
-                        {this.validarSesionIniciada(<Reclamos usuarioId={parseInt(localStorage.getItem('userId'))}/>)}
-                    </Route>
+                    <Route
+                      path={navegacion.getReclamos()}
+                      render={props => this.validarSesionIniciada(
+                        props,
+                        () => <Reclamos usuarioId={parseInt(localStorage.getItem('userId'))}/>)}
+                    />
                     <Route
                       path={navegacion.getTalonariosCrear()}
                       render={props => this.validarSesionInciadaNegocio(
