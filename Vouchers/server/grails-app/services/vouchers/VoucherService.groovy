@@ -150,4 +150,12 @@ class VoucherService {
         query += " and v.state.id like 1 or v.state.id like 2 " // Comprado o ConfirmacionPendiente
         Voucher.executeQuery(query, [clienteId: cliente.id], params)
     }
+
+    List<Voucher> buscarPorUsuarioYEstado(Cliente cliente, String estado, Map params){
+        def estadoEnum = VoucherState.valueOf(estado)
+        String query = "select distinct(v) from Voucher as v "
+        query += " where v.cliente.id like :clienteId "
+        query += " and v.state = :estado "
+        Voucher.executeQuery(query, [clienteId: cliente.id, estado: estadoEnum], params)
+    }
 }

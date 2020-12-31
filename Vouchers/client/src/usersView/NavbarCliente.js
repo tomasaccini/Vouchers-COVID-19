@@ -8,6 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import InboxIcon from '@material-ui/icons/Inbox';
+import HistoryIcon from '@material-ui/icons/History';
 import navegacion from '../utils/navegacion';
 import constantes from "../utils/constantes";
 
@@ -30,6 +31,10 @@ export default function NavbarCliente() {
         window.location.replace(navegacion.getReclamosUrl());
     };
 
+    const redirigirAHistorialVouchers = () => {
+        window.location.replace(navegacion.getClienteHistorialVoucherUrl());
+    };
+
     return (
         <div>
             <ListItem button key={constantes.miPerfilTitulo} onClick={redirigirAMiPerfil}>
@@ -43,6 +48,10 @@ export default function NavbarCliente() {
             <ListItem button key={constantes.canjearVouchersTitulo} onClick={redirigirACanjearVouchers}>
                 <ListItemIcon> <StorefrontIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.canjearVouchersTitulo} />
+            </ListItem>
+            <ListItem button key={constantes.historialVouchersTitulo} onClick={redirigirAHistorialVouchers}>
+                <ListItemIcon> <HistoryIcon /> </ListItemIcon>
+                <ListItemText primary={constantes.historialVouchersTitulo} />
             </ListItem>
             <ListItem button key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
                 <ListItemIcon> <FeedbackIcon /> </ListItemIcon>

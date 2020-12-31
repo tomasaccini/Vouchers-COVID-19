@@ -209,3 +209,65 @@
 }
 
 /* \-- Productos Crear--*/
+
+
+/* -- Historial Cliente --*/
+
+.historialCliente {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.compradosExpiradoBtns {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4em;
+  margin: 8%;
+  width: 100%;
+}
+
+.historialBtn {
+  padding: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  background: rgb(192, 231, 215);
+  transition: all 0.3s ease;
+  border: none;
+  letter-spacing: 1.2px;
+  width: 40%;
+}
+
+.historialBtn:hover{
+  opacity: 0.7;
+}
+
+.historialBtnSelected{
+  background: rgb(119, 207, 171);
+}
+
+.vouchersListHistorial {
+  display: flex;
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.hideSection{
+  display: none;
+}
+
+.showSection{
+  display: flex;
+}
+
+/* \-- Historial Cliente --*/
+
+/* -- Tarjeta Voucher Canjeada --*/
+
+
+/* \-- Tarjeta Voucher Canjeada --*/
+

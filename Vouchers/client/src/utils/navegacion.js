@@ -7,6 +7,7 @@ export default {
   getClientePerfilUrl: () => '/clientes/perfil',
   getClienteComprarVoucherUrl: () => '/clientes/comprar',
   getClienteCanjearVoucherUrl: () => '/clientes/canjear',
+  getClienteHistorialVoucherUrl: () => '/clientes/historial',
   getReclamosUrl: () => '/reclamos',
   getTalonariosUrl: () => '/talonarios',
   getVouchersConfirmablesUrl: () => '/negocios/vouchersconfirmables',

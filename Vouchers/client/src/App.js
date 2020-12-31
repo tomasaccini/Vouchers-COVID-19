@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import HomePage from "./usersView/Home";
 import ClienteComprarVouchersPage from "./usersView/ClienteComprarVouchers";
 import ClientesCanjearVouchersPage from "./usersView/ClienteCanjearVouchers";
+import ClientesHistorialVouchersPage from "./usersView/ClientesHistorialVouchers";
 import NegocioPerfil from "./usersView/NegocioPerfil"
 import TalonariosPage from "./usersView/Talonarios"
 import TalonariosCrearPage from "./usersView/TalonarioCrear"
@@ -102,6 +103,9 @@ class App extends Component {
                     </Route>
                     <Route path={navegacion.getClienteCanjearVoucherUrl()}>
                         {this.validarSesionInciadaCliente(<ClientesCanjearVouchersPage />)}
+                    </Route>
+                    <Route path={navegacion.getClienteHistorialVoucherUrl()}>
+                        {this.validarSesionInciadaCliente(<ClientesHistorialVouchersPage />)}
                     </Route>
                     <Route
                       path={navegacion.getReclamosUrl()}

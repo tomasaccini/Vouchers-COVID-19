@@ -47,7 +47,13 @@ class VoucherController extends RestfulController {
         }
 
         params.max = Math.min(max ?: 10, 100)
-        List<Voucher> vouchers = voucherService.buscarPorUsuarioNoCanjeados(cliente, params)
+        List<Voucher> vouchers = []
+
+        if (!params.estado){
+            vouchers = voucherService.buscarPorUsuarioNoCanjeados(cliente, params)
+        } else {
+            vouchers = voucherService.buscarPorUsuarioYEstado(cliente, params.estado, params)
+        }
 
         List<VoucherCommand> voucherCommands = []
 

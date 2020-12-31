@@ -44,6 +44,15 @@ class VoucherAPI {
     return vouchers.map((v) => this._transformarVoucher(v));
   }
 
+  async getVouchersConEstado(userId, estado) {
+    const url = `${SERVER_URL}/vouchers/obtenerPorUsuario/${userId}?estado=${estado}`;
+    console.log(`debug | getVouchers URL is: ${url}`);
+    const res = await fetch(url);
+    const vouchers = await res.json();
+    console.log(`debug | getVouchers: `, vouchers);
+    return vouchers.map((v) => this._transformarVoucher(v));
+  }
+
   async comprarVoucher(clienteId, talonarioId) {
     const url = `${SERVER_URL}/talonarios/comprar`;
     console.log(`debug | comprarVoucher URL is: ${url}`);
