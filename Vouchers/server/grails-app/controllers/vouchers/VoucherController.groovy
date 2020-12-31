@@ -31,6 +31,7 @@ class VoucherController extends RestfulController {
 
     /*
     * Given an user id, it respond with all vouchers owned by the user.
+    * Vouchers ya confirmados no son devueltos
     * Max value returned can be specified
     * URL/vouchers/obtenerPorUsuario/userId -> When max is not specified
     * URL/vouchers/obtenerPorUsuario/userId?max=n -> When max is specified
@@ -46,7 +47,7 @@ class VoucherController extends RestfulController {
         }
 
         params.max = Math.min(max ?: 10, 100)
-        List<Voucher> vouchers = Voucher.findAllByCliente(cliente, params)
+        List<Voucher> vouchers = voucherService.buscarPorUsuarioNoCanjeados(cliente, params)
 
         List<VoucherCommand> voucherCommands = []
 

@@ -143,4 +143,11 @@ class VoucherService {
 
         return negocio.obtenerVouchersConfirmables()
     }
+
+    List<Voucher> buscarPorUsuarioNoCanjeados(Cliente cliente, Map params){
+        String query = "select distinct(v) from Voucher as v "
+        query += " where v.cliente.id like :clienteId "
+        query += " and v.state.id like 1 or v.state.id like 2 " // Comprado o ConfirmacionPendiente
+        Voucher.executeQuery(query, [clienteId: cliente.id], params)
+    }
 }
