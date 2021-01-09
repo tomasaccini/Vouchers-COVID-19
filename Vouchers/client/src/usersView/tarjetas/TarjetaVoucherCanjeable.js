@@ -60,12 +60,10 @@ export default function TarjetaVoucherCanjeable(props) {
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color="success"><b>{props.data.negocioNombre}</b></CardHeader>
+        <CardHeader color="success"><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
-          <p>
-            {props.data.descripcion}
-          </p>
+          <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
           <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
             Canjear
           </Button>

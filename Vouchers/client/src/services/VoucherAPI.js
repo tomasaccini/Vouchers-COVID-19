@@ -156,6 +156,7 @@ class VoucherAPI {
       // TODO no more owner !!!!
       // TODO we don't have the information yet
       'negocioNombre': voucher.negocioCommand.nombre,
+      'negocioId': voucher.negocioCommand.id,
       'state': voucher.state,
       'enReclamo': voucher.enReclamo,
       'clienteEmail': voucher.clienteEmail,

@@ -69,7 +69,7 @@ export default function TarjetaTalonario(props) {
     <div>
       <Card className={classes.textCenter}>
         <CardBody>
-          <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer">{props.data.negocioNombre}</a></CardHeader>
+          <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p style={{'font-size': '20px', 'font-weight': 'bold'}}>
           ${props.data.precio}
