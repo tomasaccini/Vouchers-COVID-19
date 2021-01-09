@@ -117,16 +117,16 @@ class VoucherAPI {
   }
 
   _transformarTalonario(talonario) {
-    console.log(talonario)
+    console.log('!!!! _transformarTalonario', talonario)
 
-    const iv = talonario.info;
+    const iv = talonario.informacionVoucherCommand;
 
     const desde = new Date(iv.validoDesde);
     const hasta = new Date(iv.validoHasta);
 
     return {
       'id': talonario.id,
-      'titulo': '2 Hamburguesas',
+      'titulo': iv.descripcion,
       'descripcion': iv.descripcion,
       'precio': iv.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
@@ -135,7 +135,8 @@ class VoucherAPI {
       // 'items': iv.items.map((i) => this._transformarItems(i)),
       // TODO no more owner !!!!
       // TODO we don't have the information yet
-      'nombreNegocio': talonario.nombre
+      'negocioNombre': talonario.negocioNombre,
+      'negocioId': talonario.negocioId,
     }
   }
 
@@ -147,14 +148,14 @@ class VoucherAPI {
 
     return {
       'id': voucher.id,
-      'titulo': '2 Hamburguesas',
+      'titulo': iv.descripcion,
       'descripcion': iv.descripcion,
       'precio': iv.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       // TODO no more owner !!!!
       // TODO we don't have the information yet
-      'nombreNegocio': voucher.negocioCommand.nombre,
+      'negocioNombre': voucher.negocioCommand.nombre,
       'state': voucher.state,
       'enReclamo': voucher.enReclamo,
       'clienteEmail': voucher.clienteEmail,

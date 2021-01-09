@@ -24,6 +24,7 @@ class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCom
 
         TalonarioCommand bean = super.toBean(domain)
 
+        bean.negocioNombre = domain.negocio.nombre
         bean.informacionVoucherCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
         if (domain.vouchers){

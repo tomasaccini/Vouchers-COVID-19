@@ -1,6 +1,7 @@
 package vouchers
 
 import assemblers.TalonarioAssembler
+import commands.TalonarioCommand
 import services.RecommendationService
 
 class RecommendationController {
@@ -19,6 +20,12 @@ class RecommendationController {
 
         List<Talonario> talonarios = talonarioService.getAll()
 
-        respond talonarios
+        List<TalonarioCommand> talonariosCommands = []
+
+        for (def talonario : talonarios) {
+            talonariosCommands.add(talonarioAssembler.toBean(talonario))
+        }
+
+        respond talonariosCommands
     }
 }

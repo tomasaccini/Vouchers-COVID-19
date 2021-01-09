@@ -26,7 +26,7 @@ export default function TarjetaVoucherCanjeada(props) {
   
     const tipoUsuario = localStorage.getItem('tipoUsuario');
   
-    const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.nombreNegocio;
+    const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.negocioNombre;
   
   
     return (
@@ -49,4 +49,3 @@ export default function TarjetaVoucherCanjeada(props) {
       </Card>
     );
   }
-  

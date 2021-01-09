@@ -48,7 +48,7 @@ export default function TarjetaVoucherConfirmable(props) {
   const tipoUsuario = localStorage.getItem('tipoUsuario');
   const deshabilitarCanje = tipoUsuario !== 'negocio';
 
-  const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.nombreNegocio;
+  const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.negocioNombre;
 
   const confirmarCanjeDeVoucher = async () => {
     const usuarioId = localStorage.getItem('userId');

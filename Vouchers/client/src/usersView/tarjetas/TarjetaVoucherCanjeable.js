@@ -60,7 +60,7 @@ export default function TarjetaVoucherCanjeable(props) {
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color="success"><b>{props.data.nombreNegocio}</b></CardHeader>
+        <CardHeader color="success"><b>{props.data.negocioNombre}</b></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p>

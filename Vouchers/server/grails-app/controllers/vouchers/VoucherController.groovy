@@ -47,6 +47,11 @@ class VoucherController extends RestfulController {
         }
 
         params.max = Math.min(max ?: 10, 100)
+
+        List<Voucher> vouchers = Voucher.findAllByCliente(cliente, params)
+
+        // !!!! Un cambio que habia hecho flor para traer por estado. Decidimos traer todos y filtrarlos desde la UI.
+        /*
         List<Voucher> vouchers = []
 
         if (!params.estado){
@@ -54,6 +59,7 @@ class VoucherController extends RestfulController {
         } else {
             vouchers = voucherService.buscarPorUsuarioYEstado(cliente, params.estado, params)
         }
+         */
 
         List<VoucherCommand> voucherCommands = []
 

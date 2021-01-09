@@ -68,8 +68,8 @@ export default function TarjetaTalonario(props) {
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}>{props.data.nombreNegocio}</CardHeader>
         <CardBody>
+          <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer">{props.data.negocioNombre}</a></CardHeader>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p style={{'font-size': '20px', 'font-weight': 'bold'}}>
           ${props.data.precio}
@@ -128,7 +128,6 @@ export default function TarjetaTalonario(props) {
         >
           <div style={{'display': 'flex', 'flex-direction': 'column',}}>
             <h5>¿Desea confirmar la compra del voucher {props.data.titulo}?</h5>
-            <h2>{props.data.descripcion}</h2>
             <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
           </div>
         </DialogContent>

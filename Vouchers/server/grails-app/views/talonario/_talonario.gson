@@ -25,4 +25,5 @@ json {
         }
     }
     nombre talonario.negocio.nombre
+    negocioId talonario.negocio.id
 }

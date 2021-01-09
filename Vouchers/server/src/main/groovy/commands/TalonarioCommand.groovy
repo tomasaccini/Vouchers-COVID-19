@@ -11,7 +11,8 @@ class TalonarioCommand implements Validateable {
     InformacionVoucherCommand informacionVoucherCommand
     Boolean activo
     Integer stock
-    String nombre
+    String negocioNombre
+    String negocioId
     Integer cantidadVendida
 
     static constraints = {

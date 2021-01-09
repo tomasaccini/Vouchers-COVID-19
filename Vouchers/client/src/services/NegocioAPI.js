@@ -4,6 +4,8 @@ import voucherAPI from "./VoucherAPI";
 
 class NegocioAPI {
 
+
+
   async getNegocio(negocioId){
     const url = `${SERVER_URL}/negocios/${negocioId}`;
     const res = await fetch(url);
@@ -17,7 +19,9 @@ class NegocioAPI {
   }
 
   _transformarNegocio(negocio) {
-    const talonarios = negocio.talonariosCommands.map(t => this._transformarTalonario(t, negocio));
+    console.log('!!!! voucherAPI', voucherAPI)
+    console.log('!!!! negocio', negocio)
+    const talonarios = negocio.talonariosCommands.map(t => voucherAPI._transformarTalonario(t));
 
     return {
       'nombre': negocio.nombre,
@@ -35,27 +39,6 @@ class NegocioAPI {
       'talonarios': talonarios
     }
   }
-
-  _transformarTalonario(talonario, negocio) {
-
-    const iv = talonario.informacionVoucherCommand;
-
-    const desde = new Date(iv.validoDesde);
-    const hasta = new Date(iv.validoHasta);
-
-    return {
-      'id': talonario.id,
-      'titulo': 'Medialunas Veganas',
-      'descripcion': iv.descripcion,
-      'precio': iv.precio,
-      'validoDesde': format(desde, 'yyyy/MM/dd'),
-      'validoHasta': format(hasta, 'yyyy/MM/dd'),
-      'stock': talonario.stock,
-      // TODO no more owner !!!!
-      'nombreNegocio': negocio.name
-    }
-  }
-
 }
 
 const negocioAPI = new NegocioAPI();
