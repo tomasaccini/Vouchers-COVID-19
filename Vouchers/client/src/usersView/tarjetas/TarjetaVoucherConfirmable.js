@@ -78,11 +78,11 @@ export default function TarjetaVoucherConfirmable(props) {
           <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center', 'color': 'gray'}}>
             {tipoUsuario === 'negocio'
               ? `$${props.data.precio}`
-              : 'Confirmacion Pendiente!'
+              : 'Confirmacion Pendiente'
             }
 
           </p>
-          <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
+          <Button color="primary" size="large" style={{'visibility': deshabilitarCanje ? 'hidden' : 'anything'}} disabled={deshabilitarCanje} onClick={() => setModal(true)}>
             Confirmar
           </Button>
         </CardBody>
