@@ -7,7 +7,7 @@ import voucherHelper from "../utils/voucherHelper";
 
 class ListaTarjetas extends Component {
 
-    definirTipoDeTarjeta(voucher) {
+    definirSiEsTalonarioOVoucher(voucher) {
         if (voucherHelper.esVoucher(voucher)) {
           return <TarjetaVoucher data={voucher} />;
         } else {
@@ -20,7 +20,7 @@ class ListaTarjetas extends Component {
             <GridContainer spacing={3}>
                 {this.props.vouchers.map((voucher) =>
                     <GridItem xs={4}>
-                        { this.definirTipoDeTarjeta(voucher) }
+                        { this.definirSiEsTalonarioOVoucher(voucher) }
                     </GridItem>
                 )}
             </GridContainer>

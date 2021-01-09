@@ -55,7 +55,7 @@ class BootStrap {
                         negocio: Negocio.get(1)
                         ).save(failOnError:true)
 
-        def talonario2 = new Talonario(stock: 5,
+        def talonario2 = new Talonario(stock: 15,
                 informacionVoucher: informacionVoucher2,
                 negocio: negocio2).save(failOnError:true)
 
@@ -110,14 +110,26 @@ class BootStrap {
         def reclamo14 = reclamoService.iniciarReclamo(voucher14.id, "Initial message 2 !!!!")
         def reclamo22 = reclamoService.iniciarReclamo(voucher22.id, "Initial message 3 !!!!")
 
+        // Vouchers confirmacion pendiente
+        def voucher15 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        voucherService.solicitarCanje(voucher15.id, voucher15.cliente.id)
+
         // Vouchers canjeados
         def voucher23 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
         voucherService.solicitarCanje(voucher23.id, voucher23.cliente.id)
         voucherService.confirmarCanje(voucher23.id, voucher23.talonario.negocio.id)
 
-        // Vouchers confirmacion pendiente
-        def voucher15 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
-        voucherService.solicitarCanje(voucher15.id, voucher15.cliente.id)
+        def voucher24 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
+        voucherService.solicitarCanje(voucher24.id, voucher24.cliente.id)
+        voucherService.confirmarCanje(voucher24.id, voucher24.talonario.negocio.id)
+
+        def voucher25 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
+        voucherService.solicitarCanje(voucher25.id, voucher25.cliente.id)
+        voucherService.confirmarCanje(voucher25.id, voucher25.talonario.negocio.id)
+
+        def voucher26 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
+        voucherService.solicitarCanje(voucher26.id, voucher26.cliente.id)
+        voucherService.confirmarCanje(voucher26.id, voucher26.talonario.negocio.id)
     }
 
     def destroy = {

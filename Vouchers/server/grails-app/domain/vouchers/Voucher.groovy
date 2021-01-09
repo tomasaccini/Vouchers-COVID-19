@@ -87,7 +87,7 @@ class Voucher {
 
     // TODO: deberia ser privado !!!!
     boolean esCanjeable() {
-        return !estaExpirado() && state == VoucherState.Comprado
+        return !estaExpirado() && state == VoucherState.Comprado && !reclamoAbierto()
     }
 
     boolean esConfirmable() {

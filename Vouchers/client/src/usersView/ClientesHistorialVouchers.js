@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 
 import NavbarUsuario from "./NavbarUsuario.js";
 import voucherAPI from "../services/VoucherAPI";
-import TarjetaVoucherCanjeada from "./tarjetas/TarjetaVoucherCanjeada"
+import TarjetaVoucherCanjeado from "./tarjetas/TarjetaVoucherCanjeado"
 import "./styles.css";
 import constantes from "../utils/constantes";
+import ListaTarjetas from "./ListaTarjetas";
+import GridContainer from "../components/Grid/GridContainer";
+import GridItem from "../components/Grid/GridItem";
 
 class ClienteHistorialVouchers extends Component {
 
@@ -30,8 +33,19 @@ class ClienteHistorialVouchers extends Component {
         return vouchers
     }
 
-    cambiarVista(){
-        this.setState({ canjeados: !this.state.canjeados });
+    cambiarVista(cambiarACanjeados){
+        if (cambiarACanjeados && this.state.canjeados) {
+            return;
+        }
+
+        if (!cambiarACanjeados && !this.state.canjeados) {
+            return;
+        }
+
+        console.log('!!!! canjeados', this.state.canjeados)
+        console.log('!!!! cambiarACanjeados', cambiarACanjeados)
+
+        this.setState({ canjeados: cambiarACanjeados });
     }
 
     render() {
@@ -40,24 +54,22 @@ class ClienteHistorialVouchers extends Component {
                 <NavbarUsuario title={constantes.historialVouchersTitulo} />
                 <section className="historialCliente">
                     <div className="compradosExpiradoBtns">
-                        <button onClick={() => this.cambiarVista()} className={`historialBtn ${this.state.canjeados === true ? "historialBtnSelected" : ""}`}>
+                        <button onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.canjeados === true ? "historialBtnSelected" : ""}`}>
                             Canjeados
                         </button>
-                        <button onClick={() => this.cambiarVista()} className={`historialBtn ${this.state.canjeados === false ? "historialBtnSelected" : ""}`}>
+                        <button onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.canjeados === false ? "historialBtnSelected" : ""}`}>
                             Expirados
                         </button>
                     </div>
-                    <section className={`vouchersListHistorial ${this.state.canjeados === true ? "showSection" : "hideSection"}`}>
-                        {this.state.vouchersCanjeados.map((voucher) =>
-                            <TarjetaVoucherCanjeada data={voucher} /> 
-                        )}
-                    </section>
-                    <section className={`vouchersListHistorial ${this.state.canjeados === false ? "showSection" : "hideSection"}`}>
-                        {this.state.vouchersExpirados.map((voucher) =>
-                            <TarjetaVoucherCanjeada data={voucher} /> 
-                        )}
-                    </section>
                 </section>
+                <GridContainer className="vouchersGrid">
+                    <GridItem>
+                        <ListaTarjetas vouchers={this.state.canjeados === true ? this.state.vouchersCanjeados : []} />
+                    </GridItem>
+                    <GridItem>
+                        <ListaTarjetas vouchers={this.state.canjeados === false ? this.state.vouchersExpirados : []} />
+                    </GridItem>
+                </GridContainer>
             </div>
         );
     }

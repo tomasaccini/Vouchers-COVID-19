@@ -250,20 +250,6 @@
   background: rgb(119, 207, 171);
 }
 
-.vouchersListHistorial {
-  display: flex;
-  margin-right: 10%;
-  margin-left: 10%;
-}
-
-.hideSection{
-  display: none;
-}
-
-.showSection{
-  display: flex;
-}
-
 /* \-- Historial Cliente --*/
 
 /* -- Tarjeta Voucher Canjeada --*/
