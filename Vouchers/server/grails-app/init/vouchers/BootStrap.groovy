@@ -50,7 +50,7 @@ class BootStrap {
                 validoDesde: new Date(),
                 validoHasta: new Date()).save(failOnError:true)
 
-        def talonario1 = new Talonario(stock: 5,
+        def talonario1 = new Talonario(stock: 6,
                         informacionVoucher: InformacionVoucher.get(1),
                         negocio: Negocio.get(1)
                         ).save(failOnError:true)
@@ -94,7 +94,7 @@ class BootStrap {
         talonario1.informacionVoucher.addToItems(item1)
         talonario1.informacionVoucher.addToItems(item2)
 
-        // Vouchers sin reclamar
+        // Vouchers comprados
         def voucher11 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
         def voucher12 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
         def voucher21 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
@@ -109,6 +109,15 @@ class BootStrap {
 
         def reclamo14 = reclamoService.iniciarReclamo(voucher14.id, "Initial message 2 !!!!")
         def reclamo22 = reclamoService.iniciarReclamo(voucher22.id, "Initial message 3 !!!!")
+
+        // Vouchers canjeados
+        def voucher23 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
+        voucherService.solicitarCanje(voucher23.id, voucher23.cliente.id)
+        voucherService.confirmarCanje(voucher23.id, voucher23.talonario.negocio.id)
+
+        // Vouchers confirmacion pendiente
+        def voucher15 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
+        voucherService.solicitarCanje(voucher15.id, voucher15.cliente.id)
     }
 
     def destroy = {
