@@ -68,11 +68,11 @@ export default function TarjetaTalonario(props) {
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}>QUEDAN {props.data.stock} VOUCHERS</CardHeader>
+        <CardHeader color={props.data.stock < 10 ? "danger" : "warning"}>{props.data.nombreNegocio}</CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
-          <p>
-          {props.data.descripcion}
+          <p style={{'font-size': '20px', 'font-weight': 'bold'}}>
+          ${props.data.precio}
           </p>
           <Button color="primary" size="large" disabled={deshabilitarBotonComprar} onClick={() => setModal(true)}>
             Comprar
@@ -82,8 +82,15 @@ export default function TarjetaTalonario(props) {
           </Button>
         </CardBody>
         <CardFooter className={classes.textMuted}>
-          Creado el {props.data.validoDesde} <br/>
-          Finaliza el {props.data.validoHasta}
+          <div style={{'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}}>
+            <div>
+              Creado el {props.data.validoDesde} <br/>
+              Finaliza el {props.data.validoHasta}
+            </div>
+            <div>
+              QUEDAN {props.data.stock} VOUCHERS
+            </div>
+          </div>
         </CardFooter>
       </Card>
 
@@ -119,8 +126,11 @@ export default function TarjetaTalonario(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h3>${props.data.precio}</h3>
-          <h5>¿Desea confirmar la compra del voucher {props.data.titulo}?</h5>
+          <div style={{'display': 'flex', 'flex-direction': 'column',}}>
+            <h5>¿Desea confirmar la compra del voucher {props.data.titulo}?</h5>
+            <h2>{props.data.descripcion}</h2>
+            <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
+          </div>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}
