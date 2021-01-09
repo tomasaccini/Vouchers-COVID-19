@@ -41,7 +41,7 @@ class ReclamoController extends RestfulController{
         respond reclamoCommand
     }
 
-    def iniciarReclamo() {
+    def abrirReclamo() {
         println("Request para crear un reclamo")
 
         Object requestBody = request.JSON
@@ -49,7 +49,7 @@ class ReclamoController extends RestfulController{
         String descripcion = requestBody['descripcion']
 
         try {
-            Reclamo reclamo = reclamoService.iniciarReclamo(voucherId, descripcion)
+            Reclamo reclamo = reclamoService.abrirReclamo(voucherId, descripcion)
             respond reclamoAssembler.toBean(reclamo)
         } catch (RuntimeException re) {
             response.sendError(400, re.message)

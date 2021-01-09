@@ -22,8 +22,8 @@ class ReclamoService {
         return reclamo
     }
 
-    Reclamo iniciarReclamo(Long voucherId, String descripcion) {
-        println("RecalmoService.iniciarReclamo(${voucherId}, ${descripcion})")
+    Reclamo abrirReclamo(Long voucherId, String descripcion) {
+        println("RecalmoService.abrirReclamo(${voucherId}, ${descripcion})")
 
         Voucher voucher = Voucher.findById(voucherId)
 
@@ -31,9 +31,9 @@ class ReclamoService {
             throw new RuntimeException('No se puede crear un reclamo por un voucher invalido')
         }
 
-        Reclamo nuevoReclamo = voucher.iniciarReclamo(descripcion)
+        Reclamo nuevoReclamo = voucher.abrirReclamo(descripcion)
 
-        println("RecalmoService.iniciarReclamo() => ${nuevoReclamo}")
+        println("RecalmoService.abrirReclamo() => ${nuevoReclamo}")
 
         nuevoReclamo
     }

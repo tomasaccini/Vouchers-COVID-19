@@ -42,14 +42,18 @@ export default function ReclamarVoucherButton(props) {
 
   const usuarioId = localStorage.getItem('userId');
 
-  const iniciarReclamo = async () =>{
+  const abrirReclamo = async () =>{
     if (descripcion === '') {
       window.alert('La descripción no puede estar vacia');
       return;
     }
 
     setModal(false);
-    await reclamoAPI.iniciarReclamo(voucherId, descripcion, usuarioId);
+    const nuevoReclamo = await reclamoAPI.abrirReclamo(voucherId, descripcion, usuarioId);
+    if (nuevoReclamo === null) {
+      window.alert('ERROR')
+      return;
+    }
     setActualizar(true);
   }
 
@@ -118,7 +122,7 @@ export default function ReclamarVoucherButton(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => iniciarReclamo(voucherId)} color="success">
+          <Button onClick={() => abrirReclamo(voucherId)} color="success">
             Confirmar
           </Button>
         </DialogActions>

@@ -67,7 +67,7 @@ export default function TarjetaVoucherCanjeado(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <div style={{'visibility': 'hidden'}}>
+          <div>
             <ReclamarVoucherButton voucherId={props.data.id} />
           </div>
         </div>

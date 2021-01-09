@@ -31,11 +31,13 @@ class Voucher {
         return talonario.negocio.id == negocioId
     }
 
-    Reclamo iniciarReclamo(String descripcion) {
-        println(reclamo)
-
+    Reclamo abrirReclamo(String descripcion) {
         if (reclamoAbierto()) {
             throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
+        }
+
+        if (state != VoucherState.Comprado && state != VoucherState.Canjeado) {
+            throw new RuntimeException("El voucher no se puede estando en el estado: ${state}. VoucherId: ${id}")
         }
 
         if (reclamo == null) {

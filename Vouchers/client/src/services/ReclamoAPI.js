@@ -40,9 +40,9 @@ class ReclamoAPI {
     return reclamoCerrado;
   }
 
-  async iniciarReclamo(voucherId, descripcion, usuarioId) {
+  async abrirReclamo(voucherId, descripcion, usuarioId) {
     const url = `${SERVER_URL}/reclamos`;
-    console.log(`debug | iniciarReclamo URL es: ${url}`);
+    console.log(`debug | abrirReclamo URL es: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
       // TODO: agregar descripcion/primer mensaje !!!!
@@ -55,7 +55,7 @@ class ReclamoAPI {
     }
 
     const reclamoIniciado = await res.json();
-    console.log(`debug | iniciarReclamo: `, reclamoIniciado);
+    console.log(`debug | abrirReclamo: `, reclamoIniciado);
     return reclamoIniciado;
   }
 
