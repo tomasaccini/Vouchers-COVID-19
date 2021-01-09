@@ -50,6 +50,7 @@ export default function TarjetaVoucherConfirmable(props) {
 
   const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.negocioNombre;
 
+
   const confirmarCanjeDeVoucher = async () => {
     const usuarioId = localStorage.getItem('userId');
     await voucherAPI.confirmarCanje(props.data.id, usuarioId);
@@ -60,13 +61,27 @@ export default function TarjetaVoucherConfirmable(props) {
     window.location.replace(navegacion.getVouchersConfirmablesUrl());
   }
 
+
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color="info"><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
+        <CardHeader color="info">
+          {tipoUsuario === 'negocio'
+            ? <b>{tarjetaHeader}</b>
+            : <a style={{'text-decoration': 'none', 'color': 'white',}}
+                 href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank"
+                 rel="noopener noreferrer"><b>{tarjetaHeader}</b></a>
+          }
+        </CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
-          <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center', 'color': 'gray'}}>Confirmacion Pendiente!</p>
+          <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center', 'color': 'gray'}}>
+            {tipoUsuario === 'negocio'
+              ? `$${props.data.precio}`
+              : 'Confirmacion Pendiente!'
+            }
+
+          </p>
           <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
             Confirmar
           </Button>
