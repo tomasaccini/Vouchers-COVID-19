@@ -2,9 +2,13 @@ import React from 'react';
 import TarjetaVoucherCanjeable from "./TarjetaVoucherCanjeable";
 import TarjetaVoucherConfirmable from "./TarjetaVoucherConfirmable";
 import TarjetaVoucherCanjeada from "./TarjetaVoucherCanjeada";
+import TarjetaVoucherReclamoAbierto from "./TarjetaVoucherReclamoAbierto";
 
 export default function TarjetaVoucher(props) {
-  console.log(props.data.state);
+  if (props.data.reclamoAbierto) {
+    return <TarjetaVoucherReclamoAbierto data={props.data} />;
+  }
+
   if (props.data.state === 'Comprado') {
     return <TarjetaVoucherCanjeable data={props.data} />;
   }

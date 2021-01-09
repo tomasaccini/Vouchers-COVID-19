@@ -7,15 +7,20 @@ import voucherHelper from "../utils/voucherHelper";
 
 class ListaTarjetas extends Component {
 
+    definirTipoDeTarjeta(voucher) {
+        if (voucherHelper.esVoucher(voucher)) {
+          return <TarjetaVoucher data={voucher} />;
+        } else {
+            return <TarjetaTalonario data={voucher} />;
+        }
+    }
+
     render() {
         return (
             <GridContainer spacing={3}>
                 {this.props.vouchers.map((voucher) =>
                     <GridItem xs={4}>
-                        { voucherHelper.esVoucher(voucher)
-                          ? <TarjetaVoucher data={voucher} />
-                          : <TarjetaTalonario data={voucher} />
-                        }
+                        { this.definirTipoDeTarjeta(voucher) }
                     </GridItem>
                 )}
             </GridContainer>

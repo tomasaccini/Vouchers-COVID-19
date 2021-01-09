@@ -22,7 +22,12 @@ class ClienteCanjearVouchers extends Component {
 
     async getListaDeVouchers() {
         const vouchers = await voucherAPI.getVouchers(localStorage.getItem('userId'));
-        return vouchers.filter(voucher => !voucher.enReclamo);
+        const vouchersCompradosSinReclamoAbierto = vouchers.filter(voucher => voucher.state === 'Comprado' && !voucher.reclamoAbierto);
+        const vouchersCompradosConReclamoAbierto = vouchers.filter(voucher => voucher.state === 'Comprado' && voucher.reclamoAbierto);
+        const vouchersConfirmacionPendiente = vouchers.filter(voucher => voucher.state === 'ConfirmacionPendiente');
+
+        const vouchersOrdenados = vouchersCompradosSinReclamoAbierto.concat(vouchersConfirmacionPendiente).concat(vouchersCompradosConReclamoAbierto);
+        return vouchersOrdenados;
     }
 
     render() {

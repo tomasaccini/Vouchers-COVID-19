@@ -158,7 +158,7 @@ class VoucherAPI {
       'negocioNombre': voucher.negocioCommand.nombre,
       'negocioId': voucher.negocioCommand.id,
       'state': voucher.state,
-      'enReclamo': voucher.enReclamo,
+      'reclamoAbierto': voucher.reclamoAbierto,
       'clienteEmail': voucher.clienteEmail,
     }
   }

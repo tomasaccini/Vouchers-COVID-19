@@ -34,7 +34,7 @@ class Voucher {
     Reclamo iniciarReclamo(String descripcion) {
         println(reclamo)
 
-        if (enReclamo()) {
+        if (reclamoAbierto()) {
             throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
         }
 
@@ -52,7 +52,7 @@ class Voucher {
         reclamo
     }
 
-    Boolean enReclamo() {
+    Boolean reclamoAbierto() {
         return reclamo != null && !reclamo.estaCerrado()
     }
 

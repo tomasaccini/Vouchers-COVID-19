@@ -28,7 +28,7 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
         }
 
         bean.negocioCommand = negocioAssembler.toBean(domain.talonario.negocio)
-        bean.enReclamo = domain.enReclamo()
+        bean.reclamoAbierto = domain.reclamoAbierto()
         bean.clienteEmail = domain.cliente.email
 
         return bean
