@@ -63,12 +63,10 @@ export default function TarjetaVoucherConfirmable(props) {
   return (
     <div>
       <Card className={classes.textCenter}>
-        <CardHeader color="info"><b>{tarjetaHeader}</b></CardHeader>
+        <CardHeader color="info"><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
-          <p>
-            {props.data.descripcion}
-          </p>
+          <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center', 'color': 'gray'}}>Confirmacion Pendiente!</p>
           <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
             Confirmar
           </Button>
