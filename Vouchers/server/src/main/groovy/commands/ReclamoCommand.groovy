@@ -7,6 +7,8 @@ class ReclamoCommand {
     Long clienteId
     String clienteEmail
     Long negocioId
+    String negocioNombre
+    String voucherDescripcion
     String negocioEmail
     Date fechaUltimoMensaje
     String state

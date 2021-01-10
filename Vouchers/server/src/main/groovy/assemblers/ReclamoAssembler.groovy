@@ -26,7 +26,9 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
                 clienteId: reclamo.cliente.id,
                 clienteEmail: reclamo.cliente.email,
                 negocioId: reclamo.negocio.id,
+                negocioNombre: reclamo.negocio.nombre,
                 negocioEmail: reclamo.negocio.email,
+                voucherDescripcion: reclamo.voucher.informacionVoucher.descripcion,
                 fechaUltimoMensaje: reclamo.fechaUltimoMensaje,
                 state: reclamo.state.toString()
         )

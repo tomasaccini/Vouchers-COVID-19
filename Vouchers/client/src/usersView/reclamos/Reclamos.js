@@ -69,13 +69,13 @@ class Reclamos extends Component{
                       <GridItem xs={5} md={3} lg={3}>
                           <ChatList style={{maxWidth: 300}}>
                               { reclamos && reclamos.map((reclamo, index) => {
-                                  const email = usuarioId === reclamo.clienteId ? reclamo.negocioEmail : reclamo.clienteEmail
+                                  const email = usuarioId === reclamo.clienteId ? reclamo.negocioNombre : reclamo.clienteEmail
 
                                   return <ReclamoChatListItem
                                     active={index === indexReclamoActivo}
                                     reclamoId={reclamo.id}
                                     email={email}
-                                    subtitulo={reclamo.mensajes[reclamo.mensajes.length-1].texto}
+                                    subtitulo={reclamo.voucherDescripcion}
                                     fecha={fechasHelper.extraerHoraYMinutos(reclamo.fechaUltimoMensaje)}
                                     onclick={() => this.updateIndexReclamoActivo(index)}
                                   />
