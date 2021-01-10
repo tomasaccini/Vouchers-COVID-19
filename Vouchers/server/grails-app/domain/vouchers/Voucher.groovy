@@ -87,6 +87,20 @@ class Voucher {
         save(flush: true, failOnError: true)
     }
 
+    void cancelarSolicitudDeCanje(Cliente clienteSolicitante) {
+        if (cliente.id != clienteSolicitante.id) {
+            throw new RuntimeException("El cliente " + clienteId + " no puede cancelar la solicitud el canje. Solo el cliente que creo el voucher puede hacerlo")
+        }
+
+        if (!esConfirmable()) {
+            throw new RuntimeException("La solicitud del canje del voucher " + id + " no puede ser cancelada")
+        }
+
+        state = VoucherState.Comprado
+        lastStateChange = new Date()
+        save(flush: true, failOnError: true)
+    }
+
     // TODO: deberia ser privado !!!!
     boolean esCanjeable() {
         return !estaExpirado() && state == VoucherState.Comprado && !reclamoAbierto()

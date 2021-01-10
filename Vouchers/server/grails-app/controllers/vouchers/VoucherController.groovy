@@ -76,13 +76,34 @@ class VoucherController extends RestfulController {
     */
 
     def solicitarCanje(Long voucherId) {
-        println("Request de canjear voucher")
+        println("Request de solicitar canje voucher")
 
         Object requestBody = request.JSON
         Long clienteId = requestBody['clienteId'].toLong()
 
         try {
             Voucher voucher = voucherService.solicitarCanje(voucherId, clienteId)
+            respond voucherAssembler.toBean(voucher)
+        } catch (Exception e) {
+            println(e.stackTrace)
+            throw e
+            // response.sendError(400, e.message)
+        }
+    }
+
+    /*
+    * Dado el id del cliente y el id del voucher a cambiar
+    * URL/vouchers/canjear?clienteId={id}&voucherId={id}
+    */
+
+    def cancelarSolicitudDeCanje(Long voucherId) {
+        println("Request de cancelar solicitud de voucher")
+
+        Object requestBody = request.JSON
+        Long clienteId = requestBody['clienteId'].toLong()
+
+        try {
+            Voucher voucher = voucherService.cancelarSolicitudDeCanje(voucherId, clienteId)
             respond voucherAssembler.toBean(voucher)
         } catch (Exception e) {
             println(e.stackTrace)

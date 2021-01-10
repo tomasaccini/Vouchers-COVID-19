@@ -41,12 +41,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 export default function TarjetaVoucherConfirmable(props) {
-  const [modal, setModal] = React.useState(false);
+  const [modalConfirmar, setModalConfirmar] = React.useState(false);
+  const [modalCancelar, setModalCancelar] = React.useState(false);
   const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
 
   const tipoUsuario = localStorage.getItem('tipoUsuario');
-  const deshabilitarCanje = tipoUsuario !== 'negocio';
 
   const tarjetaHeader = tipoUsuario === 'negocio' ? props.data.clienteEmail : props.data.negocioNombre;
 
@@ -57,8 +57,18 @@ export default function TarjetaVoucherConfirmable(props) {
     setActualizar(true);
   }
 
+  const cancelarSolicitudDeCanje = async () => {
+    const usuarioId = localStorage.getItem('userId');
+    await voucherAPI.cancelarSolicitudDeCanje(props.data.id, usuarioId);
+    setActualizar(true);
+  }
+
   if (actualizar) {
-    window.location.replace(navegacion.getVouchersConfirmablesUrl());
+    if (tipoUsuario === 'negocio') {
+      window.location.replace(navegacion.getVouchersConfirmablesUrl());
+    } else {
+      window.location.replace(navegacion.getClienteCanjearVoucherUrl());
+    }
   }
 
 
@@ -80,11 +90,11 @@ export default function TarjetaVoucherConfirmable(props) {
               ? `$${props.data.precio}`
               : 'Confirmacion Pendiente'
             }
-
           </p>
-          <Button color="primary" size="large" style={{'visibility': deshabilitarCanje ? 'hidden' : 'anything'}} disabled={deshabilitarCanje} onClick={() => setModal(true)}>
-            Confirmar
-          </Button>
+          {tipoUsuario === 'negocio'
+            ? <Button color="primary" size="large" onClick={() => setModalConfirmar(true)}>Confirmar</Button>
+            : <Button color="primary" size="large" onClick={() => setModalCancelar(true)}>Cancelar Confirmacion</Button>
+          }
         </CardBody>
         <div style={{'margin': '0 20px', 'display': 'flex', 'justify-content': 'space-between'}}>
           <CardFooter className={classes.textMuted}>
@@ -101,10 +111,10 @@ export default function TarjetaVoucherConfirmable(props) {
           root: classes.center,
           paper: classes.modal
         }}
-        open={modal}
+        open={modalConfirmar}
         TransitionComponent={Transition}
         keepMounted
-        onClose={() => setModal(false)}
+        onClose={() => setModalConfirmar(false)}
         aria-labelledby="modal-slide-title"
         aria-describedby="modal-slide-description"
       >
@@ -118,7 +128,7 @@ export default function TarjetaVoucherConfirmable(props) {
             key="close"
             aria-label="Close"
             color="inherit"
-            onClick={() => setModal(false)}
+            onClick={() => setModalConfirmar(false)}
           >
             <Close className={classes.modalClose} />
           </IconButton>
@@ -133,8 +143,52 @@ export default function TarjetaVoucherConfirmable(props) {
         <DialogActions
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
-          <Button onClick={() => setModal(false)}>Descartar</Button>
+          <Button onClick={() => setModalConfirmar(false)}>Descartar</Button>
           <Button onClick={confirmarCanjeDeVoucher} color="success">
+            Confirmar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        classes={{
+          root: classes.center,
+          paper: classes.modal
+        }}
+        open={modalCancelar}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={() => setModalCancelar(false)}
+        aria-labelledby="modal-slide-title"
+        aria-describedby="modal-slide-description"
+      >
+        <DialogTitle
+          id="classic-modal-slide-title"
+          disableTypography
+          className={classes.modalHeader}
+        >
+          <IconButton
+            className={classes.modalCloseButton}
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={() => setModalCancelar(false)}
+          >
+            <Close className={classes.modalClose} />
+          </IconButton>
+          <h4 className={classes.modalTitle}>Cancelar solicitud de canje</h4>
+        </DialogTitle>
+        <DialogContent
+          id="modal-slide-description"
+          className={classes.modalBody}
+        >
+          <h5>¿Desea cancelar el canje del voucher {props.data.titulo}?</h5>
+        </DialogContent>
+        <DialogActions
+          className={classes.modalFooter + ' ' + classes.modalFooterCenter}
+        >
+          <Button onClick={() => setModalCancelar(false)}>Descartar</Button>
+          <Button onClick={cancelarSolicitudDeCanje} color="success">
             Confirmar
           </Button>
         </DialogActions>

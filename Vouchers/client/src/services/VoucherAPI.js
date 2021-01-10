@@ -107,6 +107,23 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
+  async cancelarSolicitudDeCanje(voucherId, clienteId) {
+    const url = `${SERVER_URL}/vouchers/cancelarSolicitudDeCanje/${voucherId}`;
+    console.log(`debug | cancelarSolicitudDeCanje URL is: ${url}`);
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ clienteId: clienteId })
+    });
+
+    if (res.status !== 200) {
+      window.alert(res.message);
+      return null;
+    }
+
+    const voucher = await res.json();
+    console.log(`debug | cancelarSolicitudDeCanje: `, voucher);
+    return this._transformarVoucher(voucher);
+  }
 
   _transformarItems(item) {
     return {

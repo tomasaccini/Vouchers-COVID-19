@@ -105,6 +105,37 @@ class VoucherService {
         return voucher
     }
 
+    Voucher cancelarSolicitudDeCanje(Long voucherId, Long clienteId) {
+
+        Cliente cliente = Cliente.get(clienteId)
+        if (cliente == null) {
+            throw new RuntimeException("El cliente " + clienteId + " no existe")
+        }
+
+        Voucher voucher = Voucher.get(voucherId)
+        if (voucher == null) {
+            throw new RuntimeException("El voucher " + voucherId + " no existe")
+        }
+
+        // El codigo esta aca en vez de en voucher.cancelarSolicitudDeCanje() porque no se actualizaba la DB cuando se pone ahi. Cosa rara de grails.
+        // voucher.cancelarSolicitudDeCanje(cliente)
+
+        Cliente clienteSolicitante = cliente
+        if (voucher.cliente.id != clienteSolicitante.id) {
+            throw new RuntimeException("El cliente " + clienteId + " no puede cancelar la solicitud el canje. Solo el cliente que creo el voucher puede hacerlo")
+        }
+
+        if (!voucher.esConfirmable()) {
+            throw new RuntimeException("La solicitud del canje del voucher " + voucher.id + " no puede ser cancelada")
+        }
+
+        voucher.state = VoucherState.Comprado
+        voucher.lastStateChange = new Date()
+        voucher.save(flush: true, failOnError: true)
+
+        return voucher
+    }
+
     List<Voucher> list() {
         return mockVoucherList()
     }
