@@ -67,17 +67,38 @@ export default function IniciarSesion(props) {
     event.preventDefault()
     //TODO: integrate with backend
     console.log('submit! enviariamos datos...' + datos.email + ' ' + datos.contrasenia)
-    if (datos.email.includes('negocio')) {
+
+    if (datos.email.includes('negocio1')) {
       localStorage.setItem('tipoUsuario', 'negocio');
       localStorage.setItem('userId', 1);
       console.log(localStorage);
       const usuarioId = localStorage.getItem('userId');
       window.location.href = navegacion.getNegocioPerfilUrl(usuarioId);
-    } else {
+      return;
+    }
+
+    if (datos.email.includes('negocio2')) {
+      localStorage.setItem('tipoUsuario', 'negocio');
+      localStorage.setItem('userId', 2);
+      console.log(localStorage);
+      const usuarioId = localStorage.getItem('userId');
+      window.location.href = navegacion.getNegocioPerfilUrl(usuarioId);
+      return;
+    }
+
+    if (datos.email.includes('cliente1')) {
       localStorage.setItem('tipoUsuario', 'cliente');
       localStorage.setItem('userId', 3);
       console.log(localStorage);
       window.location.href = navegacion.getClientePerfilUrl();
+    }
+
+    if (datos.email.includes('cliente2')) {
+      localStorage.setItem('tipoUsuario', 'cliente');
+      localStorage.setItem('userId', 4);
+      console.log(localStorage);
+      window.location.href = navegacion.getClientePerfilUrl();
+      return;
     }
   }
 

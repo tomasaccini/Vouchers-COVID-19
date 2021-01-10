@@ -68,6 +68,12 @@ class BootStrap {
                 contrasenia: "1234",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
+        def cliente2 = new Cliente(fullName: "Moni Argento",
+                phoneNumber: "1234",
+                email: "noeselmismocliente@asdf.com",
+                contrasenia: "1234",
+                cuentaVerificada: Boolean.TRUE).save(failOnError:true)
+
         new Producto(nombre: "Medialunas",
                 descripcion: "veganas",
                 negocio: Negocio.get(1),

@@ -29,7 +29,7 @@ class ClienteHistorialVouchers extends Component {
     }
 
     async getListaDeVouchers(estado) {
-        const vouchers = await voucherAPI.getVouchersConEstado(localStorage.getItem('userId'), estado);
+        const vouchers = await voucherAPI.getVouchers(localStorage.getItem('userId'), estado);
         return vouchers
     }
 
