@@ -50,6 +50,9 @@ class TalonarioService {
         if (descripcion.isEmpty()) {
             throw new RuntimeException('No se puede crear un talonario con descripcion vacia')
         }
+        if (negocio.tieneTalonarioConDescripcion(descripcion)){
+            throw new RuntimeException('No se puede crear un talonario con descripcion ya utilizada')
+        }
 
         def pattern = "yyyy-MM-dd"
 
