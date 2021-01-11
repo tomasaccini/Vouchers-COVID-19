@@ -1,6 +1,6 @@
 package services
 
-import enums.ProductType
+import enums.ProductoTipo
 import enums.TrackingType
 import vouchers.Cliente
 import vouchers.Talonario
@@ -35,10 +35,10 @@ class RecommendationService {
      * product type preferences and concatenating each block of counterfoils (by product type).
     */
     List<Talonario> recommendCounterfoils(Cliente client) {
-        Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count = trackingService.countyByProductTypeAndTrackingType(client)
+        Map<Tuple2<TrackingType, ProductoTipo>, List<Tracking>> count = trackingService.countyByProductTypeAndTrackingType(client)
 
         List<Talonario> sortedCounterfoils = defaultCounterfoils()
-        List<ProductType> sortedProductTypes = calculateProductTypesWithDecreasingPriority(count)
+        List<ProductoTipo> sortedProductTypes = calculateProductTypesWithDecreasingPriority(count)
 
         if (sortedProductTypes.indexOf()) {
             sortedCounterfoils
@@ -52,9 +52,9 @@ class RecommendationService {
                 .sort { -it.cantidadVendida }
     }
 
-    List<Talonario> personalizeCounterfoils(List<Talonario> sortedCounterfoils, List<ProductType> sortedProductTypes) {
-        Map<ProductType, Integer> priorityPerProductType = sortedProductTypes.withIndex().collectEntries { ProductType entry, int i -> [(entry): i] }
-        Map<ProductType, List<Talonario>> counterfoilsPerProductType = sortedCounterfoils.groupBy { it.informacionVoucher.product.type }
+    List<Talonario> personalizeCounterfoils(List<Talonario> sortedCounterfoils, List<ProductoTipo> sortedProductTypes) {
+        Map<ProductoTipo, Integer> priorityPerProductType = sortedProductTypes.withIndex().collectEntries { ProductoTipo entry, int i -> [(entry): i] }
+        Map<ProductoTipo, List<Talonario>> counterfoilsPerProductType = sortedCounterfoils.groupBy { it.informacionVoucher.product.tipo }
 
         List<Tuple2<Long, List<Talonario>>> prioritiesAndCounterFoils = counterfoilsPerProductType.keySet().collect { productType ->
             Long productPriority = priorityPerProductType[productType]
@@ -70,27 +70,27 @@ class RecommendationService {
         personalizedCounterfoils
     }
 
-    private List<ProductType> calculateProductTypesWithDecreasingPriority(Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count) {
+    private List<ProductoTipo> calculateProductTypesWithDecreasingPriority(Map<Tuple2<TrackingType, ProductoTipo>, List<Tracking>> count) {
 
-        List<Tuple2<ProductType, Long>> productTypesAndPoints = count.keySet().toList().collect { tuple ->
+        List<Tuple2<ProductoTipo, Long>> productTypesAndPoints = count.keySet().toList().collect { tuple ->
             TrackingType trackingType = (TrackingType) tuple[0]
-            ProductType productType = (ProductType) tuple[1]
+            ProductoTipo productType = (ProductoTipo) tuple[1]
             List<Tracking> trackings = count[tuple]
 
             Long points = trackings.size() * getPointsMultiplierForTrackingType(trackingType)
             new Tuple2(productType, points)
         }
 
-        Map<ProductType, List<Tuple2<ProductType, Long>>> grouped = productTypesAndPoints.groupBy { t -> t.first }
+        Map<ProductoTipo, List<Tuple2<ProductoTipo, Long>>> grouped = productTypesAndPoints.groupBy { t -> t.first }
 
-        List<Tuple2<ProductType, Long>> pointsPerProduct = grouped.keySet().toList().collect() { productType  ->
-            List<Tuple2<ProductType, Long>> pointsList = grouped[productType]
+        List<Tuple2<ProductoTipo, Long>> pointsPerProduct = grouped.keySet().toList().collect() { productType  ->
+            List<Tuple2<ProductoTipo, Long>> pointsList = grouped[productType]
             Long finalPointsForProductType = (Long) pointsList.collect { it.second }
                     .sum()
             new Tuple2(productType, finalPointsForProductType)
         }
 
-        List<Tuple2<ProductType, Long>> sortedPointsPerProduct = pointsPerProduct.sort { tuple -> - tuple.second }
+        List<Tuple2<ProductoTipo, Long>> sortedPointsPerProduct = pointsPerProduct.sort { tuple -> - tuple.second }
 
         sortedPointsPerProduct.collect { it.first }
     }

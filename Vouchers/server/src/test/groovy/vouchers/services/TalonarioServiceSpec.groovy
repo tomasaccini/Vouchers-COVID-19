@@ -1,6 +1,6 @@
 package vouchers.services
 
-import enums.ProductType
+import enums.ProductoTipo
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -60,7 +60,7 @@ class TalonarioServiceSpec extends Specification{
         Producto product = new Producto()
         product.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
         product.nombre = "Hamburguesa Blue Dog"
-        product.type = ProductType.FAST_FOOD
+        product.tipo = ProductoTipo.FAST_FOOD
         business.addToProducts(product)
         business.save(flush: true, failOnError: true)
 

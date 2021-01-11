@@ -1,7 +1,7 @@
 package vouchers.services
 
 import commands.ProductoCommand
-import enums.ProductType
+import enums.ProductoTipo
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -46,9 +46,9 @@ class ProductoServiceSpec extends Specification {
         business.save(flush: true, failOnError: true)
 
         ProductoCommand productCommand = new ProductoCommand()
-        productCommand.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
-        productCommand.name = "Hamburguesa Blue Dog"
-        productCommand.type = ProductType.FAST_FOOD
+        productCommand.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
+        productCommand.nombre = "Hamburguesa Blue Dog"
+        productCommand.tipo = ProductoTipo.FAST_FOOD
         productService.save(productCommand, 1)
 
         setupIsDone = true
@@ -65,9 +65,9 @@ class ProductoServiceSpec extends Specification {
     void "save creates a Product"() {
         given:
         ProductoCommand productCommand = new ProductoCommand()
-        productCommand.name = "Patagonia IPA"
-        productCommand.description = "Cerveza IPA artesanal industrial de la más alta calidad."
-        productCommand.type = ProductType.FAST_FOOD
+        productCommand.nombre = "Patagonia IPA"
+        productCommand.descripcion = "Cerveza IPA artesanal industrial de la más alta calidad."
+        productCommand.tipo = ProductoTipo.FAST_FOOD
 
         when:
         productService.save(productCommand, 1)
@@ -75,24 +75,24 @@ class ProductoServiceSpec extends Specification {
         then:
         Producto.count() == 2
         Producto newProduct = Producto.findById(2)
-        newProduct.nombre == productCommand.name
-        newProduct.descripcion == productCommand.description
+        newProduct.nombre == productCommand.nombre
+        newProduct.descripcion == productCommand.descripcion
     }
 
     def "update properly modifies the Product"() {
         given:
         ProductoCommand productCommand = new ProductoCommand()
         productCommand.id = 1
-        productCommand.name = "Hamburguesa PURPLE DOG"
-        productCommand.description = "ahora con mas queso"
-        productCommand.type = ProductType.FAST_FOOD
+        productCommand.nombre = "Hamburguesa PURPLE DOG"
+        productCommand.descripcion = "ahora con mas queso"
+        productCommand.tipo = ProductoTipo.FAST_FOOD
 
         when:
         productService.update(productCommand)
 
         then:
         Producto updatedProduct = Producto.get(1)
-        updatedProduct.nombre == productCommand.name && updatedProduct.descripcion == "ahora con mas queso"
+        updatedProduct.nombre == productCommand.nombre && updatedProduct.descripcion == "ahora con mas queso"
     }
 
     def "deleting a product removes it from the Business"() {

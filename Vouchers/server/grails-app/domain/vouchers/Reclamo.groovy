@@ -5,7 +5,7 @@ import enums.states.ReclamoEstado
 class Reclamo {
 
     String descripcion
-    Date fechaCreacion
+    Date fechaCreacion = new Date()
     Date fechaUltimoMensaje = new Date()
     Cliente cliente
     Negocio negocio
@@ -70,8 +70,9 @@ class Reclamo {
         if (estado == ReclamoEstado.Cerrado) {
             throw new RuntimeException("No se pueden agregar mas mensajes a un reclamo cerrado")
         }
+        this.save(flush: true, failOnError: true)
 
-        MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: duenio, texto: mensaje, fecha: new Date())
+        MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: duenio, texto: mensaje, fecha: new Date(), reclamo: this)
         mensajeReclamo.save(flush:true, failOnError: true)
 
         this.addToMensajes(mensajeReclamo)

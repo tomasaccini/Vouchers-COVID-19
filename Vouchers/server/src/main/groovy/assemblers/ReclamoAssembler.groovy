@@ -41,6 +41,7 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
                     duenioEmail: mensaje.duenio.email,
                     texto: mensaje.texto,
                     fecha: mensaje.fecha,
+                    reclamo: mensaje.reclamo
             )
             reclamoCommand.mensajes.add(mensajeCommand)
         }

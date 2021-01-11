@@ -24,7 +24,11 @@ class Voucher {
     }
 
     boolean estaExpirado(){
-        return informacionVoucher.validoHasta >= new Date()
+        if (informacionVoucher.validoHasta <= new Date()) {
+            estado = VoucherEstado.Expirado
+            return true
+        }
+        false
     }
 
     boolean perteneceAlNegocio(Long negocioId){
@@ -101,7 +105,6 @@ class Voucher {
         save(flush: true, failOnError: true)
     }
 
-    // TODO: deberia ser privado !!!!
     private boolean esCanjeable() {
         return !estaExpirado() && estado == VoucherEstado.Comprado && !reclamoAbierto()
     }

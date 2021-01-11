@@ -1,6 +1,6 @@
 package vouchers
 
-
+import enums.states.VoucherEstado
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -26,11 +26,11 @@ class ClienteService {
     def retirarVoucher(Long id, Voucher voucher){
         Cliente client = Cliente.get(id)
         if (!client?.vouchers?.contains(voucher)) {
-            throw new RuntimeException("The client is not the owner of the Voucher")
+            throw new RuntimeException("El cliente no es el duenio del voucher")
         }
         if (!voucher.esCanjeable()) {
-            throw new RuntimeException("Voucher has been already retired or is expired")
+            throw new RuntimeException("El voucher ya fue retirado o esta expirado")
         }
-        voucherService.solicitarCanje(voucher.id)
+        voucherService.solicitarCanje(voucher.id, id)
     }
 }
