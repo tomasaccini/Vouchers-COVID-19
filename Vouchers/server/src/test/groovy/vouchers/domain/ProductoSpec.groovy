@@ -13,44 +13,44 @@ class ProductoSpec extends Specification implements DomainUnitTest<Producto> {
     }
 
     void "constructor"() {
-        Producto p = new Producto(nombre: "Potatoes", descripcion: "chips")
-        expect:"product constructed correctly"
-        p != null && p.nombre == "Potatoes" && p.descripcion == "chips"
+        Producto p = new Producto(nombre: "Papas", descripcion: "bravas")
+        expect:"producto construido correctamente"
+        p != null && p.nombre == "Papas" && p.descripcion == "bravas"
     }
 
-    void "product can't have empty string as name"() {
-        Producto p = new Producto(nombre: "", descripcion: "chips")
+    void "el producto no puede tener un string vacio como nombre"() {
+        Producto p = new Producto(nombre: "", descripcion: "bravas")
         when:
         p.nombre = ""
         then:
-        !p.validate(['name'])
-        p.errors['name'].code == 'blank'
+        !p.validate(['nombre'])
+        p.errors['nombre'].code == 'blank'
     }
 
-    void "product can't have empty string as description"() {
-        Producto p = new Producto(nombre: "Potatoe", descripcion: "")
+    void "el producto no puede tener un string vacio como descripcion"() {
+        Producto p = new Producto(nombre: "Papas", descripcion: "")
         when:
         p.descripcion = ""
         then:
-        !p.validate(['description'])
-        p.errors['description'].code == 'blank'
+        !p.validate(['descripcion'])
+        p.errors['descripcion'].code == 'blank'
     }
 
-    void "name can't be null"() {
-        Producto p = new Producto(nombre: null, descripcion: "chips")
+    void "el nombre no puede ser null"() {
+        Producto p = new Producto(nombre: null, descripcion: "bravas")
         when:
         p.nombre = null
         then:
-        !p.validate(['name'])
-        p.errors['name'].code == 'nullable'
+        !p.validate(['nombre'])
+        p.errors['nombre'].code == 'nullable'
     }
 
-    void "description can be null"() {
-        Producto p = new Producto(nombre: "Potatoe", descripcion: null)
+    void "la descripcion no puede ser null"() {
+        Producto p = new Producto(nombre: "Papas", descripcion: null)
         when:
         p.descripcion = null
         then:
-        p.validate(['description'])
+        p.validate(['descripcion'])
     }
 
 

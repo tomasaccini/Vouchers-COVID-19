@@ -1,10 +1,10 @@
 package vouchers
 
-import enums.InteraccionType
+import enums.TipoInteraccion
 
 class InteraccionClienteTalonario {
 
-    InteraccionType interaccion
+    TipoInteraccion interaccion
     Date dateCreated = new Date()
     Cliente cliente
     Talonario talonario

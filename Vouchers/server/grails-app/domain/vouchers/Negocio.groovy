@@ -8,10 +8,10 @@ class Negocio extends Usuario {
     String website
     String categoria
 
-    static hasMany = [talonarios: Talonario, products: Producto]
+    static hasMany = [talonarios: Talonario, productos: Producto]
 
     static mapping = {
-        products cascade: 'save-update'
+        productos cascade: 'save-update'
         talonarios cascade: 'save-update'
     }
 
@@ -23,11 +23,11 @@ class Negocio extends Usuario {
         categoria blank: false, nullable: false
     }
 
-    boolean isOwnerOfVoucher(Voucher v) {
+    boolean esDuenioDeVoucher(Voucher v) {
         this.talonarios.contains(v.getTalonario())
     }
 
-    boolean isOwnerOfCounterfoil(Long id) {
+    boolean esDuenioDeTalonario(Long id) {
         this.talonarios.any{ c -> c.id == id}
     }
 

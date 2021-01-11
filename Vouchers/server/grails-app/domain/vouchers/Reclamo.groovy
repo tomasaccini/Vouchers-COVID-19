@@ -1,15 +1,15 @@
 package vouchers
 
-import enums.states.ReclamoState
+import enums.states.ReclamoEstado
 
 class Reclamo {
 
     String descripcion
-    Date dateCreated
+    Date fechaCreacion
     Date fechaUltimoMensaje = new Date()
     Cliente cliente
     Negocio negocio
-    ReclamoState state = ReclamoState.Abierto
+    ReclamoEstado estado = ReclamoEstado.Abierto
     Set<MensajeReclamo> mensajes = []
 
     static belongsTo = [voucher: Voucher]
@@ -17,10 +17,10 @@ class Reclamo {
     static hasMany = [mensajes: MensajeReclamo]
     static constraints = {
         descripcion nullable: false
-        dateCreated nullable: false
+        fechaCreacion nullable: false
         cliente nullable: false
         negocio nullable: false
-        state nullable: false
+        estado nullable: false
     }
 
     void agregarMensaje(String mensaje, Cliente duenio) {
@@ -36,7 +36,7 @@ class Reclamo {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${negocio.id})")
         }
 
-        state = ReclamoState.Respondido
+        estado = ReclamoEstado.Respondido
 
         _agregarMensaje(mensaje, duenio)
     }
@@ -46,32 +46,32 @@ class Reclamo {
             throw new RuntimeException("El usuario " + usuarioCerrador.id + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
         }
 
-        if (state == ReclamoState.Cerrado) {
+        if (estado == ReclamoEstado.Cerrado) {
             throw new RuntimeException("El reclamo ya fue cerrado")
         }
 
-        state = ReclamoState.Cerrado
+        estado = ReclamoEstado.Cerrado
         this.save(flush: true, failOnError: true)
     }
 
     void reabrir() {
-        state = ReclamoState.Abierto
+        estado = ReclamoEstado.Abierto
     }
 
     Boolean estaCerrado() {
-        return state == ReclamoState.Cerrado
+        return estado == ReclamoEstado.Cerrado
     }
 
     Boolean perteneceAUsuario(Usuario usuarioCerrador) {
         usuarioCerrador.id == cliente.id
     }
 
-    private void _agregarMensaje(String mensaje, Usuario owner) {
-        if (state == ReclamoState.Cerrado) {
+    private void _agregarMensaje(String mensaje, Usuario duenio) {
+        if (estado == ReclamoEstado.Cerrado) {
             throw new RuntimeException("No se pueden agregar mas mensajes a un reclamo cerrado")
         }
 
-        MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: owner, texto: mensaje, fecha: new Date())
+        MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: duenio, texto: mensaje, fecha: new Date())
         mensajeReclamo.save(flush:true, failOnError: true)
 
         this.addToMensajes(mensajeReclamo)

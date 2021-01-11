@@ -62,14 +62,14 @@ class BootStrap {
         negocio1.addToTalonarios(talonario1)
         negocio2.addToTalonarios(talonario2)
 
-        def cliente1 = new Cliente(fullName: "Pepe Argento",
-                phoneNumber: "1234",
+        def cliente1 = new Cliente(nombreCompleto: "Pepe Argento",
+                numeroTelefonico: "1234",
                 email: "cliente@asdf.com",
                 contrasenia: "1234",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
-        def cliente2 = new Cliente(fullName: "Moni Argento",
-                phoneNumber: "1234",
+        def cliente2 = new Cliente(nombreCompleto: "Moni Argento",
+                numeroTelefonico: "1234",
                 email: "noeselmismocliente@asdf.com",
                 contrasenia: "1234",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)

@@ -49,7 +49,7 @@ class NegocioService {
 
     def confirmRetireVoucher(Long id, Voucher voucher){
         Negocio business = Negocio.get(id)
-        if (!business.isOwnerOfVoucher(voucher)) {
+        if (!business.esDuenioDeVoucher(voucher)) {
             throw new RuntimeException("The business is not the owner of the Voucher")
         }
         if (!voucher.esConfirmable()) {
@@ -64,7 +64,7 @@ class NegocioService {
     */
     boolean activateCounterfoil(Long id, Long counterfoilId) {
         Negocio business = Negocio.get(id)
-        if (!business.isOwnerOfCounterfoil(counterfoilId)) {
+        if (!business.esDuenioDeTalonario(counterfoilId)) {
             throw new RuntimeException("The business is not the owner of the Counterfoil")
         }
         talonarioService.activate(counterfoilId)
@@ -76,7 +76,7 @@ class NegocioService {
     */
     boolean deactivateCounterfoil(Long id, Long counterfoilId) {
         Negocio business = Negocio.get(id)
-        if (!business.isOwnerOfCounterfoil(counterfoilId)) {
+        if (!business.esDuenioDeTalonario(counterfoilId)) {
             throw new RuntimeException("The business is not the owner of the Counterfoil")
         }
         talonarioService.deactivate(counterfoilId)

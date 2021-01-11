@@ -2,7 +2,7 @@ package vouchers
 
 import assemblers.VoucherAssembler
 import commands.VoucherCommand
-import enums.states.VoucherState
+import enums.states.VoucherEstado
 import grails.gorm.transactions.Transactional
 import org.hibernate.service.spi.ServiceException
 
@@ -68,8 +68,8 @@ class VoucherService {
             throw new RuntimeException("El voucher " + voucher.id + " no puede ser confirmado")
         }
 
-        voucher.state = VoucherState.Canjeado
-        voucher.lastStateChange = new Date()
+        voucher.estado = VoucherEstado.Canjeado
+        voucher.ultimoCambioEstado = new Date()
         voucher.save(flush: true, failOnError: true)
     }
 
@@ -98,8 +98,8 @@ class VoucherService {
             throw new RuntimeException("El voucher " + voucher.id + " no puede ser canjeado")
         }
 
-        voucher.state = VoucherState.ConfirmacionPendiente
-        voucher.lastStateChange = new Date()
+        voucher.estado = VoucherEstado.ConfirmacionPendiente
+        voucher.ultimoCambioEstado = new Date()
         voucher.save(flush: true, failOnError: true)
 
         return voucher
@@ -129,8 +129,8 @@ class VoucherService {
             throw new RuntimeException("La solicitud del canje del voucher " + voucher.id + " no puede ser cancelada")
         }
 
-        voucher.state = VoucherState.Comprado
-        voucher.lastStateChange = new Date()
+        voucher.estado = VoucherEstado.Comprado
+        voucher.ultimoCambioEstado = new Date()
         voucher.save(flush: true, failOnError: true)
 
         return voucher
@@ -183,7 +183,7 @@ class VoucherService {
     }
 
     List<Voucher> buscarPorUsuarioYEstado(Cliente cliente, String estado, Map params){
-        def estadoEnum = VoucherState.valueOf(estado)
+        def estadoEnum = VoucherEstado.valueOf(estado)
         String query = "select distinct(v) from Voucher as v "
         query += " where v.cliente.id like :clienteId "
         query += " and v.state = :estado "

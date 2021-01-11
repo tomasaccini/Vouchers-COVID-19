@@ -76,7 +76,7 @@ class TalonarioServiceSpec extends Specification{
 
         business.save(flush: true, failOnError: true)
 
-        Cliente client = new Cliente(fullName: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Cliente client = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         client.cuentaVerificada = true
         client.save(flush:true, failOnError:true)
 

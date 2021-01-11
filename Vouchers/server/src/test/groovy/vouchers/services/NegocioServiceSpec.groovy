@@ -1,7 +1,7 @@
 package vouchers.services
 
 import enums.ProductType
-import enums.states.VoucherState
+import enums.states.VoucherEstado
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -66,7 +66,7 @@ class NegocioServiceSpec extends Specification{
         business.addToTalonarios(counterfoil)
         business.save(flush: true, failOnError: true)
 
-        Cliente client = new Cliente(fullName: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Cliente client = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         client.cuentaVerificada = true
         client.save(flush:true, failOnError:true)
 
@@ -89,7 +89,7 @@ class NegocioServiceSpec extends Specification{
         clientService.retirarVoucher(clientId, v)
         businessService.confirmRetireVoucher(businessId, v)
         expect:"Vouchers status in retired"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.Canjeado
+        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getEstado() == VoucherEstado.Canjeado
     }
 
     void "confirm voucher retirement before client retires it"() {
@@ -99,7 +99,7 @@ class NegocioServiceSpec extends Specification{
         businessService.confirmRetireVoucher(businessId, v)
         then: "Throw error"
         thrown RuntimeException
-        v.state == VoucherState.Comprado
+        v.estado == VoucherEstado.Comprado
     }
 
     void "confirm voucher from other business"() {
@@ -113,6 +113,6 @@ class NegocioServiceSpec extends Specification{
         businessService.confirmRetireVoucher(b2.id, v)
         then: "Throw error"
         thrown RuntimeException
-        v.state == VoucherState.ConfirmacionPendiente
+        v.estado == VoucherEstado.ConfirmacionPendiente
     }
 }

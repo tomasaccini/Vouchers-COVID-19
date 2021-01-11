@@ -2,7 +2,6 @@ package assemblers
 
 import commands.MensajeReclamoCommand
 import commands.ReclamoCommand
-import enums.states.ReclamoState
 import templates.ConcreteObjectAssembler
 import vouchers.MensajeReclamo
 import vouchers.Reclamo
@@ -30,7 +29,7 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
                 negocioEmail: reclamo.negocio.email,
                 voucherDescripcion: reclamo.voucher.informacionVoucher.descripcion,
                 fechaUltimoMensaje: reclamo.fechaUltimoMensaje,
-                state: reclamo.state.toString()
+                state: reclamo.estado.toString()
         )
 
         List<MensajeReclamo> mensajes = reclamo.mensajes.toList()

@@ -4,13 +4,13 @@ class MensajeReclamo {
 
     Usuario duenio
     String texto
-    Date dateCreated = new Date()
+    Date fechaCreacion = new Date()
     Date fecha
 
     static constraints = {
         duenio nullable: false
         texto nullable: false
-        dateCreated nullable: false
+        fechaCreacion nullable: false
         fecha nullable: false
     }
 }

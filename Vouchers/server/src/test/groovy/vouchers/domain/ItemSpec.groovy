@@ -7,42 +7,42 @@ import vouchers.Producto
 
 class ItemSpec  extends Specification implements DomainUnitTest<Item> {
 
-    Producto product
+    Producto producto
 
     def setup() {
-        product = new Producto(nombre: "Wine", descripcion: "red")
-        product.save()
+        producto = new Producto(nombre: "Vino", descripcion: "rojo")
+        producto.save()
     }
 
     def cleanup() {
-        product.delete()
+        producto.delete()
     }
 
     void "constructor"() {
-        Item i = new Item(producto: product, cantidad: 3)
+        Item i = new Item(producto: producto, cantidad: 3)
         i.save()
-        expect:"item constructed correctly"
-        i != null && i.producto.nombre == "Wine" && i.producto.descripcion == "red" && i.cantidad == 3
+        expect:"item construido correctamente"
+        i != null && i.producto.nombre == "Vino" && i.producto.descripcion == "rojo" && i.cantidad == 3
     }
 
-    void "item can't have 0 as quantity"() {
-        Item i = new Item(producto: product, cantidad: 0)
+    void "item no puede tener cantidad 0"() {
+        Item i = new Item(producto: producto, cantidad: 0)
         i.save()
         when:
         i.cantidad = 0
         then:
-        !i.validate(['quantity'])
-        i.errors['quantity'].code == 'min.notmet'
+        !i.validate(['cantidad'])
+        i.errors['cantidad'].code == 'min.notmet'
     }
 
-    void "item must have a product"() {
+    void "item tiene que tener un producto"() {
         Item i = new Item(producto: null, cantidad: 1)
         i.save()
         when:
         i.producto = null
         then:
-        !i.validate(['product'])
-        i.errors['product'].code == 'nullable'
+        !i.validate(['producto'])
+        i.errors['producto'].code == 'nullable'
     }
 
 }

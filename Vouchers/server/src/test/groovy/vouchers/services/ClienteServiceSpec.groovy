@@ -1,7 +1,7 @@
 package vouchers.services
 
 import enums.ProductType
-import enums.states.VoucherState
+import enums.states.VoucherEstado
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -63,7 +63,7 @@ class ClienteServiceSpec extends Specification{
         business.addToTalonarios(counterfoil)
         business.save(flush: true, failOnError: true)
 
-        Cliente client = new Cliente(fullName: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Cliente client = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         client.cuentaVerificada = true
         client.save(flush:true, failOnError:true)
 
@@ -112,7 +112,7 @@ class ClienteServiceSpec extends Specification{
         Cliente client = Cliente.get(clientId)
         clientService.retirarVoucher(clientId, v)
         expect:"Vouchers status in pending retire"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.ConfirmacionPendiente
+        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente
     }
 
     void "test expiration of voucher"() {
@@ -127,12 +127,12 @@ class ClienteServiceSpec extends Specification{
         clientService.retirarVoucher(clientId, v)
         then: "Throw error"
         thrown RuntimeException
-        v.state == VoucherState.Expirado
+        v.estado == VoucherEstado.Expirado
     }
 
     void "test retire voucher from other client"() {
         Cliente c1 = Cliente.get(clientId)
-        Cliente c2 = new Cliente(fullName: "Mariano Iudica", email: "iudica@gmail.com", contrasenia: "iudica1234")
+        Cliente c2 = new Cliente(nombreCompleto: "Mariano Iudica", email: "iudica@gmail.com", contrasenia: "iudica1234")
         c2.cuentaVerificada = true
         c2.save(flush:true, failOnError:true)
         Talonario counterfoil = Talonario.findById(1)
@@ -141,6 +141,6 @@ class ClienteServiceSpec extends Specification{
         clientService.retirarVoucher(c2.id, v)
         then: "Throw error"
         thrown RuntimeException
-        v.state == VoucherState.Comprado
+        v.estado == VoucherEstado.Comprado
     }
 }
