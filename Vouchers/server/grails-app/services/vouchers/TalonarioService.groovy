@@ -3,6 +3,8 @@ package vouchers
 import enums.ProductType
 import grails.gorm.transactions.Transactional
 
+import java.text.SimpleDateFormat
+
 @Transactional
 class TalonarioService {
 
@@ -33,12 +35,12 @@ class TalonarioService {
         return counterfoil
     }
 
-    Talonario createMock(String negocioId, Integer stock, Double precio, String descripcion, String validoDesdeStr, String validoHastaStr) {
+
+    Talonario crear(String negocioId, Integer stock, Double precio, String descripcion, String validoDesdeStr, String validoHastaStr) {
         Negocio negocio = Negocio.findById(negocioId)
         if (negocio == null) {
             throw new RuntimeException('No se puede crear un talonario para un voucher invalido')
         }
-
         if (stock < 0) {
             throw new RuntimeException('No se puede crear un talonario con stock negativo')
         }
@@ -48,13 +50,32 @@ class TalonarioService {
         if (descripcion.isEmpty()) {
             throw new RuntimeException('No se puede crear un talonario con descripcion vacia')
         }
-        Date validoDesde = new Date(validoDesdeStr)
-        Date validoHasta = new Date(validoHastaStr)
+        if (negocio.tieneTalonarioConDescripcion(descripcion)){
+            throw new RuntimeException('No se puede crear un talonario con descripcion ya utilizada')
+        }
 
-        println("!!!!" + validoDesde)
+        def pattern = "yyyy-MM-dd"
 
-        InformacionVoucher vi = new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta:  validoHasta)
+        Date validoDesde = new SimpleDateFormat(pattern).parse(validoDesdeStr)
+        Date validoHasta = new SimpleDateFormat(pattern).parse(validoHastaStr)
+
+        InformacionVoucher vi = new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta).save(failOnError:true)
         Talonario talonario = new Talonario(informacionVoucher: vi, stock: stock, negocio: negocio)
+        talonario.save(failOnError:true)
+
+        talonario
+    }
+
+    Talonario agregarProductos(Talonario talonario, def productos) {
+        println("Agregando productos")
+        println(productos)
+        for (p in productos){
+            Item item =  new Item(
+                    cantidad: p["cantidad"],
+                    producto: Producto.get(p["id"])
+            ).save(failOnError:true)
+            talonario.informacionVoucher.addToItems(item)
+        }
         talonario.save()
 
         talonario

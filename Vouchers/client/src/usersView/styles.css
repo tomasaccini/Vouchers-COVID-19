@@ -252,8 +252,42 @@
 
 /* \-- Historial Cliente --*/
 
-/* -- Tarjeta Voucher Canjeada --*/
+/* -- Talonario Crear--*/
 
+.talonarioCrear{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4em;
+  margin: 8%;
+}
+
+.talonarioCrearForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+}
+
+.talonarioField{
+  width: 100%;
+}
+
+.productoElegir {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.productoElegir h3 {
+  letter-spacing: 1.2px;
+}
+
+/* \-- Talonario Crear --*/
+
+/* -- Tarjeta Voucher Canjeada --*/
 
 /* \-- Tarjeta Voucher Canjeada --*/
 
