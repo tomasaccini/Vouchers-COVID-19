@@ -1,13 +1,16 @@
 package vouchers
 
 import assemblers.NegocioAssembler
+import assemblers.TalonarioAssembler
 import commands.NegocioCommand
+import commands.TalonarioCommand
 import grails.rest.*
 
 class NegocioController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
     NegocioService negocioService
+    TalonarioAssembler talonarioAssembler
 
     NegocioAssembler negocioAssembler = new NegocioAssembler()
 
@@ -48,7 +51,13 @@ class NegocioController extends RestfulController {
         if (!negocio) {
             return response.sendError(400, "Negocio inexistente")
         }
-        respond negocio.talonarios
+        List<TalonarioCommand> talonariosCommands = []
+
+        for (def talonario : negocio.talonarios) {
+            talonariosCommands.add(talonarioAssembler.toBean(talonario))
+        }
+
+        respond talonariosCommands
     }
 
     List<NegocioCommand> obtenerTodos() {

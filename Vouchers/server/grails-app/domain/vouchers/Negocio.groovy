@@ -31,6 +31,14 @@ class Negocio extends Usuario {
         this.talonarios.any{ c -> c.id == id}
     }
 
+    boolean tieneTalonarioConDescripcion(String descripcion){
+        for (talonario in this.talonarios){
+            if (talonario.informacionVoucher.descripcion == descripcion)
+                return true
+        }
+        return false
+    }
+
     List<Voucher> obtenerVouchersConfirmables() {
         List<Voucher> vouchers = talonarios.collect { it.vouchers }.flatten() as List<Voucher>
         println(vouchers)

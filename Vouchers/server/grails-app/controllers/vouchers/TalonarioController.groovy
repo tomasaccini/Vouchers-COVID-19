@@ -62,7 +62,7 @@ class TalonarioController extends RestfulController{
     }
 
     def crear() {
-        println('Creando nuevo voucher')
+        println('Creando nuevo Talonario')
 
         Object requestBody = request.JSON
 
@@ -72,6 +72,7 @@ class TalonarioController extends RestfulController{
         String descripcion
         String validoDesdeStr
         String validoHastaStr
+        def productos
 
         try {
             negocioId = requestBody['negocioId']
@@ -81,15 +82,18 @@ class TalonarioController extends RestfulController{
             descripcion = informacionVoucher['descripcion']
             validoDesdeStr = informacionVoucher['validoDesde']
             validoHastaStr = informacionVoucher['validoHasta']
+            productos = requestBody['productos']
         } catch (Exception e) {
             println(e)
-            return response.sendError(400, "!!!! format")
+            return response.sendError(400, "Error en formato al crear talonario")
         }
 
         try {
-            Talonario talonario = talonarioService.createMock(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr)
-            respond talonarioAssembler.toBean(talonario), [status: CREATED]
+            Talonario talonario = talonarioService.crear(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr)
+            talonarioService.agregarProductos(talonario, productos)
+            respond talonarioAssembler.toBean(talonario)
         } catch (RuntimeException re) {
+            println("Error")
             response.sendError(400, re.message)
         }
     }
