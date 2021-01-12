@@ -25,4 +25,4 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
       - name: Build with Gradle
-        run: ./gradlew check --parallel --continue  
+        run: cd Vouchers && ./gradlew check --parallel --continue  
