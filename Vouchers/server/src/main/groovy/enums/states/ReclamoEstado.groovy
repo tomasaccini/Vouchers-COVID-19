@@ -1,13 +1,13 @@
 package enums.states
 
-enum ReclamoState {
+enum ReclamoEstado {
     Abierto('Abierto'),
     Cerrado('Cerrado'),
     Respondido('Respondido')
 
     String id
 
-    ReclamoState(String id) {
+    ReclamoEstado(String id) {
         this.id = id
     }
 }

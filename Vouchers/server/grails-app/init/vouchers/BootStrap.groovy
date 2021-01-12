@@ -1,7 +1,7 @@
 package vouchers
 
-
-import enums.ProductType
+import groovy.time.TimeCategory
+import enums.ProductoTipo
 
 class BootStrap {
 
@@ -40,15 +40,19 @@ class BootStrap {
                 contrasenia: "topSecret",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
-        def informacionVoucher1 = new InformacionVoucher(precio: 3.0,
-                descripcion: "Rico",
-                validoDesde: new Date(),
-                validoHasta: new Date()).save(failOnError:true)
+        def informacionVoucher1
+        def informacionVoucher2
+        use(TimeCategory) {
+            informacionVoucher1 = new InformacionVoucher(precio: 3.0,
+                    descripcion: "Rico",
+                    validoDesde: new Date() - 1.year,
+                    validoHasta: new Date() + 1.year).save(failOnError:true)
 
-        def informacionVoucher2 = new InformacionVoucher(precio: 3.0,
-                descripcion: "Feo",
-                validoDesde: new Date(),
-                validoHasta: new Date()).save(failOnError:true)
+            informacionVoucher2 = new InformacionVoucher(precio: 3.0,
+                    descripcion: "Feo",
+                    validoDesde: new Date() - 1.year,
+                    validoHasta: new Date() + 1.year).save(failOnError:true)
+        }
 
         def talonario1 = new Talonario(stock: 6,
                         informacionVoucher: InformacionVoucher.get(1),
@@ -62,14 +66,14 @@ class BootStrap {
         negocio1.addToTalonarios(talonario1)
         negocio2.addToTalonarios(talonario2)
 
-        def cliente1 = new Cliente(fullName: "Pepe Argento",
-                phoneNumber: "1234",
+        def cliente1 = new Cliente(nombreCompleto: "Pepe Argento",
+                numeroTelefonico: "1234",
                 email: "cliente@asdf.com",
                 contrasenia: "1234",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
 
-        def cliente2 = new Cliente(fullName: "Moni Argento",
-                phoneNumber: "1234",
+        def cliente2 = new Cliente(nombreCompleto: "Moni Argento",
+                numeroTelefonico: "1234",
                 email: "noeselmismocliente@asdf.com",
                 contrasenia: "1234",
                 cuentaVerificada: Boolean.TRUE).save(failOnError:true)
@@ -77,14 +81,14 @@ class BootStrap {
         new Producto(nombre: "Medialunas",
                 descripcion: "veganas",
                 negocio: Negocio.get(1),
-                type: ProductType.FAST_FOOD).save(failOnError:true)
+                tipo: ProductoTipo.COMIDA_RAPIDA).save(failOnError:true)
 
-        negocio1.addToProducts(Producto.get(1))
+        negocio1.addToProductos(Producto.get(1))
 
         new Producto(nombre: "Hamburgüesas",
                 descripcion: "veganas",
                 negocio: Negocio.get(2),
-                type: ProductType.FAST_FOOD).save(failOnError:true)
+                tipo: ProductoTipo.COMIDA_RAPIDA).save(failOnError:true)
 
         def item1 = new Item(
                 cantidad: 5,
@@ -95,7 +99,7 @@ class BootStrap {
                 producto: Producto.get(2)).save(failOnError:true)
 
 
-        Negocio.get(2).addToProducts(Producto.get(2))
+        Negocio.get(2).addToProductos(Producto.get(2))
 
         talonario1.informacionVoucher.addToItems(item1)
         talonario1.informacionVoucher.addToItems(item2)

@@ -1,6 +1,6 @@
 package vouchers
 
-import enums.ProductType
+import enums.ProductoTipo
 import grails.gorm.transactions.Transactional
 import grails.rest.*
 
@@ -57,7 +57,7 @@ class ProductoController extends RestfulController {
             nProducto.setDescripcion(requestBody['descripcion'].toString())
             Negocio negocio = Negocio.get(requestBody['negocioId'].toLong())
             nProducto.setNegocio(negocio)
-            nProducto.setType(ProductType.FAST_FOOD) // cambiar
+            nProducto.setTipo(ProductoTipo.FAST_FOOD) // cambiar
             nProducto.save()
             negocio.addToProducts(nProducto)
             negocio.save()

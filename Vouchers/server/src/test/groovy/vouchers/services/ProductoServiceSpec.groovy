@@ -1,7 +1,7 @@
 package vouchers.services
 
 import commands.ProductoCommand
-import enums.ProductType
+import enums.ProductoTipo
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,91 +19,92 @@ import vouchers.ProductoService
 class ProductoServiceSpec extends Specification {
 
     @Autowired
-    ProductoService productService
+    ProductoService productoService
 
-    private static Boolean setupIsDone = false
+    private static Boolean setupHecho = false
+    static Long negocioId
+    static Long productoId
 
     def setup() {
-        if (setupIsDone) return
+        if (setupHecho) return
 
-        Negocio business = new Negocio()
-        business.nombre = "Blue Dog"
-        business.email = "sales@bluedog.com"
-        business.contrasenia = "1234"
-        business.cuentaVerificada = true
-        business.numeroTelefonico = "1234"
-        business.categoria = "Cervezería"
+        Negocio negocio = new Negocio()
+        negocio.nombre = "Blue Dog"
+        negocio.email = "sales@bluedog.com"
+        negocio.contrasenia = "1234"
+        negocio.cuentaVerificada = true
+        negocio.numeroTelefonico = "1234"
+        negocio.categoria = "Cervezería"
 
-        Direccion newAddress = new Direccion()
-        newAddress.calle = "calle falsa"
-        newAddress.numero = "123"
-        newAddress.departamento = "11D"
-        newAddress.provincia = "Buenos Aires"
-        newAddress.pais = "Argentina"
+        Direccion direccion = new Direccion()
+        direccion.calle = "calle falsa"
+        direccion.numero = "123"
+        direccion.departamento = "11D"
+        direccion.provincia = "Buenos Aires"
+        direccion.pais = "Argentina"
 
-        business.direccion = newAddress
-        business.website = "bluedog.com"
-        business.save(flush: true, failOnError: true)
+        negocio.direccion = direccion
+        negocio.website = "bluedog.com"
+        negocio.save(flush: true, failOnError: true)
 
-        ProductoCommand productCommand = new ProductoCommand()
-        productCommand.description = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
-        productCommand.name = "Hamburguesa Blue Dog"
-        productCommand.type = ProductType.FAST_FOOD
-        productService.save(productCommand, 1)
+        ProductoCommand productoCommand = new ProductoCommand()
+        productoCommand.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
+        productoCommand.nombre = "Hamburguesa Blue Dog"
+        productoCommand.tipo = ProductoTipo.COMIDA_RAPIDA
+        Producto producto = productoService.save(productoCommand, negocio.id)
 
-        setupIsDone = true
+        setupHecho = true
+        negocioId = negocio.id
+        productoId = producto.id
     }
 
     def cleanup() {
     }
 
-    void "there is one product and one business created in database"() {
+    void "hay un producto y un negocio en la base"() {
         expect:
-        Producto.count() == 1 && Negocio.count() == 1
+        Producto.count() == 3 && Negocio.count() == 3
     }
 
-    void "save creates a Product"() {
+    void "save crea un Producto"() {
         given:
-        ProductoCommand productCommand = new ProductoCommand()
-        productCommand.name = "Patagonia IPA"
-        productCommand.description = "Cerveza IPA artesanal industrial de la más alta calidad."
-        productCommand.type = ProductType.FAST_FOOD
+        ProductoCommand productoCommand = new ProductoCommand()
+        productoCommand.nombre = "Patagonia IPA"
+        productoCommand.descripcion = "Cerveza IPA artesanal industrial de la más alta calidad."
+        productoCommand.tipo = ProductoTipo.COMIDA_RAPIDA
 
         when:
-        productService.save(productCommand, 1)
+        Producto producto2 = productoService.save(productoCommand, negocioId)
 
         then:
-        Producto.count() == 2
-        Producto newProduct = Producto.findById(2)
-        newProduct.nombre == productCommand.name
-        newProduct.descripcion == productCommand.description
+        Producto.count() == 4
+        Producto newProduct = Producto.findById(producto2.id)
+        newProduct.nombre == productoCommand.nombre
+        newProduct.descripcion == productoCommand.descripcion
     }
 
-    def "update properly modifies the Product"() {
+    def "update modifica correctamente un Producto"() {
         given:
-        ProductoCommand productCommand = new ProductoCommand()
-        productCommand.id = 1
-        productCommand.name = "Hamburguesa PURPLE DOG"
-        productCommand.description = "ahora con mas queso"
-        productCommand.type = ProductType.FAST_FOOD
+        ProductoCommand productoCommand = new ProductoCommand()
+        productoCommand.id = productoId
+        productoCommand.nombre = "Hamburguesa PURPLE DOG"
+        productoCommand.descripcion = "ahora con mas queso"
+        productoCommand.tipo = ProductoTipo.COMIDA_RAPIDA
 
         when:
-        productService.update(productCommand)
+        productoService.update(productoCommand)
 
         then:
-        Producto updatedProduct = Producto.get(1)
-        updatedProduct.nombre == productCommand.name && updatedProduct.descripcion == "ahora con mas queso"
+        Producto productoModificado = Producto.get(productoId)
+        productoModificado.nombre == productoCommand.nombre && productoModificado.descripcion == "ahora con mas queso"
     }
 
-    def "deleting a product removes it from the Business"() {
-        given:
-        Long productId = 1
-
+    def "borrar un producto lo elimina del negocio"() {
         when:
-        productService.delete(productId)
+        productoService.delete(productoId)
 
         then:
-        Negocio business = Negocio.get(1)
-        business.products.size() == 0
+        Negocio negocio = Negocio.get(negocioId)
+        negocio.productos.size() == 0
     }
 }

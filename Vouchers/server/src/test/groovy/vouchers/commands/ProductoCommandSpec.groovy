@@ -13,43 +13,43 @@ class ProductoCommandSpec extends Specification {
     }
 
     void "constructor"() {
-        ProductoCommand p = new ProductoCommand(name: "Potatoes", description: "chips")
-        expect:"product constructed correctly"
-        p != null && p.name == "Potatoes" && p.description == "chips"
+        ProductoCommand p = new ProductoCommand(nombre: "Papas", descripcion: "bravas")
+        expect:"Producto construido correctamente"
+        p != null && p.nombre == "Papas" && p.descripcion == "bravas"
     }
 
-    void "productCommand can't have empty string as name"() {
-        ProductoCommand p = new ProductoCommand(name: "", description: "chips")
+    void "productoCommand no puede tener un string vacio como nombre"() {
+        ProductoCommand p = new ProductoCommand(nombre: "", descripcion: "bravas")
         when:
-        p.name = ""
+        p.nombre = ""
         then:
-        !p.validate(['name'])
-        p.errors['name'].code == 'blank'
+        !p.validate(['nombre'])
+        p.errors['nombre'].code == 'blank'
     }
 
-    void "productCommand can't have empty string as description"() {
-        ProductoCommand p = new ProductoCommand(name: "Potatoe", description: "")
+    void "productoCommand no puede tener un string vacio como descripcion"() {
+        ProductoCommand p = new ProductoCommand(nombre: "Papas", descripcion: "")
         when:
-        p.description = ""
+        p.descripcion = ""
         then:
-        !p.validate(['description'])
-        p.errors['description'].code == 'blank'
+        !p.validate(['descripcion'])
+        p.errors['descripcion'].code == 'blank'
     }
 
-    void "productCommand's name can't be null"() {
-        ProductoCommand p = new ProductoCommand(name: null, description: "chips")
+    void "productCommand no puede tener el nombre null"() {
+        ProductoCommand p = new ProductoCommand(nombre: null, descripcion: "bravas")
         when:
-        p.name = null
+        p.nombre = null
         then:
-        !p.validate(['name'])
-        p.errors['name'].code == 'nullable'
+        !p.validate(['nombre'])
+        p.errors['nombre'].code == 'nullable'
     }
 
-    void "productCommand's description can be null"() {
-        ProductoCommand p = new ProductoCommand(name: "Potatoe", description: null)
+    void "productoCommand no puede tener la descripcion null"() {
+        ProductoCommand p = new ProductoCommand(nombre: "Papas", descripcion: null)
         when:
-        p.description = null
+        p.descripcion = null
         then:
-        p.validate(['description'])
+        p.validate(['descripcion'])
     }
 }

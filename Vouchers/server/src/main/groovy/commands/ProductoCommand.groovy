@@ -1,6 +1,6 @@
 package commands
 
-import enums.ProductType
+import enums.ProductoTipo
 import grails.validation.Validateable
 import vouchers.Producto
 
@@ -8,9 +8,9 @@ class ProductoCommand implements Validateable {
 
     Long id
     Long version
-    String name
-    String description
-    ProductType type
+    String nombre
+    String descripcion
+    ProductoTipo tipo
 
     static constraints = {
         importFrom Producto

@@ -2,7 +2,7 @@ package vouchers
 
 import assemblers.TrackingAssembler
 import commands.TrackingCommand
-import enums.ProductType
+import enums.ProductoTipo
 import enums.TrackingType
 import org.hibernate.service.spi.ServiceException
 
@@ -25,10 +25,10 @@ class TrackingService {
     }
 
     // TODO Add filter by client's trackings !!!!
-    Map<Tuple2<TrackingType, ProductType>, List<Tracking>> countyByProductTypeAndTrackingType(Cliente client) {
+    Map<Tuple2<TrackingType, ProductoTipo>, List<Tracking>> countyByProductTypeAndTrackingType(Cliente client) {
         try {
-            Map<Tuple2<TrackingType, ProductType>, List<Tracking>> count = Tracking.list()
-                    .groupBy { tracking -> new Tuple2(tracking.type, tracking.informacionVoucher.product.type) }
+            Map<Tuple2<TrackingType, ProductoTipo>, List<Tracking>> count = Tracking.list()
+                    .groupBy { tracking -> new Tuple2(tracking.tipo, tracking.informacionVoucher.product.tipo) }
             count
         } catch (ValidationException e) {
             throw new ServiceException(e.message)

@@ -1,7 +1,7 @@
 package commands
 
 import grails.validation.Validateable
-import enums.states.VoucherState
+import enums.states.VoucherEstado
 import vouchers.Voucher
 
 class VoucherCommand implements Validateable {
@@ -10,7 +10,7 @@ class VoucherCommand implements Validateable {
     Long version
     InformacionVoucherCommand informacionVoucherCommand
     Date dateCreated
-    VoucherState state
+    VoucherEstado state
     Date lastStateChange = new Date()
     NegocioCommand negocioCommand
     Boolean reclamoAbierto

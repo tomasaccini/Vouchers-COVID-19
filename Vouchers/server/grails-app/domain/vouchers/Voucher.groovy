@@ -1,30 +1,34 @@
 package vouchers
 
-import enums.states.VoucherState
+import enums.states.VoucherEstado
 
 class Voucher {
 
     Long id
     InformacionVoucher informacionVoucher
-    Date dateCreated = new Date()
-    VoucherState state = VoucherState.Comprado
-    Date lastStateChange = new Date()
+    Date fechaCreacion = new Date()
+    VoucherEstado estado = VoucherEstado.Comprado
+    Date ultimoCambioEstado = new Date()
     Reclamo reclamo = null
     Cliente cliente
     Talonario talonario
 
     static constraints = {
         informacionVoucher     nullable: false, blank: false
-        dateCreated            nullable: false
-        state                  nullable: false, blank: false, default: VoucherState.Comprado
-        lastStateChange        nullable: true
+        fechaCreacion            nullable: false
+        estado                  nullable: false, blank: false, default: VoucherEstado.Comprado
+        ultimoCambioEstado        nullable: true
         reclamo                nullable: true
         cliente                nullable: false, blank: false
         talonario              nullable: false, blank: false
     }
 
     boolean estaExpirado(){
-        return informacionVoucher.validoHasta >= new Date()
+        if (informacionVoucher.validoHasta <= new Date()) {
+            estado = VoucherEstado.Expirado
+            return true
+        }
+        false
     }
 
     boolean perteneceAlNegocio(Long negocioId){
@@ -36,8 +40,8 @@ class Voucher {
             throw new RuntimeException("El voucher ya tiene un reclamo. VoucherId: ${id}")
         }
 
-        if (state != VoucherState.Comprado && state != VoucherState.Canjeado) {
-            throw new RuntimeException("El voucher no se puede estando en el estado: ${state}. VoucherId: ${id}")
+        if (estado != VoucherEstado.Comprado && estado != VoucherEstado.Canjeado) {
+            throw new RuntimeException("El voucher no se puede estando en el estado: ${estado}. VoucherId: ${id}")
         }
 
         if (reclamo == null) {
@@ -68,8 +72,8 @@ class Voucher {
             throw new RuntimeException("El voucher " + id + " no puede ser confirmado")
         }
 
-        state = VoucherState.Canjeado
-        lastStateChange = new Date()
+        estado = VoucherEstado.Canjeado
+        ultimoCambioEstado = new Date()
         save(flush: true, failOnError: true)
     }
 
@@ -82,8 +86,8 @@ class Voucher {
             throw new RuntimeException("El voucher " + id + " no puede ser canjeado")
         }
 
-        state = VoucherState.ConfirmacionPendiente
-        lastStateChange = new Date()
+        estado = VoucherEstado.ConfirmacionPendiente
+        ultimoCambioEstado = new Date()
         save(flush: true, failOnError: true)
     }
 
@@ -96,17 +100,16 @@ class Voucher {
             throw new RuntimeException("La solicitud del canje del voucher " + id + " no puede ser cancelada")
         }
 
-        state = VoucherState.Comprado
-        lastStateChange = new Date()
+        estado = VoucherEstado.Comprado
+        ultimoCambioEstado = new Date()
         save(flush: true, failOnError: true)
     }
 
-    // TODO: deberia ser privado !!!!
-    boolean esCanjeable() {
-        return !estaExpirado() && state == VoucherState.Comprado && !reclamoAbierto()
+    private boolean esCanjeable() {
+        return !estaExpirado() && estado == VoucherEstado.Comprado && !reclamoAbierto()
     }
 
-    boolean esConfirmable() {
-        return state == VoucherState.ConfirmacionPendiente
+    private boolean esConfirmable() {
+        return estado == VoucherEstado.ConfirmacionPendiente
     }
 }

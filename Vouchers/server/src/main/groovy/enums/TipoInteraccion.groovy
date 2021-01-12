@@ -1,11 +1,11 @@
 package enums
 
-enum InteraccionType {
+enum TipoInteraccion {
     Visto('View'),
     Comprado('Buy')
     String id
 
-    InteraccionType(String id){
+    TipoInteraccion(String id){
         this.id = id
     }
 }

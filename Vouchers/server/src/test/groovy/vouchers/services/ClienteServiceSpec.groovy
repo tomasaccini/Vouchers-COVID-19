@@ -1,7 +1,7 @@
 package vouchers.services
 
-import enums.ProductType
-import enums.states.VoucherState
+import enums.ProductoTipo
+import enums.states.VoucherEstado
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,51 +24,58 @@ import vouchers.InformacionVoucher
 class ClienteServiceSpec extends Specification{
 
     @Autowired
-    ClienteService clientService
+    ClienteService clienteService
 
-    private static Boolean setupIsDone = false
-    static Long clientId
+    private static Boolean setupHecho = false
+    static Long clienteId
+    static Long talonarioId
+    static Long negocioId
+    static Long itemId
+
 
     def setup() {
-        if (setupIsDone) return
+        if (setupHecho) return
 
-        Negocio business = new Negocio()
-        business.nombre = "Blue Dog"
-        business.email = "sales@bluedog.com"
-        business.contrasenia = "1234"
-        business.cuentaVerificada = true
-        business.numeroTelefonico = "1234"
-        business.categoria = "Cervezería"
-        Direccion newAddress = new Direccion()
-        newAddress.calle = "calle falsa"
-        newAddress.numero = "123"
-        newAddress.departamento = "11D"
-        newAddress.provincia = "Buenos Aires"
-        newAddress.pais = "Argentina"
+        Negocio negocio = new Negocio()
+        negocio.nombre = "Blue Dog"
+        negocio.email = "sales@bluedog.com"
+        negocio.contrasenia = "1234"
+        negocio.cuentaVerificada = true
+        negocio.numeroTelefonico = "1234"
+        negocio.categoria = "Cervezería"
+        Direccion nuevaDireccion = new Direccion()
+        nuevaDireccion.calle = "calle falsa"
+        nuevaDireccion.numero = "123"
+        nuevaDireccion.departamento = "11D"
+        nuevaDireccion.provincia = "Buenos Aires"
+        nuevaDireccion.pais = "Argentina"
 
-        business.direccion = newAddress
-        business.website = "bluedog.com"
+        negocio.direccion = nuevaDireccion
+        negocio.website = "bluedog.com"
 
-        Producto product = new Producto()
-        product.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
-        product.nombre = "Hamburguesa Blue Dog"
-        product.type = ProductType.FAST_FOOD
-        business.addToProducts(product)
-        business.save(flush: true, failOnError: true)
+        Producto producto = new Producto()
+        producto.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
+        producto.nombre = "Hamburguesa Blue Dog"
+        producto.tipo = ProductoTipo.COMIDA_RAPIDA
+        negocio.addToProductos(producto)
+        negocio.save(flush: true, failOnError: true)
 
-        Item item = new Item(producto: product, cantidad: 1)
-        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
-        vi.addToItems(item)
-        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3, isActive: true)
-        business.addToTalonarios(counterfoil)
-        business.save(flush: true, failOnError: true)
+        Item item = new Item(producto: producto, cantidad: 1)
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2022/08/15'))
+        iv.addToItems(item)
+        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
+        negocio.addToTalonarios(talonario)
+        negocio.save(flush: true, failOnError: true)
 
-        Cliente client = new Cliente(fullName: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
-        client.cuentaVerificada = true
-        client.save(flush:true, failOnError:true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        cliente.cuentaVerificada = true
+        cliente.save(flush:true, failOnError:true)
 
-        setupIsDone = true
-        clientId = client.id
+        setupHecho = true
+        clienteId = cliente.id
+        talonarioId = talonario.id
+        negocioId = negocio.id
+        itemId = item.id
     }
 
     def cleanup() {
@@ -76,71 +83,68 @@ class ClienteServiceSpec extends Specification{
 
     void "setup test"() {
         expect:
-        Negocio.count() == 1
-        Producto.count() == 1
-        Talonario.count() == 1
+        Negocio.count() == 3
+        Producto.count() == 3
+        Talonario.count() == 3
     }
 
-    void "buy one voucher"() {
-        Talonario counterfoil = Talonario.findById(1)
+    void "comprar un voucher"() {
+        Talonario talonario = Talonario.findById(talonarioId)
 
-        Voucher v = clientService.comprarVoucher(clientId, counterfoil)
-        Cliente client = Cliente.get(clientId)
-        expect:"Voucher bought correctly"
+        Voucher v = clienteService.comprarVoucher(clienteId, talonarioId)
+        Cliente cliente = Cliente.get(clienteId)
+        expect:"Voucher comprado correctamente"
         v?.id != null
-        client.vouchers.size() == 1
-        counterfoil.vouchers.size() == 1
+        cliente.vouchers.size() == 1
+        talonario.vouchers.size() == 1
     }
 
-    void "buy two vouchers"() {
-        Talonario counterfoil = Talonario.findById(1)
+    void "comprar dos vouchers"() {
+        Talonario talonario = Talonario.findById(talonarioId)
 
-        Voucher v1 = clientService.comprarVoucher(clientId, counterfoil)
-        Voucher v2 = clientService.comprarVoucher(clientId, counterfoil)
-        Cliente client = Cliente.get(clientId)
-        expect:"Voucher bought correctly"
+        Voucher v1 = clienteService.comprarVoucher(clienteId, talonarioId)
+        Voucher v2 = clienteService.comprarVoucher(clienteId, talonarioId)
+        Cliente cliente = Cliente.get(clienteId)
+        expect:"Vouchers comprados correctamente"
         v1?.id != null
         v2?.id != null
-        client.vouchers.size() == 2
-        counterfoil.vouchers.size() == 2
+        cliente.vouchers.size() == 2
+        talonario.vouchers.size() == 2
     }
 
-    void "retire Voucher"() {
-        Talonario counterfoil = Talonario.findById(1)
-
-        Voucher v = clientService.comprarVoucher(clientId, counterfoil)
-        Cliente client = Cliente.get(clientId)
-        clientService.retirarVoucher(clientId, v)
-        expect:"Vouchers status in pending retire"
-        v != null && client.getVouchers().size() == 1 && client.getVouchers()[0] == v && v.getState() == VoucherState.ConfirmacionPendiente
+    void "retirar Voucher"() {
+        Voucher v = clienteService.comprarVoucher(clienteId, talonarioId)
+        Cliente cliente = Cliente.get(clienteId)
+        clienteService.retirarVoucher(clienteId, v)
+        expect:"El estado del voucher es Confirmacion Pendiente"
+        v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente
     }
 
-    void "test expiration of voucher"() {
-        Negocio b = Negocio.findById(1)
-        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2019/01/01'), validoHasta:  new Date('2020/01/01'))
-        vi.addToItems(Item.findById(1))
-        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 3, isActive: true)
-        b.addToTalonarios(counterfoil)
-        b.save(flush: true, failOnError: true)
-        Voucher v = clientService.comprarVoucher(clientId, counterfoil)
+    void "expiracion del voucher"() {
+        Negocio n = Negocio.findById(negocioId)
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2019/01/01'), validoHasta:  new Date('2020/01/01'))
+        iv.addToItems(Item.findById(itemId))
+        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
+        n.addToTalonarios(talonario)
+        n.save(flush: true, failOnError: true)
+        Voucher v = clienteService.comprarVoucher(clienteId, talonario.id)
         when:
-        clientService.retirarVoucher(clientId, v)
+        clienteService.retirarVoucher(clienteId, v)
         then: "Throw error"
         thrown RuntimeException
-        v.state == VoucherState.Expirado
+        v.estado == VoucherEstado.Expirado
     }
 
-    void "test retire voucher from other client"() {
-        Cliente c1 = Cliente.get(clientId)
-        Cliente c2 = new Cliente(fullName: "Mariano Iudica", email: "iudica@gmail.com", contrasenia: "iudica1234")
+    void "retirar voucher de otro cliente"() {
+        Cliente c1 = Cliente.get(clienteId)
+        Cliente c2 = new Cliente(nombreCompleto: "Mariano Iudica", email: "iudica@gmail.com", contrasenia: "iudica1234")
         c2.cuentaVerificada = true
         c2.save(flush:true, failOnError:true)
-        Talonario counterfoil = Talonario.findById(1)
-        Voucher v = clientService.comprarVoucher(c1.id, counterfoil)
+        Voucher v = clienteService.comprarVoucher(c1.id, talonarioId)
         when:
-        clientService.retirarVoucher(c2.id, v)
+        clienteService.retirarVoucher(c2.id, v)
         then: "Throw error"
         thrown RuntimeException
-        v.state == VoucherState.Comprado
+        v.estado == VoucherEstado.Comprado
     }
 }

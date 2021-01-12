@@ -6,3 +6,6 @@ clean:
 
 update-db:
 	grails dbm-update
+
+run-test:
+	cd server && grails test-app

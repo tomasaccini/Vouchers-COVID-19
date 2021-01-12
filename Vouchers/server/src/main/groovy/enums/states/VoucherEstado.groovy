@@ -1,13 +1,13 @@
 package enums.states
 
-enum VoucherState {
+enum VoucherEstado {
     Comprado('Comprado'),
     ConfirmacionPendiente('ConfirmacionPendiente'),
     Canjeado('Canjeado'),
     Expirado('Expirado')
     String id
 
-    VoucherState(String id){
+    VoucherEstado(String id){
         this.id = id
     }
 }

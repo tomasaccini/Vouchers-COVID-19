@@ -12,7 +12,7 @@ abstract class Usuario {
         cuentaVerificada blank: false, nullable: false, default: false
     }
 
-    void verify_account() {
+    void verificarCuenta() {
         cuentaVerificada = true
     }
 }

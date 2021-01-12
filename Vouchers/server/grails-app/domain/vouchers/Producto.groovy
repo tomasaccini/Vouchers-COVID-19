@@ -1,18 +1,18 @@
 package vouchers
 
-import enums.ProductType
+import enums.ProductoTipo
 
 class Producto {
 
     String nombre
     String descripcion
-    ProductType type
+    ProductoTipo tipo
 
     static belongsTo = [negocio: Negocio]
 
     static constraints = {
         nombre                blank: false, nullable: false
         descripcion         blank: false, nullable: true
-        type                nullable: false
+        tipo                nullable: false
     }
 }
