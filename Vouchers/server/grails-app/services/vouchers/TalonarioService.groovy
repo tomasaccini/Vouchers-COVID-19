@@ -68,6 +68,10 @@ class TalonarioService {
         return Talonario.findAll()
     }
 
+    Integer count() {
+        return Talonario.findAll().size()
+    }
+
     // !!!!
     private Negocio mockBusiness(name) {
         Negocio business = new Negocio()

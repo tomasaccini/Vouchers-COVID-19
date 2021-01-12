@@ -34,11 +34,13 @@ class ReclamoController extends RestfulController{
 
     ReclamoCommand obtenerReclamo(Long reclamoId) {
         println("Request obtener el reclamo con id: ${reclamoId}")
-
-        Reclamo reclamo = reclamoService.obtener(reclamoId)
-        ReclamoCommand reclamoCommand = reclamoAssembler.toBean(reclamo)
-
-        respond reclamoCommand
+        try {
+            Reclamo reclamo = reclamoService.obtener(reclamoId)
+            ReclamoCommand reclamoCommand = reclamoAssembler.toBean(reclamo)
+            respond reclamoCommand
+        } catch (RuntimeException re) {
+            response.sendError(404, re.message)
+        }
     }
 
     def abrirReclamo() {
