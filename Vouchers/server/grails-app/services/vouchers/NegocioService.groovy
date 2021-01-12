@@ -47,15 +47,15 @@ class NegocioService {
         }
     }
 
-    def confirmRetireVoucher(Long id, Voucher voucher){
-        Negocio business = Negocio.get(id)
-        if (!business.esDuenioDeVoucher(voucher)) {
-            throw new RuntimeException("The business is not the owner of the Voucher")
+    def confirmarCanjeVoucher(Long id, Voucher voucher){
+        Negocio negocio = Negocio.get(id)
+        if (!negocio.esDuenioDeVoucher(voucher)) {
+            throw new RuntimeException("El negocio no es el duenio del Voucher")
         }
         if (!voucher.esConfirmable()) {
-            throw new RuntimeException("Voucher is not confirmable")
+            throw new RuntimeException("No es posible confirmar el voucher")
         }
-        voucherService.confirmarCanje(voucher.id)
+        voucherService.confirmarCanje(voucher.id, id)
     }
 
     /*
