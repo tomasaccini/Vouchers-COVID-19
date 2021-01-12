@@ -16,19 +16,34 @@ class Talonarios extends Component {
 
     constructor() {
         super();
-        this.state = { talonarios: [] };
+        this.state = { 
+            talonariosActivos: [],
+            talonariosPausados: [],
+            verActivos: true };
     }
 
     async componentDidMount() {
         const talonarios = await this.getListaDeTalonarios();
-
-        this.setState({ talonarios })
+        const talonariosActivos = talonarios.filter(t => t.activo === true);
+        const talonariosPausados = talonarios.filter(t => t.activo === false);
+        this.setState({ talonariosActivos: talonariosActivos, talonariosPausados: talonariosPausados })
     }
 
     async getListaDeTalonarios() {
         return await voucherAPI.getTalonariosPorNegocio(1);
     }
 
+    cambiarVista(cambiaraActivos){
+        if (cambiaraActivos && this.state.verActivos) {
+            return;
+        }
+
+        if (!cambiaraActivos && !this.state.verActivos) {
+            return;
+        }
+
+        this.setState({ verActivos: cambiaraActivos });
+    }
 
     render() {
         return (
@@ -42,9 +57,22 @@ class Talonarios extends Component {
                         </Button>
                     </Link>
                 </div>
+                <section className="historialCliente">
+                    <div className="compradosExpiradoBtns">
+                        <button onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.verActivos === true ? "historialBtnSelected" : ""}`}>
+                            Activos
+                        </button>
+                        <button onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.verActivos === false ? "historialBtnSelected" : ""}`}>
+                            No Activos
+                        </button>
+                    </div>
+                </section>
                 <GridContainer className="vouchersGrid">
                     <GridItem>
-                        <ListaTarjetas vouchers={this.state.talonarios}/>
+                        <ListaTarjetas vouchers={this.state.verActivos === true ? this.state.talonariosActivos : []} />
+                    </GridItem>
+                    <GridItem>
+                        <ListaTarjetas vouchers={this.state.verActivos === false ? this.state.talonariosPausados : []} />
                     </GridItem>
                 </GridContainer>
             </div>
