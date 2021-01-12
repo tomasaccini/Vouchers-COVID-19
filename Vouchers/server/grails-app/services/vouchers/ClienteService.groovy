@@ -1,6 +1,5 @@
 package vouchers
 
-import enums.states.VoucherEstado
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -9,7 +8,6 @@ class ClienteService {
     TalonarioService talonarioService
     VoucherService voucherService
 
-    // TODO mover a talonarioController? !!!!
     Voucher comprarVoucher(Long clienteId, Long talonarioId) {
         println("ClienteService.comprarVoucher(${clienteId}, ${talonarioId})")
 
@@ -24,8 +22,8 @@ class ClienteService {
     }
 
     def retirarVoucher(Long id, Voucher voucher){
-        Cliente client = Cliente.get(id)
-        if (!client?.vouchers?.contains(voucher)) {
+        Cliente cliente = Cliente.get(id)
+        if (!cliente?.vouchers?.contains(voucher)) {
             throw new RuntimeException("El cliente no es el duenio del voucher")
         }
         if (!voucher.esCanjeable()) {

@@ -28,14 +28,14 @@ class NegocioServiceSpec extends Specification{
     NegocioService negocioService
     ClienteService clienteService
 
-    private static Boolean setupIsDone = false
+    private static Boolean setupHecho = false
     static Long clienteId
     static Long talonarioId
     static Long negocioId
     static Long itemId
 
     def setup() {
-        if (setupIsDone) return
+        if (setupHecho) return
 
         Negocio negocio = new Negocio()
         negocio.nombre = "Blue Dog"
@@ -72,7 +72,7 @@ class NegocioServiceSpec extends Specification{
         cliente.cuentaVerificada = true
         cliente.save(flush:true, failOnError:true)
 
-        setupIsDone = true
+        setupHecho = true
         clienteId = cliente.id
         talonarioId = talonario.id
         negocioId = negocio.id

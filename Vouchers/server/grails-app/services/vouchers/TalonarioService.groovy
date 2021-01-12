@@ -8,25 +8,8 @@ import java.text.SimpleDateFormat
 @Transactional
 class TalonarioService {
 
-    VoucherService voucherService
-
-    // !!!!
     List<Talonario> counterfoilDB = []
 
-    // !!!!
-    TalonarioService() {
-        /*
-        counterfoilDB = [
-                createMock("Restaurant 1"),
-                createMock("Restaurant 2"),
-                createMock("Restaurant 3"),
-                createMock("Restaurant 4"),
-                createMock("Restaurant 5"),
-        ]
-         */
-    }
-
-    // !!!!
     Talonario createMock(String name) {
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
         Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 5)
@@ -146,30 +129,22 @@ class TalonarioService {
         return talonario.comprarVoucher(cliente)
     }
 
-    /*
-    * Activates counterfoil
-    * If already active, nothing happens
-    */
-    def activate(Long id) {
-        Talonario counterfoil = Talonario.get(id)
-        if (counterfoil.activo) {
+    def activar(Long id) {
+        Talonario talonario = Talonario.get(id)
+        if (talonario.activo) {
             return
         }
-        counterfoil.activo = true
-        counterfoil.save(flush:true)
+        talonario.activo = true
+        talonario.save(flush:true)
     }
 
-    /*
-    * Deactivates counterfoil
-    * If already not active, nothing happens
-    */
-    def deactivate(Long id) {
-        Talonario counterfoil = Talonario.get(id)
-        if (!counterfoil.activo) {
+    def desactivar(Long id) {
+        Talonario talonario = Talonario.get(id)
+        if (!talonario.activo) {
             return
         }
-        counterfoil.activo = false
-        counterfoil.save(flush:true)
+        talonario.activo = false
+        talonario.save(flush:true)
     }
 
     List<Talonario> findSimilar(String q, Map map) {

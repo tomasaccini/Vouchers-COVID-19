@@ -11,26 +11,26 @@ class ProductoService {
     def productAssembler
     NegocioService negocioService
 
-    Producto save(ProductoCommand productCommand, Long businessId) {
-        Producto product = productAssembler.fromBean(productCommand)
-        negocioService.addProduct(businessId, product)
+    Producto save(ProductoCommand productoCommand, Long negocioId) {
+        Producto producto = productAssembler.fromBean(productoCommand)
+        negocioService.agregarProducto(negocioId, producto)
         try {
-            product.save(flush: true, failOnError: true)
+            producto.save(flush: true, failOnError: true)
         } catch (ValidationException e){
             throw new ServiceException(e.message)
         }
     }
 
-    def update(ProductoCommand productCommand) {
-        Producto product = productAssembler.fromBean(productCommand)
-        product.save(flush: true, failOnError: true)
+    def update(ProductoCommand productoCommand) {
+        Producto producto = productAssembler.fromBean(productoCommand)
+        producto.save(flush: true, failOnError: true)
     }
 
     def delete(Long id) {
         try {
-            Producto product = Producto.get(id)
-            negocioService.removeProduct(product.business.id, product)
-            product.delete(failOnError: true)
+            Producto producto = Producto.get(id)
+            negocioService.eliminarProducto(producto.negocio.id, producto)
+            producto.delete(failOnError: true)
         }
         catch (ServiceException se) {
             throw se
