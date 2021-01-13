@@ -28,4 +28,16 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario != null && talonario.getNegocio() == negocio && talonario.getInformacionVoucher() == iv && !talonario.getActivo() && talonario.getStock() == 6
     }
 
+
+    void "talonario tiene que tener una informacion de voucher"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, negocio: negocio)
+        when:
+        talonario.informacionVoucher = null
+        then:
+        !talonario.validate(['informacionVoucher'])
+        talonario.errors['informacionVoucher'].code == 'nullable'
+    }
+
 }
