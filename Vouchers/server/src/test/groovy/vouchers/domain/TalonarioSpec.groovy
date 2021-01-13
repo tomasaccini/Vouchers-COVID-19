@@ -2,6 +2,8 @@ package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import vouchers.Cliente
+import vouchers.ClienteService
 import vouchers.InformacionVoucher
 import vouchers.Item
 import vouchers.Negocio
@@ -58,5 +60,16 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         expect:"Talonario tiene 0 vouchers vendidos"
         talonario != null && talonario.cantidadVendida() == 0
     }
+
+    void "talonario tiene 1 voucher vendido al ser creado y comprado 1"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        talonario.comprarVoucher(cliente)
+        expect:"Talonario tiene 1 vouchers vendidos"
+        talonario.cantidadVendida() == 1
+    }
+
 
 }
