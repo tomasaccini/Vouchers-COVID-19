@@ -71,7 +71,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario != null && talonario.cantidadVendida() == 0
     }
 
-    void "talonario tiene 1 voucher vendido al ser creado y comprado 1"() {
+    void "talonario tiene 1 voucher vendido al ser creado y comprado 1 vez"() {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
@@ -81,5 +81,14 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.cantidadVendida() == 1
     }
 
-
+    void "talonario tiene 2 voucher vendido al ser creado y comprado 2 veces"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        talonario.comprarVoucher(cliente)
+        talonario.comprarVoucher(cliente)
+        expect:"Talonario tiene 2 vouchers vendidos"
+        talonario.cantidadVendida() == 2
+    }
 }
