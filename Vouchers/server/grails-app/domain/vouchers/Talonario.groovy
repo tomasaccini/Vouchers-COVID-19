@@ -10,6 +10,7 @@ class Talonario {
     int stock
     Set vouchers = []
     boolean activo = false
+    Negocio negocio
 
     static belongsTo = [negocio: Negocio]
 
@@ -22,6 +23,7 @@ class Talonario {
         informacionVoucher      blank: false, nullable: false
         stock                   blank: false, nullable: false, default: 0
         activo blank:false, nullable: false, default: false
+        negocio nullable: false
     }
 
     Integer cantidadVendida() {
