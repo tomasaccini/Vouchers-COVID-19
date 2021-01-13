@@ -45,7 +45,7 @@ class Voucher {
         }
 
         if (reclamo == null) {
-            reclamo = new Reclamo(voucher: this, cliente: cliente, negocio: talonario.negocio, descripcion: descripcion)
+            reclamo = new Reclamo(voucher: this, descripcion: descripcion)
         } else {
             reclamo.reabrir()
         }

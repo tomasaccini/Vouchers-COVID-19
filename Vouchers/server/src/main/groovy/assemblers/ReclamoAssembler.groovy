@@ -22,11 +22,11 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
     ReclamoCommand toBean(Reclamo reclamo) {
         ReclamoCommand reclamoCommand = new ReclamoCommand(
                 id: reclamo.id,
-                clienteId: reclamo.cliente.id,
-                clienteEmail: reclamo.cliente.email,
-                negocioId: reclamo.negocio.id,
-                negocioNombre: reclamo.negocio.nombre,
-                negocioEmail: reclamo.negocio.email,
+                clienteId: reclamo.getVoucher().getCliente().id,
+                clienteEmail: reclamo.getVoucher().getCliente().email,
+                negocioId: reclamo.getVoucher().getTalonario().getNegocio().id,
+                negocioNombre: reclamo.getVoucher().getTalonario().getNegocio().nombre,
+                negocioEmail: reclamo.getVoucher().getTalonario().getNegocio().email,
                 voucherDescripcion: reclamo.voucher.informacionVoucher.descripcion,
                 fechaUltimoMensaje: reclamo.fechaUltimoMensaje,
                 state: reclamo.estado.toString()
