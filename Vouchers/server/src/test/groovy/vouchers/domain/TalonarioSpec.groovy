@@ -2,13 +2,13 @@ package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
-import enums.states.VoucherEstado
-import vouchers.Item
-import vouchers.Producto
-import vouchers.Voucher
 import vouchers.InformacionVoucher
+import vouchers.Item
+import vouchers.Negocio
+import vouchers.Producto
+import vouchers.Talonario
 
-class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
+class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
 
     def crearInformacionVoucher(validoHasta = new Date('2020/12/31')) {
         Producto p1 = new Producto(nombre:"Hamburguesa", descripcion: "Doble cheddar")
@@ -22,19 +22,10 @@ class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
 
     void "constructor"() {
         InformacionVoucher iv = crearInformacionVoucher()
-        Voucher v = new Voucher(informacionVoucher: iv)
-        expect:"voucher construido correctamente"
-        v != null && v.reclamo == null && v.estado == VoucherEstado.Comprado
-    }
-
-    void "voucher tiene que tener una informacion de voucher"() {
-        InformacionVoucher vi = crearInformacionVoucher()
-        Voucher v = new Voucher(informacionVoucher: vi)
-        when:
-        v.informacionVoucher = null
-        then:
-        !v.validate(['informacionVoucher'])
-        v.errors['informacionVoucher'].code == 'nullable'
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        expect:"Talonario construido correctamente"
+        talonario != null && talonario.getNegocio() == negocio && talonario.getInformacionVoucher() == iv && !talonario.getActivo() && talonario.getStock() == 6
     }
 
 }

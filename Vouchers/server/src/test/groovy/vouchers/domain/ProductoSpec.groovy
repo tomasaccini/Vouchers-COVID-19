@@ -6,12 +6,6 @@ import vouchers.Producto
 
 class ProductoSpec extends Specification implements DomainUnitTest<Producto> {
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
     void "constructor"() {
         Producto p = new Producto(nombre: "Papas", descripcion: "bravas")
         expect:"producto construido correctamente"

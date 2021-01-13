@@ -11,11 +11,11 @@ class TalonarioService {
     List<Talonario> counterfoilDB = []
 
     Talonario createMock(String name) {
-        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
-        Talonario counterfoil = new Talonario(informacionVoucher: vi, stock: 5)
-        counterfoil.negocio = mockBusiness(name)
-        counterfoilDB.add(counterfoil)
-        return counterfoil
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
+        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 5)
+        talonario.negocio = mockBusiness(name)
+        counterfoilDB.add(talonario)
+        return talonario
     }
 
 
