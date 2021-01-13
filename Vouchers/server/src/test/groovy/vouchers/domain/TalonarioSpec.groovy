@@ -51,4 +51,12 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.errors['negocio'].code == 'nullable'
     }
 
+    void "talonario tiene 0 vouchers vendidos al ser creado"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        expect:"Talonario tiene 0 vouchers vendidos"
+        talonario != null && talonario.cantidadVendida() == 0
+    }
+
 }
