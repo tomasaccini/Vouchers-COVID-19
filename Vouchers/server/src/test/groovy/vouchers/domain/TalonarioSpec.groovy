@@ -53,6 +53,16 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.errors['negocio'].code == 'nullable'
     }
 
+    void "el negocio aparece como duenio del talonario creado"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        negocio.save()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        talonario.save()
+        expect:"Talonario aparece entre los talonarios del negocio"
+        negocio.esDuenioDeTalonario(talonario.id)
+    }
+
     void "talonario tiene 0 vouchers vendidos al ser creado"() {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
