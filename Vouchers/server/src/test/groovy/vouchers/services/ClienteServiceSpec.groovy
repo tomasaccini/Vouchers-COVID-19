@@ -114,19 +114,17 @@ class ClienteServiceSpec extends Specification {
         v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente && cliente.getVoucher(v.id) == v
     }
 
-    void "expiracion del voucher"() {
+    void "comprar voucher expirado"() {
         Negocio n = Negocio.findById(negocioId)
         InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2019/01/01'), validoHasta: new Date('2020/01/01'))
         iv.addToItems(Item.findById(itemId))
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         n.addToTalonarios(talonario)
         n.save(flush: true, failOnError: true)
-        Voucher v = clienteService.comprarVoucher(clienteId, talonario.id)
         when:
-        clienteService.retirarVoucher(clienteId, v)
+        clienteService.comprarVoucher(clienteId, talonario.id)
         then: "Throw error"
         thrown RuntimeException
-        v.estado == VoucherEstado.Expirado
     }
 
     void "retirar voucher de otro cliente"() {

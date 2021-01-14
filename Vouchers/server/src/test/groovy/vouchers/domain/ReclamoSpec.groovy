@@ -7,7 +7,7 @@ import vouchers.*
 
 class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
 
-    def crearInformacionVoucher(validoHasta = new Date('2020/12/31')) {
+    def crearInformacionVoucher(validoHasta = new Date('2030/12/31')) {
         Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar")
         Producto p2 = new Producto(nombre: "Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
         Item i1 = new Item(producto: p1, cantidad: 1)

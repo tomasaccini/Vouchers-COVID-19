@@ -30,6 +30,11 @@ class Talonario {
         return vouchers ? vouchers.size() : 0
     }
 
+    boolean estaExpirado() {
+        informacionVoucher.validoHasta <= new Date()
+    }
+
+
     /*
     * Creates voucher from counterfoil
     * it associates voucher to client
@@ -44,6 +49,10 @@ class Talonario {
 
         if (!activo) {
             throw new RuntimeException("Talonario no esta activo")
+        }
+
+        if (estaExpirado()) {
+            throw new RuntimeException("No se puede comprar un voucher de un talonario expirado")
         }
 
         Voucher voucher = new Voucher(

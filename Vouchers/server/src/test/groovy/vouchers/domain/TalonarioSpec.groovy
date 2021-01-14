@@ -6,7 +6,7 @@ import vouchers.*
 
 class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
 
-    def crearInformacionVoucher(validoHasta = new Date('2020/12/31')) {
+    def crearInformacionVoucher(validoHasta = new Date('2030/12/31')) {
         Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar")
         Producto p2 = new Producto(nombre: "Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
         Item i1 = new Item(producto: p1, cantidad: 1)
@@ -116,6 +116,20 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
     void "talonario lanza error si al comprar no esta activo"() {
         given:
         InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 1, informacionVoucher: iv, negocio: negocio)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        when:
+        talonario.comprarVoucher(cliente)
+        then: "Throw error"
+        thrown RuntimeException
+        talonario.cantidadVendida() == 0
+        cliente.getVouchers().size() == 0
+    }
+
+    void "talonario lanza error si al comprar esta expirado"() {
+        given:
+        InformacionVoucher iv = crearInformacionVoucher(new Date('2010/12/31'))
         Negocio negocio = new Negocio()
         Talonario talonario = new Talonario(stock: 1, informacionVoucher: iv, negocio: negocio)
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
