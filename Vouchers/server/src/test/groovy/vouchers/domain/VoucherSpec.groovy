@@ -51,9 +51,26 @@ class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
     }
 
     void "voucher expirado es detectado correctamente como expirado"() {
-        InformacionVoucher iv = crearInformacionVoucher('2000/01/01')
-        Voucher v = new Voucher(informacionVoucher: iv)
+        InformacionVoucher iv = crearInformacionVoucher(new Date('2000/12/31'))
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Voucher v = talonario.comprarVoucher(cliente)
         expect: "Voucher esta expirado"
         v.estaExpirado()
+        v.estado == VoucherEstado.Expirado
     }
+
+
+    void "voucher no expirado es detectado correctamente como no expirado"() {
+        InformacionVoucher iv = crearInformacionVoucher(new Date('2030/12/31'))
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Voucher v = talonario.comprarVoucher(cliente)
+        expect: "Voucher no esta expirado"
+        !v.estaExpirado()
+        v.estado == VoucherEstado.Comprado
+    }
+
 }
