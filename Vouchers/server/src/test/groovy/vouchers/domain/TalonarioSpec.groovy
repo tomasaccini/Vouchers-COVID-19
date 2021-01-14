@@ -91,4 +91,16 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         expect:"Talonario tiene 2 vouchers vendidos"
         talonario.cantidadVendida() == 2
     }
+
+    void "talonario lanza error si al comprar no tiene stock"() {
+        given:
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 0, informacionVoucher: iv, negocio: negocio)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        when:
+        talonario.comprarVoucher(cliente)
+        then: "Throw error"
+        thrown RuntimeException
+    }
 }
