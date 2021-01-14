@@ -2,12 +2,14 @@ package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import vouchers.Cliente
 import vouchers.Direccion
 import vouchers.InformacionVoucher
 import vouchers.Item
 import vouchers.Negocio
 import vouchers.Producto
 import vouchers.Talonario
+import vouchers.Voucher
 
 class NegocioSpec extends Specification implements DomainUnitTest<Negocio> {
 
@@ -60,5 +62,15 @@ class NegocioSpec extends Specification implements DomainUnitTest<Negocio> {
         n.save(flush: true, failOnError: true)
         expect: "el negocio tiene talonarios con descripcion"
         n.tieneTalonarioConDescripcion("descripcion del talonario")
+    }
+
+    void "el negocio no tiene vouchers confirmables si no le compran vouchers"() {
+        InformacionVoucher iv = crearInformacionVoucher("descripcion")
+        Negocio negocio = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234", cuentaVerificada: true)
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Voucher v = talonario.comprarVoucher(cliente)
+        expect: "el negocio no tiene vouchers confirmables"
+        negocio.obtenerVouchersConfirmables().size() == 0
     }
 }
