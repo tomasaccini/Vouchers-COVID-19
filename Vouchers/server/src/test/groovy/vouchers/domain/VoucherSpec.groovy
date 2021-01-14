@@ -3,9 +3,12 @@ package vouchers.domain
 import enums.states.VoucherEstado
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
+import vouchers.Cliente
 import vouchers.InformacionVoucher
 import vouchers.Item
+import vouchers.Negocio
 import vouchers.Producto
+import vouchers.Talonario
 import vouchers.Voucher
 
 class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
@@ -35,6 +38,16 @@ class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
         then:
         !v.validate(['informacionVoucher'])
         v.errors['informacionVoucher'].code == 'nullable'
+    }
+
+    void "voucher creandolo a partir de una compra tiene el correcto negocio como duenio"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Voucher v = talonario.comprarVoucher(cliente)
+        expect: "Voucher tiene el negocio correcto como duenio"
+        v.perteneceAlNegocio(negocio.id)
     }
 
 }
