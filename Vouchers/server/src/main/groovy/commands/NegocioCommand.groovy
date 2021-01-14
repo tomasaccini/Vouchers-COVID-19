@@ -14,10 +14,10 @@ class NegocioCommand {
 
 
     @Override
-    public String toString() {
+    String toString() {
         return "NegocioCommand{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
-                '}';
+                '}'
     }
 }

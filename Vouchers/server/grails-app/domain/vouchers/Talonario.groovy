@@ -20,9 +20,9 @@ class Talonario {
         vouchers cascade: 'save-update'
     }
     static constraints = {
-        informacionVoucher      blank: false, nullable: false
-        stock                   blank: false, nullable: false, default: 0
-        activo blank:false, nullable: false, default: false
+        informacionVoucher blank: false, nullable: false
+        stock blank: false, nullable: false, default: 0
+        activo blank: false, nullable: false, default: false
         negocio nullable: false
     }
 
@@ -30,15 +30,29 @@ class Talonario {
         return vouchers ? vouchers.size() : 0
     }
 
+    boolean estaExpirado() {
+        informacionVoucher.validoHasta <= new Date()
+    }
+
+
     /*
     * Creates voucher from counterfoil
     * it associates voucher to client
     * decrease the quantity of stock
     */
+
     Voucher comprarVoucher(Cliente cliente) {
 
         if (stock <= 0) {
             throw new RuntimeException("Talonario no tiene suficiente stock")
+        }
+
+        if (!activo) {
+            throw new RuntimeException("Talonario no esta activo")
+        }
+
+        if (estaExpirado()) {
+            throw new RuntimeException("No se puede comprar un voucher de un talonario expirado")
         }
 
         Voucher voucher = new Voucher(
@@ -56,9 +70,9 @@ class Talonario {
         try {
             voucher.informacionVoucher.save(flush: true, failOnError: true)
             voucher.save(flush: true, failOnError: true)
-            this.save(flush:true, failOnError:true)
-            cliente.save(flush:true, failOnError:true)
-        } catch (ValidationException e){
+            this.save(flush: true, failOnError: true)
+            cliente.save(flush: true, failOnError: true)
+        } catch (ValidationException e) {
             throw new ServiceException(e.message)
         }
 

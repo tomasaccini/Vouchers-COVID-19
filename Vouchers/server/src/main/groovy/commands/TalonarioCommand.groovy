@@ -1,7 +1,6 @@
 package commands
 
 import grails.validation.Validateable
-import vouchers.Direccion
 import vouchers.Talonario
 
 class TalonarioCommand implements Validateable {

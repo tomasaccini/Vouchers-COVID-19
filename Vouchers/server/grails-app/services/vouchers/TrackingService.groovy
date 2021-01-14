@@ -17,8 +17,8 @@ class TrackingService {
     Tracking save(TrackingCommand trackingCommand) {
         Tracking tracking = trackingAssembler.fromBean(trackingCommand)
         try {
-            tracking.save(flush:true, failOnError: true)
-        } catch (ValidationException e){
+            tracking.save(flush: true, failOnError: true)
+        } catch (ValidationException e) {
             throw new ServiceException(e.message)
         }
         return tracking

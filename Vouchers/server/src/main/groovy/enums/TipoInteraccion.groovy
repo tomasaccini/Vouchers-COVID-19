@@ -5,7 +5,7 @@ enum TipoInteraccion {
     Comprado('Buy')
     String id
 
-    TipoInteraccion(String id){
+    TipoInteraccion(String id) {
         this.id = id
     }
 }

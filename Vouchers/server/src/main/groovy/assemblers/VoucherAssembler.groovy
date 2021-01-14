@@ -4,7 +4,7 @@ import commands.VoucherCommand
 import templates.ConcreteObjectAssembler
 import vouchers.Voucher
 
-class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
+class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
     NegocioAssembler negocioAssembler
@@ -23,7 +23,7 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
     VoucherCommand toBean(Voucher domain) {
         VoucherCommand bean = super.toBean(domain)
 
-        if (domain.informacionVoucher){
+        if (domain.informacionVoucher) {
             bean.informacionVoucherCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
         }
 
@@ -39,7 +39,7 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand>{
 
         Voucher domain = super.fromBean(bean)
 
-        if (bean.info){
+        if (bean.info) {
             domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.info)
         }
 

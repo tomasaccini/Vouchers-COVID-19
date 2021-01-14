@@ -1,4 +1,4 @@
-package assemblers;
+package assemblers
 
 
 import commands.TrackingCommand
@@ -20,7 +20,7 @@ class TrackingAssembler extends ConcreteObjectAssembler<Tracking, TrackingComman
 
     @Override
     TrackingCommand toBean(Tracking domain) {
-        TrackingCommand bean  = super.toBean(domain)
+        TrackingCommand bean = super.toBean(domain)
 
         return bean
     }

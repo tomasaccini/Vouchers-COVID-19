@@ -7,22 +7,12 @@ import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
-import vouchers.Direccion
-import vouchers.Negocio
-import vouchers.NegocioService
-import vouchers.Cliente
-import vouchers.ClienteService
-import vouchers.Talonario
-
-import vouchers.Item
-import vouchers.Producto
-import vouchers.Voucher
-import vouchers.InformacionVoucher
+import vouchers.*
 
 @Integration
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class NegocioServiceSpec extends Specification{
+class NegocioServiceSpec extends Specification {
 
     @Autowired
     NegocioService negocioService
@@ -62,15 +52,15 @@ class NegocioServiceSpec extends Specification{
         negocio.save(flush: true, failOnError: true)
 
         Item item = new Item(producto: producto, cantidad: 1)
-        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2022/08/15'))
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2022/08/15'))
         iv.addToItems(item)
-        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, isActive: true)
+        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         negocio.addToTalonarios(talonario)
         negocio.save(flush: true, failOnError: true)
 
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         cliente.cuentaVerificada = true
-        cliente.save(flush:true, failOnError:true)
+        cliente.save(flush: true, failOnError: true)
 
         setupHecho = true
         clienteId = cliente.id
@@ -91,7 +81,7 @@ class NegocioServiceSpec extends Specification{
         Cliente cliente = Cliente.get(clienteId)
         clienteService.retirarVoucher(clienteId, v)
         negocioService.confirmarCanjeVoucher(negocioId, v)
-        expect:"El estado del voucher es Canjeado"
+        expect: "El estado del voucher es Canjeado"
         v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.Canjeado
     }
 

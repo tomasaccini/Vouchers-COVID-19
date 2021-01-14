@@ -21,7 +21,7 @@ class NegocioAssembler extends ConcreteObjectAssembler<Negocio, NegocioCommand> 
 
     @Override
     NegocioCommand toBean(Negocio negocio) {
-        NegocioCommand command =  super.toBean(negocio)
+        NegocioCommand command = super.toBean(negocio)
         command.talonariosCommands = []
 
         for (def talonario : negocio.talonarios) {
