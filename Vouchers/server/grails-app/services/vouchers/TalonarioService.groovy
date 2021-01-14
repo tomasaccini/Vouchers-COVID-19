@@ -11,7 +11,7 @@ class TalonarioService {
     List<Talonario> counterfoilDB = []
 
     Talonario createMock(String name) {
-        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2020/08/15'))
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 5)
         talonario.negocio = mockBusiness(name)
         counterfoilDB.add(talonario)
@@ -33,7 +33,7 @@ class TalonarioService {
         if (descripcion.isEmpty()) {
             throw new RuntimeException('No se puede crear un talonario con descripcion vacia')
         }
-        if (negocio.tieneTalonarioConDescripcion(descripcion)){
+        if (negocio.tieneTalonarioConDescripcion(descripcion)) {
             throw new RuntimeException('No se puede crear un talonario con descripcion ya utilizada')
         }
 
@@ -42,9 +42,9 @@ class TalonarioService {
         Date validoDesde = new SimpleDateFormat(pattern).parse(validoDesdeStr)
         Date validoHasta = new SimpleDateFormat(pattern).parse(validoHastaStr)
 
-        InformacionVoucher vi = new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta).save(failOnError:true)
+        InformacionVoucher vi = new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta).save(failOnError: true)
         Talonario talonario = new Talonario(informacionVoucher: vi, stock: stock, negocio: negocio)
-        talonario.save(failOnError:true)
+        talonario.save(failOnError: true)
 
         talonario
     }
@@ -52,11 +52,11 @@ class TalonarioService {
     Talonario agregarProductos(Talonario talonario, def productos) {
         println("Agregando productos")
         println(productos)
-        for (p in productos){
-            Item item =  new Item(
+        for (p in productos) {
+            Item item = new Item(
                     cantidad: p["cantidad"],
                     producto: Producto.get(p["id"])
-            ).save(failOnError:true)
+            ).save(failOnError: true)
             talonario.informacionVoucher.addToItems(item)
         }
         talonario.save()
@@ -98,7 +98,7 @@ class TalonarioService {
         business.addToProducts(product)
 
         Item item = new Item(producto: product, cantidad: 1)
-        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2020/08/15'))
+        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2020/08/15'))
         vi.addToItems(item)
         // TODO business counterfoils will be recursive
         // Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, isActive: true)
@@ -122,11 +122,11 @@ class TalonarioService {
         println(Cliente.getAll())
         Talonario talonario = Talonario.get(talonarioId)
 
-        if (cliente == null){
+        if (cliente == null) {
             throw new RuntimeException("El cliente " + clienteId + " no existe")
         }
 
-        if (talonario == null){
+        if (talonario == null) {
             throw new RuntimeException("El talonario " + talonarioId + " no existe")
         }
 
@@ -139,7 +139,7 @@ class TalonarioService {
             return
         }
         talonario.activo = true
-        talonario.save(flush:true)
+        talonario.save(flush: true)
     }
 
     def desactivar(Long id) {
@@ -148,7 +148,7 @@ class TalonarioService {
             return
         }
         talonario.activo = false
-        talonario.save(flush:true)
+        talonario.save(flush: true)
     }
 
     List<Talonario> findSimilar(String q, Map map) {
@@ -157,6 +157,6 @@ class TalonarioService {
         query += " where lower(t.informacionVoucher.descripcion) like :search "
         query += " or lower(items.producto.descripcion) like :search "
         query += " or lower(items.producto.nombre) like :search "
-        Talonario.executeQuery(query, [search: "%${q}%".toLowerCase()] , map)
+        Talonario.executeQuery(query, [search: "%${q}%".toLowerCase()], map)
     }
 }

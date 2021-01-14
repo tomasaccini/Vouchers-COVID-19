@@ -8,7 +8,7 @@ import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.*
 
-class TalonarioController extends RestfulController{
+class TalonarioController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
     static allowedMethods = [getAll: "GET", save: "POST", update: "PUT", delete: "DELETE"]
@@ -23,7 +23,7 @@ class TalonarioController extends RestfulController{
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond talonarioService.list(params), model:[counterfoilCount: talonarioService.count()]
+        respond talonarioService.list(params), model: [counterfoilCount: talonarioService.count()]
     }
 
     def show(Long id) {
@@ -40,8 +40,9 @@ class TalonarioController extends RestfulController{
     * URL/talonarios/comprar
     * body: { talonarioId={id}, clienteId={id} }
     */
+
     @Transactional
-    def comprarVoucher(){
+    def comprarVoucher() {
         println('Comprar nuevo voucher')
 
         Object requestBody = request.JSON
@@ -96,7 +97,6 @@ class TalonarioController extends RestfulController{
     }
 
 
-
     @Transactional
     def save(Talonario counterfoil) {
         respond talonarioService.createMock(), [status: CREATED]
@@ -142,7 +142,7 @@ class TalonarioController extends RestfulController{
             return
         }
 
-        respond counterfoil, [status: OK, view:"show"]
+        respond counterfoil, [status: OK, view: "show"]
     }
 
     @Transactional
@@ -163,10 +163,11 @@ class TalonarioController extends RestfulController{
     * URL/talonario/search?q={busqueda}&max={maximas respuestas deseadas}
     * Devuelve listado de los talonarios que poseen esa cadena en su descripcion
     */
-    def search(String q, Integer max){
+
+    def search(String q, Integer max) {
         def map = [:]
-        map.max = Math.min( max ?: 10, 100)
-        if (q &&  q.length() > 2){
+        map.max = Math.min(max ?: 10, 100)
+        if (q && q.length() > 2) {
             respond talonarioService.findSimilar(q, map)
         } else {
             respond([])

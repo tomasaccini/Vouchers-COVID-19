@@ -14,16 +14,16 @@ class Voucher {
     Talonario talonario
 
     static constraints = {
-        informacionVoucher     nullable: false, blank: false
-        fechaCreacion            nullable: false
-        estado                  nullable: false, blank: false, default: VoucherEstado.Comprado
-        ultimoCambioEstado        nullable: true
-        reclamo                nullable: true
-        cliente                nullable: false, blank: false
-        talonario              nullable: false, blank: false
+        informacionVoucher nullable: false, blank: false
+        fechaCreacion nullable: false
+        estado nullable: false, blank: false, default: VoucherEstado.Comprado
+        ultimoCambioEstado nullable: true
+        reclamo nullable: true
+        cliente nullable: false, blank: false
+        talonario nullable: false, blank: false
     }
 
-    boolean estaExpirado(){
+    boolean estaExpirado() {
         if (informacionVoucher.validoHasta <= new Date()) {
             estado = VoucherEstado.Expirado
             return true
@@ -31,7 +31,7 @@ class Voucher {
         false
     }
 
-    boolean perteneceAlNegocio(Long negocioId){
+    boolean perteneceAlNegocio(Long negocioId) {
         return talonario.negocio.id == negocioId
     }
 

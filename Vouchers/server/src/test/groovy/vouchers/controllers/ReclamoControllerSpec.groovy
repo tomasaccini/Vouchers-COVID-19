@@ -16,11 +16,11 @@ class ReclamoControllerSpec extends Specification implements ControllerUnitTest<
             1 * obtener() >> null
         }*/
 
-        when:"Solicito un reclamo con id null"
-            controller.obtenerReclamo(null)
+        when: "Solicito un reclamo con id null"
+        controller.obtenerReclamo(null)
 
-        then:"La respuesta es 404"
-            response.status == NOT_FOUND.value()
+        then: "La respuesta es 404"
+        response.status == NOT_FOUND.value()
     }
 
 }

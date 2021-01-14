@@ -6,7 +6,7 @@ class Item {
     Integer cantidad
 
     static constraints = {
-        producto     nullable: false
-        cantidad    nullable: false, default: 1, min: 1
+        producto nullable: false
+        cantidad nullable: false, default: 1, min: 1
     }
 }

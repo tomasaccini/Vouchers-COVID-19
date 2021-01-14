@@ -175,14 +175,14 @@ class VoucherService {
         return negocio.obtenerVouchersConfirmables()
     }
 
-    List<Voucher> buscarPorUsuarioNoCanjeados(Cliente cliente, Map params){
+    List<Voucher> buscarPorUsuarioNoCanjeados(Cliente cliente, Map params) {
         String query = "select distinct(v) from Voucher as v "
         query += " where v.cliente.id like :clienteId "
         query += " and v.state.id like 1 or v.state.id like 2 " // Comprado o ConfirmacionPendiente
         Voucher.executeQuery(query, [clienteId: cliente.id], params)
     }
 
-    List<Voucher> buscarPorUsuarioYEstado(Cliente cliente, String estado, Map params){
+    List<Voucher> buscarPorUsuarioYEstado(Cliente cliente, String estado, Map params) {
         def estadoEnum = VoucherEstado.valueOf(estado)
         String query = "select distinct(v) from Voucher as v "
         query += " where v.cliente.id like :clienteId "

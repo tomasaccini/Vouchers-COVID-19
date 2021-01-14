@@ -16,10 +16,10 @@ class InformacionVoucher {
     }
 
     static constraints = {
-        precio blank:false, nullable: false, default: 0
-        descripcion blank:false, nullable: false
-        validoDesde blank:false, nullable: false
-        validoHasta blank:false, nullable: false
+        precio blank: false, nullable: false, default: 0
+        descripcion blank: false, nullable: false
+        validoDesde blank: false, nullable: false
+        validoHasta blank: false, nullable: false
     }
 
     // TODO Isn't there something like deep clone not to do this manually?

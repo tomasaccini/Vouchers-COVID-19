@@ -71,7 +71,7 @@ class Reclamo {
         this.save(flush: true, failOnError: true)
 
         MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: duenio, texto: mensaje, fecha: new Date(), reclamo: this)
-        mensajeReclamo.save(flush:true, failOnError: true)
+        mensajeReclamo.save(flush: true, failOnError: true)
 
         this.addToMensajes(mensajeReclamo)
         fechaUltimoMensaje = new Date()

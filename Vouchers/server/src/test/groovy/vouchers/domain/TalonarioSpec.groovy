@@ -7,8 +7,8 @@ import vouchers.*
 class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
 
     def crearInformacionVoucher(validoHasta = new Date('2020/12/31')) {
-        Producto p1 = new Producto(nombre:"Hamburguesa", descripcion: "Doble cheddar")
-        Producto p2 = new Producto(nombre:"Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
+        Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar")
+        Producto p2 = new Producto(nombre: "Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
         Item i1 = new Item(producto: p1, cantidad: 1)
         Item i2 = new Item(producto: p2, cantidad: 2)
 
@@ -20,7 +20,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
-        expect:"Talonario construido correctamente"
+        expect: "Talonario construido correctamente"
         talonario != null && talonario.getNegocio() == negocio && talonario.getInformacionVoucher() == iv && !talonario.getActivo() && talonario.getStock() == 6
     }
 
@@ -53,7 +53,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         negocio.save()
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
         talonario.save()
-        expect:"Talonario aparece entre los talonarios del negocio"
+        expect: "Talonario aparece entre los talonarios del negocio"
         negocio.esDuenioDeTalonario(talonario.id)
     }
 
@@ -63,7 +63,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         Voucher v = talonario.comprarVoucher(cliente)
-        expect:"Voucher aparece entre los vouchers del cliente"
+        expect: "Voucher aparece entre los vouchers del cliente"
         cliente.getVouchers().size() == 1
         cliente.getVoucher(v.id) == v
     }
@@ -72,7 +72,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
-        expect:"Talonario tiene 0 vouchers vendidos"
+        expect: "Talonario tiene 0 vouchers vendidos"
         talonario != null && talonario.cantidadVendida() == 0
     }
 
@@ -82,7 +82,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         talonario.comprarVoucher(cliente)
-        expect:"Talonario tiene 1 vouchers vendidos"
+        expect: "Talonario tiene 1 vouchers vendidos"
         talonario.cantidadVendida() == 1
         cliente.getVouchers().size() == 1
     }
@@ -94,7 +94,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         talonario.comprarVoucher(cliente)
         talonario.comprarVoucher(cliente)
-        expect:"Talonario tiene 2 vouchers vendidos"
+        expect: "Talonario tiene 2 vouchers vendidos"
         talonario.cantidadVendida() == 2
         cliente.getVouchers().size() == 2
     }

@@ -46,6 +46,7 @@ class ProductoController extends RestfulController {
     * Crea producto para el negocio especificado
     * URL/productos/crear
     */
+
     @Transactional
     def crear() {
         // REFACTOR

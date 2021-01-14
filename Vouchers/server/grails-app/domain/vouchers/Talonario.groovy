@@ -20,9 +20,9 @@ class Talonario {
         vouchers cascade: 'save-update'
     }
     static constraints = {
-        informacionVoucher      blank: false, nullable: false
-        stock                   blank: false, nullable: false, default: 0
-        activo blank:false, nullable: false, default: false
+        informacionVoucher blank: false, nullable: false
+        stock blank: false, nullable: false, default: 0
+        activo blank: false, nullable: false, default: false
         negocio nullable: false
     }
 
@@ -35,6 +35,7 @@ class Talonario {
     * it associates voucher to client
     * decrease the quantity of stock
     */
+
     Voucher comprarVoucher(Cliente cliente) {
 
         if (stock <= 0) {
@@ -60,9 +61,9 @@ class Talonario {
         try {
             voucher.informacionVoucher.save(flush: true, failOnError: true)
             voucher.save(flush: true, failOnError: true)
-            this.save(flush:true, failOnError:true)
-            cliente.save(flush:true, failOnError:true)
-        } catch (ValidationException e){
+            this.save(flush: true, failOnError: true)
+            cliente.save(flush: true, failOnError: true)
+        } catch (ValidationException e) {
             throw new ServiceException(e.message)
         }
 

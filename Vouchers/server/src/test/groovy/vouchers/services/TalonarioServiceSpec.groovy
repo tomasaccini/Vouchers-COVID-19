@@ -11,7 +11,7 @@ import vouchers.*
 @Integration
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class TalonarioServiceSpec extends Specification{
+class TalonarioServiceSpec extends Specification {
 
     @Autowired
     NegocioService negocioService
@@ -54,7 +54,7 @@ class TalonarioServiceSpec extends Specification{
         negocio.save(flush: true, failOnError: true)
 
         Item item = new Item(producto: producto, cantidad: 1)
-        iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2022/08/15'))
+        iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2022/08/15'))
         iv.addToItems(item)
         talonario_activo = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         negocio.addToTalonarios(talonario_activo)
@@ -67,7 +67,7 @@ class TalonarioServiceSpec extends Specification{
 
         Cliente client = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         client.cuentaVerificada = true
-        client.save(flush:true, failOnError:true)
+        client.save(flush: true, failOnError: true)
 
         setupHecho = true
         clienteId = client.id
@@ -85,7 +85,7 @@ class TalonarioServiceSpec extends Specification{
     }
 
     void "constructor"() {
-        expect:"talonarios construidos correctamente"
+        expect: "talonarios construidos correctamente"
         talonario_activo != null && talonario_activo.stock == 3 && talonario_activo.informacionVoucher == iv && talonario_activo.activo
         talonario_inactivo != null && talonario_inactivo.stock == 10 && talonario_inactivo.informacionVoucher == iv && !talonario_inactivo.activo
         talonario_sin_stock != null && talonario_sin_stock.stock == 0 && talonario_sin_stock.informacionVoucher == iv && talonario_sin_stock.activo
@@ -94,8 +94,8 @@ class TalonarioServiceSpec extends Specification{
     void "comprar vouchers"() {
         Voucher v = clienteService.comprarVoucher(clienteId, talonario_activo.id)
         talonario_activo = Talonario.findById(talonario_activo.id)
-        expect:"Voucher comprado correctamente"
-        v != null && talonario_activo.stock == 2 && talonario_activo.informacionVoucher.id == iv.id && talonario_activo.getVouchers().size() == 1 && talonario_activo. getVouchers()[0] == v && talonario_activo.activo
+        expect: "Voucher comprado correctamente"
+        v != null && talonario_activo.stock == 2 && talonario_activo.informacionVoucher.id == iv.id && talonario_activo.getVouchers().size() == 1 && talonario_activo.getVouchers()[0] == v && talonario_activo.activo
     }
 
     void "comprar voucher sin stock"() {
@@ -108,7 +108,7 @@ class TalonarioServiceSpec extends Specification{
     void "activar talonario"() {
         talonarioService.activar(talonario_inactivo.id)
         talonario_inactivo = Talonario.findById(talonario_inactivo.id)
-        expect:"Talonario esta ahora activo"
+        expect: "Talonario esta ahora activo"
         talonario_inactivo.activo
     }
 
@@ -116,7 +116,7 @@ class TalonarioServiceSpec extends Specification{
         talonarioService.activar(talonario_inactivo.id)
         talonarioService.desactivar(talonario_inactivo.id)
         talonario_inactivo = Talonario.findById(talonario_inactivo.id)
-        expect:"Talonario esta ahora inactivo"
+        expect: "Talonario esta ahora inactivo"
         !talonario_inactivo.activo
     }
 }

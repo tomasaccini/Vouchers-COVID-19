@@ -4,9 +4,9 @@ import assemblers.ReclamoAssembler
 import commands.ReclamoCommand
 import grails.rest.RestfulController
 
-class ReclamoController extends RestfulController{
+class ReclamoController extends RestfulController {
 
-	static responseFormats = ['json', 'xml']
+    static responseFormats = ['json', 'xml']
     ReclamoService reclamoService
     ReclamoAssembler reclamoAssembler = new ReclamoAssembler()
 
@@ -18,6 +18,7 @@ class ReclamoController extends RestfulController{
     * Returns complaint requested by Id
     * URL/complaints/{id}
     */
+
     def show(Reclamo reclamo) {
         println("Request for a complaint by id")
         if (!reclamo) {
@@ -94,6 +95,7 @@ class ReclamoController extends RestfulController{
     * URL/complaints/getByBusiness/businessId -> When max is not specified
     * URL/complaints/getByBusiness/businessId?max=n -> When max is specified
     */
+
     def obtenerPorNegocio(Long negocioId, Integer max) {
         Negocio negocio = Negocio.get(negocioId)
         params.max = Math.min(max ?: 10, 100)
@@ -111,6 +113,7 @@ class ReclamoController extends RestfulController{
     * URL/complaints/getByClient/clientId -> When max is not specified
     * URL/complaints/getByClient/clientId?max=n -> When max is specified
     */
+
     def obtenerPorCliente(Long clienteId, Integer max) {
         Cliente client = Cliente.get(clienteId)
         params.max = Math.min(max ?: 10, 100)
@@ -125,6 +128,7 @@ class ReclamoController extends RestfulController{
     * Closes complaint given by Id
     * post - URL/reclamos/{id}/cerrar
     */
+
     def cerrarReclamo(Long reclamoId) {
         println("Request para cerrar un reclamo")
 

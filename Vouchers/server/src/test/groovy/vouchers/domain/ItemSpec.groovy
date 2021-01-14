@@ -5,7 +5,7 @@ import spock.lang.Specification
 import vouchers.Item
 import vouchers.Producto
 
-class ItemSpec  extends Specification implements DomainUnitTest<Item> {
+class ItemSpec extends Specification implements DomainUnitTest<Item> {
 
     Producto producto
 
@@ -21,7 +21,7 @@ class ItemSpec  extends Specification implements DomainUnitTest<Item> {
     void "constructor"() {
         Item i = new Item(producto: producto, cantidad: 3)
         i.save()
-        expect:"item construido correctamente"
+        expect: "item construido correctamente"
         i != null && i.producto.nombre == "Vino" && i.producto.descripcion == "rojo" && i.cantidad == 3
     }
 

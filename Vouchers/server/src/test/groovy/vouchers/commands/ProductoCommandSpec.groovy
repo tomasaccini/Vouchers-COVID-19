@@ -14,7 +14,7 @@ class ProductoCommandSpec extends Specification {
 
     void "constructor"() {
         ProductoCommand p = new ProductoCommand(nombre: "Papas", descripcion: "bravas")
-        expect:"Producto construido correctamente"
+        expect: "Producto construido correctamente"
         p != null && p.nombre == "Papas" && p.descripcion == "bravas"
     }
 

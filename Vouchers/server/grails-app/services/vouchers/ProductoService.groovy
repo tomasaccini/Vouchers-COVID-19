@@ -17,7 +17,7 @@ class ProductoService {
         negocioService.agregarProducto(negocioId, producto)
         try {
             producto.save(flush: true, failOnError: true)
-        } catch (ValidationException e){
+        } catch (ValidationException e) {
             throw new ServiceException(e.message)
         }
     }

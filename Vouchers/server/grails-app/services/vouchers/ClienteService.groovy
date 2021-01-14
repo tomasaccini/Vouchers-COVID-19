@@ -21,7 +21,7 @@ class ClienteService {
         voucher
     }
 
-    def retirarVoucher(Long id, Voucher voucher){
+    def retirarVoucher(Long id, Voucher voucher) {
         Cliente cliente = Cliente.get(id)
         if (!cliente?.vouchers?.contains(voucher)) {
             throw new RuntimeException("El cliente no es el duenio del voucher")

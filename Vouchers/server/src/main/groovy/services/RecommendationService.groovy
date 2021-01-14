@@ -29,7 +29,7 @@ class RecommendationService {
      * If the client does not have purchases, it will return the counterfoils sorted by amount sold.
      * If it does have purchases, it will return the counterfoils after grouping them by the client
      * product type preferences and concatenating each block of counterfoils (by product type).
-    */
+     */
     List<Talonario> recommendCounterfoils(Cliente client) {
         Map<Tuple2<TrackingType, ProductoTipo>, List<Tracking>> count = trackingService.countyByProductTypeAndTrackingType(client)
 
@@ -59,7 +59,7 @@ class RecommendationService {
             new Tuple2(productPriority, counterfoils)
         }
 
-        List<Talonario> personalizedCounterfoils =  (List<Talonario>) prioritiesAndCounterFoils.sort { it.first }
+        List<Talonario> personalizedCounterfoils = (List<Talonario>) prioritiesAndCounterFoils.sort { it.first }
                 .collect { it.second }
                 .flatten()
 
@@ -79,14 +79,14 @@ class RecommendationService {
 
         Map<ProductoTipo, List<Tuple2<ProductoTipo, Long>>> grouped = productTypesAndPoints.groupBy { t -> t.first }
 
-        List<Tuple2<ProductoTipo, Long>> pointsPerProduct = grouped.keySet().toList().collect() { productType  ->
+        List<Tuple2<ProductoTipo, Long>> pointsPerProduct = grouped.keySet().toList().collect() { productType ->
             List<Tuple2<ProductoTipo, Long>> pointsList = grouped[productType]
             Long finalPointsForProductType = (Long) pointsList.collect { it.second }
                     .sum()
             new Tuple2(productType, finalPointsForProductType)
         }
 
-        List<Tuple2<ProductoTipo, Long>> sortedPointsPerProduct = pointsPerProduct.sort { tuple -> - tuple.second }
+        List<Tuple2<ProductoTipo, Long>> sortedPointsPerProduct = pointsPerProduct.sort { tuple -> -tuple.second }
 
         sortedPointsPerProduct.collect { it.first }
     }

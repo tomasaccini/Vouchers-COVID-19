@@ -7,7 +7,7 @@ enum VoucherEstado {
     Expirado('Expirado')
     String id
 
-    VoucherEstado(String id){
+    VoucherEstado(String id) {
         this.id = id
     }
 }

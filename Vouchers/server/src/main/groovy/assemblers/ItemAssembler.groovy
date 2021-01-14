@@ -35,8 +35,8 @@ class ItemAssembler extends ConcreteObjectAssembler<Item, ItemCommand> {
 
         Item domain = super.fromBean(bean)
 
-        if (bean.productCommand){
-            domain.producto  = productAssembler.fromBean(bean.productCommand)
+        if (bean.productCommand) {
+            domain.producto = productAssembler.fromBean(bean.productCommand)
         }
 
         return domain

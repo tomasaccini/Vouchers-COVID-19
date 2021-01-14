@@ -13,8 +13,8 @@ class Cliente extends Usuario {
         numeroTelefonico nullable: true, blank: true
     }
 
-    Voucher getVoucher(Long voucherId){
-        return vouchers.find{v -> v.id == voucherId}
+    Voucher getVoucher(Long voucherId) {
+        return vouchers.find { v -> v.id == voucherId }
     }
 
 }

@@ -18,11 +18,11 @@ class TalonarioControllerSpec extends Specification implements ControllerUnitTes
             1 * list(_) >> []
         }
 
-        when:"The index action is executed"
-            controller.index()
+        when: "The index action is executed"
+        controller.index()
 
-        then:"The response is correct"
-            response.text == '[]'
+        then: "The response is correct"
+        response.text == '[]'
     }
 
 
@@ -42,10 +42,10 @@ class TalonarioControllerSpec extends Specification implements ControllerUnitTes
             1 * get(null) >> null
         }
 
-        when:"Cuando se solicita un talonario con id nulo"
+        when: "Cuando se solicita un talonario con id nulo"
         controller.show()
 
-        then:"Un error 404 error es retornado"
+        then: "Un error 404 error es retornado"
         response.status == NOT_FOUND.value()
     }
 

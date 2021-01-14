@@ -11,8 +11,8 @@ import vouchers.Voucher
 class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
 
     def crearInformacionVoucher(validoHasta = new Date('2020/12/31')) {
-        Producto p1 = new Producto(nombre:"Hamburguesa", descripcion: "Doble cheddar")
-        Producto p2 = new Producto(nombre:"Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
+        Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar")
+        Producto p2 = new Producto(nombre: "Pinta cerveza", descripcion: "Cerveza artesanal de la casa")
         Item i1 = new Item(producto: p1, cantidad: 1)
         Item i2 = new Item(producto: p2, cantidad: 2)
 
@@ -23,7 +23,7 @@ class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
     void "constructor"() {
         InformacionVoucher iv = crearInformacionVoucher()
         Voucher v = new Voucher(informacionVoucher: iv)
-        expect:"voucher construido correctamente"
+        expect: "voucher construido correctamente"
         v != null && v.reclamo == null && v.estado == VoucherEstado.Comprado
     }
 

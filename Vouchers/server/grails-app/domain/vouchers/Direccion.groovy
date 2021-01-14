@@ -10,11 +10,11 @@ class Direccion {
 
 
     static constraints = {
-        calle      nullable: false, blank: false
-        numero      nullable: false, blank: false
-        departamento   nullable: true, blank: false
-        provincia    nullable: true, blank: true
-        pais     nullable: false
+        calle nullable: false, blank: false
+        numero nullable: false, blank: false
+        departamento nullable: true, blank: false
+        provincia nullable: true, blank: true
+        pais nullable: false
     }
 
     @Override
