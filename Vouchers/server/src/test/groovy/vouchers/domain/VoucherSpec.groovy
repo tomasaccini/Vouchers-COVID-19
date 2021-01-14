@@ -50,4 +50,10 @@ class VoucherSpec extends Specification implements DomainUnitTest<Voucher> {
         v.perteneceAlNegocio(negocio.id)
     }
 
+    void "voucher expirado es detectado correctamente como expirado"() {
+        InformacionVoucher iv = crearInformacionVoucher('2000/01/01')
+        Voucher v = new Voucher(informacionVoucher: iv)
+        expect: "Voucher esta expirado"
+        v.estaExpirado()
+    }
 }
