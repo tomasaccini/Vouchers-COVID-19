@@ -95,4 +95,18 @@ class NegocioSpec extends Specification implements DomainUnitTest<Negocio> {
         expect: "el negocio tiene vouchers confirmables"
         negocio.obtenerVouchersConfirmables().size() == 1
     }
+
+    void "el negocio no tiene vouchers confirmables si le compran vouchers, lo canjean y cancelan la solicitud"() {
+        InformacionVoucher iv = crearInformacionVoucher("descripcion")
+        Negocio negocio = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234", cuentaVerificada: true)
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        negocio.addToTalonarios(talonario)
+        Voucher v = talonario.comprarVoucher(cliente)
+        v.solicitarCanje(cliente)
+        v.cancelarSolicitudDeCanje(cliente)
+        negocio.save(flush: true, failOnError: true)
+        expect: "el negocio no tiene vouchers confirmables"
+        negocio.obtenerVouchersConfirmables().size() == 0
+    }
 }
