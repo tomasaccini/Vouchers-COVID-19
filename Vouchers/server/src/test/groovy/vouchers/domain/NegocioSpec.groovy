@@ -37,16 +37,28 @@ class NegocioSpec extends Specification implements DomainUnitTest<Negocio> {
     void "buscar talonarios con descripcion en negocio sin talonarios"() {
         Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
         expect: "el negocio no tiene talonarios con descripcion"
-        !n.tieneTalonarioConDescripcion()
+        !n.tieneTalonarioConDescripcion("B")
     }
 
-    void "buscar talonarios con descripcion en negocio con talonarios sin descripcion"() {
-        InformacionVoucher iv = crearInformacionVoucher()
-        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
-        n.save()
+    void "buscar talonarios con descripcion en negocio con talonarios sin matchear descripcion"() {
+        InformacionVoucher iv = crearInformacionVoucher("A")
+        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234", cuentaVerificada: true)
         Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: n)
-        talonario.save()
+        n.addToTalonarios(talonario)
+        talonario.save(flush: true, failOnError: true)
+        n.save(flush: true, failOnError: true)
         expect: "el negocio no tiene talonarios con descripcion"
-        !n.tieneTalonarioConDescripcion()
+        !n.tieneTalonarioConDescripcion("B")
+    }
+
+    void "buscar talonarios con descripcion en negocio con talonarios matcheando descripcion"() {
+        InformacionVoucher iv = crearInformacionVoucher("descripcion del talonario")
+        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234", cuentaVerificada: true)
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: n)
+        n.addToTalonarios(talonario)
+        talonario.save(flush: true, failOnError: true)
+        n.save(flush: true, failOnError: true)
+        expect: "el negocio tiene talonarios con descripcion"
+        n.tieneTalonarioConDescripcion("descripcion del talonario")
     }
 }
