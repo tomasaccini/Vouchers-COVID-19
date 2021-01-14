@@ -9,6 +9,7 @@ import vouchers.Item
 import vouchers.Negocio
 import vouchers.Producto
 import vouchers.Talonario
+import vouchers.Voucher
 
 class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
 
@@ -61,6 +62,17 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.save()
         expect:"Talonario aparece entre los talonarios del negocio"
         negocio.esDuenioDeTalonario(talonario.id)
+    }
+
+    void "el cliente tiene el voucher entre sus vouchers despues de comprarlo"() {
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Voucher v = talonario.comprarVoucher(cliente)
+        expect:"Voucher aparece entre los vouchers del cliente"
+        cliente.getVouchers().size() == 1
+        cliente.getVoucher(v.id) == v
     }
 
     void "talonario tiene 0 vouchers vendidos al ser creado"() {

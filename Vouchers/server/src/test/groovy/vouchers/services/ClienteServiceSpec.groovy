@@ -97,6 +97,7 @@ class ClienteServiceSpec extends Specification{
         v?.id != null
         cliente.vouchers.size() == 1
         talonario.vouchers.size() == 1
+        cliente.getVoucher(v.id) == v
     }
 
     void "comprar dos vouchers"() {
@@ -110,6 +111,8 @@ class ClienteServiceSpec extends Specification{
         v2?.id != null
         cliente.vouchers.size() == 2
         talonario.vouchers.size() == 2
+        cliente.getVoucher(v1.id) == v1
+        cliente.getVoucher(v2.id) == v2
     }
 
     void "retirar Voucher"() {
@@ -117,7 +120,7 @@ class ClienteServiceSpec extends Specification{
         Cliente cliente = Cliente.get(clienteId)
         clienteService.retirarVoucher(clienteId, v)
         expect:"El estado del voucher es Confirmacion Pendiente"
-        v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente
+        v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente && cliente.getVoucher(v.id) == v
     }
 
     void "expiracion del voucher"() {
