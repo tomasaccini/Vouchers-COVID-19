@@ -4,7 +4,7 @@ import assemblers.NegocioAssembler
 import assemblers.TalonarioAssembler
 import commands.NegocioCommand
 import commands.TalonarioCommand
-import grails.rest.*
+import grails.rest.RestfulController
 
 class NegocioController extends RestfulController {
 

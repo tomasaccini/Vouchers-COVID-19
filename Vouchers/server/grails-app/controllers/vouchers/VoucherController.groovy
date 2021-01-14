@@ -2,7 +2,7 @@ package vouchers
 
 import assemblers.VoucherAssembler
 import commands.VoucherCommand
-import grails.rest.*
+import grails.rest.RestfulController
 
 class VoucherController extends RestfulController {
 

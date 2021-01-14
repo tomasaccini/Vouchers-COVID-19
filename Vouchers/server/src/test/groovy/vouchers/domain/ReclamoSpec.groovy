@@ -1,18 +1,9 @@
 package vouchers.domain
 
+import enums.states.ReclamoEstado
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
-import enums.states.ReclamoEstado
-import vouchers.Direccion
-import vouchers.Negocio
-import vouchers.Cliente
-import vouchers.Reclamo
-import vouchers.Talonario
-
-import vouchers.Item
-import vouchers.Producto
-import vouchers.Voucher
-import vouchers.InformacionVoucher
+import vouchers.*
 
 class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
 

@@ -1,7 +1,7 @@
 package vouchers
 
-import groovy.time.TimeCategory
 import enums.ProductoTipo
+import groovy.time.TimeCategory
 
 class BootStrap {
 

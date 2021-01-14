@@ -6,18 +6,7 @@ import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
-import vouchers.Direccion
-import vouchers.Negocio
-import vouchers.NegocioService
-import vouchers.Cliente
-import vouchers.ClienteService
-import vouchers.Talonario
-import vouchers.TalonarioService
-
-import vouchers.Item
-import vouchers.Producto
-import vouchers.Voucher
-import vouchers.InformacionVoucher
+import vouchers.*
 
 @Integration
 @Rollback

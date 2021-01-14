@@ -1,7 +1,7 @@
 package commands
 
-import grails.validation.Validateable
 import enums.states.VoucherEstado
+import grails.validation.Validateable
 import vouchers.Voucher
 
 class VoucherCommand implements Validateable {

@@ -2,7 +2,7 @@ package vouchers
 
 import enums.ProductoTipo
 import grails.gorm.transactions.Transactional
-import grails.rest.*
+import grails.rest.RestfulController
 
 class ProductoController extends RestfulController {
 

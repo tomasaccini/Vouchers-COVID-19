@@ -2,11 +2,7 @@ package services
 
 import enums.ProductoTipo
 import enums.TrackingType
-import vouchers.Cliente
-import vouchers.Talonario
-import vouchers.TalonarioService
-import vouchers.Tracking
-import vouchers.TrackingService
+import vouchers.*
 
 class RecommendationService {
 

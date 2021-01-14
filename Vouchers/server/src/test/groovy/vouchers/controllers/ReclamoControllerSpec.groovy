@@ -1,17 +1,12 @@
 package vouchers.controllers
 
-import spock.lang.*
+import grails.testing.gorm.DomainUnitTest
+import grails.testing.web.controllers.ControllerUnitTest
+import spock.lang.Specification
 import vouchers.Reclamo
 import vouchers.ReclamoController
 
-import static org.springframework.http.HttpStatus.OK
 import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY
-import grails.validation.ValidationException
-import grails.testing.web.controllers.ControllerUnitTest
-import grails.testing.gorm.DomainUnitTest
 
 class ReclamoControllerSpec extends Specification implements ControllerUnitTest<ReclamoController>, DomainUnitTest<Reclamo> {
 

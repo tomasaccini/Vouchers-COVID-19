@@ -1,6 +1,7 @@
 package vouchers
 
-import grails.rest.*
+
+import grails.rest.RestfulController
 
 import javax.transaction.Transactional
 

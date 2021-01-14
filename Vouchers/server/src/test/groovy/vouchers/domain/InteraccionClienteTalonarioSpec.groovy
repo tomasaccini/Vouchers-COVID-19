@@ -3,12 +3,7 @@ package vouchers.domain
 import enums.TipoInteraccion
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
-import vouchers.Cliente
-import vouchers.InteraccionClienteTalonario
-import vouchers.Talonario
-import vouchers.Item
-import vouchers.Producto
-import vouchers.InformacionVoucher
+import vouchers.*
 
 class InteraccionClienteTalonarioSpec extends Specification implements DomainUnitTest<InteraccionClienteTalonario> {
 

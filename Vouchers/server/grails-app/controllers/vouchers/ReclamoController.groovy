@@ -2,7 +2,7 @@ package vouchers
 
 import assemblers.ReclamoAssembler
 import commands.ReclamoCommand
-import grails.rest.*
+import grails.rest.RestfulController
 
 class ReclamoController extends RestfulController{
 
