@@ -91,6 +91,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.comprarVoucher(cliente)
         expect:"Talonario tiene 1 vouchers vendidos"
         talonario.cantidadVendida() == 1
+        cliente.getVouchers().size() == 1
     }
 
     void "talonario tiene 2 voucher vendido al ser creado y comprado 2 veces"() {
@@ -102,6 +103,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.comprarVoucher(cliente)
         expect:"Talonario tiene 2 vouchers vendidos"
         talonario.cantidadVendida() == 2
+        cliente.getVouchers().size() == 2
     }
 
     void "talonario lanza error si al comprar no tiene stock"() {
@@ -114,6 +116,8 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.comprarVoucher(cliente)
         then: "Throw error"
         thrown RuntimeException
+        talonario.cantidadVendida() == 0
+        cliente.getVouchers().size() == 0
     }
 
     void "talonario lanza error si al comprar no esta activo"() {
@@ -126,5 +130,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         talonario.comprarVoucher(cliente)
         then: "Throw error"
         thrown RuntimeException
+        talonario.cantidadVendida() == 0
+        cliente.getVouchers().size() == 0
     }
 }
