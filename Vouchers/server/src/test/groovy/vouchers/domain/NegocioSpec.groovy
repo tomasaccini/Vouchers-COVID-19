@@ -23,4 +23,10 @@ class NegocioSpec extends Specification implements DomainUnitTest<Negocio> {
         n.cuentaVerificada
     }
 
+    void "buscar talonarios sin descripcion en negocio sin talonarios"() {
+        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        expect: "la cuenta esta verificada"
+        !n.tieneTalonarioConDescripcion()
+    }
+
 }
