@@ -64,7 +64,7 @@ class NegocioServiceSpec extends Specification{
         Item item = new Item(producto: producto, cantidad: 1)
         InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2022/08/15'))
         iv.addToItems(item)
-        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, isActive: true)
+        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         negocio.addToTalonarios(talonario)
         negocio.save(flush: true, failOnError: true)
 

@@ -41,6 +41,10 @@ class Talonario {
             throw new RuntimeException("Talonario no tiene suficiente stock")
         }
 
+        if (!activo) {
+            throw new RuntimeException("Talonario no esta activo")
+        }
+
         Voucher voucher = new Voucher(
                 informacionVoucher: informacionVoucher.duplicar(),
                 cliente: cliente,

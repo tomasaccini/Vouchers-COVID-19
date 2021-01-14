@@ -28,7 +28,7 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
 
     def crearReclamo(Negocio n, Cliente c) {
         InformacionVoucher iv = crearInformacionVoucher()
-        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3)
+        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         n.addToTalonarios(talonario)
         Voucher v = talonario.comprarVoucher(c)
         Reclamo reclamo = new Reclamo(descripcion: "Descripcion de mi problema", voucher: v, fechaCreacion: new Date())

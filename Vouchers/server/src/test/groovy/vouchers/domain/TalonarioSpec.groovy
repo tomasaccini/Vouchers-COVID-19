@@ -74,7 +74,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
     void "talonario tiene 1 voucher vendido al ser creado y comprado 1 vez"() {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
-        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         talonario.comprarVoucher(cliente)
         expect:"Talonario tiene 1 vouchers vendidos"
@@ -84,7 +84,7 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
     void "talonario tiene 2 voucher vendido al ser creado y comprado 2 veces"() {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
-        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio)
+        Talonario talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: true)
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         talonario.comprarVoucher(cliente)
         talonario.comprarVoucher(cliente)
@@ -97,6 +97,18 @@ class TalonarioSpec extends Specification implements DomainUnitTest<Talonario> {
         InformacionVoucher iv = crearInformacionVoucher()
         Negocio negocio = new Negocio()
         Talonario talonario = new Talonario(stock: 0, informacionVoucher: iv, negocio: negocio)
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        when:
+        talonario.comprarVoucher(cliente)
+        then: "Throw error"
+        thrown RuntimeException
+    }
+
+    void "talonario lanza error si al comprar no esta activo"() {
+        given:
+        InformacionVoucher iv = crearInformacionVoucher()
+        Negocio negocio = new Negocio()
+        Talonario talonario = new Talonario(stock: 1, informacionVoucher: iv, negocio: negocio)
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         when:
         talonario.comprarVoucher(cliente)

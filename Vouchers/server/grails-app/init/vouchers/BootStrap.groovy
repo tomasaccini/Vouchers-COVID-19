@@ -55,13 +55,14 @@ class BootStrap {
         }
 
         def talonario1 = new Talonario(stock: 6,
-                        informacionVoucher: InformacionVoucher.get(1),
-                        negocio: Negocio.get(1)
-                        ).save(failOnError:true)
+                informacionVoucher: InformacionVoucher.get(1),
+                negocio: Negocio.get(1),
+                activo: true).save(failOnError:true)
 
         def talonario2 = new Talonario(stock: 15,
                 informacionVoucher: informacionVoucher2,
-                negocio: negocio2).save(failOnError:true)
+                negocio: negocio2,
+                activo: true).save(failOnError:true)
 
         negocio1.addToTalonarios(talonario1)
         negocio2.addToTalonarios(talonario2)
