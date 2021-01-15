@@ -40,4 +40,17 @@ class HistoriaUsuario5 extends Specification {
         then:
         Steps."El cliente no puede volver a solicitar el canje porque ya esta canjeado"()
     }
+
+    void "Escenario 3"() {
+        given:
+        Steps."Un negocio existe"()
+        Steps."Un cliente existe"()
+        Steps."Existe un talonario asociado a dicho negocio"()
+        Steps."El talonario esta activo"()
+        Steps."El cliente compra un voucher del talonario"()
+        when:
+        Steps."El negocio confirma el canje"()
+        then:
+        Steps."El negocio no puede confirmar el canje porque nunca el canje nunca fue solicitado"()
+    }
 }

@@ -149,4 +149,8 @@ class Steps {
     static boolean "El cliente no puede volver a solicitar el canje porque ya esta canjeado"(){
         this.errorDuranteSolicitudCanje
     }
+
+    static boolean "El negocio no puede confirmar el canje porque nunca el canje nunca fue solicitado"(){
+        this.errorDuranteConfirmacionCanje
+    }
 }
