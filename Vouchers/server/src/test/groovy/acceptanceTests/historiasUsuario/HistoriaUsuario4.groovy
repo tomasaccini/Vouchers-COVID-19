@@ -18,7 +18,7 @@ class HistoriaUsuario4 extends Specification {
         Steps."Un cliente existe"()
         Steps."Existe un talonario asociado a dicho negocio"()
         Steps."El talonario esta activo"()
-        Steps."El cliente compro un voucher del talonario previamente"()
+        Steps."El cliente compra un voucher del talonario"()
         when:
         Steps."El cliente solicita canjear el voucher"()
         then:
@@ -31,7 +31,7 @@ class HistoriaUsuario4 extends Specification {
         Steps."Un cliente existe"()
         Steps."Existe un talonario asociado a dicho negocio"()
         Steps."El talonario esta activo"()
-        Steps."El cliente compro un voucher del talonario previamente"()
+        Steps."El cliente compra un voucher del talonario"()
         Steps."El cliente solicita canjear el voucher"()
         when:
         Steps."El cliente solicita canjear el voucher"()

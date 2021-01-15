@@ -21,6 +21,8 @@ class Steps {
     static Cliente cliente
     static Voucher voucher
     static boolean errorDuranteSolicitudCanje = false
+    static boolean errorDuranteConfirmacionCanje = false
+
 
     private static InformacionVoucher crearInformacionVoucher(validoHasta = new Date('2030/12/12')) {
         Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar", tipo: ProductoTipo.COMIDA_RAPIDA)
@@ -94,7 +96,7 @@ class Steps {
         this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
     }
 
-    static void "El cliente compro un voucher del talonario previamente"(){
+    static void "El cliente compra un voucher del talonario"(){
         this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
     }
 
@@ -108,7 +110,12 @@ class Steps {
     }
 
     static void "El negocio confirma el canje"(){
-        this.voucher.confirmarCanje(this.negocio)
+        try {
+            this.voucher.confirmarCanje(this.negocio)
+            this.errorDuranteConfirmacionCanje = false
+        } catch (RuntimeException e) {
+            this.errorDuranteConfirmacionCanje = true
+        }
     }
 
     static boolean "La transaccion es exitosa"(){
@@ -137,5 +144,9 @@ class Steps {
 
     static boolean "El cliente no puede volver a solicitar el canje porque ya esta pendiente de confirmacion"(){
         this.errorDuranteSolicitudCanje && this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1 && this.voucher.estado == VoucherEstado.ConfirmacionPendiente
+    }
+
+    static boolean "El cliente no puede volver a solicitar el canje porque ya esta canjeado"(){
+        this.errorDuranteSolicitudCanje
     }
 }
