@@ -3,18 +3,7 @@ package acceptanceTests.steps
 import enums.ProductoTipo
 import enums.states.ReclamoEstado
 import enums.states.VoucherEstado
-import vouchers.Cliente
-import vouchers.Direccion
-import vouchers.InformacionVoucher
-import vouchers.Item
-import vouchers.Negocio
-import vouchers.NegocioService
-import vouchers.Producto
-import vouchers.Reclamo
-import vouchers.ReclamoService
-import vouchers.Talonario
-import vouchers.TalonarioService
-import vouchers.Voucher
+import vouchers.*
 
 class Steps {
     static Negocio negocio
@@ -42,17 +31,17 @@ class Steps {
         iv
     }
 
-    static void "Un negocio existe"(){
+    static void "Un negocio existe"() {
         this.negocio = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234", cuentaVerificada: true)
         this.negocio.save(flush: true)
     }
 
-    static void "Un cliente existe"(){
+    static void "Un cliente existe"() {
         this.cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234", cuentaVerificada: true)
         this.cliente.save(flush: true)
     }
 
-    static void "Existe un talonario asociado a dicho negocio"(){
+    static void "Existe un talonario asociado a dicho negocio"() {
         InformacionVoucher iv = this.crearInformacionVoucher()
         this.talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
         this.negocio.addToTalonarios(this.talonario)
@@ -60,54 +49,54 @@ class Steps {
         this.negocio.save(flush: true)
     }
 
-    static void "El talonario esta activo"(){
+    static void "El talonario esta activo"() {
         this.talonario.activo = true
         this.talonario.save(flush: true)
     }
 
-    static void "El negocio activa dicho talonario"(){
+    static void "El negocio activa dicho talonario"() {
         talonarioService.activar(this.talonario.id)
         this.talonario.save(flush: true)
     }
 
-    static void "El negocio desactiva dicho talonario"(){
+    static void "El negocio desactiva dicho talonario"() {
         talonarioService.desactivar(this.talonario.id)
         this.talonario.save(flush: true)
     }
 
-    static boolean "El talonario es público"(){
+    static boolean "El talonario es público"() {
         talonarioService.get(this.talonario.id) != null
     }
 
-    static boolean "El talonario es privado"(){
+    static boolean "El talonario es privado"() {
         talonarioService.get(this.talonario.id) != null
     }
 
-    static boolean "Los clientes pueden buscarlo"(){
+    static boolean "Los clientes pueden buscarlo"() {
         talonarioService.get(this.talonario.id) != null && this.talonario.getActivo() == true && !this.talonario.estaExpirado() && this.talonario.getStock() > 0
     }
 
-    static boolean "Los clientes no pueden buscarlo"(){
+    static boolean "Los clientes no pueden buscarlo"() {
         talonarioService.get(this.talonario.id) != null && this.talonario.getActivo() == false && !this.talonario.estaExpirado() && this.talonario.getStock() > 0
     }
 
-    static boolean "Los clientes pueden comprarlo"(){
+    static boolean "Los clientes pueden comprarlo"() {
         this.talonario.esComprable()
     }
 
-    static boolean "Los clientes no pueden comprarlo"(){
+    static boolean "Los clientes no pueden comprarlo"() {
         !this.talonario.esComprable()
     }
 
-    static void "Un cliente compra un voucher del talonario"(){
+    static void "Un cliente compra un voucher del talonario"() {
         this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
     }
 
-    static void "El cliente compra un voucher del talonario"(){
+    static void "El cliente compra un voucher del talonario"() {
         this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
     }
 
-    static void "El cliente solicita canjear el voucher"(){
+    static void "El cliente solicita canjear el voucher"() {
         try {
             this.voucher.solicitarCanje(this.cliente)
             this.errorDuranteSolicitudCanje = false
@@ -116,12 +105,12 @@ class Steps {
         }
     }
 
-    static void "El cliente inicia un reclamo"(){
+    static void "El cliente inicia un reclamo"() {
         this.reclamo = this.reclamoService.abrirReclamo(this.voucher.id, "Pregunta")
         this.reclamo.save(flush: true)
     }
 
-    static void "El negocio confirma el canje"(){
+    static void "El negocio confirma el canje"() {
         try {
             this.voucher.confirmarCanje(this.negocio)
             this.errorDuranteConfirmacionCanje = false
@@ -130,47 +119,47 @@ class Steps {
         }
     }
 
-    static boolean "La transaccion es exitosa"(){
+    static boolean "La transaccion es exitosa"() {
         this.voucher != null && this.talonario.cantidadVendida() == 1 && this.voucher.getCliente() == this.cliente
     }
 
-    static boolean "El voucher se guarda en la sección Mis vouchers del cliente"(){
+    static boolean "El voucher se guarda en la sección Mis vouchers del cliente"() {
         this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
     }
 
-    static boolean "El cliente recibe el servicio o producto"(){
+    static boolean "El cliente recibe el servicio o producto"() {
         this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
     }
 
-    static boolean "El voucher se marca como canjeado"(){
+    static boolean "El voucher se marca como canjeado"() {
         this.voucher.estado == VoucherEstado.Canjeado
     }
 
-    static boolean "El voucher se marca como pendiente de confirmacion"(){
+    static boolean "El voucher se marca como pendiente de confirmacion"() {
         this.voucher.estado == VoucherEstado.ConfirmacionPendiente
     }
 
-    static boolean "El cliente no recibe el producto ni servicio porque ya fue canjeado"(){
+    static boolean "El cliente no recibe el producto ni servicio porque ya fue canjeado"() {
         this.errorDuranteSolicitudCanje && this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
     }
 
-    static boolean "El cliente no puede volver a solicitar el canje porque ya esta pendiente de confirmacion"(){
+    static boolean "El cliente no puede volver a solicitar el canje porque ya esta pendiente de confirmacion"() {
         this.errorDuranteSolicitudCanje && this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1 && this.voucher.estado == VoucherEstado.ConfirmacionPendiente
     }
 
-    static boolean "El cliente no puede volver a solicitar el canje porque ya esta canjeado"(){
+    static boolean "El cliente no puede volver a solicitar el canje porque ya esta canjeado"() {
         this.errorDuranteSolicitudCanje
     }
 
-    static boolean "El negocio no puede confirmar el canje porque nunca el canje nunca fue solicitado"(){
+    static boolean "El negocio no puede confirmar el canje porque nunca el canje nunca fue solicitado"() {
         this.errorDuranteConfirmacionCanje
     }
 
-    static boolean "El negocio puede ver el reclamo"(){
+    static boolean "El negocio puede ver el reclamo"() {
         this.negocio.obtenerReclamosAbiertos().size() == 1 && this.negocio.obtenerReclamosAbiertos()[0] == this.reclamo && this.reclamo.estado == ReclamoEstado.Abierto && this.reclamo.mensajes.size() == 1
     }
 
-    static boolean "El negocio puede contestar el reclamo"(){
+    static boolean "El negocio puede contestar el reclamo"() {
         this.reclamo = this.reclamoService.nuevoMensaje(this.reclamo.id, this.negocio.id, "respuesta")
         this.reclamo.estado == ReclamoEstado.Respondido && this.reclamo.mensajes.size() == 2
     }

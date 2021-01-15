@@ -1,11 +1,10 @@
 package acceptanceTests.historiasUsuario
 
+import acceptanceTests.steps.Steps
 import grails.gorm.transactions.Rollback
-import grails.testing.gorm.DataTest
 import grails.testing.mixin.integration.Integration
 import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
-import acceptanceTests.steps.Steps
 
 @Integration
 @Rollback
