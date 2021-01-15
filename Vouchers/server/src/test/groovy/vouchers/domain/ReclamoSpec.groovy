@@ -99,4 +99,21 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
         expect: "reclamo cerrado y reabierto correctamente"
         reclamo != null && reclamo.estado == ReclamoEstado.Abierto && reclamo.getVoucher().getTalonario().getNegocio() == n && reclamo.getVoucher().getCliente() == c && reclamo.mensajes.size() == 0
     }
+
+    void "obtener reclamos abiertos: un reclamo cerrado devuelve una lista vacia"() {
+        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Cliente c = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Reclamo reclamo1 = crearReclamo(n, c)
+        reclamo1.cerrar(c)
+        expect: "obtiene una lista vacia"
+        n.obtenerReclamosAbiertos().size() == 0
+    }
+
+    void "obtener reclamos abiertos: un reclamo abierto devuelve una lista con ese reclamo"() {
+        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Cliente c = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Reclamo reclamo1 = crearReclamo(n, c)
+        expect: "obtiene una lista con un elemento"
+        n.obtenerReclamosAbiertos().size() == 1 && n.obtenerReclamosAbiertos()[0] == reclamo1
+    }
 }
