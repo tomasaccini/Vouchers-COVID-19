@@ -1,6 +1,7 @@
 package acceptanceTests.steps
 
 import enums.ProductoTipo
+import enums.states.ReclamoEstado
 import enums.states.VoucherEstado
 import vouchers.Cliente
 import vouchers.Direccion
@@ -9,6 +10,8 @@ import vouchers.Item
 import vouchers.Negocio
 import vouchers.NegocioService
 import vouchers.Producto
+import vouchers.Reclamo
+import vouchers.ReclamoService
 import vouchers.Talonario
 import vouchers.TalonarioService
 import vouchers.Voucher
@@ -18,8 +21,10 @@ class Steps {
     static Talonario talonario
     static TalonarioService talonarioService = new TalonarioService()
     static NegocioService negocioService = new NegocioService()
+    static ReclamoService reclamoService = new ReclamoService()
     static Cliente cliente
     static Voucher voucher
+    static Reclamo reclamo
     static boolean errorDuranteSolicitudCanje = false
     static boolean errorDuranteConfirmacionCanje = false
 
@@ -50,7 +55,9 @@ class Steps {
     static void "Existe un talonario asociado a dicho negocio"(){
         InformacionVoucher iv = this.crearInformacionVoucher()
         this.talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
+        this.negocio.addToTalonarios(this.talonario)
         this.talonario.save(flush: true)
+        this.negocio.save(flush: true)
     }
 
     static void "El talonario esta activo"(){
@@ -109,6 +116,11 @@ class Steps {
         }
     }
 
+    static void "El cliente inicia un reclamo"(){
+        this.reclamo = this.reclamoService.abrirReclamo(this.voucher.id, "Pregunta")
+        this.reclamo.save(flush: true)
+    }
+
     static void "El negocio confirma el canje"(){
         try {
             this.voucher.confirmarCanje(this.negocio)
@@ -152,5 +164,19 @@ class Steps {
 
     static boolean "El negocio no puede confirmar el canje porque nunca el canje nunca fue solicitado"(){
         this.errorDuranteConfirmacionCanje
+    }
+
+    static boolean "El negocio puede ver el reclamo"(){
+        this.negocio.obtenerReclamosAbiertos().size() == 1 && this.negocio.obtenerReclamosAbiertos()[0] == this.reclamo && this.reclamo.estado == ReclamoEstado.Abierto && this.reclamo.mensajes.size() == 1
+    }
+
+    static boolean "El negocio puede contestar el reclamo"(){
+        this.reclamo = this.reclamoService.nuevoMensaje(this.reclamo.id, this.negocio.id, "respuesta")
+        this.reclamo.estado == ReclamoEstado.Respondido && this.reclamo.mensajes.size() == 2
+    }
+
+    static boolean "El cliente puede cerrar el reclamo"() {
+        this.reclamo = this.reclamoService.cerrarReclamo(this.reclamo.id, this.cliente.id)
+        this.reclamo.estado == ReclamoEstado.Cerrado && this.reclamo.mensajes.size() == 2
     }
 }
