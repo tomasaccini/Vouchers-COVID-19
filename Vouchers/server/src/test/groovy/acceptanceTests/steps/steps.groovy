@@ -20,6 +20,7 @@ class Steps {
     static NegocioService negocioService = new NegocioService()
     static Cliente cliente
     static Voucher voucher
+    static boolean errorDuranteSolicitudCanje = false
 
     private static InformacionVoucher crearInformacionVoucher(validoHasta = new Date('2030/12/12')) {
         Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar", tipo: ProductoTipo.COMIDA_RAPIDA)
@@ -98,7 +99,12 @@ class Steps {
     }
 
     static void "El cliente solicita canjear el voucher"(){
-        this.voucher.solicitarCanje(this.cliente)
+        try {
+            this.voucher.solicitarCanje(this.cliente)
+            this.errorDuranteSolicitudCanje = false
+        } catch (RuntimeException e) {
+            this.errorDuranteSolicitudCanje = true
+        }
     }
 
     static void "El negocio confirma el canje"(){
@@ -120,4 +126,9 @@ class Steps {
     static boolean "El voucher se marca como canjeado"(){
         this.voucher.estado == VoucherEstado.Canjeado
     }
+
+    static boolean "El cliente no recibe el producto ni servicio porque ya fue canjeado"(){
+        this.errorDuranteSolicitudCanje && this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
+    }
+
 }
