@@ -1,28 +1,27 @@
 package acceptanceTests.historiasUsuario
 
+import acceptanceTests.steps.Steps
 import grails.gorm.transactions.Rollback
-import grails.testing.gorm.DataTest
 import grails.testing.mixin.integration.Integration
 import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
-import acceptanceTests.steps.Steps
 
 @Integration
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class HistoriaUsuario1 extends Specification {
-    String descripcion = "Como negocio quiero poder activar un talonario para que el mismo pueda ser comprado por los clientes."
+class HistoriaUsuario3 extends Specification {
+    String descripcion = "Como cliente quiero comprar vouchers para poder canjearlos en un futuro."
 
     void "Escenario 1"() {
         given:
         Steps."Un negocio existe"()
         Steps."Un cliente existe"()
         Steps."Existe un talonario asociado a dicho negocio"()
+        Steps."El talonario esta activo"()
         when:
-        Steps."El negocio activa dicho talonario"()
+        Steps."Un cliente compra un voucher del talonario"()
         then:
-        Steps."El talonario es público"()
-        Steps."Los clientes pueden buscarlo"()
-        Steps."Los clientes pueden comprarlo"()
+        Steps."La transaccion es exitosa"()
+        Steps."El voucher se guarda en la sección Mis vouchers del cliente"()
     }
 }

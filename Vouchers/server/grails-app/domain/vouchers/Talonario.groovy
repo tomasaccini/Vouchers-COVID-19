@@ -34,15 +34,11 @@ class Talonario {
         informacionVoucher.validoHasta <= new Date()
     }
 
+    boolean esComprable() {
+        stock > 0 && activo && !estaExpirado()
+    }
 
-    /*
-    * Creates voucher from counterfoil
-    * it associates voucher to client
-    * decrease the quantity of stock
-    */
-
-    Voucher comprarVoucher(Cliente cliente) {
-
+    void lanzarErrorCompra() {
         if (stock <= 0) {
             throw new RuntimeException("Talonario no tiene suficiente stock")
         }
@@ -53,6 +49,18 @@ class Talonario {
 
         if (estaExpirado()) {
             throw new RuntimeException("No se puede comprar un voucher de un talonario expirado")
+        }
+    }
+
+    /*
+    * Creates voucher from counterfoil
+    * it associates voucher to client
+    * decrease the quantity of stock
+    */
+
+    Voucher comprarVoucher(Cliente cliente) {
+        if (!esComprable()) {
+            lanzarErrorCompra()
         }
 
         Voucher voucher = new Voucher(

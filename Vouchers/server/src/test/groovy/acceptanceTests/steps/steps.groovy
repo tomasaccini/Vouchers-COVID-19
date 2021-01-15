@@ -18,6 +18,7 @@ class Steps {
     static TalonarioService talonarioService = new TalonarioService()
     static NegocioService negocioService = new NegocioService()
     static Cliente cliente
+    static Voucher voucher
 
     private static InformacionVoucher crearInformacionVoucher(validoHasta = new Date('2030/12/12')) {
         Producto p1 = new Producto(nombre: "Hamburguesa", descripcion: "Doble cheddar", tipo: ProductoTipo.COMIDA_RAPIDA)
@@ -80,16 +81,22 @@ class Steps {
     }
 
     static boolean "Los clientes pueden comprarlo"(){
-        Voucher v = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
-        v != null && this.cliente.getVoucher(v.id) == v && this.talonario.cantidadVendida() == 1 && v.getCliente() == this.cliente && v.getTalonario().getNegocio() == this.negocio
+        this.talonario.esComprable()
     }
 
     static boolean "Los clientes no pueden comprarlo"(){
-        Voucher v = null
-        try {
-            v = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
-        } catch (RuntimeException e) {
-            v == null && this.cliente.getVouchers().size() == 0 && this.talonario.cantidadVendida() == 0
-        }
+        !this.talonario.esComprable()
+    }
+
+    static void "Un cliente compra un voucher del talonario"(){
+        this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
+    }
+
+    static boolean "La transaccion es exitosa"(){
+        this.voucher != null && this.talonario.cantidadVendida() == 1 && this.voucher.getCliente() == this.cliente
+    }
+
+    static boolean "El voucher se guarda en la sección Mis vouchers del cliente"(){
+        this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
     }
 }

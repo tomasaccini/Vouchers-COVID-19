@@ -10,6 +10,7 @@ import spock.lang.Specification
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class HistoriaUsuario2 extends Specification {
+    String descripcion = "Como negocio quiero poder desactivar un talonario para que el mismo no pueda ser comprado por los clientes."
 
     void "Escenario 1"() {
         given:
