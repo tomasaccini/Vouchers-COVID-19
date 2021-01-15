@@ -127,8 +127,15 @@ class Steps {
         this.voucher.estado == VoucherEstado.Canjeado
     }
 
+    static boolean "El voucher se marca como pendiente de confirmacion"(){
+        this.voucher.estado == VoucherEstado.ConfirmacionPendiente
+    }
+
     static boolean "El cliente no recibe el producto ni servicio porque ya fue canjeado"(){
         this.errorDuranteSolicitudCanje && this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
     }
 
+    static boolean "El cliente no puede volver a solicitar el canje porque ya esta pendiente de confirmacion"(){
+        this.errorDuranteSolicitudCanje && this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1 && this.voucher.estado == VoucherEstado.ConfirmacionPendiente
+    }
 }

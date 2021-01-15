@@ -10,7 +10,7 @@ import spock.lang.Specification
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class HistoriaUsuario4 extends Specification {
-    String descripcion = "Como cliente quiero canjear vouchers luego de ser comprados para obtener los servicios o productos prometidos."
+    String descripcion = "Como cliente quiero solicitar un canje de vouchers luego de ser comprados para obtener los servicios o productos prometidos."
 
     void "Escenario 1"() {
         given:
@@ -21,10 +21,8 @@ class HistoriaUsuario4 extends Specification {
         Steps."El cliente compro un voucher del talonario previamente"()
         when:
         Steps."El cliente solicita canjear el voucher"()
-        Steps."El negocio confirma el canje"()
         then:
-        Steps."El cliente recibe el servicio o producto"()
-        Steps."El voucher se marca como canjeado"()
+        Steps."El voucher se marca como pendiente de confirmacion"()
     }
 
     void "Escenario 2"() {
@@ -34,11 +32,10 @@ class HistoriaUsuario4 extends Specification {
         Steps."Existe un talonario asociado a dicho negocio"()
         Steps."El talonario esta activo"()
         Steps."El cliente compro un voucher del talonario previamente"()
+        Steps."El cliente solicita canjear el voucher"()
         when:
         Steps."El cliente solicita canjear el voucher"()
-        Steps."El negocio confirma el canje"()
-        Steps."El cliente solicita canjear el voucher"()
         then:
-        Steps."El cliente no recibe el producto ni servicio porque ya fue canjeado"()
+        Steps."El cliente no puede volver a solicitar el canje porque ya esta pendiente de confirmacion"()
     }
 }
