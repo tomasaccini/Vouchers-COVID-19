@@ -38,7 +38,23 @@ class HistoriaUsuario6 extends Specification {
         when:
         Steps."El cliente cierra el reclamo"()
         then:
-        Steps."El cliente no puede agregar nuevos mensajes"()
-        Steps."El negocio no puede agregar nuevos mensajes"()
+        !Steps."El cliente puede agregar nuevos mensajes"()
+        !Steps."El negocio puede agregar nuevos mensajes"()
+    }
+
+    void "Escenario 3"() {
+        given:
+        Steps."Un negocio existe"()
+        Steps."Un cliente existe"()
+        Steps."Existe un talonario asociado a dicho negocio"()
+        Steps."El talonario esta activo"()
+        Steps."El cliente compra un voucher del talonario"()
+        Steps."El cliente inicia un reclamo"()
+        Steps."El cliente cierra el reclamo"()
+        when:
+        Steps."El cliente reabre el reclamo"()
+        then:
+        Steps."El cliente puede agregar nuevos mensajes"()
+        Steps."El negocio puede agregar nuevos mensajes"()
     }
 }

@@ -184,21 +184,25 @@ class Steps {
         this.reclamo = this.reclamoService.cerrarReclamo(this.reclamo.id, this.cliente.id)
     }
 
-    static boolean "El cliente no puede agregar nuevos mensajes"() {
+    static void "El cliente reabre el reclamo"() {
+        this.reclamo.reabrir()
+    }
+
+    static boolean "El cliente puede agregar nuevos mensajes"() {
         try {
             this.reclamo = this.reclamoService.nuevoMensaje(this.reclamo.id, this.cliente.id, "pregunta")
-            return false
-        } catch (RuntimeException e) {
             return true
+        } catch (RuntimeException e) {
+            return false
         }
     }
 
-    static boolean "El negocio no puede agregar nuevos mensajes"() {
+    static boolean "El negocio puede agregar nuevos mensajes"() {
         try {
             this.reclamo = this.reclamoService.nuevoMensaje(this.reclamo.id, this.negocio.id, "respuesta")
-            return false
-        } catch (RuntimeException e) {
             return true
+        } catch (RuntimeException e) {
+            return false
         }
     }
 }

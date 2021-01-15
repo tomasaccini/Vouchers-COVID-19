@@ -54,6 +54,7 @@ class Reclamo {
 
     void reabrir() {
         estado = ReclamoEstado.Abierto
+        this.save(flush: true, failOnError: true)
     }
 
     Boolean estaCerrado() {
