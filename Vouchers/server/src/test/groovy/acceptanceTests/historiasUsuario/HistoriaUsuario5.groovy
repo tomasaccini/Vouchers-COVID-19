@@ -26,4 +26,18 @@ class HistoriaUsuario5 extends Specification {
         Steps."El voucher se marca como canjeado"()
     }
 
+    void "Escenario 2"() {
+        given:
+        Steps."Un negocio existe"()
+        Steps."Un cliente existe"()
+        Steps."Existe un talonario asociado a dicho negocio"()
+        Steps."El talonario esta activo"()
+        Steps."El cliente compra un voucher del talonario"()
+        Steps."El cliente solicita canjear el voucher"()
+        Steps."El negocio confirma el canje"()
+        when:
+        Steps."El cliente solicita canjear el voucher"()
+        then:
+        Steps."El cliente no puede volver a solicitar el canje porque ya esta canjeado"()
+    }
 }
