@@ -179,4 +179,26 @@ class Steps {
         this.reclamo = this.reclamoService.cerrarReclamo(this.reclamo.id, this.cliente.id)
         this.reclamo.estado == ReclamoEstado.Cerrado && this.reclamo.mensajes.size() == 2
     }
+
+    static void "El cliente cierra el reclamo"() {
+        this.reclamo = this.reclamoService.cerrarReclamo(this.reclamo.id, this.cliente.id)
+    }
+
+    static boolean "El cliente no puede agregar nuevos mensajes"() {
+        try {
+            this.reclamo = this.reclamoService.nuevoMensaje(this.reclamo.id, this.cliente.id, "pregunta")
+            return false
+        } catch (RuntimeException e) {
+            return true
+        }
+    }
+
+    static boolean "El negocio no puede agregar nuevos mensajes"() {
+        try {
+            this.reclamo = this.reclamoService.nuevoMensaje(this.reclamo.id, this.negocio.id, "respuesta")
+            return false
+        } catch (RuntimeException e) {
+            return true
+        }
+    }
 }

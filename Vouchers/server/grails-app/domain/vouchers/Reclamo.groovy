@@ -34,9 +34,9 @@ class Reclamo {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${voucher.getTalonario().getNegocio().id})")
         }
 
-        estado = ReclamoEstado.Respondido
-
         _agregarMensaje(mensaje, duenio)
+        estado = ReclamoEstado.Respondido
+        this.save(flush: true, failOnError: true)
     }
 
     void cerrar(Usuario usuarioCerrador) {
