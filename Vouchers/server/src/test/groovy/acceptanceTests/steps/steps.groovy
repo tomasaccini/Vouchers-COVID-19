@@ -1,6 +1,7 @@
 package acceptanceTests.steps
 
 import enums.ProductoTipo
+import enums.states.VoucherEstado
 import vouchers.Cliente
 import vouchers.Direccion
 import vouchers.InformacionVoucher
@@ -92,11 +93,31 @@ class Steps {
         this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
     }
 
+    static void "El cliente compro un voucher del talonario previamente"(){
+        this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
+    }
+
+    static void "El cliente solicita canjear el voucher"(){
+        this.voucher.solicitarCanje(this.cliente)
+    }
+
+    static void "El negocio confirma el canje"(){
+        this.voucher.confirmarCanje(this.negocio)
+    }
+
     static boolean "La transaccion es exitosa"(){
         this.voucher != null && this.talonario.cantidadVendida() == 1 && this.voucher.getCliente() == this.cliente
     }
 
     static boolean "El voucher se guarda en la sección Mis vouchers del cliente"(){
         this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
+    }
+
+    static boolean "El cliente recibe el servicio o producto"(){
+        this.cliente.getVoucher(this.voucher.id) == this.voucher && this.cliente.getVouchers().size() == 1
+    }
+
+    static boolean "El voucher se marca como canjeado"(){
+        this.voucher.estado == VoucherEstado.Canjeado
     }
 }
