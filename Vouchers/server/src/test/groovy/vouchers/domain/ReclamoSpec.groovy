@@ -126,4 +126,13 @@ class ReclamoSpec extends Specification implements DomainUnitTest<Reclamo> {
         expect: "obtiene una lista con un elemento"
         n.obtenerReclamosAbiertos().size() == 1 && n.obtenerReclamosAbiertos()[0] == reclamo2
     }
+
+    void "obtener reclamos abiertos: dos reclamo abiertos devuleve una lista con los dos reclamos abiertos"() {
+        Negocio n = new Negocio(nombre: "Burger", numeroTelefonico: "123412341234", direccion: new Direccion(calle: "Libertador", numero: "1234", pais: "Argentina"), categoria: "Restaurant", email: "burger@gmail.com", contrasenia: "burger1234")
+        Cliente c = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        Reclamo reclamo1 = crearReclamo(n, c)
+        Reclamo reclamo2 = crearReclamo(n, c)
+        expect: "obtiene una lista con dos elementos"
+        n.obtenerReclamosAbiertos().size() == 2 && n.obtenerReclamosAbiertos().contains(reclamo1) && n.obtenerReclamosAbiertos().contains(reclamo2)
+    }
 }
