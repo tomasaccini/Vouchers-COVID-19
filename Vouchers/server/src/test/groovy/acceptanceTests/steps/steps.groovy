@@ -48,8 +48,18 @@ class Steps {
         this.talonario.save(flush: true)
     }
 
+    static void "El talonario esta activo"(){
+        this.talonario.activo = true
+        this.talonario.save(flush: true)
+    }
+
     static void "El negocio activa dicho talonario"(){
         talonarioService.activar(this.talonario.id)
+        this.talonario.save(flush: true)
+    }
+
+    static void "El negocio desactiva dicho talonario"(){
+        talonarioService.desactivar(this.talonario.id)
         this.talonario.save(flush: true)
     }
 
@@ -57,8 +67,16 @@ class Steps {
         talonarioService.get(this.talonario.id) != null
     }
 
+    static boolean "El talonario es privado"(){
+        talonarioService.get(this.talonario.id) != null
+    }
+
     static boolean "Los clientes pueden buscarlo"(){
         talonarioService.get(this.talonario.id) != null && this.talonario.getActivo() == true && !this.talonario.estaExpirado() && this.talonario.getStock() > 0
+    }
+
+    static boolean "Los clientes no pueden buscarlo"(){
+        talonarioService.get(this.talonario.id) != null && this.talonario.getActivo() == false && !this.talonario.estaExpirado() && this.talonario.getStock() > 0
     }
 
     static boolean "Los clientes pueden comprarlo"(){
@@ -66,4 +84,12 @@ class Steps {
         v != null && this.cliente.getVoucher(v.id) == v && this.talonario.cantidadVendida() == 1 && v.getCliente() == this.cliente && v.getTalonario().getNegocio() == this.negocio
     }
 
+    static boolean "Los clientes no pueden comprarlo"(){
+        Voucher v = null
+        try {
+            v = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
+        } catch (RuntimeException e) {
+            v == null && this.cliente.getVouchers().size() == 0 && this.talonario.cantidadVendida() == 0
+        }
+    }
 }
