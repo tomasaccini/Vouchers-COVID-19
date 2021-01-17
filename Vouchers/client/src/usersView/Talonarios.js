@@ -49,7 +49,7 @@ class Talonarios extends Component {
         return (
             <div>
                 <NavbarUsuario title={constantes.misTalonariosTitulo} />
-                <div className="tituloProductos">
+                <div className="tituloTalonarios">
                     <h1>Mis Talonarios</h1>
                     <Link to={navegacion.getTalonariosCrearUrl()} >
                         <Button color="primary" size="large">
@@ -57,8 +57,8 @@ class Talonarios extends Component {
                         </Button>
                     </Link>
                 </div>
-                <section className="historialCliente">
-                    <div className="compradosExpiradoBtns">
+                <section className="talonariosEstadoNegocio">
+                    <div className="activosNoActivosBtns">
                         <button onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.verActivos === true ? "historialBtnSelected" : ""}`}>
                             Activos
                         </button>

@@ -17,7 +17,7 @@ import Button from "components/CustomButtons/Button.js";
 import modalStyle from "assets/jss/material-kit-react/modalStyle.js";
 
 import { cardTitle } from "assets/jss/material-kit-react.js";
-import voucherAPI from "../../services/VoucherAPI";
+import TalonarioAPI from "../../services/TalonarioAPI";
 import '../styles.css';
 import ProductListDialog from '../../dialogs/ProductListDialog';
 import navegacion from 'utils/navegacion';
@@ -44,13 +44,14 @@ export default function TarjetaTalonarioNegocio(props) {
   const [modalProducts, setModalProducts] = React.useState(false);
   const classes = useStyles();
 
-  const usuarioId = localStorage.getItem('userId');
+  const negocioId = localStorage.getItem('userId');
+  var activo = props.data.activo;
 
-  const onClickBuyButton = async () => {
+  const onClickModifyButton = async () => {
     setModal(false);
     setModalProducts(false);
-    const voucherCreado = await voucherAPI.comprarVoucher(usuarioId, props.data.id);
-
+    await TalonarioAPI.cambiarEstado(negocioId, props.data.id, activo);
+    window.location.reload(false);
   };
 
   return (
@@ -63,7 +64,7 @@ export default function TarjetaTalonarioNegocio(props) {
           ${props.data.precio}
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
-            Activar
+          { activo === true ? "Desactivar" : "Activar"}
           </Button>
           <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
             Ver productos
@@ -115,16 +116,16 @@ export default function TarjetaTalonarioNegocio(props) {
           className={classes.modalBody}
         >
           <div style={{'display': 'flex', 'flex-direction': 'column',}}>
-            <h5>¿Desea confirmar la compra del voucher {props.data.titulo}?</h5>
+            <h5>¿Desea modificar el estado del voucher {props.data.titulo}?</h5>
             <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
           </div>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
-          <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={onClickBuyButton} color="success">
-            Confirmar
+          <Button onClick={() => setModal(false)}>Cancelar</Button>
+          <Button onClick={onClickModifyButton} color="success">
+            Modificar
           </Button>
         </DialogActions>
       </Dialog>

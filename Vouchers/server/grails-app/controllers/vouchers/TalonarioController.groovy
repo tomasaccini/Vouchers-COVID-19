@@ -98,7 +98,39 @@ class TalonarioController extends RestfulController{
         }
     }
 
+    @Transactional
+    def pausar() {
+        println('Pausando Talonario')
 
+        Object requestBody = request.JSON
+
+        try {
+            Long negocioId = requestBody['negocioId']?.toLong()
+            Long talonarioId = requestBody['talonarioId']?.toLong()
+            Talonario talonario = talonarioService.pausar(negocioId, talonarioId)
+            respond talonarioAssembler.toBean(talonario)
+        } catch (RuntimeException e) {
+            println(e)
+            return response.sendError(400, "Error al pausar talonario:" + e.message)
+        }
+    }
+
+    @Transactional
+    def activar() {
+        println('Activando Talonario')
+
+        Object requestBody = request.JSON
+
+        try {
+            Long negocioId = requestBody['negocioId']?.toLong()
+            Long talonarioId = requestBody['talonarioId']?.toLong()
+            Talonario talonario = talonarioService.activar(negocioId, talonarioId)
+            respond talonarioAssembler.toBean(talonario)
+        } catch (RuntimeException e) {
+            println(e)
+            return response.sendError(400, "Error al activar talonario:" + e.message)
+        }
+    }
 
     @Transactional
     def save(Talonario counterfoil) {

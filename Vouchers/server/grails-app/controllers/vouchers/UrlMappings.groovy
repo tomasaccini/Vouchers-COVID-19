@@ -50,6 +50,8 @@ class UrlMappings {
         "/talonarios/search"(controller: 'talonario', action: 'search')
         post "/talonarios/comprar"(controller: 'talonario', action: 'comprarVoucher')
         post "/talonarios"(controller: 'talonario', action: 'crear')
+        post "/talonarios/activar"(controller: 'talonario', action: 'activar')
+        post "/talonarios/pausar"(controller: 'talonario', action: 'pausar')
 
 
         delete "/$controller/$id(.$format)?"(action:"delete")

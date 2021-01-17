@@ -64,6 +64,26 @@ class TalonarioService {
         talonario
     }
 
+    Talonario pausar(Long negocioId, Long talonarioId){
+        Talonario talonario = Talonario.get(talonarioId)
+        if (talonario.negocio.id != negocioId){
+            throw new Exception('El talonario no pertenece al negocio indicado')
+        }
+        talonario.activo = false
+        talonario.save()
+        talonario
+    }
+
+    Talonario activar(Long negocioId, Long talonarioId){
+        Talonario talonario = Talonario.get(talonarioId)
+        if (talonario.negocio.id != negocioId){
+            throw new Exception('El talonario no pertenece al negocio indicado')
+        }
+        talonario.activo = true
+        talonario.save(failOnError: true, flush: true)
+        talonario
+    }
+
     List<Talonario> getAll() {
         return Talonario.findAll()
     }
