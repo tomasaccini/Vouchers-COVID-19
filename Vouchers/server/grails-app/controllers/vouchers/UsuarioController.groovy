@@ -1,7 +1,7 @@
 package vouchers
 
 
-import grails.rest.*
+import grails.rest.RestfulController
 
 class UsuarioController extends RestfulController {
     static responseFormats = ['json', 'xml']

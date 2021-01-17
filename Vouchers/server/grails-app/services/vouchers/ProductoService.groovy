@@ -3,6 +3,7 @@ package vouchers
 import commands.ProductoCommand
 import grails.gorm.transactions.Transactional
 import org.hibernate.service.spi.ServiceException
+
 import javax.xml.bind.ValidationException
 
 @Transactional
@@ -16,7 +17,7 @@ class ProductoService {
         negocioService.agregarProducto(negocioId, producto)
         try {
             producto.save(flush: true, failOnError: true)
-        } catch (ValidationException e){
+        } catch (ValidationException e) {
             throw new ServiceException(e.message)
         }
     }

@@ -28,11 +28,11 @@ class Negocio extends Usuario {
     }
 
     boolean esDuenioDeTalonario(Long id) {
-        this.talonarios.any{ c -> c.id == id}
+        this.talonarios.any { c -> c.id == id }
     }
 
-    boolean tieneTalonarioConDescripcion(String descripcion){
-        for (talonario in this.talonarios){
+    boolean tieneTalonarioConDescripcion(String descripcion) {
+        for (talonario in this.talonarios) {
             if (talonario.informacionVoucher.descripcion == descripcion)
                 return true
         }

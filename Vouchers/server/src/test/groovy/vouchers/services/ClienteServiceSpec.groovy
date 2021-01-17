@@ -7,21 +7,12 @@ import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.DirtiesContext
 import spock.lang.Specification
-import vouchers.Direccion
-import vouchers.Negocio
-import vouchers.Cliente
-import vouchers.ClienteService
-import vouchers.Talonario
-
-import vouchers.Item
-import vouchers.Producto
-import vouchers.Voucher
-import vouchers.InformacionVoucher
+import vouchers.*
 
 @Integration
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class ClienteServiceSpec extends Specification{
+class ClienteServiceSpec extends Specification {
 
     @Autowired
     ClienteService clienteService
@@ -61,7 +52,7 @@ class ClienteServiceSpec extends Specification{
         negocio.save(flush: true, failOnError: true)
 
         Item item = new Item(producto: producto, cantidad: 1)
-        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta:  new Date('2022/08/15'))
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2022/08/15'))
         iv.addToItems(item)
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         negocio.addToTalonarios(talonario)
@@ -69,7 +60,7 @@ class ClienteServiceSpec extends Specification{
 
         Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
         cliente.cuentaVerificada = true
-        cliente.save(flush:true, failOnError:true)
+        cliente.save(flush: true, failOnError: true)
 
         setupHecho = true
         clienteId = cliente.id
@@ -93,10 +84,11 @@ class ClienteServiceSpec extends Specification{
 
         Voucher v = clienteService.comprarVoucher(clienteId, talonarioId)
         Cliente cliente = Cliente.get(clienteId)
-        expect:"Voucher comprado correctamente"
+        expect: "Voucher comprado correctamente"
         v?.id != null
         cliente.vouchers.size() == 1
         talonario.vouchers.size() == 1
+        cliente.getVoucher(v.id) == v
     }
 
     void "comprar dos vouchers"() {
@@ -105,41 +97,41 @@ class ClienteServiceSpec extends Specification{
         Voucher v1 = clienteService.comprarVoucher(clienteId, talonarioId)
         Voucher v2 = clienteService.comprarVoucher(clienteId, talonarioId)
         Cliente cliente = Cliente.get(clienteId)
-        expect:"Vouchers comprados correctamente"
+        expect: "Vouchers comprados correctamente"
         v1?.id != null
         v2?.id != null
         cliente.vouchers.size() == 2
         talonario.vouchers.size() == 2
+        cliente.getVoucher(v1.id) == v1
+        cliente.getVoucher(v2.id) == v2
     }
 
     void "retirar Voucher"() {
         Voucher v = clienteService.comprarVoucher(clienteId, talonarioId)
         Cliente cliente = Cliente.get(clienteId)
         clienteService.retirarVoucher(clienteId, v)
-        expect:"El estado del voucher es Confirmacion Pendiente"
-        v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente
+        expect: "El estado del voucher es Confirmacion Pendiente"
+        v != null && cliente.getVouchers().size() == 1 && cliente.getVouchers()[0] == v && v.getEstado() == VoucherEstado.ConfirmacionPendiente && cliente.getVoucher(v.id) == v
     }
 
-    void "expiracion del voucher"() {
+    void "comprar voucher expirado"() {
         Negocio n = Negocio.findById(negocioId)
-        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2019/01/01'), validoHasta:  new Date('2020/01/01'))
+        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2019/01/01'), validoHasta: new Date('2020/01/01'))
         iv.addToItems(Item.findById(itemId))
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         n.addToTalonarios(talonario)
         n.save(flush: true, failOnError: true)
-        Voucher v = clienteService.comprarVoucher(clienteId, talonario.id)
         when:
-        clienteService.retirarVoucher(clienteId, v)
+        clienteService.comprarVoucher(clienteId, talonario.id)
         then: "Throw error"
         thrown RuntimeException
-        v.estado == VoucherEstado.Expirado
     }
 
     void "retirar voucher de otro cliente"() {
         Cliente c1 = Cliente.get(clienteId)
         Cliente c2 = new Cliente(nombreCompleto: "Mariano Iudica", email: "iudica@gmail.com", contrasenia: "iudica1234")
         c2.cuentaVerificada = true
-        c2.save(flush:true, failOnError:true)
+        c2.save(flush: true, failOnError: true)
         Voucher v = clienteService.comprarVoucher(c1.id, talonarioId)
         when:
         clienteService.retirarVoucher(c2.id, v)

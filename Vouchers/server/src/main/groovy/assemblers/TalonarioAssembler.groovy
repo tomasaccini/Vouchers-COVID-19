@@ -8,7 +8,7 @@ class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCom
 
     VoucherInformationAssembler voucherInformationAssembler
     VoucherAssembler voucherAssembler
-    
+
     @Override
     protected Talonario getEntity(Long id) {
         return (id == null || id == 0) ? new Talonario() : Talonario.get(id)
@@ -27,7 +27,7 @@ class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCom
         bean.negocioNombre = domain.negocio.nombre
         bean.informacionVoucherCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
 
-        if (domain.vouchers){
+        if (domain.vouchers) {
             bean.cantidadVendida = domain.vouchers.asList().size()
         }
 
@@ -37,7 +37,7 @@ class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCom
     @Override
     Talonario fromBean(TalonarioCommand bean) {
 
-        Talonario domain 	= super.fromBean(bean)
+        Talonario domain = super.fromBean(bean)
 
         domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.informacionVoucherCommand)
 

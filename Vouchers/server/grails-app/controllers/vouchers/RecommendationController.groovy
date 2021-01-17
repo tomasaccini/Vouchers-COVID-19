@@ -10,9 +10,9 @@ class RecommendationController {
     TalonarioService talonarioService
     TalonarioAssembler talonarioAssembler
 
-	static responseFormats = ['json']
-	
-    def index() { }
+    static responseFormats = ['json']
+
+    def index() {}
 
     def getRecommendationsForUser(Long userId) {
         // TODO validate param !!!!

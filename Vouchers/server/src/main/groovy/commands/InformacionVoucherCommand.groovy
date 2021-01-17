@@ -3,7 +3,7 @@ package commands
 import grails.validation.Validateable
 import vouchers.InformacionVoucher
 
-class InformacionVoucherCommand implements Validateable{
+class InformacionVoucherCommand implements Validateable {
 
     Long id
     Long version

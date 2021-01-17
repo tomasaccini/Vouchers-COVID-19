@@ -22,7 +22,7 @@ class ClienteAssembler extends ConcreteObjectAssembler<Cliente, ClienteCommand> 
     ClienteCommand toBean(Cliente domain) {
         ClienteCommand bean = super.toBean(domain)
 
-        if (domain.vouchers){
+        if (domain.vouchers) {
             bean.vouchersCommand = voucherAssembler.toBeans(domain.vouchers.asList())
         }
 
@@ -33,7 +33,7 @@ class ClienteAssembler extends ConcreteObjectAssembler<Cliente, ClienteCommand> 
     Cliente fromBean(ClienteCommand bean) {
         Cliente domain = super.fromBean(bean)
 
-        if (bean.vouchersCommand){
+        if (bean.vouchersCommand) {
             domain.vouchers = voucherAssembler.fromBeans(bean.vouchersCommand.asList())
         }
 

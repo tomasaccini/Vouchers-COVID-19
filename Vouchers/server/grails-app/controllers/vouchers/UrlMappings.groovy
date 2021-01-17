@@ -5,7 +5,7 @@ class UrlMappings {
     static mappings = {
 
         //Country
-        "/countries"(resources:"country")
+        "/countries"(resources: "country")
 
         //Negocio
         // "/negocios"(resources:"negocio")
@@ -15,7 +15,7 @@ class UrlMappings {
         "/negocios/obtenerTalonarios/$id"(controller: 'negocio', action: 'obtenerTalonarios')
 
         //Voucher
-        "/vouchers"(resources:"voucher")
+        "/vouchers"(resources: "voucher")
         "/vouchers/obtenerPorUsuario/$userId"(controller: 'voucher', action: 'obtenerPorUsuario')
         "/vouchers/search"(controller: 'voucher', action: 'search')
         "/vouchers/obtenerConfirmables/$negocioId"(controller: 'voucher', action: 'obtenerConfirmables')
@@ -24,10 +24,10 @@ class UrlMappings {
         post "/vouchers/confirmarCanje/$voucherId"(controller: 'voucher', action: 'confirmarCanje')
 
         //Client
-        "/clientes"(resources:"cliente")
+        "/clientes"(resources: "cliente")
 
         //Products
-        "/productos"(resources:"producto")
+        "/productos"(resources: "producto")
         "/productos/crear"(controller: 'producto', action: 'crear')
         "/productos/obtenerPorNegocio/$negocioId"(controller: 'producto', action: 'obtenerPorNegocio')
 
@@ -54,19 +54,19 @@ class UrlMappings {
         post "/talonarios/pausar"(controller: 'talonario', action: 'pausar')
 
 
-        delete "/$controller/$id(.$format)?"(action:"delete")
-        get "/$controller(.$format)?"(action:"index")
-        get "/$controller/$id(.$format)?"(action:"show")
-        post "/$controller(.$format)?"(action:"save")
-        put "/$controller/$id(.$format)?"(action:"update")
-        patch "/$controller/$id(.$format)?"(action:"patch")
+        delete "/$controller/$id(.$format)?"(action: "delete")
+        get "/$controller(.$format)?"(action: "index")
+        get "/$controller/$id(.$format)?"(action: "show")
+        post "/$controller(.$format)?"(action: "save")
+        put "/$controller/$id(.$format)?"(action: "update")
+        patch "/$controller/$id(.$format)?"(action: "patch")
         // TODO delete all this !!!!
         // get "/vouchers"(controller: 'voucher', action: 'getByUserId')
         // post "/vouchers"(controller: 'voucher', action: 'create')
         // put "/vouchers"(controller: 'voucher', action: 'asd')
 
 
-        "/"(controller: 'application', action:'index')
+        "/"(controller: 'application', action: 'index')
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

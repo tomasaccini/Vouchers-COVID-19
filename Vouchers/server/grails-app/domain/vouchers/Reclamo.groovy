@@ -7,8 +7,7 @@ class Reclamo {
     String descripcion
     Date fechaCreacion = new Date()
     Date fechaUltimoMensaje = new Date()
-    Cliente cliente
-    Negocio negocio
+    Voucher voucher
     ReclamoEstado estado = ReclamoEstado.Abierto
     Set<MensajeReclamo> mensajes = []
 
@@ -18,22 +17,21 @@ class Reclamo {
     static constraints = {
         descripcion nullable: false
         fechaCreacion nullable: false
-        cliente nullable: false
-        negocio nullable: false
+        voucher nullable: false
         estado nullable: false
     }
 
     void agregarMensaje(String mensaje, Cliente duenio) {
-        if (cliente.id != duenio.id) {
-            throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el cliente relacionado con el reclamo (${cliente.id})")
+        if (voucher.getCliente() != duenio) {
+            throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el cliente relacionado con el reclamo (${voucher.getCliente().id})")
         }
 
         _agregarMensaje(mensaje, duenio)
     }
 
     void agregarMensaje(String mensaje, Negocio duenio) {
-        if (negocio.id != duenio.id) {
-            throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${negocio.id})")
+        if (voucher.getTalonario().getNegocio() != duenio) {
+            throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${voucher.getTalonario().getNegocio().id})")
         }
 
         estado = ReclamoEstado.Respondido
@@ -42,7 +40,7 @@ class Reclamo {
     }
 
     void cerrar(Usuario usuarioCerrador) {
-        if (usuarioCerrador.id != cliente.id) {
+        if (usuarioCerrador != voucher.getCliente()) {
             throw new RuntimeException("El usuario " + usuarioCerrador.id + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
         }
 
@@ -63,7 +61,7 @@ class Reclamo {
     }
 
     Boolean perteneceAUsuario(Usuario usuarioCerrador) {
-        usuarioCerrador.id == cliente.id
+        usuarioCerrador == voucher.getCliente()
     }
 
     private void _agregarMensaje(String mensaje, Usuario duenio) {
@@ -73,7 +71,7 @@ class Reclamo {
         this.save(flush: true, failOnError: true)
 
         MensajeReclamo mensajeReclamo = new MensajeReclamo(duenio: duenio, texto: mensaje, fecha: new Date(), reclamo: this)
-        mensajeReclamo.save(flush:true, failOnError: true)
+        mensajeReclamo.save(flush: true, failOnError: true)
 
         this.addToMensajes(mensajeReclamo)
         fechaUltimoMensaje = new Date()

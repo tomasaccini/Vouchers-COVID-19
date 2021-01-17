@@ -1,15 +1,14 @@
 package vouchers.controllers
 
-import spock.lang.*
+import grails.testing.gorm.DomainUnitTest
+import grails.testing.web.controllers.ControllerUnitTest
+import spock.lang.Specification
 import vouchers.Talonario
 import vouchers.TalonarioController
 import vouchers.TalonarioService
 
-import static org.springframework.http.HttpStatus.OK
-import static org.springframework.http.HttpStatus.NOT_FOUND
 import static org.springframework.http.HttpStatus.BAD_REQUEST
-import grails.testing.web.controllers.ControllerUnitTest
-import grails.testing.gorm.DomainUnitTest
+import static org.springframework.http.HttpStatus.NOT_FOUND
 
 class TalonarioControllerSpec extends Specification implements ControllerUnitTest<TalonarioController>, DomainUnitTest<Talonario> {
 
@@ -19,11 +18,11 @@ class TalonarioControllerSpec extends Specification implements ControllerUnitTes
             1 * list(_) >> []
         }
 
-        when:"The index action is executed"
-            controller.index()
+        when: "The index action is executed"
+        controller.index()
 
-        then:"The response is correct"
-            response.text == '[]'
+        then: "The response is correct"
+        response.text == '[]'
     }
 
 
@@ -43,10 +42,10 @@ class TalonarioControllerSpec extends Specification implements ControllerUnitTes
             1 * get(null) >> null
         }
 
-        when:"Cuando se solicita un talonario con id nulo"
+        when: "Cuando se solicita un talonario con id nulo"
         controller.show()
 
-        then:"Un error 404 error es retornado"
+        then: "Un error 404 error es retornado"
         response.status == NOT_FOUND.value()
     }
 
