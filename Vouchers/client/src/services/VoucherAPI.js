@@ -150,8 +150,7 @@ class VoucherAPI {
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'stock': talonario.stock,
       // 'items': iv.items.map((i) => this._transformarItems(i)),
-      // TODO no more owner !!!!
-      // TODO we don't have the information yet
+      'activo': talonario.activo,
       'negocioNombre': talonario.negocioNombre,
       'negocioId': talonario.negocioId,
     }
