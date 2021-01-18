@@ -55,12 +55,11 @@ class Steps {
     }
 
     static void "El negocio activa dicho talonario"() {
-        talonarioService.activar(this.talonario.id)
-        this.talonario.save(flush: true)
+        talonarioService.activar(this.negocio.id, this.talonario.id)
     }
 
     static void "El negocio desactiva dicho talonario"() {
-        talonarioService.desactivar(this.talonario.id)
+        talonarioService.pausar(this.negocio.id, this.talonario.id)
         this.talonario.save(flush: true)
     }
 

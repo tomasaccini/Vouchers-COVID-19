@@ -106,15 +106,15 @@ class TalonarioServiceSpec extends Specification {
     }
 
     void "activar talonario"() {
-        talonarioService.activar(talonario_inactivo.id)
+        talonarioService.activar(negocioId, talonario_inactivo.id)
         talonario_inactivo = Talonario.findById(talonario_inactivo.id)
         expect: "Talonario esta ahora activo"
         talonario_inactivo.activo
     }
 
     void "activar y desactivar talonario"() {
-        talonarioService.activar(talonario_inactivo.id)
-        talonarioService.desactivar(talonario_inactivo.id)
+        talonarioService.activar(negocioId, talonario_inactivo.id)
+        talonarioService.pausar(negocioId, talonario_inactivo.id)
         talonario_inactivo = Talonario.findById(talonario_inactivo.id)
         expect: "Talonario esta ahora inactivo"
         !talonario_inactivo.activo

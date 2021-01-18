@@ -150,24 +150,6 @@ class TalonarioService {
         return talonario.comprarVoucher(cliente)
     }
 
-    def activar(Long id) {
-        Talonario talonario = Talonario.get(id)
-        if (talonario.activo) {
-            return
-        }
-        talonario.activo = true
-        talonario.save(flush: true)
-    }
-
-    def desactivar(Long id) {
-        Talonario talonario = Talonario.get(id)
-        if (!talonario.activo) {
-            return
-        }
-        talonario.activo = false
-        talonario.save(flush: true)
-    }
-
     List<Talonario> findSimilar(String q, Map map) {
         String query = "select distinct(t) from Talonario as t "
         query += "join t.informacionVoucher.items as items"
