@@ -10,7 +10,7 @@ import spock.lang.Specification
 @Rollback
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class HistoriaUsuario2 extends Specification {
-    String descripcion = "Como negocio quiero poder desactivar un talonario para que el mismo no pueda ser comprado por los clientes."
+    String descripcion = "Como negocio quiero poder pausar un talonario para que el mismo no pueda ser comprado por los clientes."
 
     void "Escenario 1"() {
         given:
@@ -19,7 +19,7 @@ class HistoriaUsuario2 extends Specification {
         Steps."Existe un talonario asociado a dicho negocio"()
         Steps."El talonario esta activo"()
         when:
-        Steps."El negocio desactiva dicho talonario"()
+        Steps."El negocio pausa dicho talonario"()
         then:
         Steps."El talonario es privado"()
         Steps."Los clientes no pueden buscarlo"()

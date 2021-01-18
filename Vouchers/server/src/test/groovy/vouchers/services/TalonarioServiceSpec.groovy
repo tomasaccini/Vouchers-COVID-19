@@ -21,7 +21,7 @@ class TalonarioServiceSpec extends Specification {
     private static Boolean setupHecho = false
     static Long negocioId
     static Talonario talonario_activo
-    static Talonario talonario_inactivo
+    static Talonario talonario_pausado
     static Talonario talonario_sin_stock
     static InformacionVoucher iv
     static Long clienteId
@@ -58,8 +58,8 @@ class TalonarioServiceSpec extends Specification {
         iv.addToItems(item)
         talonario_activo = new Talonario(informacionVoucher: iv, stock: 3, activo: true)
         negocio.addToTalonarios(talonario_activo)
-        talonario_inactivo = new Talonario(informacionVoucher: iv, stock: 10, activo: false)
-        negocio.addToTalonarios(talonario_inactivo)
+        talonario_pausado = new Talonario(informacionVoucher: iv, stock: 10, activo: false)
+        negocio.addToTalonarios(talonario_pausado)
         talonario_sin_stock = new Talonario(informacionVoucher: iv, stock: 0, activo: true)
         negocio.addToTalonarios(talonario_sin_stock)
 
@@ -87,7 +87,7 @@ class TalonarioServiceSpec extends Specification {
     void "constructor"() {
         expect: "talonarios construidos correctamente"
         talonario_activo != null && talonario_activo.stock == 3 && talonario_activo.informacionVoucher == iv && talonario_activo.activo
-        talonario_inactivo != null && talonario_inactivo.stock == 10 && talonario_inactivo.informacionVoucher == iv && !talonario_inactivo.activo
+        talonario_pausado != null && talonario_pausado.stock == 10 && talonario_pausado.informacionVoucher == iv && !talonario_pausado.activo
         talonario_sin_stock != null && talonario_sin_stock.stock == 0 && talonario_sin_stock.informacionVoucher == iv && talonario_sin_stock.activo
     }
 
@@ -106,17 +106,17 @@ class TalonarioServiceSpec extends Specification {
     }
 
     void "activar talonario"() {
-        talonarioService.activar(negocioId, talonario_inactivo.id)
-        talonario_inactivo = Talonario.findById(talonario_inactivo.id)
+        talonarioService.activar(negocioId, talonario_pausado.id)
+        talonario_pausado = Talonario.findById(talonario_pausado.id)
         expect: "Talonario esta ahora activo"
-        talonario_inactivo.activo
+        talonario_pausado.activo
     }
 
-    void "activar y desactivar talonario"() {
-        talonarioService.activar(negocioId, talonario_inactivo.id)
-        talonarioService.pausar(negocioId, talonario_inactivo.id)
-        talonario_inactivo = Talonario.findById(talonario_inactivo.id)
-        expect: "Talonario esta ahora inactivo"
-        !talonario_inactivo.activo
+    void "activar y pausar talonario"() {
+        talonarioService.activar(negocioId, talonario_pausado.id)
+        talonarioService.pausar(negocioId, talonario_pausado.id)
+        talonario_pausado = Talonario.findById(talonario_pausado.id)
+        expect: "Talonario esta ahora pausado"
+        !talonario_pausado.activo
     }
 }
