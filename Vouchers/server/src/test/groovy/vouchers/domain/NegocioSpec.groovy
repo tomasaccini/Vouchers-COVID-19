@@ -2,14 +2,7 @@ package vouchers.domain
 
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
-import vouchers.Cliente
-import vouchers.Direccion
-import vouchers.InformacionVoucher
-import vouchers.Item
-import vouchers.Negocio
-import vouchers.Producto
-import vouchers.Talonario
-import vouchers.Voucher
+import vouchers.*
 
 class NegocioSpec extends Specification implements DomainUnitTest<Negocio> {
 

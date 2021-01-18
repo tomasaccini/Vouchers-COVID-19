@@ -44,4 +44,11 @@ class Negocio extends Usuario {
         println(vouchers)
         return vouchers.findAll { it.esConfirmable() }
     }
+
+    List<Reclamo> obtenerReclamosAbiertos() {
+        List<Voucher> vouchers = talonarios.collect { it.vouchers }.flatten() as List<Voucher>
+        List<Reclamo> reclamos = vouchers.collect { it.reclamo } as List<Reclamo>
+        println(reclamos)
+        return reclamos.findAll { it != null && !it.estaCerrado() }
+    }
 }

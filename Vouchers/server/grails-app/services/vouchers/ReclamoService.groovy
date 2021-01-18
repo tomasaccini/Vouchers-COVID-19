@@ -6,7 +6,7 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class ReclamoService {
 
-    UsuarioService usuarioService
+    UsuarioService usuarioService = new UsuarioService()
 
     List<Reclamo> obtenerTodos() {
         return Reclamo.findAll()

@@ -8,13 +8,13 @@ import java.text.SimpleDateFormat
 @Transactional
 class TalonarioService {
 
-    List<Talonario> counterfoilDB = []
+    List<Talonario> talonarioDB = []
 
     Talonario createMock(String name) {
         InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2020/08/15'))
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 5)
         talonario.negocio = mockBusiness(name)
-        counterfoilDB.add(talonario)
+        talonarioDB.add(talonario)
         return talonario
     }
 
@@ -120,15 +120,12 @@ class TalonarioService {
         Item item = new Item(producto: product, cantidad: 1)
         InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2020/08/15'))
         vi.addToItems(item)
-        // TODO business counterfoils will be recursive
-        // Counterfoil counterfoil = new Counterfoil(voucherInformation: vi, stock: 3, isActive: true)
-        // business.addToCounterfoils(counterfoil)
 
         return business
     }
 
-    Talonario get(Long counterfoilId) {
-        return Talonario.findById(counterfoilId)
+    Talonario get(Long talonarioId) {
+        return Talonario.findById(talonarioId)
     }
 
     List<Talonario> list(Map args) {
@@ -151,24 +148,6 @@ class TalonarioService {
         }
 
         return talonario.comprarVoucher(cliente)
-    }
-
-    def activar(Long id) {
-        Talonario talonario = Talonario.get(id)
-        if (talonario.activo) {
-            return
-        }
-        talonario.activo = true
-        talonario.save(flush: true)
-    }
-
-    def desactivar(Long id) {
-        Talonario talonario = Talonario.get(id)
-        if (!talonario.activo) {
-            return
-        }
-        talonario.activo = false
-        talonario.save(flush: true)
     }
 
     List<Talonario> findSimilar(String q, Map map) {
