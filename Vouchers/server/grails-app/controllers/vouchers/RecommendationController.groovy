@@ -15,10 +15,9 @@ class RecommendationController {
     def index() {}
 
     def getRecommendationsForUser(Long userId) {
-        // TODO validate param !!!!
         println("Asking for recommendations for: ${userId}")
 
-        List<Talonario> talonarios = talonarioService.getAll()
+        List<Talonario> talonarios = Talonario.findAllByActivo(true)
 
         List<TalonarioCommand> talonariosCommands = []
 

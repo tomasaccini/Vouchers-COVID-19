@@ -75,9 +75,8 @@ class ReclamoController extends RestfulController {
     }
 
     def obtenerPorUsuario(Long usuarioId) {
+        println("!!!! reclamos obtenerPorUsuario")
         List<Reclamo> reclamos = reclamoService.obtenerPorUsuario(usuarioId)
-
-        println("!!!! obtenerPorUsuario")
         println(reclamos.size())
 
         List<ReclamoCommand> reclamosCommand = []

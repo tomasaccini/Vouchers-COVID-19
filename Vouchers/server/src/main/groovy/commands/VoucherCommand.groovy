@@ -9,9 +9,9 @@ class VoucherCommand implements Validateable {
     Long id
     Long version
     InformacionVoucherCommand informacionVoucherCommand
-    Date dateCreated
-    VoucherEstado state
-    Date lastStateChange = new Date()
+    Date fechaCreacion
+    VoucherEstado estado
+    Date ultimoCambioEstado = new Date()
     NegocioCommand negocioCommand
     Boolean reclamoAbierto
     String clienteEmail
