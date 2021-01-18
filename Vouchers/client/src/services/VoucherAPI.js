@@ -128,8 +128,8 @@ class VoucherAPI {
   _transformarItems(item) {
     return {
       'cantidad': item.cantidad,
-      'nombre':  item.producto.nombre,
-      'descripcion':  item.producto.descripcion
+      'nombre':  item.productCommand.nombre,
+      'descripcion':  item.productCommand.descripcion
     }
   }
 
@@ -137,6 +137,7 @@ class VoucherAPI {
     console.log('!!!! _transformarTalonario', talonario)
 
     const iv = talonario.informacionVoucherCommand;
+    const items = iv.itemsCommand ? iv.itemsCommand : [];
 
     const desde = new Date(iv.validoDesde);
     const hasta = new Date(iv.validoHasta);
@@ -149,7 +150,7 @@ class VoucherAPI {
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'stock': talonario.stock,
-      // 'items': iv.items.map((i) => this._transformarItems(i)),
+      'items': items.map((i) => this._transformarItems(i)),
       'activo': talonario.activo,
       'negocioNombre': talonario.negocioNombre,
       'negocioId': talonario.negocioId,
@@ -169,8 +170,6 @@ class VoucherAPI {
       'precio': iv.precio,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
-      // TODO no more owner !!!!
-      // TODO we don't have the information yet
       'negocioNombre': voucher.negocioCommand.nombre,
       'negocioId': voucher.negocioCommand.id,
       'state': voucher.state,
