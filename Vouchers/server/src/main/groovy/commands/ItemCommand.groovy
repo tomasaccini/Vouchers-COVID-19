@@ -8,7 +8,7 @@ class ItemCommand implements Validateable {
     Long id
     Long version
     ProductoCommand productCommand
-    Integer quantity
+    Integer cantidad
 
     static constraints = {
         importFrom Item
