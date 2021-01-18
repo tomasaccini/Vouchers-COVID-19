@@ -24,6 +24,30 @@ class TalonarioAPI{
         console.log(`debug | creo Talonario: `, nuevoTalonario);
         return VoucherAPI._transformarTalonario(nuevoTalonario);
     }
+
+    async cambiarEstado(negocioId, talonarioId, activo){
+      var url = `${SERVER_URL}/talonarios/`;
+      if (activo === true) {
+        url += "pausar";
+      } else {
+        url += "activar";
+      }
+      const res = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({ 
+          negocioId: negocioId,
+          talonarioId: talonarioId
+         })
+      });
+  
+      if (res.status !== 200) {
+        window.alert(res.message);
+        return false;
+      }
+      const talonario = await res.json();
+      console.log(`debug | creo Talonario: `, talonario);
+      return true;
+    }
     
 }
 
