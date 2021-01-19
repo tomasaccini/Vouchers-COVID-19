@@ -12,6 +12,7 @@
     "google-map-react": "^1.1.7",
     "material-kit-react": "^1.9.0",
     "popper.js": "^2.0.0-next.4",
+    "puppeteer": "^5.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-popper": "^2.2.3",

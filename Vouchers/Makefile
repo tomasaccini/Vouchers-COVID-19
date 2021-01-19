@@ -1,6 +1,11 @@
 run:
 	./gradlew server:bootRun
 
+run-all:
+	./gradlew server:bootRun &
+	sleep 10
+	cd client && npm start
+
 clean:
 	./gradlew clean
 
