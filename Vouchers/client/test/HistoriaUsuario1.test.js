@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const loginUtils = require("./utils/Login");
+const sesionUtils = require("./utils/sesionUtils");
 const assert = require('assert');
 
 describe('Historia de Usuario 1', function () {
@@ -11,9 +11,9 @@ describe('Historia de Usuario 1', function () {
     const page = await browser.newPage();
     await page.goto(link);
     await page.waitForTimeout(1000);
-    await loginUtils.clickIngresarEnLanding(page);
+    await sesionUtils.clickIngresarEnLanding(page);
     await page.waitForTimeout(1000);
-    await loginUtils.iniciarSesion(page, 'negocio1', 'password');
+    await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
     await page.waitForTimeout(1000);
     await page.close();
     await browser.close();

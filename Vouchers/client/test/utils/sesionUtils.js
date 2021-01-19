@@ -14,7 +14,13 @@ async function iniciarSesion(page, email, contrasenia) {
   await page.click('#iniciarSesionButton');
 }
 
+async function cerrarSesion(page, email, contrasenia) {
+  await page.waitForSelector('#cerrarSesionButton');
+  await page.click('#cerrarSesionButton');
+}
+
 module.exports = {
   clickIngresarEnLanding,
-  iniciarSesion
+  iniciarSesion,
+  cerrarSesion
 };

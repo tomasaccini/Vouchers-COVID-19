@@ -87,7 +87,7 @@ export default function NavbarUsuario(props) {
           <Typography variant="h6" className={classes.title}>
             {props.title}
           </Typography>
-          <Button className="signOutButton" simple onClick={cerrarSesion}>
+          <Button id="cerrarSesionButton" className="signOutButton" simple onClick={cerrarSesion}>
             Cerrar sesión
           </Button>
         </Toolbar>
