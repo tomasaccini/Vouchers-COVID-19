@@ -141,12 +141,13 @@ export default function IniciarSesion(props) {
               fullWidth
               name="contrasenia"
               label="Contraseña"
-              type="contrasenia"
+              type="password"
               id="contrasenia"
               autoComplete="current-password"
               onChange={handleInputChange}
             />
             <Button
+              id="iniciarSesionButton"
               type="submit"
               fullWidth
               variant="contained"
