@@ -6,8 +6,8 @@ import vouchers.Cliente
 class ClienteCommand implements Validateable {
 
     Long id
-    String fullName
-    String phoneNumber
+    String nombreCompleto
+    String numeroTelefonico
     List<VoucherCommand> vouchersCommand
 
     static constraints = {

@@ -172,7 +172,7 @@ class VoucherAPI {
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'negocioNombre': voucher.negocioCommand.nombre,
       'negocioId': voucher.negocioCommand.id,
-      'state': voucher.state,
+      'state': voucher.estado,
       'reclamoAbierto': voucher.reclamoAbierto,
       'clienteEmail': voucher.clienteEmail,
     }
