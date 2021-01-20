@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const sesionUtils = require("./utils/sesionUtils");
+const navbarOpcionesUtils = require("./utils/navbarOpcionesUtils");
 const assert = require('assert');
 
 describe('Historia de Usuario 1', function () {
@@ -14,6 +15,16 @@ describe('Historia de Usuario 1', function () {
     await sesionUtils.clickIngresarEnLanding(page);
     await page.waitForTimeout(1000);
     await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirMiNegocio(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirVouchersConfirmables(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirMisProductos(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirReclamos(page);
     await page.waitForTimeout(1000);
     await page.close();
     await browser.close();
