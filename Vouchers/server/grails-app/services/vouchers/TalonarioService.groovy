@@ -114,7 +114,7 @@ class TalonarioService {
         Producto product = new Producto()
         product.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
         product.nombre = "Hamburguesa Blue Dog"
-        product.tipo = ProductoTipo.FAST_FOOD
+        product.tipo = ProductoTipo.COMIDA_RAPIDA
         business.addToProducts(product)
 
         Item item = new Item(producto: product, cantidad: 1)

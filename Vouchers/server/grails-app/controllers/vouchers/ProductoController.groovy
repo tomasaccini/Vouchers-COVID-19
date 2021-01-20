@@ -58,7 +58,7 @@ class ProductoController extends RestfulController {
             nProducto.setDescripcion(requestBody['descripcion'].toString())
             Negocio negocio = Negocio.get(requestBody['negocioId'].toLong())
             nProducto.setNegocio(negocio)
-            nProducto.setTipo(ProductoTipo.FAST_FOOD) // cambiar
+            nProducto.setTipo(ProductoTipo.COMIDA_RAPIDA) // cambiar
             nProducto.save()
             negocio.addToProducts(nProducto)
             negocio.save()
