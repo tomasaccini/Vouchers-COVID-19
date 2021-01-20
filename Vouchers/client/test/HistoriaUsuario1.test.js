@@ -24,7 +24,18 @@ describe('Historia de Usuario 1', function () {
     await page.waitForTimeout(1000);
     await navbarOpcionesUtils.abrirMisProductos(page);
     await page.waitForTimeout(1000);
-    await navbarOpcionesUtils.abrirReclamos(page);
+
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(1000);
+    await sesionUtils.iniciarSesion(page, 'cliente1', 'password');
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirMiPerfil(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirComprarVouchers(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirHistorial(page);
     await page.waitForTimeout(1000);
     await page.close();
     await browser.close();

@@ -33,10 +33,38 @@ async function abrirReclamos(page) {
   await page.click('#reclamosOpcionNavbar');
 }
 
+async function abrirMiPerfil(page) {
+  await clickOpciones(page);
+  await page.waitForSelector('#miPerfilOpcionNavbar');
+  await page.click('#miPerfilOpcionNavbar');
+}
+
+async function abrirComprarVouchers(page) {
+  await clickOpciones(page);
+  await page.waitForSelector('#comprarVouchersOpcionNavbar');
+  await page.click('#comprarVouchersOpcionNavbar');
+}
+
+async function abrirCanjearVouchers(page) {
+  await clickOpciones(page);
+  await page.waitForSelector('#canjearVouchersOpcionNavbar');
+  await page.click('#canjearVouchersOpcionNavbar');
+}
+
+async function abrirHistorial(page) {
+  await clickOpciones(page);
+  await page.waitForSelector('#historialOpcionNavbar');
+  await page.click('#historialOpcionNavbar');
+}
+
 module.exports = {
   abrirMiNegocio,
   abrirMisTalonarios,
   abrirVouchersConfirmables,
   abrirMisProductos,
-  abrirReclamos
+  abrirReclamos,
+  abrirMiPerfil,
+  abrirComprarVouchers,
+  abrirCanjearVouchers,
+  abrirHistorial
 };
