@@ -28,7 +28,7 @@ class TalonarioCrear extends Component {
     }
 
     async getListaDeProductos() {
-        var productos = await ProductoAPI.getProductos(1);
+        var productos = await ProductoAPI.getProductos(this.props.negocioId);
         return productos.map((p) => {return {'nombre': p.titulo, 'cantidad': 0, 'id': p.id};});
     }
 
@@ -51,9 +51,7 @@ class TalonarioCrear extends Component {
 
     mySubmitHandler = (event) => {
         event.preventDefault();
-        // sacar el harcodeo de negocio
-        console.log(this.state.productos)
-        TalonarioAPI.crearTalonario(1, this.state);
+        TalonarioAPI.crearTalonario(this.props.negocioId, this.state);
         this.setState({creado: true});
     }
 

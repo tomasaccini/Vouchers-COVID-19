@@ -25,8 +25,7 @@ class ProductoCrear extends Component {
 
     mySubmitHandler = (event) => {
         event.preventDefault();
-        // sacar el harcodeo de negocio
-        ProductosAPI.crearProducto(1, this.state);
+        ProductosAPI.crearProducto(this.props.negocioId, this.state);
         this.setState({comprado: true});
     }
 

@@ -30,7 +30,7 @@ class Talonarios extends Component {
     }
 
     async getListaDeTalonarios() {
-        return await voucherAPI.getTalonariosPorNegocio(1);
+        return await voucherAPI.getTalonariosPorNegocio(this.props.negocioId);
     }
 
     cambiarVista(cambiaraActivos){

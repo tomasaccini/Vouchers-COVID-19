@@ -23,7 +23,7 @@ class ProductosVer extends Component {
     }
 
     async getListaDeProductos() {
-        return await productoAPI.getProductos(localStorage.getItem('userId'));
+        return await productoAPI.getProductos(this.props.negocioId);
     }
 
     render() {
