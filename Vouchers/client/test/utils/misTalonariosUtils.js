@@ -25,6 +25,18 @@ async function crearNuevoTalonario(page, descripcion, stock, precio, desde, hast
   await page.keyboard.press('Enter');
 }
 
+async function abrirTabActivos(page) {
+  await page.waitForSelector('#TalonariosActivosTab');
+  await page.click('#TalonariosActivosTab');
+}
+
+async function abrirTabNoActivos(page) {
+  await page.waitForSelector('#TalonariosNoActivosTab');
+  await page.click('#TalonariosNoActivosTab');
+}
+
 module.exports = {
-  crearNuevoTalonario
+  crearNuevoTalonario,
+  abrirTabActivos,
+  abrirTabNoActivos
 };

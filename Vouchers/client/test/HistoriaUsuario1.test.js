@@ -40,6 +40,10 @@ describe('Historia de Usuario 1', function () {
     await page.waitForTimeout(5000);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(1000);
+    await misTalonariosUtils.abrirTabNoActivos(page);
+    await page.waitForTimeout(1000);
+    await misTalonariosUtils.abrirTabActivos(page);
+    await page.waitForTimeout(1000);
     await page.close();
     await browser.close();
     assert.ok(true);

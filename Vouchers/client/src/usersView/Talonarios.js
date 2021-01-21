@@ -59,10 +59,10 @@ class Talonarios extends Component {
                 </div>
                 <section className="talonariosEstadoNegocio">
                     <div className="activosNoActivosBtns">
-                        <button onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.verActivos === true ? "historialBtnSelected" : ""}`}>
+                        <button id="TalonariosActivosTab" onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.verActivos === true ? "historialBtnSelected" : ""}`}>
                             Activos
                         </button>
-                        <button onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.verActivos === false ? "historialBtnSelected" : ""}`}>
+                        <button id="TalonariosNoActivosTab" onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.verActivos === false ? "historialBtnSelected" : ""}`}>
                             No Activos
                         </button>
                     </div>
