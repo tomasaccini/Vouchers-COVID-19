@@ -33,19 +33,19 @@ class ProductoCrear extends Component {
     _form(){
         return(
             <form noValidate onSubmit={this.mySubmitHandler} className="productoCrearForm">
-                <TextField id="standard-basic" 
+                <TextField id="crearProductoNombreInput" 
                     name="nombre"
                     type="text" 
                     label="Nombre" 
                     onChange={this.myChangeHandler}
                 />
-                <TextField id="standard-basic" 
+                <TextField id="crearProductoDescripcionInput" 
                     name="descripcion"
                     type="text" 
                     label="Descripción" 
                     onChange={this.myChangeHandler}
                 />
-                <input type="submit" value="Crear"/>
+                <input id="crearProductoConfirmarButton" type="submit" value="Crear"/>
             </form>
         );
     }
