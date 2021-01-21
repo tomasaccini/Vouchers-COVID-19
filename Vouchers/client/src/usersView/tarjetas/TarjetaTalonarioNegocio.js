@@ -64,7 +64,7 @@ export default function TarjetaTalonarioNegocio(props) {
           ${props.data.precio}
           </p>
           <Button color="primary" size="large" onClick={() => setModal(true)}>
-          { activo === true ? "Desactivar" : "Activar"}
+          { activo === true ? "Pausar" : "Activar"}
           </Button>
           <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
             Ver productos

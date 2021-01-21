@@ -40,7 +40,7 @@ describe('Historia de Usuario 1', function () {
     await page.waitForTimeout(5000);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(1000);
-    await misTalonariosUtils.abrirTabNoActivos(page);
+    await misTalonariosUtils.abrirTabPausados(page);
     await page.waitForTimeout(1000);
     await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 1"));
     await page.waitForTimeout(5000);

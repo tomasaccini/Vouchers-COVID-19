@@ -30,9 +30,9 @@ async function abrirTabActivos(page) {
   await page.click('#TalonariosActivosTab');
 }
 
-async function abrirTabNoActivos(page) {
-  await page.waitForSelector('#TalonariosNoActivosTab');
-  await page.click('#TalonariosNoActivosTab');
+async function abrirTabPausados(page) {
+  await page.waitForSelector('#TalonariosPausadosTab');
+  await page.click('#TalonariosPausadosTab');
 }
 
 async function activarTalonario(page, descripcion) {
@@ -47,12 +47,12 @@ async function activarTalonario(page, descripcion) {
   await confirmarCambio[0].click();
 }
 
-async function desactivarTalonario(page, descripcion) {
-  const desactivarBotonSelector = `//h2[text()="${descripcion}"]/../button[span[text()="Desactivar"]]`;
+async function pausarTalonario(page, descripcion) {
+  const pausarBotonSelector = `//h2[text()="${descripcion}"]/../button[span[text()="Pausar"]]`;
   const confirmarCambioSelector = `//h5[contains(text(), "${descripcion}?")]/../../..//button[@id="ConfirmarCambioTalonario"]`;
-  await page.waitForXPath(desactivarBotonSelector);
-  const desactivarBoton = await page.$x(desactivarBotonSelector);
-  await desactivarBoton[0].click();
+  await page.waitForXPath(pausarBotonSelector);
+  const pausarBoton = await page.$x(pausarBotonSelector);
+  await pausarBoton[0].click();
   await page.waitForTimeout(2000);
   await page.waitForXPath(confirmarCambioSelector);
   const confirmarCambio = await page.$x(confirmarCambioSelector);
@@ -62,7 +62,7 @@ async function desactivarTalonario(page, descripcion) {
 module.exports = {
   crearNuevoTalonario,
   abrirTabActivos,
-  abrirTabNoActivos,
+  abrirTabPausados,
   activarTalonario,
-  desactivarTalonario
+  pausarTalonario
 };
