@@ -47,7 +47,7 @@
 
 #### Params
 
-* URL/clients/{id}
+* URL/clientes/{id}
 
 ```md
 * Devuele al cliente
@@ -57,19 +57,19 @@
 
 ```json
 {
-    fullName: <nombre completo del cliente>
-    phoneNumber: <número de teléfono>
+    nombreCompleto: <nombre completo del cliente>
+    numeroTelefono: <número de teléfono>
     email: <email>
 }
 ```
 
 ## Negocio
 
-### URL/businesses/{id}
+### URL/negocios/{id}
 
 #### Params
 
-* URL/businesses/{id}
+* URL/negocios/{id}
 
 ```md
 * Devuele al negoocio

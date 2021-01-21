@@ -95,7 +95,7 @@ class ClientePerfilVer extends React.Component {
                             <Typography className={classes.property} variant="h6">{`Nombre: ${perfil.nombreCompleto.split(' ')[0]}`}</Typography>
                             <Typography className={classes.property} variant="h6">{`Apellido: ${perfil.nombreCompleto.split(' ')[1]}`}</Typography>
                             <Typography className={classes.property} variant="h6">{`Email: ${perfil.email}`}</Typography>
-                            <Typography className={classes.property} variant="h6">{`Telefono: ${perfil.numeroTelefono}`}</Typography>
+                            <Typography className={classes.property} variant="h6">{`Telefono: ${perfil.numeroTelefonico}`}</Typography>
                             <Typography className={classes.property} variant="h6">Cuenta Verificada:
                                 {perfil.cuentaVerificada ? <VerifiedUserIcon /> : <NotInterestedIcon />}
                             </Typography>

@@ -7,13 +7,14 @@ class ClienteAPI {
     const url = `${SERVER_URL}/clientes/${clienteId}`;
     const res = await fetch(url);
     const cliente = await res.json();
+    console.log(cliente);
     return this._transformarCliente(cliente)
   }
 
   _transformarCliente(c) {
     return {
-      'nombreCompleto': c.fullName,
-      'numeroTelefono': c.phoneNumber,
+      'nombreCompleto': c.nombreCompleto,
+      'numeroTelefonico': c.numeroTelefonico,
       'email': c.email,
       'cuentaVerificada': c.cuentaVerificada
     }

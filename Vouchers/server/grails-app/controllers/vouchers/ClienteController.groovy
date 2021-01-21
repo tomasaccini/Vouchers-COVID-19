@@ -2,12 +2,16 @@ package vouchers
 
 
 import grails.rest.RestfulController
+import commands.ClienteCommand
+import assemblers.ClienteAssembler
 
 import javax.transaction.Transactional
 
 class ClienteController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
+    ClienteService clienteService
+    ClienteAssembler clienteAssembler = new ClienteAssembler()
 
     ClienteController() {
         super(Cliente)
@@ -16,7 +20,6 @@ class ClienteController extends RestfulController {
     /*
     * Returns client requested by Id
     * URL/clients/{id}
-    */
 
     def show(Cliente client) {
         println("Request for a client by id")
@@ -25,6 +28,26 @@ class ClienteController extends RestfulController {
         } else {
             respond client
         }
+    }
+    */
+
+    ClienteCommand obtenerCliente(Long clienteId) {
+        Cliente cliente = clienteService.obtener(clienteId)
+        ClienteCommand clienteCommand = clienteAssembler.toBean(cliente)
+        respond clienteCommand
+    }
+
+    List<ClienteCommand> obtenerTodos() {
+        List<ClienteCommand> clientesCommand = []
+        List<Cliente> clientes = clienteService.obtenerTodos()
+
+        for (Cliente cliente : clientes) {
+            ClienteCommand clienteCommand = clienteAssembler.toBean(cliente)
+            clientesCommand.add(clienteCommand)
+
+        }
+
+        respond clientesCommand
     }
 
     @Transactional

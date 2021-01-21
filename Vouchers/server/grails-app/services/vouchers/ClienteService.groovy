@@ -31,4 +31,15 @@ class ClienteService {
         }
         voucherService.solicitarCanje(voucher.id, id)
     }
+
+    Cliente obtener(Long clienteId) {
+        def cliente = Cliente.findById(clienteId)
+        return cliente
+    }
+
+    List<Cliente> obtenerTodos() {
+        def a = Cliente.findAll()
+        println("\n\n\n\n\n !!!! ${a}")
+        a
+    }
 }
