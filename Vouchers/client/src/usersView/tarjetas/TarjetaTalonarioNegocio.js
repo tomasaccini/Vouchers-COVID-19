@@ -109,14 +109,14 @@ export default function TarjetaTalonarioNegocio(props) {
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h4 className={classes.modalTitle}>Confirmar compra</h4>
+          <h4 className={classes.modalTitle}>Confirmar cambio</h4>
         </DialogTitle>
         <DialogContent
           id="modal-slide-description"
           className={classes.modalBody}
         >
           <div style={{'display': 'flex', 'flex-direction': 'column',}}>
-            <h5>¿Desea modificar el estado del voucher {props.data.titulo}?</h5>
+            <h5>{`¿Desea modificar el estado del talonario ${props.data.titulo}?`}</h5>
             <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
           </div>
         </DialogContent>
@@ -124,7 +124,7 @@ export default function TarjetaTalonarioNegocio(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={onClickModifyButton} color="success">
+          <Button id="ConfirmarCambioTalonario" onClick={onClickModifyButton} color="success">
             Modificar
           </Button>
         </DialogActions>
