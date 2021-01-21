@@ -37,7 +37,7 @@ describe('Historia de Usuario 1', function () {
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(1000);
     await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 1"), "1", "10", "01012020", "01012022", _formatearStrings("cerveza"));
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(5000);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(1000);
     await page.close();

@@ -22,7 +22,7 @@ async function crearNuevoTalonario(page, descripcion, stock, precio, desde, hast
   const elements = await page.$x(`//h3[text()="${nombre_producto}"]/..//input`);
   await elements[0].click();
   await page.keyboard.type("1");
-  await page.click('#crearTalonarioConfirmarButton');
+  await page.keyboard.press('Enter');
 }
 
 module.exports = {
