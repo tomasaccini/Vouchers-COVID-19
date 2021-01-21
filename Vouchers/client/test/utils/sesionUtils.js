@@ -14,7 +14,7 @@ async function iniciarSesion(page, email, contrasenia) {
   await page.click('#iniciarSesionButton');
 }
 
-async function cerrarSesion(page, email, contrasenia) {
+async function cerrarSesion(page) {
   await page.waitForSelector('#cerrarSesionButton');
   await page.click('#cerrarSesionButton');
 }

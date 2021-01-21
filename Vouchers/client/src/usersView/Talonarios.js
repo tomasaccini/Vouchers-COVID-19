@@ -52,7 +52,7 @@ class Talonarios extends Component {
                 <div className="tituloTalonarios">
                     <h1>Mis Talonarios</h1>
                     <Link to={navegacion.getTalonariosCrearUrl()} >
-                        <Button color="primary" size="large">
+                        <Button id="crearNuevoTalonarioButton" color="primary" size="large">
                             + Crear nuevo
                         </Button>
                     </Link>

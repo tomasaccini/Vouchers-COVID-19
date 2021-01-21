@@ -109,7 +109,7 @@ class TalonarioCrear extends Component {
                         </li>
                     )
                 }
-                <input type="submit" value="Crear"/>
+                <input id="crearTalonarioConfirmarButton" type="submit" value="Crear"/>
             </form>
         );
     }

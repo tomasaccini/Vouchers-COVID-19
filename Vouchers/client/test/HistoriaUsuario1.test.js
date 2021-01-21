@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const sesionUtils = require("./utils/sesionUtils");
 const navbarOpcionesUtils = require("./utils/navbarOpcionesUtils");
 const misProductosUtils = require("./utils/misProductosUtils");
+const misTalonariosUtils = require("./utils/misTalonariosUtils");
 const utils = require("./utils/utils");
 const assert = require('assert');
 
@@ -17,7 +18,7 @@ describe('Historia de Usuario 1', function () {
   it('Escenario 1', async function () {
     const link = 'http://localhost:3000/';
 
-    const browser = await puppeteer.launch({ headless: false, slowMo: 50, devtools: false, defaultViewport: null, args: ['--start-maximized'] });
+    const browser = await puppeteer.launch({ headless: false, slowMo: 5, devtools: false, defaultViewport: null, args: ['--start-maximized'] });
     
     const page = await browser.newPage();
     await page.goto(link);
@@ -31,6 +32,13 @@ describe('Historia de Usuario 1', function () {
     await misProductosUtils.crearNuevoProducto(page, _formatearStrings("cerveza"),  _formatearStrings("fria"));
     await page.waitForTimeout(1000);
     await navbarOpcionesUtils.abrirMisProductos(page);
+    await page.waitForTimeout(1000);
+
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
+    await page.waitForTimeout(1000);
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 1"), "1", "10", "01012020", "01012022", _formatearStrings("cerveza"));
+    await page.waitForTimeout(1000);
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(1000);
     await page.close();
     await browser.close();
