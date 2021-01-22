@@ -1,0 +1,9 @@
+sudo: true
+addons:
+  chrome: stable
+language: groovy
+install:
+  - true
+jdk:
+  - openjdk8
+script: "cd Vouchers && make run-test"
