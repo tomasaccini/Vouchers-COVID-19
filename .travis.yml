@@ -8,5 +8,5 @@ before_install:
   - curl -s http://get.sdkman.io | bash
   - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
-  - sdk install grails
+  - sdk install grails 4.0.5
 script: "cd Vouchers && make run-test"
