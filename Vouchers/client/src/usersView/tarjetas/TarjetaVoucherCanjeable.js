@@ -64,7 +64,7 @@ export default function TarjetaVoucherCanjeable(props) {
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
-          <Button color="primary" size="large" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
+          <Button color="primary" size="lg" disabled={deshabilitarCanje} onClick={() => setModal(true)}>
             Canjear
           </Button>
         </CardBody>
@@ -108,13 +108,13 @@ export default function TarjetaVoucherCanjeable(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Desea solicitar el canje del voucher {props.data.titulo}?</h5>
+          <h5>{`¿Desea solicitar el canje del voucher ${props.data.titulo}?`}</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={solicitarCanjeDeVoucher} color="success">
+          <Button id="ConfirmarSolicitudCanjeVoucher" onClick={solicitarCanjeDeVoucher} color="success">
             Confirmar
           </Button>
         </DialogActions>
