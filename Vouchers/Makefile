@@ -14,3 +14,4 @@ update-db:
 
 run-test:
 	cd server && grails test-app
+	cd client && npm test
