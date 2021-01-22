@@ -4,6 +4,7 @@ const navbarOpcionesUtils = require("./utils/navbarOpcionesUtils");
 const misProductosUtils = require("./utils/misProductosUtils");
 const misTalonariosUtils = require("./utils/misTalonariosUtils");
 const comprarVouchersUtils = require("./utils/comprarVouchersUtils");
+const canjearVouchersUtils = require("./utils/canjearVouchersUtils");
 const utils = require("./utils/utils");
 const assert = require('assert');
 
@@ -51,7 +52,11 @@ describe('Historia de Usuario 3', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirComprarVouchers(page);
     await page.waitForTimeout(velocidad);
-    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 3"))
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 3"));
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    assert.ok(await canjearVouchersUtils.voucherEstaVisible(page, _formatearStrings("Promo 3")));
+    console.log("EL VOUCHER ESTA LISTO PARA SER CANJEADO");
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();
