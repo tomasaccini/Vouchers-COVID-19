@@ -5,7 +5,7 @@ language: groovy
 jdk:
   - openjdk8
 node_js:
-  - 6
+  - 12
 before_install:
   - curl -s http://get.sdkman.io | bash
   - echo sdkman_auto_answer=true > ~/.sdkman/etc/config
