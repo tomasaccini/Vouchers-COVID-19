@@ -45,7 +45,7 @@ export default function TarjetaVoucherCanjeable(props) {
   const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
 
-  const deshabilitarCanje = props.data.state !== 'Comprado';
+  const deshabilitarCanje = props.data.estado !== 'Comprado';
 
   const solicitarCanjeDeVoucher = async () => {
     const usuarioId = localStorage.getItem('userId');

@@ -9,15 +9,15 @@ export default function TarjetaVoucher(props) {
     return <TarjetaVoucherReclamoAbierto data={props.data} />;
   }
 
-  if (props.data.state === 'Comprado') {
+  if (props.data.estado === 'Comprado') {
     return <TarjetaVoucherCanjeable data={props.data} />;
   }
 
-  if (props.data.state === 'ConfirmacionPendiente') {
+  if (props.data.estado === 'ConfirmacionPendiente') {
     return <TarjetaVoucherConfirmable data={props.data} />;
   }
 
-  if (props.data.state === 'Canjeado') {
+  if (props.data.estado === 'Canjeado') {
     return <TarjetaVoucherCanjeado data={props.data} />;
   }
 

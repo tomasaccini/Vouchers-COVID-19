@@ -7,9 +7,9 @@ const comprarVouchersUtils = require("./utils/comprarVouchersUtils");
 const utils = require("./utils/utils");
 const assert = require('assert');
 
-describe('Historia de Usuario 2', function () {
+describe('Historia de Usuario 3', function () {
   const ts = Date.now();
-  const historia_usuario = "HdU 2";
+  const historia_usuario = "HdU 3";
   const velocidad = 1000;
   
   function _formatearStrings(texto) {
@@ -30,20 +30,20 @@ describe('Historia de Usuario 2', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisProductos(page);
     await page.waitForTimeout(velocidad);
-    await misProductosUtils.crearNuevoProducto(page, _formatearStrings("hamburguesa"),  _formatearStrings("vegana"));
+    await misProductosUtils.crearNuevoProducto(page, _formatearStrings("Papas"),  _formatearStrings("al horno"));
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisProductos(page);
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
-    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 2"), "1", "10", "01012020", "01012022", _formatearStrings("hamburguesa"));
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 3"), "1", "10", "01012020", "01012022", _formatearStrings("Papas"));
     await page.waitForTimeout(velocidad*4);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
     await misTalonariosUtils.abrirTabPausados(page);
-    assert.ok(await misTalonariosUtils.talonarioEstaVisible(page, _formatearStrings("Promo 2")));
-    console.log("EL TALONARIO ESTA PAUSADO");
-    await page.waitForTimeout(velocidad*10);
+    await page.waitForTimeout(velocidad);
+    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 3"));
+    await page.waitForTimeout(velocidad*4);
 
     await sesionUtils.cerrarSesion(page);
     await page.waitForTimeout(velocidad);
@@ -51,9 +51,7 @@ describe('Historia de Usuario 2', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirComprarVouchers(page);
     await page.waitForTimeout(velocidad);
-
-    assert.ok(!(await comprarVouchersUtils.voucherEstaVisible(page, _formatearStrings("Promo 2"))));
-    console.log("EL VOUCHER PAUSADO NO ESTA VISIBLE");
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 3"))
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();

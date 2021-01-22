@@ -19,7 +19,7 @@ class ListaTarjetas extends Component {
         return (
             <GridContainer spacing={3}>
                 {this.props.vouchers.map((voucher) =>
-                    <GridItem xs={4}>
+                    <GridItem key={voucher.id} xs={4}>
                         { this.definirSiEsTalonarioOVoucher(voucher) }
                     </GridItem>
                 )}

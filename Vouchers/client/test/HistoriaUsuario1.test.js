@@ -13,7 +13,7 @@ describe('Historia de Usuario 1', function () {
   const velocidad = 1000;
   
   function _formatearStrings(texto) {
-    return utils.formatearStrings(texto, "HdU 1", ts);
+    return utils.formatearStrings(texto, historia_usuario, ts);
   }
 
   it('Escenario 1', async function () {
@@ -38,6 +38,8 @@ describe('Historia de Usuario 1', function () {
     await page.waitForTimeout(velocidad);
     await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 1"), "1", "10", "01012020", "01012022", _formatearStrings("cerveza"));
     await page.waitForTimeout(velocidad*4);
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
+    await page.waitForTimeout(velocidad);
     await misTalonariosUtils.abrirTabPausados(page);
     await page.waitForTimeout(velocidad);
     await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 1"));

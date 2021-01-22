@@ -62,7 +62,7 @@ export default function TarjetaVoucherReclamoAbierto(props) {
           <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center', 'color': 'gray'}}>
             Reclamo Abierto
           </p>
-          <Button style={{'visibility': 'hidden'}} color="primary" size="large" onClick={() => setModal(true)}>
+          <Button style={{'visibility': 'hidden'}} color="primary" size="lg" onClick={() => setModal(true)}>
             Cerrar Reclamo
           </Button>
         </CardBody>

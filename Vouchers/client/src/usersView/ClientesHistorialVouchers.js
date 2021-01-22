@@ -22,8 +22,8 @@ class ClienteHistorialVouchers extends Component {
 
     async componentDidMount() {
         const vouchers = await this.getListaDeVouchers(constantes.canjeado);
-        const vouchersCanjeados = vouchers.filter(v => v.state === 'Canjeado');
-        const vouchersExpirados = vouchers.filter(v => v.state === 'Expirado');
+        const vouchersCanjeados = vouchers.filter(v => v.estado === 'Canjeado');
+        const vouchersExpirados = vouchers.filter(v => v.estado === 'Expirado');
 
         this.setState({ vouchersCanjeados: vouchersCanjeados, vouchersExpirados: vouchersExpirados})
     }
