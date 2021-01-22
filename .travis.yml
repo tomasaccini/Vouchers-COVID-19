@@ -1,8 +1,6 @@
-sudo: true
+sudo: false
 addons:
   chrome: stable
 language: groovy
-install:
-  - true
 jdk:
   - openjdk8
