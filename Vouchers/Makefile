@@ -16,6 +16,7 @@ run-test:
 	cd server && grails test-app
 	cd client && node --version && npm install
 	./gradlew server:bootRun &
-	sleep 10
+	sleep 30
 	cd client && npm start &
+	sleep 30
 	cd client && npm test
