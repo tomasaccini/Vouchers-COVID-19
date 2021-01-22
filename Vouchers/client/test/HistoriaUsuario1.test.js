@@ -17,8 +17,8 @@ describe('Historia de Usuario 1', function () {
   }
 
   it('Escenario 1', async function () {
-    const link = 'http://localhost:3000/';
-    const headless = process.env.PUPPETEER_HEADLESS;
+    const link = `http://localhost:${process.env.PORT}/`;
+    const headless = process.env.PUPPETEER_HEADLESS == 'true';
     const browser = await puppeteer.launch({ headless: headless, slowMo: 5, devtools: false, defaultViewport: null, args: ['--start-maximized'] });
     
     const page = await browser.newPage();
