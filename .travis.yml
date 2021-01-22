@@ -1,7 +1,7 @@
 sudo: required
 addons:
-  - chrome: stable
-  - hostname: localhost
+  chrome: stable
+  hostname: localhost
 language: groovy
 jdk:
   - openjdk8
@@ -17,7 +17,7 @@ before_install:
   - nvm install 12.14.1 && nvm use 12.14.1
 before_script:
   - cd server && grails test-app
-	- cd client && node --version && npm install pm2 -g && npm install
+  - cd client && node --version && npm install pm2 -g && npm install
   - ./gradlew server:bootRun &
   - sleep 20
   - cd client && pm2 start npm -- start
