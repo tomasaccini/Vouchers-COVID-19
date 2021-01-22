@@ -23,10 +23,10 @@
     "reactstrap": "^6.5.0"
   },
   "scripts": {
-    "start": "NODE_PATH=src PORT=3030 react-scripts start",
-    "build": "NODE_PATH=src PORT=3030 react-scripts build",
-    "test": "NODE_PATH=src PORT=3030 mocha --timeout 100000",
-    "eject": "NODE_PATH=src PORT=3030 react-scripts eject"
+    "start": "export $(cat .env | xargs) && react-scripts start",
+    "build": "export $(cat .env | xargs) && react-scripts build",
+    "test": "export $(cat .env | xargs) && mocha --timeout 100000",
+    "eject": "export $(cat .env | xargs) &&  react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
