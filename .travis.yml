@@ -4,3 +4,4 @@ addons:
 language: groovy
 jdk:
   - openjdk8
+script: "cd Vouchers && make run-test"
