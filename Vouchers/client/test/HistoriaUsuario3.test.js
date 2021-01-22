@@ -55,6 +55,7 @@ describe('Historia de Usuario 3', function () {
     await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 3"));
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(velocidad);
     assert.ok(await canjearVouchersUtils.voucherEstaVisible(page, _formatearStrings("Promo 3")));
     console.log("EL VOUCHER ESTA LISTO PARA SER CANJEADO");
     await page.waitForTimeout(velocidad*10);
