@@ -12,4 +12,5 @@ before_install:
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
   - sdk install grails 4.0.5
   - nvm install 12.14.1 && nvm use 12.14.1
+  - apt-get install chromium-browser
 script: "cd Vouchers && make run-test"
