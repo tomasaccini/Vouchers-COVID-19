@@ -9,8 +9,10 @@ class ListaTarjetas extends Component {
 
     definirSiEsTalonarioOVoucher(voucher) {
         if (voucherHelper.esVoucher(voucher)) {
+            console.log("Es voucher");
           return <TarjetaVoucher data={voucher} />;
         } else {
+            console.log("Es talonario");
             return <TarjetaTalonario data={voucher} />;
         }
     }

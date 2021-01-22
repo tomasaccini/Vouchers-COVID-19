@@ -81,13 +81,19 @@ class ReclamoService {
     }
 
     private List<Reclamo> _obtenerPorUsuario(Cliente cliente) {
-        List<Reclamo> reclamos = Reclamo.findAllByCliente(cliente)
+        String query = "select r from Reclamo as r "
+        query += " join r.voucher as voucher "
+        query += " where voucher.cliente.id like :clienteId "
+        List<Reclamo> reclamos = Reclamo.executeQuery(query, [clienteId: cliente.id], [:])
 
         return reclamos
     }
 
     private List<Reclamo> _obtenerPorUsuario(Negocio negocio) {
-        List<Reclamo> reclamos = Reclamo.findAllByNegocio(negocio)
+        String query = "select r from Reclamo as r "
+        query += " join r.voucher as voucher "
+        query += " where voucher.talonario.negocio.id like :negocioId "
+        List<Reclamo> reclamos = Reclamo.executeQuery(query, [negocioId: negocio.id], [:])
 
         return reclamos
     }

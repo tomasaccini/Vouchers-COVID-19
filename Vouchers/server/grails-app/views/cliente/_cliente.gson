@@ -4,8 +4,8 @@ model {
     Cliente cliente
 }
 json {
-    fullName cliente.fullName
-    phoneNumber cliente.phoneNumber
+    nombreCompleto cliente.nombreCompleto
+    numeroTelefonico cliente.numeroTelefonico
     email cliente.email
     cuentaVerificada cliente.cuentaVerificada
 }
