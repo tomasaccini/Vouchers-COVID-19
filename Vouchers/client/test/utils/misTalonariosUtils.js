@@ -59,10 +59,16 @@ async function pausarTalonario(page, descripcion) {
   await confirmarCambio[0].click();
 }
 
+async function talonarioEstaVisible(page, descripcion) {
+  const elemento = await page.$x(`//h2[text()="${descripcion}"]`);
+  return elemento.length > 0;
+}
+
 module.exports = {
   crearNuevoTalonario,
   abrirTabActivos,
   abrirTabPausados,
   activarTalonario,
-  pausarTalonario
+  pausarTalonario,
+  talonarioEstaVisible
 };

@@ -10,7 +10,7 @@ class VoucherAPI {
     const res = await fetch(url);
     const talonarios = await res.json();
     console.log(`debug | getTalonarios: `, talonarios);
-    return talonarios.map((t) => this._transformarTalonario(t));
+    return talonarios.map((t) => this._transformarTalonario(t)).filter((t) => t.activo);
   }
 
   async getTalonariosPorNegocio(negocioId) {
