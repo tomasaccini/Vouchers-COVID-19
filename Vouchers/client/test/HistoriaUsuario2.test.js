@@ -18,8 +18,8 @@ describe('Historia de Usuario 2', function () {
 
   it('Escenario 1', async function () {
     const link = 'http://localhost:3000/';
-
-    const browser = await puppeteer.launch({ headless: false, slowMo: 5, devtools: false, defaultViewport: null, args: ['--start-maximized'] });
+    const headless = process.env.PUPPETEER_HEADLESS || true;
+    const browser = await puppeteer.launch({ headless: headless, slowMo: 5, devtools: false, defaultViewport: null, args: ['--start-maximized'] });
     
     const page = await browser.newPage();
     await page.goto(link);
