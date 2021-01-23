@@ -11,7 +11,7 @@ class Home extends Component {
                 <p className="home-stitle">
                     Ayuda a tu local Amigo comprando vouchers de tus productos preferidos
                 </p>
-                <a href="/iniciarsesion">Ingresar</a>
+                <a id="LandingIngresarButton" href="/iniciarsesion">Ingresar</a>
             </section>
         )
     }

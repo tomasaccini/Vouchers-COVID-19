@@ -178,7 +178,7 @@ class VoucherService {
     List<Voucher> buscarPorUsuarioNoCanjeados(Cliente cliente, Map params) {
         String query = "select distinct(v) from Voucher as v "
         query += " where v.cliente.id like :clienteId "
-        query += " and v.state.id like 1 or v.state.id like 2 " // Comprado o ConfirmacionPendiente
+        query += " and v.estado.id like 1 or v.estado.id like 2 " // Comprado o ConfirmacionPendiente
         Voucher.executeQuery(query, [clienteId: cliente.id], params)
     }
 
@@ -186,7 +186,7 @@ class VoucherService {
         def estadoEnum = VoucherEstado.valueOf(estado)
         String query = "select distinct(v) from Voucher as v "
         query += " where v.cliente.id like :clienteId "
-        query += " and v.state = :estado "
+        query += " and v.estado = :estado "
         Voucher.executeQuery(query, [clienteId: cliente.id, estado: estadoEnum], params)
     }
 }

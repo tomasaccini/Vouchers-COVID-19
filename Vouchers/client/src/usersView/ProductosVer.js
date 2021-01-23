@@ -23,7 +23,7 @@ class ProductosVer extends Component {
     }
 
     async getListaDeProductos() {
-        return await productoAPI.getProductos(localStorage.getItem('userId'));
+        return await productoAPI.getProductos(this.props.negocioId);
     }
 
     render() {
@@ -34,7 +34,7 @@ class ProductosVer extends Component {
                     <div className="tituloProductos">
                         <h1>Mis Productos</h1>
                         <Link to={navegacion.getProductosCrearUrl()} >
-                            <Button color="primary" size="large">
+                            <Button id="crearNuevoProductoButton" color="primary" size="large">
                                 + Crear nuevo
                             </Button>
                         </Link>

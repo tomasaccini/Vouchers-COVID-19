@@ -10,7 +10,7 @@ class VoucherAPI {
     const res = await fetch(url);
     const talonarios = await res.json();
     console.log(`debug | getTalonarios: `, talonarios);
-    return talonarios.map((t) => this._transformarTalonario(t));
+    return talonarios.map((t) => this._transformarTalonario(t)).filter((t) => t.activo);
   }
 
   async getTalonariosPorNegocio(negocioId) {
@@ -36,7 +36,7 @@ class VoucherAPI {
   // TODO: Modify and rename
   async getVouchers(userId) {
     // const url = `${SERVER_URL}/vouchers?userId=${userId}`;
-    const url = `${SERVER_URL}/vouchers/obtenerPorUsuario/${userId}`;
+    const url = `${SERVER_URL}/vouchers/obtenerPorUsuario/${userId}?max=100`;
     console.log(`debug | getVouchers URL is: ${url}`);
     const res = await fetch(url);
     const vouchers = await res.json();
@@ -172,7 +172,7 @@ class VoucherAPI {
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'negocioNombre': voucher.negocioCommand.nombre,
       'negocioId': voucher.negocioCommand.id,
-      'state': voucher.estado,
+      'estado': voucher.estado,
       'reclamoAbierto': voucher.reclamoAbierto,
       'clienteEmail': voucher.clienteEmail,
     }

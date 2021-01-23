@@ -127,7 +127,7 @@ export default function TarjetaTalonarioComprar(props) {
           className={classes.modalBody}
         >
           <div style={{'display': 'flex', 'flex-direction': 'column',}}>
-            <h5>¿Desea confirmar la compra del voucher {props.data.titulo}?</h5>
+            <h5>{`¿Desea confirmar la compra del voucher ${props.data.titulo}?`}</h5>
             <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
           </div>
         </DialogContent>
@@ -135,7 +135,7 @@ export default function TarjetaTalonarioComprar(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={onClickBuyButton} color="success">
+          <Button id="ConfirmarCompraVoucher" onClick={onClickBuyButton} color="success">
             Confirmar
           </Button>
         </DialogActions>

@@ -37,23 +37,23 @@ export default function NavbarNegocio() {
 
   return (
     <div>
-      <ListItem button key={constantes.miNegocioTitulo} onClick={redirigirAMiNegocio}>
+      <ListItem button id="miNegocioOpcionNavbar" key={constantes.miNegocioTitulo} onClick={redirigirAMiNegocio}>
         <ListItemIcon> <InboxIcon /> </ListItemIcon>
         <ListItemText primary={constantes.miNegocioTitulo} />
       </ListItem>
-      <ListItem button key={constantes.vouchersConfirmables} onClick={redirigirAVouchersConfirmables}>
+      <ListItem button id="vouchersConfirmablesOpcionNavbar" key={constantes.vouchersConfirmables} onClick={redirigirAVouchersConfirmables}>
         <ListItemIcon> <ThumbUp /> </ListItemIcon>
         <ListItemText primary={constantes.vouchersConfirmables} />
       </ListItem>
-      <ListItem button key={constantes.misTalonariosTitulo} onClick={redirigirACrearTalonarios}>
+      <ListItem button id="misTalonariosOpcionNavbar" key={constantes.misTalonariosTitulo} onClick={redirigirACrearTalonarios}>
         <ListItemIcon> <CreateIcon /> </ListItemIcon>
         <ListItemText primary={constantes.misTalonariosTitulo} />
       </ListItem>
-      <ListItem button key={constantes.misProductosTitulo} onClick={redirigirAProductos}>
+      <ListItem button id="misProductosOpcionNavbar" key={constantes.misProductosTitulo} onClick={redirigirAProductos}>
         <ListItemIcon> <CreateIcon /> </ListItemIcon>
         <ListItemText primary={constantes.misProductosTitulo} />
       </ListItem>
-      <ListItem button key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
+      <ListItem button id="reclamosOpcionNavbar" key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
         <ListItemIcon> <FeedbackIcon /> </ListItemIcon>
         <ListItemText primary={constantes.reclamosTitulo} />
       </ListItem>

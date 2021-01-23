@@ -30,7 +30,7 @@ class Talonarios extends Component {
     }
 
     async getListaDeTalonarios() {
-        return await voucherAPI.getTalonariosPorNegocio(1);
+        return await voucherAPI.getTalonariosPorNegocio(this.props.negocioId);
     }
 
     cambiarVista(cambiaraActivos){
@@ -52,18 +52,18 @@ class Talonarios extends Component {
                 <div className="tituloTalonarios">
                     <h1>Mis Talonarios</h1>
                     <Link to={navegacion.getTalonariosCrearUrl()} >
-                        <Button color="primary" size="large">
+                        <Button id="crearNuevoTalonarioButton" color="primary" size="large">
                             + Crear nuevo
                         </Button>
                     </Link>
                 </div>
                 <section className="talonariosEstadoNegocio">
-                    <div className="activosNoActivosBtns">
-                        <button onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.verActivos === true ? "historialBtnSelected" : ""}`}>
+                    <div className="activosPausadosBtns">
+                        <button id="TalonariosActivosTab" onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.verActivos === true ? "historialBtnSelected" : ""}`}>
                             Activos
                         </button>
-                        <button onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.verActivos === false ? "historialBtnSelected" : ""}`}>
-                            No Activos
+                        <button id="TalonariosPausadosTab" onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.verActivos === false ? "historialBtnSelected" : ""}`}>
+                            Pausados
                         </button>
                     </div>
                 </section>

@@ -1,6 +1,6 @@
 
-const voucherStates = ['Comprado', 'ConfirmacionPendiente', 'Canjeado', 'Expirado']
+const estadosVoucher = ['Comprado', 'ConfirmacionPendiente', 'Canjeado', 'Expirado']
 
 export default {
-  esVoucher: voucher => voucherStates.includes(voucher.state)
+  esVoucher: voucher => estadosVoucher.includes(voucher.estado)
 }

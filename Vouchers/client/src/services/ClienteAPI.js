@@ -14,7 +14,7 @@ class ClienteAPI {
   _transformarCliente(c) {
     return {
       'nombreCompleto': c.nombreCompleto,
-      'numeroTelefono': c.numeroTelefonico,
+      'numeroTelefonico': c.numeroTelefonico,
       'email': c.email,
       'cuentaVerificada': c.cuentaVerificada
     }

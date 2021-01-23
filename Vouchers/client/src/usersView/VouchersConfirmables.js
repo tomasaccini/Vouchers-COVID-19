@@ -26,8 +26,7 @@ class VouchersConfirmables extends Component {
   }
 
   async getVouchersConfirmables() {
-    const usuarioId = localStorage.getItem('userId')
-    return await voucherAPI.getVouchersConfirmablesPorNegocio(usuarioId);
+    return await voucherAPI.getVouchersConfirmablesPorNegocio(this.props.negocioId);
   }
 
   render() {

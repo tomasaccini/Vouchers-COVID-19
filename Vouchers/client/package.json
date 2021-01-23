@@ -6,12 +6,15 @@
     "@livechat/ui-kit": "^0.4.0-10",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.11.2",
-    "@popperjs/core": "^2.5.3",
-    "bootstrap": "^4.5.2",
+    "@popperjs/core": "^2.6.0",
+    "bootstrap": "^4.6.0",
     "date-fns": "^2.16.1",
     "google-map-react": "^1.1.7",
     "material-kit-react": "^1.9.0",
+    "mocha": "^8.2.1",
+    "pm2": "^4.5.1",
     "popper.js": "^2.0.0-next.4",
+    "puppeteer": "^5.5.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-popper": "^2.2.3",
@@ -20,10 +23,10 @@
     "reactstrap": "^6.5.0"
   },
   "scripts": {
-    "start": "NODE_PATH=src react-scripts start",
-    "build": "NODE_PATH=src react-scripts build",
-    "test": "NODE_PATH=src react-scripts test",
-    "eject": "NODE_PATH=src react-scripts eject"
+    "start": "export $(cat .env | xargs) && react-scripts start",
+    "build": "export $(cat .env | xargs) && react-scripts build",
+    "test": "export $(cat .env | xargs) && mocha --timeout 100000",
+    "eject": "export $(cat .env | xargs) &&  react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

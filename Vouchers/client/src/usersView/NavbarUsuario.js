@@ -81,13 +81,13 @@ export default function NavbarUsuario(props) {
     <div className="root">
       <AppBar position="fixed">
         <Toolbar variant="dense">
-          <IconButton edge="start" className="menuButton" color="inherit" aria-label="menu" onClick={handleClick}>
+          <IconButton id="navbarOpciones" edge="start" className="menuButton" color="inherit" aria-label="menu" onClick={handleClick}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             {props.title}
           </Typography>
-          <Button className="signOutButton" simple onClick={cerrarSesion}>
+          <Button id="cerrarSesionButton" className="signOutButton" simple onClick={cerrarSesion}>
             Cerrar sesión
           </Button>
         </Toolbar>

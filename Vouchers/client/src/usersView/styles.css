@@ -313,7 +313,7 @@
   letter-spacing: 2px;
 }
 
-.activosNoActivosBtns {
+.activosPausadosBtns {
   display: flex;
   flex-direction: row;
   justify-content: center;

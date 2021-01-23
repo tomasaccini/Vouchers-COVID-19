@@ -37,23 +37,23 @@ export default function NavbarCliente() {
 
     return (
         <div>
-            <ListItem button key={constantes.miPerfilTitulo} onClick={redirigirAMiPerfil}>
+            <ListItem button id="miPerfilOpcionNavbar" key={constantes.miPerfilTitulo} onClick={redirigirAMiPerfil}>
                 <ListItemIcon> <InboxIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.miPerfilTitulo} />
             </ListItem>
-            <ListItem button key={constantes.comprarVouchersTitulo} onClick={redirigirAComprarVouchers}>
+            <ListItem button id="comprarVouchersOpcionNavbar" key={constantes.comprarVouchersTitulo} onClick={redirigirAComprarVouchers}>
                 <ListItemIcon> <ShoppingCartIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.comprarVouchersTitulo} />
             </ListItem>
-            <ListItem button key={constantes.canjearVouchersTitulo} onClick={redirigirACanjearVouchers}>
+            <ListItem button id="canjearVouchersOpcionNavbar" key={constantes.canjearVouchersTitulo} onClick={redirigirACanjearVouchers}>
                 <ListItemIcon> <StorefrontIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.canjearVouchersTitulo} />
             </ListItem>
-            <ListItem button key={constantes.historialVouchersTitulo} onClick={redirigirAHistorialVouchers}>
+            <ListItem button id="historialOpcionNavbar" key={constantes.historialVouchersTitulo} onClick={redirigirAHistorialVouchers}>
                 <ListItemIcon> <HistoryIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.historialVouchersTitulo} />
             </ListItem>
-            <ListItem button key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
+            <ListItem button id="reclamosOpcionNavbar" key={constantes.reclamosTitulo} onClick={redirigirAReclamos}>
                 <ListItemIcon> <FeedbackIcon /> </ListItemIcon>
                 <ListItemText primary={constantes.reclamosTitulo} />
             </ListItem>

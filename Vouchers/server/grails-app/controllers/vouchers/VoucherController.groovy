@@ -25,7 +25,7 @@ class VoucherController extends RestfulController {
 
     def index(Integer max) {
         println("Asking for vouchers list, maz size: ${params.max}")
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 50, 100)
         respond Voucher.list(params)
     }
 
