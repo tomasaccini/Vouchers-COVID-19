@@ -70,7 +70,7 @@ class ReclamoService {
         }
 
         if (!reclamo.perteneceAUsuario(usuario)) {
-            throw new RuntimeException("El usuario " + usuarioId + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
+            throw new RuntimeException("El usuario " + usuarioId + " no puede cerrar este. Solo el cliente " + reclamo.getVoucher().getCliente().id + " que creo el reclamo puede hacerlo")
         }
 
         reclamo.estado = ReclamoEstado.Cerrado
