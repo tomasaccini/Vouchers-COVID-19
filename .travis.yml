@@ -16,4 +16,4 @@ before_install:
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
   - sdk install grails 4.0.5
   - nvm install 12.14.1 && nvm use 12.14.1
-script: "cd Vouchers && make run-test"
+script: "cd Vouchers/server && grails test-app"
