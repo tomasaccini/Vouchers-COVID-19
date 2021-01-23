@@ -54,10 +54,10 @@ class ClienteHistorialVouchers extends Component {
                 <NavbarUsuario title={constantes.historialVouchersTitulo} />
                 <section className="historialCliente">
                     <div className="compradosExpiradoBtns">
-                        <button onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.canjeados === true ? "historialBtnSelected" : ""}`}>
+                        <button id="historialCanjeadosTab"onClick={() => this.cambiarVista(true)} className={`historialBtn ${this.state.canjeados === true ? "historialBtnSelected" : ""}`}>
                             Canjeados
                         </button>
-                        <button onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.canjeados === false ? "historialBtnSelected" : ""}`}>
+                        <button id="historialExpiradosTab" onClick={() => this.cambiarVista(false)} className={`historialBtn ${this.state.canjeados === false ? "historialBtnSelected" : ""}`}>
                             Expirados
                         </button>
                     </div>

@@ -6,6 +6,7 @@ const misTalonariosUtils = require("./utils/misTalonariosUtils");
 const comprarVouchersUtils = require("./utils/comprarVouchersUtils");
 const canjearVouchersUtils = require("./utils/canjearVouchersUtils");
 const vouchersConfirmablesUtils = require("./utils/vouchersConfirmablesUtils");
+const historialUtils = require("./utils/historialUtils");
 const utils = require("./utils/utils");
 const assert = require('assert');
 
@@ -59,22 +60,39 @@ describe('Historia de Usuario 5', function () {
     await page.waitForTimeout(velocidad);
     await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 5"))
     await page.waitForTimeout(velocidad);
-    assert.ok(await canjearVouchersUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 5")));
-    console.log("EL VOUCHER ESTA PENDIENTE DE CONFIRMACION EN LA VISTA DEL CLIENTE");
-    await page.waitForTimeout(velocidad);
-    assert.ok(!(await canjearVouchersUtils.voucherPuedeSerCanjeado(page, _formatearStrings("Promo 5"))));
-    console.log("EL VOUCHER NO PUEDE SER CANJEADO");
     
-    await page.waitForTimeout(velocidad);
     await sesionUtils.cerrarSesion(page);
     await page.waitForTimeout(velocidad);
     await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirVouchersConfirmables(page);
     await page.waitForTimeout(velocidad);
-    await vouchersConfirmablesUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 5"));
-    console.log("EL VOUCHER ESTA PENDIENTE DE CONFIRMACION EN LA VISTA DEL NEGOCIO");
-    
+    assert.ok(await vouchersConfirmablesUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 5")));
+    await page.waitForTimeout(velocidad);
+    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 5"));
+    console.log("EL CANJE FUE CONFIRMADO");
+    await page.waitForTimeout(velocidad);
+    assert.ok(!(await vouchersConfirmablesUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 5"))));
+    console.log("EL NEGOCIO NO PUEDE CONFIRMARLO DOS VECES");
+
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'cliente1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(!(await canjearVouchersUtils.voucherEstaVisible(page, _formatearStrings("Promo 5"))));
+    console.log("EL VOUCHER YA NO APARECE EN LA SECCION CANJEAR VOUCHERS");
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirHistorial(page);
+    await page.waitForTimeout(velocidad);
+    await historialUtils.cambiarACanjeadosTab(page);
+    await page.waitForTimeout(velocidad);
+    await historialUtils.voucherEstaVisible(page, "Promo 5");
+    console.log("EL VOUCHER APARECE EN EL HISTORIAL DEL CLIENTE");
+    await page.waitForTimeout(velocidad);
+
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();

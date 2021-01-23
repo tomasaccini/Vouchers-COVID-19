@@ -72,7 +72,7 @@ describe('Historia de Usuario 4', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirVouchersConfirmables(page);
     await page.waitForTimeout(velocidad);
-    await vouchersConfirmablesUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 4"));
+    assert.ok(await vouchersConfirmablesUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 4")));
     console.log("EL VOUCHER ESTA PENDIENTE DE CONFIRMACION EN LA VISTA DEL NEGOCIO");
     
     await page.waitForTimeout(velocidad*10);
