@@ -1,22 +1,22 @@
 import React from "react";
-import {Avatar, ChatListItem, Column, Row, Subtitle, Title} from "@livechat/ui-kit";
-import fechasHelper from "../../utils/fechasHelper";
-import Button from "../../components/CustomButtons/Button";
-import {cardTitle} from "../../assets/jss/material-kit-react";
-import modalStyle from "../../assets/jss/material-kit-react/modalStyle";
-import reclamoAPI from '../../services/ReclamoAPI';
-import {makeStyles} from "@material-ui/core/styles";
-import Slide from "@material-ui/core/Slide";
+import IconButton from '@material-ui/core/IconButton';
+import FeedbackIcon from '@material-ui/icons/Feedback';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
 import Close from "@material-ui/icons/Close";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import Button from "../components/CustomButtons/Button";
+import {cardTitle} from "../assets/jss/material-kit-react";
+import modalStyle from "../assets/jss/material-kit-react/modalStyle";
+import {makeStyles} from "@material-ui/core/styles";
+import Slide from "@material-ui/core/Slide";
+import voucherAPI from "../services/VoucherAPI";
+import reclamoAPI from "../services/ReclamoAPI";
 import {Redirect} from "react-router-dom";
-import navegacion from "../../utils/navegacion";
-import CancelarReclamoButton from "../CancelarReclamoButton";
-
+import navegacion from "../utils/navegacion";
+import {TextField} from "@material-ui/core";
+import {ChatListItem, TextInput} from "@livechat/ui-kit";
 
 const styles = {
   cardTitle,
@@ -33,11 +33,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function ReclamoChatListItem(props) {
+export default function CancelarReclamoButton(props) {
   const [modal, setModal] = React.useState(false);
   const [actualizar, setActualizar] = React.useState(false);
   const classes = useStyles();
-  const { email, onclick, active, subtitulo, fecha, reclamoId } = props;
 
   const cerrarReclamo = async (reclamoId) => {
     setModal(false);
@@ -46,27 +45,13 @@ export default function ReclamoChatListItem(props) {
     setActualizar(true);
   };
 
-  const esCliente = localStorage.getItem('tipoUsuario') === 'cliente';
-
   if (actualizar) {
-    return <Redirect to={navegacion.getClienteCanjearVoucherUrl()} />
+    window.location.replace(navegacion.getClienteCanjearVoucherUrl());
   }
 
   return (
-    <ChatListItem active={active} onClick={onclick}>
-      <Avatar letter={email[0]}/>
-      <Column fill style={{'width': '100%'}}>
-        <Row justify>
-          <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
-          <div style={{'display': 'flex'}}>
-            <Subtitle nowrap>{fecha}</Subtitle>
-            { !esCliente ? null : <CancelarReclamoButton reclamoId={reclamoId} /> }
-          </div>
-        </Row>
-        <Subtitle ellipsis>
-          {subtitulo}
-        </Subtitle>
-      </Column>
+    <div>
+      <Button color="rose" size="sm" onClick={() => setModal(true)} style={{'margin': '0 0 0 10px'}}>X</Button>
 
       <Dialog
         classes={{
@@ -106,11 +91,11 @@ export default function ReclamoChatListItem(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => cerrarReclamo(reclamoId)} color="success">
+          <Button onClick={() => cerrarReclamo(props.reclamoId)} color="success">
             Confirmar
           </Button>
         </DialogActions>
       </Dialog>
-    </ChatListItem>
-  );
+    </div>
+  )
 }

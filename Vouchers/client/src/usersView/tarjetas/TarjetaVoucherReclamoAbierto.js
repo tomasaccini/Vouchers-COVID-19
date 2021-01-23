@@ -22,6 +22,7 @@ import ReclamarVoucherButton from "../ReclamarVoucherButton";
 import voucherAPI from "../../services/VoucherAPI";
 import {Redirect} from "react-router-dom";
 import navegacion from "../../utils/navegacion";
+import CancelarReclamoButton from "../CancelarReclamoButton";
 
 const styles = {
   cardTitle,
@@ -70,8 +71,8 @@ export default function TarjetaVoucherReclamoAbierto(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <div style={{'visibility': 'hidden'}}>
-            <ReclamarVoucherButton voucherId={props.data.id} />
+          <div style={{'margin-right': '15px'}}>
+            <CancelarReclamoButton reclamoId={props.data.reclamoId} />
           </div>
         </div>
       </Card>
