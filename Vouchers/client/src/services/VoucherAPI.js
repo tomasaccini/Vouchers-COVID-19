@@ -126,6 +126,27 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
+  async puntuarVoucher(voucherId, rating) {
+    const url = `${SERVER_URL}/vouchers/cambiarRating`;
+    console.log(`debug | cambiarRatingVoucher URL is: ${url} para ${voucherId}`);
+    const res = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({ 
+        voucherId: voucherId,
+        rating: rating
+      })
+    });
+
+    if (res.status !== 200) {
+      window.alert(res.message);
+      return null;
+    }
+
+    const voucher = await res.json();
+    console.log(`debug | puntuarVoucher: `, voucher);
+    return this._transformarVoucher(voucher);
+  }
+
   _transformarItems(item) {
     return {
       'cantidad': item.cantidad,
@@ -175,6 +196,7 @@ class VoucherAPI {
       'negocioNombre': voucher.negocioCommand.nombre,
       'negocioId': voucher.negocioCommand.id,
       'estado': voucher.estado,
+      'rating': voucher.rating,
       'reclamoAbierto': voucher.reclamoAbierto,
       'reclamoId': voucher.reclamoId,
       'reclamo': voucher.reclamoCommand === undefined ? null : ReclamoAPI._transformarReclamo(voucher.reclamoCommand),

@@ -6,20 +6,17 @@ import Card from 'components/Card/Card.js';
 import CardBody from 'components/Card/CardBody.js';
 import CardHeader from 'components/Card/CardHeader.js';
 import CardFooter from 'components/Card/CardFooter.js';
+import Rating from '@material-ui/lab/Rating';
 import '../styles.css';
 
 import { cardTitle } from 'assets/jss/material-kit-react.js';
-import ReclamarVoucherButton from "../ReclamarVoucherButton";
 import navegacion from "../../utils/navegacion";
 import Button from "../../components/CustomButtons/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
-import Close from "@material-ui/icons/Close";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
 import modalStyle from "../../assets/jss/material-kit-react/modalStyle";
 import Slide from "@material-ui/core/Slide";
+import ProductListDialog from '../../dialogs/ProductListDialog';
+import voucherAPI from "../../services/VoucherAPI";
+
 
 const styles = {
   cardTitle,
@@ -40,16 +37,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 
 export default function TarjetaVoucherCanjeado(props) {
-  const [modal, setModal] = React.useState(false);
-  const [actualizar, setActualizar] = React.useState(false);
+  const [modalProducts, setModalProducts] = React.useState(false);
   const classes = useStyles();
+  const id = props.data.id;
 
-  // TODO: definir si lo hacemos por aca tambien o no.
-  const cerrarReclamo = async () => {
-  }
-
-  if (actualizar) {
-    window.location.replace(navegacion.getVouchersConfirmablesUrl());
+  var cambiarRating = async (rating) => {
+    console.log(rating);
+    await voucherAPI.puntuarVoucher(id, rating);
+    window.location.reload(false);
   }
 
   return (
@@ -59,60 +54,29 @@ export default function TarjetaVoucherCanjeado(props) {
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
           <p style={{'font-size': '20px', 'font-weight': 'bold', 'align-self': 'center'}}>${props.data.precio}</p>
-          <Button style={{'visibility': 'hidden'}} color="primary" size="large" onClick={() => setModal(true)}>
-            Cerrar
+          <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
+            Ver productos
           </Button>
+          <Rating
+            name="simple-controlled"
+            value={props.data.rating}
+            onChange={(event, nuevoValor) => cambiarRating(nuevoValor)}
+            readOnly={props.data.rating !== 0} 
+          />
         </CardBody>
         <div style={{'margin': '0 20px', 'display': 'flex', 'justify-content': 'space-between'}}>
           <CardFooter className={classes.textMuted}>
-            Retirar antes del {props.data.validoHasta}
+            Retirado antes del {props.data.validoHasta}
           </CardFooter>
         </div>
       </Card>
-
-      <Dialog
-        classes={{
-          root: classes.center,
-          paper: classes.modal
-        }}
-        open={modal}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={() => setModal(false)}
-        aria-labelledby="modal-slide-title"
-        aria-describedby="modal-slide-description"
-      >
-        <DialogTitle
-          id="classic-modal-slide-title"
-          disableTypography
-          className={classes.modalHeader}
-        >
-          <IconButton
-            className={classes.modalCloseButton}
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            onClick={() => setModal(false)}
-          >
-            <Close className={classes.modalClose} />
-          </IconButton>
-          <h4 className={classes.modalTitle}>Confirmar canje de voucher</h4>
-        </DialogTitle>
-        <DialogContent
-          id="modal-slide-description"
-          className={classes.modalBody}
-        >
-          <h5>{`¿Desea confirmar el canje del voucher ${props.data.titulo}?`}</h5>
-        </DialogContent>
-        <DialogActions
-          className={classes.modalFooter + ' ' + classes.modalFooterCenter}
-        >
-          <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button id="ConfirmarCanjeVoucher" onClick={cerrarReclamo} color="success">
-            Confirmar
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ProductListDialog 
+        classes={classes} 
+        setModalProducts={setModalProducts} 
+        modalProducts={modalProducts}
+        items={props.data.items}
+        transition={Transition}
+      />
     </div>
     );
   }
