@@ -192,4 +192,25 @@ class VoucherController extends RestfulController {
             return response.sendError(400, "!!!! asdasdfsa")
         }
     }
+
+    def cambiarRating(){
+        println("Rating voucher")
+        Object requestBody = request.JSON
+
+        Long voucherId
+        Short rating
+        try {
+            voucherId = requestBody['voucherId']
+            rating = requestBody['rating']
+        } catch (Exception e) {
+            return response.sendError(400, "Error en el formato del body del request")
+        }
+        try {
+            Voucher voucher = voucherService.cambiarRating(voucherId, rating)
+            VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
+            respond voucherCommand
+        } catch (RuntimeException re) {
+            return response.sendError(400, "!!!!")
+        }
+    }
 }

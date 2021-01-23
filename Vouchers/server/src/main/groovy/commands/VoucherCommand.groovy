@@ -15,6 +15,7 @@ class VoucherCommand implements Validateable {
     NegocioCommand negocioCommand
     Boolean reclamoAbierto
     String clienteEmail
+    Short rating
 
     static constraints = {
         importFrom Voucher
