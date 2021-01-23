@@ -31,7 +31,7 @@ class ReclamoAPI {
     });
 
     if (res.status !== 200) {
-      window.alert(res.message);
+      console.log(res);
       return null;
     }
 

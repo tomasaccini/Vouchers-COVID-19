@@ -22,7 +22,7 @@ class Reclamo {
     }
 
     void agregarMensaje(String mensaje, Cliente duenio) {
-        if (voucher.getCliente() != duenio) {
+        if (voucher.getCliente().id != duenio.id) {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el cliente relacionado con el reclamo (${voucher.getCliente().id})")
         }
 
@@ -30,7 +30,7 @@ class Reclamo {
     }
 
     void agregarMensaje(String mensaje, Negocio duenio) {
-        if (voucher.getTalonario().getNegocio() != duenio) {
+        if (voucher.getTalonario().getNegocio().id != duenio.id) {
             throw new RuntimeException("El duenio del mensaje (${duenio.id}) no es el negocio relacionado con el reclamo (${voucher.getTalonario().getNegocio().id})")
         }
 
@@ -40,8 +40,8 @@ class Reclamo {
     }
 
     void cerrar(Usuario usuarioCerrador) {
-        if (usuarioCerrador != voucher.getCliente()) {
-            throw new RuntimeException("El usuario " + usuarioCerrador.id + " no puede cerrar este. Solo el cliente que creo el reclamo puede hacerlo")
+        if (usuarioCerrador.id != voucher.getCliente().id) {
+            throw new RuntimeException("El usuario " + usuarioCerrador.id + " no puede cerrar este. Solo el cliente " + voucher.getCliente().id + " que creo el reclamo puede hacerlo")
         }
 
         if (estado == ReclamoEstado.Cerrado) {
@@ -62,7 +62,7 @@ class Reclamo {
     }
 
     Boolean perteneceAUsuario(Usuario usuarioCerrador) {
-        usuarioCerrador == voucher.getCliente()
+        usuarioCerrador.id == voucher.getCliente().id
     }
 
     private void _agregarMensaje(String mensaje, Usuario duenio) {
