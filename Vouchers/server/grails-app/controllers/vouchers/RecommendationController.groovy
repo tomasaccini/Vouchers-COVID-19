@@ -6,8 +6,7 @@ import services.RecommendationService
 
 class RecommendationController {
 
-    RecommendationService recommendationService
-    TalonarioService talonarioService
+    RecommendationService recommendationService// = new RecommendationService()
     TalonarioAssembler talonarioAssembler
 
     static responseFormats = ['json']
@@ -17,7 +16,7 @@ class RecommendationController {
     def getRecommendationsForUser(Long userId) {
         println("Asking for recommendations for: ${userId}")
 
-        List<Talonario> talonarios = Talonario.findAllByActivo(true)
+        List<Talonario> talonarios = recommendationService.xxx()
 
         List<TalonarioCommand> talonariosCommands = []
 

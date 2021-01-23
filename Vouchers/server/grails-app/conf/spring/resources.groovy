@@ -4,27 +4,28 @@ import assemblers.ItemAssembler
 import assemblers.NegocioAssembler
 import assemblers.ProductAssembler
 import assemblers.VoucherAssembler
-import assemblers.VoucherInformationAssembler
+import assemblers.InformacionVoucherAssembler
+import services.RecommendationService
 
 // Place your Spring DSL code here
 beans = {
-    productAssembler(ProductAssembler){}
+    productAssembler(ProductAssembler) {}
 
     itemAssembler(ItemAssembler) {
         productAssembler = ref("productAssembler")
     }
 
-    voucherInformationAssembler(VoucherInformationAssembler){
+    informacionVoucherAssembler(InformacionVoucherAssembler) {
         itemAssembler = ref("itemAssembler")
     }
 
     talonarioAssembler(TalonarioAssembler) {
-        voucherInformationAssembler = ref("voucherInformationAssembler")
+        informacionVoucherAssembler = ref("informacionVoucherAssembler")
         voucherAssembler = ref("voucherAssembler")
     }
 
     voucherAssembler(VoucherAssembler) {
-        voucherInformationAssembler = ref("voucherInformationAssembler")
+        informacionVoucherAssembler = ref("informacionVoucherAssembler")
         negocioAssembler = ref("negocioAssembler")
     }
 
@@ -34,5 +35,9 @@ beans = {
 
     negocioAssembler(NegocioAssembler) {
         talonarioAssembler = ref("talonarioAssembler")
+    }
+
+    recommendationService(RecommendationService) {
+        talonarioService = ref("talonarioService")
     }
 }

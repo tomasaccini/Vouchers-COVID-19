@@ -131,51 +131,51 @@ class TalonarioController extends RestfulController {
     }
 
     @Transactional
-    def save(Talonario counterfoil) {
+    def save(Talonario talonario) {
         respond talonarioService.createMock(), [status: CREATED]
 
         /*
-        if (counterfoil == null) {
+        if (talonario == null) {
             render status: NOT_FOUND
             return
         }
-        if (counterfoil.hasErrors()) {
+        if (talonario.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond counterfoil.errors
+            respond talonario.errors
             return
         }
 
         try {
-            counterfoilService.save(counterfoil)
+            counterfoilService.save(talonario)
         } catch (ValidationException e) {
-            respond counterfoil.errors
+            respond talonario.errors
             return
         }
 
-        respond counterfoil, [status: CREATED, view:"show"]
+        respond talonario, [status: CREATED, view:"show"]
          */
     }
 
     @Transactional
-    def update(Talonario counterfoil) {
-        if (counterfoil == null) {
+    def update(Talonario talonario) {
+        if (talonario == null) {
             render status: NOT_FOUND
             return
         }
-        if (counterfoil.hasErrors()) {
+        if (talonario.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond counterfoil.errors
+            respond talonario.errors
             return
         }
 
         try {
-            talonarioService.save(counterfoil)
+            talonarioService.save(talonario)
         } catch (ValidationException e) {
-            respond counterfoil.errors
+            respond talonario.errors
             return
         }
 
-        respond counterfoil, [status: OK, view: "show"]
+        respond talonario, [status: OK, view: "show"]
     }
 
     @Transactional

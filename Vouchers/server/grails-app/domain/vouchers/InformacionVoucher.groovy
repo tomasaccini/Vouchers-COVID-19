@@ -2,8 +2,11 @@ package vouchers
 
 class InformacionVoucher {
 
+    private final RATING_DEFAULT = 3
+
     double precio
     String descripcion // descripcion general del cupón
+    Long rating
     Date validoDesde
     Date validoHasta
     Set<Item> items = []
@@ -20,6 +23,7 @@ class InformacionVoucher {
         descripcion blank: false, nullable: false
         validoDesde blank: false, nullable: false
         validoHasta blank: false, nullable: false
+        rating nullable: true
     }
 
     // TODO Isn't there something like deep clone not to do this manually?
@@ -32,5 +36,13 @@ class InformacionVoucher {
         }
 
         new InformacionVoucher(precio: precio, descripcion: descripcion, validoDesde: validoDesde, validoHasta: validoHasta, items: nuevosItems)
+    }
+
+    Long obtenerRating() {
+        if (rating == null) {
+            return RATING_DEFAULT
+        }
+
+        return rating
     }
 }

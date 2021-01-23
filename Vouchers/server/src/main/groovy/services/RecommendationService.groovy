@@ -1,17 +1,24 @@
 package services
 
-import enums.ProductoTipo
-import enums.TrackingType
 import vouchers.*
 
 class RecommendationService {
 
-    static final Long DETAIL_POINTS_MULTIPLIER = 1
-    static final Long THANKS_POINTS_MULTIPLIER = 20
+    TalonarioService talonarioService
 
-    TrackingService trackingService
-    TalonarioService counterfoilService
+    List<Talonario> xxx() {
+        List<Talonario> talonarios = Talonario.findAllByActivo(true)
 
+        for (def talonario : talonarios) {
+            println talonario.cantidadVendida()
+
+        }
+
+        return talonarios
+    }
+
+    // !!!!
+    /*
     private static Long getPointsMultiplierForTrackingType(TrackingType trackingType) {
         switch (trackingType) {
             case TrackingType.DETAIL:
@@ -30,6 +37,7 @@ class RecommendationService {
      * If it does have purchases, it will return the counterfoils after grouping them by the client
      * product type preferences and concatenating each block of counterfoils (by product type).
      */
+    /*
     List<Talonario> recommendCounterfoils(Cliente client) {
         Map<Tuple2<TrackingType, ProductoTipo>, List<Tracking>> count = trackingService.countyByProductTypeAndTrackingType(client)
 
@@ -44,7 +52,7 @@ class RecommendationService {
     }
 
     def defaultCounterfoils() {
-        counterfoilService.list().findAll { it.isActive }
+        talonarioService.list().findAll { it.isActive }
                 .sort { -it.cantidadVendida }
     }
 
@@ -90,4 +98,5 @@ class RecommendationService {
 
         sortedPointsPerProduct.collect { it.first }
     }
+    */
 }

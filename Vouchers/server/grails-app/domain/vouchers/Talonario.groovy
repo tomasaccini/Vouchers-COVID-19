@@ -53,7 +53,7 @@ class Talonario {
     }
 
     /*
-    * Creates voucher from counterfoil
+    * Creates voucher from talonario
     * it associates voucher to client
     * decrease the quantity of stock
     */
