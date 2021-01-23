@@ -14,4 +14,9 @@ update-db:
 
 run-test:
 	cd server && grails test-app
+	cd client && node --version && npm install pm2 -g && npm install	
+	./gradlew server:bootRun &	
+	sleep 20	
+	cd client && pm2 start npm -- start	
+	sleep 20
 	cd client && npm test

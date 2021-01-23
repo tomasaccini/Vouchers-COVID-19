@@ -16,10 +16,4 @@ before_install:
   - source "/home/travis/.sdkman/bin/sdkman-init.sh"
   - sdk install grails 4.0.5
   - nvm install 12.14.1 && nvm use 12.14.1
-install:
-  - cd client && node --version && npm install pm2 -g && npm install
-before_script:
-  - ./gradlew server:bootRun &
-  - cd client && pm2 start npm -- start
-  - sleep 30
 script: "cd Vouchers && make run-test"
