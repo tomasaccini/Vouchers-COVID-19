@@ -5,12 +5,13 @@ const misProductosUtils = require("./utils/misProductosUtils");
 const misTalonariosUtils = require("./utils/misTalonariosUtils");
 const comprarVouchersUtils = require("./utils/comprarVouchersUtils");
 const canjearVouchersUtils = require("./utils/canjearVouchersUtils");
+const vouchersConfirmablesUtils = require("./utils/vouchersConfirmablesUtils");
 const utils = require("./utils/utils");
 const assert = require('assert');
 
-describe('Historia de Usuario 3', function () {
+describe('Historia de Usuario 5', function () {
   const ts = Date.now();
-  const historia_usuario = "HdU 3";
+  const historia_usuario = "HdU 5";
   const velocidad = 1000;
   
   function _formatearStrings(texto) {
@@ -31,19 +32,19 @@ describe('Historia de Usuario 3', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisProductos(page);
     await page.waitForTimeout(velocidad);
-    await misProductosUtils.crearNuevoProducto(page, _formatearStrings("Papas"),  _formatearStrings("al horno"));
+    await misProductosUtils.crearNuevoProducto(page, _formatearStrings("Sushi"),  _formatearStrings("vegano"));
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisProductos(page);
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
-    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 3"), "1", "10", "01012020", "01012022", _formatearStrings("Papas"));
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 5"), "1", "10", "01012020", "01012022", _formatearStrings("Sushi"));
     await page.waitForTimeout(velocidad*4);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
     await misTalonariosUtils.abrirTabPausados(page);
     await page.waitForTimeout(velocidad);
-    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 3"));
+    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 5"));
     await page.waitForTimeout(velocidad*4);
 
     await sesionUtils.cerrarSesion(page);
@@ -52,15 +53,28 @@ describe('Historia de Usuario 3', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirComprarVouchers(page);
     await page.waitForTimeout(velocidad);
-    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 3"));
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 5"));
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirCanjearVouchers(page);
     await page.waitForTimeout(velocidad);
-    assert.ok(await canjearVouchersUtils.voucherEstaVisible(page, _formatearStrings("Promo 3")));
-    console.log("EL VOUCHER ESTA VISIBILE");
+    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 5"))
     await page.waitForTimeout(velocidad);
-    assert.ok(await canjearVouchersUtils.voucherPuedeSerCanjeado(page, _formatearStrings("Promo 3")));
-    console.log("EL VOUCHER ESTA LISTO PARA SER CANJEADO");
+    assert.ok(await canjearVouchersUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 5")));
+    console.log("EL VOUCHER ESTA PENDIENTE DE CONFIRMACION EN LA VISTA DEL CLIENTE");
+    await page.waitForTimeout(velocidad);
+    assert.ok(!(await canjearVouchersUtils.voucherPuedeSerCanjeado(page, _formatearStrings("Promo 5"))));
+    console.log("EL VOUCHER NO PUEDE SER CANJEADO");
+    
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirVouchersConfirmables(page);
+    await page.waitForTimeout(velocidad);
+    await vouchersConfirmablesUtils.voucherEstaPendienteDeConfirmacion(page, _formatearStrings("Promo 5"));
+    console.log("EL VOUCHER ESTA PENDIENTE DE CONFIRMACION EN LA VISTA DEL NEGOCIO");
+    
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();

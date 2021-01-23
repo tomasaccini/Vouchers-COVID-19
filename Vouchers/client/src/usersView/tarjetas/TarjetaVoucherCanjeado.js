@@ -105,13 +105,13 @@ export default function TarjetaVoucherCanjeado(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Desea confirmar el canje del voucher {props.data.titulo}?</h5>
+          <h5>{`¿Desea confirmar el canje del voucher ${props.data.titulo}?`}</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Descartar</Button>
-          <Button onClick={cerrarReclamo} color="success">
+          <Button id="ConfirmarCanjeVoucher" onClick={cerrarReclamo} color="success">
             Confirmar
           </Button>
         </DialogActions>

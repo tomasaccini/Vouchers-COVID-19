@@ -138,13 +138,13 @@ export default function TarjetaVoucherConfirmable(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Desea confirmar el canje del voucher {props.data.titulo}?</h5>
+          <h5>{`¿Desea confirmar el canje del voucher ${props.data.titulo}?`}</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + ' ' + classes.modalFooterCenter}
         >
           <Button onClick={() => setModalConfirmar(false)}>Descartar</Button>
-          <Button onClick={confirmarCanjeDeVoucher} color="success">
+          <Button id="ConfirmarCanjeVoucher" onClick={confirmarCanjeDeVoucher} color="success">
             Confirmar
           </Button>
         </DialogActions>

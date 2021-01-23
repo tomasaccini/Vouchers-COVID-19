@@ -3,6 +3,21 @@ async function voucherEstaVisible(page, descripcion) {
   return elemento.length > 0;
 }
 
+async function voucherPuedeSerCanjeado(page, descripcion) {
+  const elemento = await page.$x(`//h2[text()="${descripcion}"]/../button[span[text()="Canjear"]]`);
+  return elemento.length > 0;
+}
+
+async function voucherEstaPendienteDeConfirmacion(page, descripcion) {
+  const elemento = await page.$x(`//h2[text()="${descripcion}"]/../p[text()="Confirmacion Pendiente"]`);
+  return elemento.length > 0;
+}
+
+async function voucherTieneReclamoAbierto(page, descripcion) {
+  const elemento = await page.$x(`//h2[text()="${descripcion}"]/../p[text()="Reclamo Abierto"]`);
+  return elemento.length > 0;
+}
+
 async function solicitarCanjeVoucher(page, descripcion) {
   const solicitarCanjeSelector = `//h2[text()="${descripcion}"]/../button[span[text()="Canjear"]]`;
   const confirmarSolicitudCanjeSelector = `//h5[contains(text(), "${descripcion}?")]/../../..//button[@id="ConfirmarSolicitudCanjeVoucher"]`;
@@ -17,5 +32,8 @@ async function solicitarCanjeVoucher(page, descripcion) {
 
 module.exports = {
   voucherEstaVisible,
-  solicitarCanjeVoucher
+  voucherPuedeSerCanjeado,
+  solicitarCanjeVoucher,
+  voucherEstaPendienteDeConfirmacion,
+  voucherTieneReclamoAbierto
 };
