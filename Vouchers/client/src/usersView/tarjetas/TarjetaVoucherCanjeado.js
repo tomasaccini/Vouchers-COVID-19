@@ -42,7 +42,7 @@ export default function TarjetaVoucherCanjeado(props) {
 
   const cambiarRating = async (rating) => {
     console.log(props.data.id);
-    await voucherAPI.puntuarVoucher(props.data.id, rating);
+    await voucherAPI.cambiarRating(props.data.id, rating);
     window.location.reload(false);
   }
 
