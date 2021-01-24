@@ -21,6 +21,7 @@ import voucherAPI from "../../services/VoucherAPI";
 import '../styles.css';
 import ProductListDialog from '../../dialogs/ProductListDialog';
 import { Redirect } from "react-router-dom";
+import Rating from '@material-ui/lab/Rating';
 import navegacion from 'utils/navegacion';
 
 const styles = {
@@ -80,6 +81,12 @@ export default function TarjetaTalonarioComprar(props) {
           <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
             Ver productos
           </Button>
+          <br></br>
+          <Rating
+            name="simple-controlled"
+            value={props.data.rating}
+            readOnly={true} 
+          />
         </CardBody>
         <CardFooter className={classes.textMuted}>
           <div style={{'width': '100%', 'display': 'flex', 'justify-content': 'space-between'}}>

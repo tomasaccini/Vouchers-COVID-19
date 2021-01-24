@@ -169,6 +169,7 @@ class VoucherAPI {
       'titulo': iv.descripcion,
       'descripcion': iv.descripcion,
       'precio': iv.precio,
+      'rating': talonario.rating,
       'validoDesde': format(desde, 'yyyy/MM/dd'),
       'validoHasta': format(hasta, 'yyyy/MM/dd'),
       'stock': talonario.stock,

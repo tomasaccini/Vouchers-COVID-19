@@ -39,11 +39,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function TarjetaVoucherCanjeado(props) {
   const [modalProducts, setModalProducts] = React.useState(false);
   const classes = useStyles();
-  const id = props.data.id;
 
-  var cambiarRating = async (rating) => {
-    console.log(rating);
-    await voucherAPI.puntuarVoucher(id, rating);
+  const cambiarRating = async (rating) => {
+    console.log(props.data.id);
+    await voucherAPI.puntuarVoucher(props.data.id, rating);
     window.location.reload(false);
   }
 
@@ -57,6 +56,7 @@ export default function TarjetaVoucherCanjeado(props) {
           <Button color="primary" size="large" onClick={() => setModalProducts(true)}>
             Ver productos
           </Button>
+          <br></br>
           <Rating
             name="simple-controlled"
             value={props.data.rating}
