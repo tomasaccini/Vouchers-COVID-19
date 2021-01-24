@@ -13,6 +13,7 @@ class TalonarioCommand implements Validateable {
     String negocioNombre
     String negocioId
     Integer cantidadVendida
+    Short rating
 
     static constraints = {
         importFrom Talonario

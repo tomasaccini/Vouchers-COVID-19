@@ -194,13 +194,13 @@ class VoucherController extends RestfulController {
     }
 
     def cambiarRating(){
-        println("Rating voucher")
         Object requestBody = request.JSON
 
         Long voucherId
         Short rating
         try {
             voucherId = requestBody['voucherId']
+            println("Rating voucher:" + voucherId)
             rating = requestBody['rating']
         } catch (Exception e) {
             return response.sendError(400, "Error en el formato del body del request")

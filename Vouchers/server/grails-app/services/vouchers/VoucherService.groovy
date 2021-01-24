@@ -190,12 +190,13 @@ class VoucherService {
         Voucher.executeQuery(query, [clienteId: cliente.id, estado: estadoEnum], params)
     }
 
-    def cambiarRating(Long voucherId, Short rating){
+    Voucher cambiarRating(Long voucherId, Short rating){
         Voucher voucher = Voucher.get(voucherId)
         if (!voucher){
             throw new RuntimeException("El voucher " + voucherId + " no existe")
         }
         voucher.rating = rating
         voucher.save(flush: true, failOnError: true)
+        return voucher
     }
 }
