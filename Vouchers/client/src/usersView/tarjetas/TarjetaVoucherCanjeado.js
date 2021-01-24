@@ -58,7 +58,7 @@ export default function TarjetaVoucherCanjeado(props) {
           </Button>
           <br></br>
           <Rating
-            name="simple-controlled"
+            name={`unique-rating-${props.data.id}`}
             value={props.data.rating}
             onChange={(event, nuevoValor) => cambiarRating(nuevoValor)}
             readOnly={props.data.rating !== 0} 
