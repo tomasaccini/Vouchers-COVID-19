@@ -125,9 +125,9 @@ class VoucherAPI {
     return this._transformarVoucher(voucher);
   }
 
-  async puntuarVoucher(voucherId, rating) {
+  async cambiarRating(voucherId, rating) {
     const url = `${SERVER_URL}/vouchers/cambiarRating`;
-    console.log(`debug | cambiarRatingVoucher URL is: ${url} para ${voucherId}`);
+    console.log(`debug | cambiarRating URL is: ${url} para ${voucherId}`);
     const res = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({ 
@@ -142,7 +142,7 @@ class VoucherAPI {
     }
 
     const voucher = await res.json();
-    console.log(`debug | puntuarVoucher: `, voucher);
+    console.log(`debug | cambiarRating: `, voucher);
     return this._transformarVoucher(voucher);
   }
 
