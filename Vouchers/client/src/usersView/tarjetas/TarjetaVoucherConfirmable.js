@@ -71,10 +71,9 @@ export default function TarjetaVoucherConfirmable(props) {
     }
   }
 
-
   return (
     <div>
-      <Card className={classes.textCenter}>
+      <Card className={classes.textCenter} style={{'min-height': '220px'}}>
         <CardHeader color="info">
           {tipoUsuario === 'negocio'
             ? <b>{tarjetaHeader}</b>
@@ -100,9 +99,6 @@ export default function TarjetaVoucherConfirmable(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <div style={{'visibility': 'hidden'}}>
-            <ReclamarVoucherButton voucherId={props.data.id} />
-          </div>
         </div>
       </Card>
 
