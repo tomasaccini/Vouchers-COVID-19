@@ -17,6 +17,7 @@ class VoucherCommand implements Validateable {
     Long reclamoId
     ReclamoCommand reclamoCommand
     String clienteEmail
+    Short rating
 
     static constraints = {
         importFrom Voucher

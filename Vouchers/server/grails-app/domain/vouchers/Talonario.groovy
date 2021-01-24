@@ -86,4 +86,16 @@ class Talonario {
 
         return voucher
     }
+
+    def obtenerRating(){
+        Integer puntajes = 0
+        Integer cantVotos = 0
+        for (v in vouchers){
+            if (v.rating != 0) {
+                puntajes += v.rating
+                cantVotos += 1
+            }
+        }
+        return puntajes == 0 ? 0 : (puntajes / cantVotos).round(0)
+    }
 }

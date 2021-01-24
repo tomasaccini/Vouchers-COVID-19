@@ -11,6 +11,7 @@ class Voucher {
     Date ultimoCambioEstado = new Date()
     Reclamo reclamo = null
     Cliente cliente
+    Short rating = 0
     Talonario talonario
 
     static constraints = {
@@ -21,6 +22,7 @@ class Voucher {
         reclamo nullable: true
         cliente nullable: false, blank: false
         talonario nullable: false, blank: false
+        rating nullable: false
     }
 
     boolean estaExpirado() {

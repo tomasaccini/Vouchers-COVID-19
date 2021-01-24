@@ -189,4 +189,19 @@ class VoucherService {
         query += " and v.estado = :estado "
         Voucher.executeQuery(query, [clienteId: cliente.id, estado: estadoEnum], params)
     }
+
+    Voucher cambiarRating(Long voucherId, Short rating){
+        Voucher voucher = Voucher.get(voucherId)
+        if (!voucher){
+            throw new RuntimeException("El voucher " + voucherId + " no existe")
+        }
+
+        if (voucher.rating != 0) {
+            throw new RuntimeException("No se puede cambiar el rating una vez que ya fue establecido")
+        }
+
+        voucher.rating = rating
+        voucher.save(flush: true, failOnError: true)
+        return voucher
+    }
 }

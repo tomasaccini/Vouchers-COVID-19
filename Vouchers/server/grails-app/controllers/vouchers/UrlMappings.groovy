@@ -20,8 +20,9 @@ class UrlMappings {
         "/vouchers/search"(controller: 'voucher', action: 'search')
         "/vouchers/obtenerConfirmables/$negocioId"(controller: 'voucher', action: 'obtenerConfirmables')
         post "/vouchers/solicitarCanje/$voucherId"(controller: 'voucher', action: 'solicitarCanje')
-        post "/vouchers/cancelarSolicitudDeCanje/$voucherId"(controller: 'voucher', action: 'cancelarSolicitudDeCanje')
+        post "/vouchers/canceolarSolicitudDeCanje/$voucherId"(controller: 'voucher', action: 'cancelarSolicitudDeCanje')
         post "/vouchers/confirmarCanje/$voucherId"(controller: 'voucher', action: 'confirmarCanje')
+        post "/vouchers/cambiarRating"(controller: 'voucher', action: 'cambiarRating')
 
         //Client
         "/clientes"(controller: "cliente", action: "obtenerTodos")
