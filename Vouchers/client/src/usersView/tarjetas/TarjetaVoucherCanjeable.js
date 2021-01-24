@@ -59,7 +59,7 @@ export default function TarjetaVoucherCanjeable(props) {
 
   return (
     <div>
-      <Card className={classes.textCenter}>
+      <Card className={classes.textCenter} style={{'min-height': '220px'}}>
         <CardHeader color="success"><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
@@ -72,7 +72,7 @@ export default function TarjetaVoucherCanjeable(props) {
           <CardFooter className={classes.textMuted}>
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
-          <ReclamarVoucherButton voucherId={props.data.id} />
+          <ReclamarVoucherButton voucher={props.data} />
         </div>
       </Card>
 

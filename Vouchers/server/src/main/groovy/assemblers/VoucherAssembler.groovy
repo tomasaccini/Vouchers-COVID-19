@@ -7,6 +7,7 @@ import vouchers.Voucher
 class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand> {
 
     VoucherInformationAssembler voucherInformationAssembler
+    ReclamoAssembler reclamoAssembler
     NegocioAssembler negocioAssembler
 
     @Override
@@ -30,6 +31,7 @@ class VoucherAssembler extends ConcreteObjectAssembler<Voucher, VoucherCommand> 
         bean.negocioCommand = negocioAssembler.toBean(domain.talonario.negocio)
         bean.reclamoAbierto = domain.reclamoAbierto()
         bean.reclamoId = domain.reclamoAbierto() ? domain.reclamo.id : null
+        bean.reclamoCommand = domain.reclamo != null ? reclamoAssembler.toBean(domain.reclamo) : null
         bean.clienteEmail = domain.cliente.email
 
         return bean
