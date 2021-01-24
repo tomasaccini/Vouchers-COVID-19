@@ -26,7 +26,7 @@ class Reclamos extends Component{
 
     async updateReclamos(usuarioId, setState) {
         const reclamos = (await reclamoAPI.getReclamos(usuarioId)).sort((r1, r2) => -r1.fechaUltimoMensaje.localeCompare(r2.fechaUltimoMensaje));
-        const reclamosNoCerrados = reclamos.filter(reclamo => reclamo.state != 'Cerrado');
+        const reclamosNoCerrados = reclamos.filter(reclamo => reclamo.estado != 'Cerrado');
 
         const indexReclamoActivo = reclamosNoCerrados.length === 0 ? -1 : 0;
 
