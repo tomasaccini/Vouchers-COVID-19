@@ -9,6 +9,6 @@ class ReclamoCommand {
     String voucherDescripcion
     String negocioEmail
     Date fechaUltimoMensaje
-    String state
+    String estado
     List<MensajeReclamoCommand> mensajes = []
 }
