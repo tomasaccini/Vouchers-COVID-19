@@ -73,7 +73,7 @@ export default function TarjetaVoucherConfirmable(props) {
 
   return (
     <div>
-      <Card className={classes.textCenter} style={{'min-height': '220px'}}>
+      <Card className={classes.textCenter} style={{'min-height': '245px'}}>
         <CardHeader color="info">
           {tipoUsuario === 'negocio'
             ? <b>{tarjetaHeader}</b>
