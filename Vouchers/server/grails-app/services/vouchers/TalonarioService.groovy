@@ -2,22 +2,20 @@ package vouchers
 
 import enums.ProductoTipo
 import grails.gorm.transactions.Transactional
+import services.RecomendadorTalonarios
 
 import java.text.SimpleDateFormat
 
 @Transactional
 class TalonarioService {
 
+    RecomendadorTalonarios recomendadorTalonarios
+
     List<Talonario> talonarioDB = []
 
-    Talonario createMock(String name) {
-        InformacionVoucher iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2020/08/15'))
-        Talonario talonario = new Talonario(informacionVoucher: iv, stock: 5)
-        talonario.negocio = mockBusiness(name)
-        talonarioDB.add(talonario)
-        return talonario
+    List<Talonario> generarOrdenDeRecomendacion() {
+        return recomendadorTalonarios.generarOrdenDeRecomendacion()
     }
-
 
     Talonario crear(String negocioId, Integer stock, Double precio, String descripcion, String validoDesdeStr, String validoHastaStr) {
         Negocio negocio = Negocio.findById(negocioId)

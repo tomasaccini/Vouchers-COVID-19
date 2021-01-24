@@ -26,7 +26,7 @@ class ClienteComprarVouchers extends Component {
     }
 
     async getListaDeTalonarios() {
-        const talonarios = await voucherAPI.getTalonarios(localStorage.getItem('userId'));
+        const talonarios = await voucherAPI.getTalonarios();
         return talonarios.filter(talonario => talonario.stock > 0);
     }
 

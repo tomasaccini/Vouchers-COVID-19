@@ -2,6 +2,7 @@ package vouchers
 
 import assemblers.TalonarioAssembler
 import assemblers.VoucherAssembler
+import commands.TalonarioCommand
 import grails.gorm.transactions.Transactional
 import grails.rest.RestfulController
 import grails.validation.ValidationException
@@ -11,6 +12,7 @@ import static org.springframework.http.HttpStatus.*
 class TalonarioController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
+    // TODO Delete !!!!
     static allowedMethods = [getAll: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     TalonarioService talonarioService
@@ -40,6 +42,20 @@ class TalonarioController extends RestfulController {
     * URL/talonarios/comprar
     * body: { talonarioId={id}, clienteId={id} }
     */
+
+    def obtenerRecomendaciones() {
+        println("Obtener Recomendaciones")
+
+        List<Talonario> talonarios = talonarioService.generarOrdenDeRecomendacion()
+
+        List<TalonarioCommand> talonariosCommands = []
+
+        for (def talonario : talonarios) {
+            talonariosCommands.add(talonarioAssembler.toBean(talonario))
+        }
+
+        respond talonariosCommands
+    }
 
     @Transactional
     def comprarVoucher() {
@@ -130,6 +146,7 @@ class TalonarioController extends RestfulController {
         }
     }
 
+    // TODO Delete !!!!
     @Transactional
     def save(Talonario talonario) {
         respond talonarioService.createMock(), [status: CREATED]

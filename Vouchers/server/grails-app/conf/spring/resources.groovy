@@ -5,7 +5,7 @@ import assemblers.NegocioAssembler
 import assemblers.ProductAssembler
 import assemblers.VoucherAssembler
 import assemblers.InformacionVoucherAssembler
-import services.RecommendationService
+import services.RecomendadorTalonarios
 
 // Place your Spring DSL code here
 beans = {
@@ -37,7 +37,7 @@ beans = {
         talonarioAssembler = ref("talonarioAssembler")
     }
 
-    recommendationService(RecommendationService) {
+    recomendadorTalonarios(RecomendadorTalonarios) {
         talonarioService = ref("talonarioService")
     }
 }

@@ -44,7 +44,7 @@ class UrlMappings {
         post "/reclamos/$reclamoId/cerrar"(controller: 'reclamo', action: 'cerrarReclamo')
 
         // Recomendaciones
-        "/recommendations"(controller: 'recommendation', action: 'getRecommendationsForUser')
+        "/recomendaciones"(controller: 'talonario', action: 'obtenerRecomendaciones')
 
         // Talonarios
         "/talonarios"(controller: 'talonario', action: 'getAll')
