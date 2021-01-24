@@ -15,7 +15,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import {Redirect} from "react-router-dom";
 import navegacion from "../../utils/navegacion";
-import CancelarReclamoButton from "../CancelarReclamoButton";
+import CerrarReclamoButton from "../CerrarReclamoButton";
 
 
 const styles = {
@@ -60,7 +60,7 @@ export default function ReclamoChatListItem(props) {
           <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
           <div style={{'display': 'flex'}}>
             <Subtitle nowrap>{fecha}</Subtitle>
-            { !esCliente ? null : <CancelarReclamoButton reclamoId={reclamoId} /> }
+            { !esCliente ? null : <CerrarReclamoButton reclamoId={reclamoId} /> }
           </div>
         </Row>
         <Subtitle ellipsis>

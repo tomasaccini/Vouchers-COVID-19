@@ -29,7 +29,7 @@ class ReclamoAssembler extends ConcreteObjectAssembler<Reclamo, ReclamoCommand> 
                 negocioEmail: reclamo.getVoucher().getTalonario().getNegocio().email,
                 voucherDescripcion: reclamo.voucher.informacionVoucher.descripcion,
                 fechaUltimoMensaje: reclamo.fechaUltimoMensaje,
-                state: reclamo.estado.toString()
+                estado: reclamo.estado.toString()
         )
 
         List<MensajeReclamo> mensajes = reclamo.mensajes.toList()

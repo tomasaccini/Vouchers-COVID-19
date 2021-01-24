@@ -1,4 +1,5 @@
 import assemblers.ClienteAssembler
+import assemblers.ReclamoAssembler
 import assemblers.TalonarioAssembler
 import assemblers.ItemAssembler
 import assemblers.NegocioAssembler
@@ -26,6 +27,7 @@ beans = {
 
     voucherAssembler(VoucherAssembler) {
         informacionVoucherAssembler = ref("informacionVoucherAssembler")
+        reclamoAssembler = ref("reclamoAssembler")
         negocioAssembler = ref("negocioAssembler")
     }
 
@@ -39,5 +41,8 @@ beans = {
 
     recomendadorTalonarios(RecomendadorTalonarios) {
         talonarioService = ref("talonarioService")
+    }
+
+    reclamoAssembler(ReclamoAssembler) {
     }
 }

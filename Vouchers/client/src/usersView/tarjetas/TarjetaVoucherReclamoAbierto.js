@@ -22,7 +22,7 @@ import ReclamarVoucherButton from "../ReclamarVoucherButton";
 import voucherAPI from "../../services/VoucherAPI";
 import {Redirect} from "react-router-dom";
 import navegacion from "../../utils/navegacion";
-import CancelarReclamoButton from "../CancelarReclamoButton";
+import CerrarReclamoButton from "../CerrarReclamoButton";
 
 const styles = {
   cardTitle,
@@ -54,9 +54,10 @@ export default function TarjetaVoucherReclamoAbierto(props) {
     window.location.replace(navegacion.getVouchersConfirmablesUrl());
   }
 
+  console.log('!!!! deleteme', props.data)
   return (
     <div>
-      <Card className={classes.textCenter}>
+      <Card className={classes.textCenter} style={{'min-height': '220px'}}>
         <CardHeader color="danger"><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>
@@ -72,7 +73,7 @@ export default function TarjetaVoucherReclamoAbierto(props) {
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
           <div style={{'margin-right': '15px'}}>
-            <CancelarReclamoButton reclamoId={props.data.reclamoId} />
+            <CerrarReclamoButton reclamoId={props.data.reclamo.id} />
           </div>
         </div>
       </Card>
