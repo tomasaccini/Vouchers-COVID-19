@@ -15,6 +15,7 @@ class VoucherCommand implements Validateable {
     NegocioCommand negocioCommand
     Boolean reclamoAbierto
     Long reclamoId
+    ReclamoCommand reclamoCommand
     String clienteEmail
 
     static constraints = {

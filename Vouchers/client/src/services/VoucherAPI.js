@@ -1,5 +1,6 @@
 import {SERVER_URL} from '../config';
 import { format } from 'date-fns';
+import ReclamoAPI from "./ReclamoAPI";
 
 
 class VoucherAPI {
@@ -158,6 +159,7 @@ class VoucherAPI {
   }
 
   _transformarVoucher(voucher) {
+    console.log(voucher)
     const iv = voucher.informacionVoucherCommand
 
     const desde = new Date(iv.validoDesde);
@@ -175,6 +177,7 @@ class VoucherAPI {
       'estado': voucher.estado,
       'reclamoAbierto': voucher.reclamoAbierto,
       'reclamoId': voucher.reclamoId,
+      'reclamo': voucher.reclamoCommand === undefined ? null : ReclamoAPI._transformarReclamo(voucher.reclamoCommand),
       'clienteEmail': voucher.clienteEmail,
     }
   }

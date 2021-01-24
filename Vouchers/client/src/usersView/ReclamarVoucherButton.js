@@ -38,9 +38,10 @@ export default function ReclamarVoucherButton(props) {
   const [actualizar, setActualizar] = React.useState(false);
   const [descripcion, setDescripcion] = React.useState('');
   const classes = useStyles();
-  const { voucherId } = props;
+  const { voucher } = props;
 
   const usuarioId = localStorage.getItem('userId');
+  const esReaperturaDeReclamo = voucher.reclamo !== null;
 
   const abrirReclamo = async () =>{
     if (descripcion === '') {
@@ -49,7 +50,7 @@ export default function ReclamarVoucherButton(props) {
     }
 
     setModal(false);
-    const nuevoReclamo = await reclamoAPI.abrirReclamo(voucherId, descripcion, usuarioId);
+    const nuevoReclamo = await reclamoAPI.abrirReclamo(voucher.id, descripcion, usuarioId);
     if (nuevoReclamo === null) {
       window.alert('ERROR')
       return;
@@ -101,7 +102,7 @@ export default function ReclamarVoucherButton(props) {
           >
             <Close className={classes.modalClose} />
           </IconButton>
-          <h4 className={classes.modalTitle}>Iniciar reclamo</h4>
+          <h4 className={classes.modalTitle}>{esReaperturaDeReclamo ? "Reabrir reclamo (se mantendran los mensajes previos)" : "Abrir reclamo"}</h4>
         </DialogTitle>
         <DialogContent
           id="modal-slide-description"
@@ -122,7 +123,7 @@ export default function ReclamarVoucherButton(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => abrirReclamo(voucherId)} color="success">
+          <Button onClick={() => abrirReclamo(voucher.id)} color="success">
             Confirmar
           </Button>
         </DialogActions>
