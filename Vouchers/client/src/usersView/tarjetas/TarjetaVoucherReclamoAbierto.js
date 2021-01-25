@@ -54,6 +54,7 @@ export default function TarjetaVoucherReclamoAbierto(props) {
     window.location.replace(navegacion.getVouchersConfirmablesUrl());
   }
 
+  console.log('!!!! deleteme', props.data)
   return (
     <div>
       <Card className={classes.textCenter} style={{'min-height': '245px'}}>

@@ -39,10 +39,10 @@ beans = {
         talonarioAssembler = ref("talonarioAssembler")
     }
 
-    recomendadorTalonarios(RecomendadorTalonarios) {
-        talonarioService = ref("talonarioService")
+    reclamoAssembler(ReclamoAssembler) {
     }
 
-    reclamoAssembler(ReclamoAssembler) {
+    recomendadorTalonarios(RecomendadorTalonarios) {
+        talonarioService = ref("talonarioService")
     }
 }
