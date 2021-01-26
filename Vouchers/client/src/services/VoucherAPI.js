@@ -5,8 +5,8 @@ import ReclamoAPI from "./ReclamoAPI";
 
 class VoucherAPI {
 
-  async getTalonarios(userId) {
-    const url = `${SERVER_URL}/recommendations?userId=${userId}`;
+  async getTalonarios() {
+    const url = `${SERVER_URL}/recomendaciones`;
     console.log(`debug | getTalonarios URL is: ${url}`);
     const res = await fetch(url);
     const talonarios = await res.json();

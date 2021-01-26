@@ -57,7 +57,7 @@ export default function TarjetaVoucherReclamoAbierto(props) {
   console.log('!!!! deleteme', props.data)
   return (
     <div>
-      <Card className={classes.textCenter} style={{'min-height': '220px'}}>
+      <Card className={classes.textCenter} style={{'min-height': '245px'}}>
         <CardHeader color="danger"><a style={{'text-decoration': 'none', 'color': 'white',}} href={navegacion.getNegocioPerfilUrl(props.data.negocioId)} target="_blank" rel="noopener noreferrer"><b>{props.data.negocioNombre}</b></a></CardHeader>
         <CardBody>
           <h2 className={classes.cardTitle}>{props.data.titulo}</h2>

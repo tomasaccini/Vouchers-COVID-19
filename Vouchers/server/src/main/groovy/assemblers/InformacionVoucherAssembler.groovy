@@ -4,7 +4,7 @@ import commands.InformacionVoucherCommand
 import templates.ConcreteObjectAssembler
 import vouchers.InformacionVoucher
 
-class VoucherInformationAssembler extends ConcreteObjectAssembler<InformacionVoucher, InformacionVoucherCommand> {
+class InformacionVoucherAssembler extends ConcreteObjectAssembler<InformacionVoucher, InformacionVoucherCommand> {
 
     ItemAssembler itemAssembler
 

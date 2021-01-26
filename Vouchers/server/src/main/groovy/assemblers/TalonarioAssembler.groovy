@@ -6,7 +6,7 @@ import vouchers.Talonario
 
 class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCommand> {
 
-    VoucherInformationAssembler voucherInformationAssembler
+    InformacionVoucherAssembler informacionVoucherAssembler
     VoucherAssembler voucherAssembler
 
     @Override
@@ -25,7 +25,7 @@ class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCom
         TalonarioCommand bean = super.toBean(domain)
 
         bean.negocioNombre = domain.negocio.nombre
-        bean.informacionVoucherCommand = voucherInformationAssembler.toBean(domain.informacionVoucher)
+        bean.informacionVoucherCommand = informacionVoucherAssembler.toBean(domain.informacionVoucher)
         bean.rating = domain.obtenerRating()
 
         if (domain.vouchers) {
@@ -40,7 +40,7 @@ class TalonarioAssembler extends ConcreteObjectAssembler<Talonario, TalonarioCom
 
         Talonario domain = super.fromBean(bean)
 
-        domain.informacionVoucher = voucherInformationAssembler.fromBean(bean.informacionVoucherCommand)
+        domain.informacionVoucher = informacionVoucherAssembler.fromBean(bean.informacionVoucherCommand)
 
         return domain
     }
