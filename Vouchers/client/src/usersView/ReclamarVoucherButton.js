@@ -52,7 +52,6 @@ export default function ReclamarVoucherButton(props) {
     setModal(false);
     const nuevoReclamo = await reclamoAPI.abrirReclamo(voucher.id, descripcion, usuarioId);
     if (nuevoReclamo === null) {
-      window.alert('ERROR')
       return;
     }
     setActualizar(true);
@@ -72,7 +71,7 @@ export default function ReclamarVoucherButton(props) {
 
   return (
     <div>
-      <IconButton color="action" component="span" onClick={() => setModal(true)}>
+      <IconButton id="iniciarReclamo" color="action" component="span" onClick={() => setModal(true)}>
         <FeedbackIcon />
       </IconButton>
 
@@ -108,11 +107,12 @@ export default function ReclamarVoucherButton(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>Ingrese una descripción para su reclamo:</h5>
+          <h5>{`Ingrese una descripción para su reclamo sobre ${voucher.titulo}:`}</h5>
           <div style={{'width': '100%', 'margin': '10px 0'}}>
             <TextField
               style={{'width': '100%'}}
               name="descripcion"
+              id="descripcionReclamo"
               type="text"
               label="Descripción"
               onChange={myChangeHandler}
@@ -123,7 +123,7 @@ export default function ReclamarVoucherButton(props) {
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => abrirReclamo(voucher.id)} color="success">
+          <Button id="confirmarInicioReclamo" onClick={() => abrirReclamo(voucher.id)} color="success">
             Confirmar
           </Button>
         </DialogActions>

@@ -60,7 +60,7 @@ export default function ReclamoChatListItem(props) {
           <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
           <div style={{'display': 'flex'}}>
             <Subtitle nowrap>{fecha}</Subtitle>
-            { !esCliente ? null : <CerrarReclamoButton reclamoId={reclamoId} /> }
+            { !esCliente ? null : <CerrarReclamoButton tituloVoucher={subtitulo} reclamoId={reclamoId} /> }
           </div>
         </Row>
         <Subtitle ellipsis>
