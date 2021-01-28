@@ -20,7 +20,13 @@ async function iniciarReclamo(page, descripcion, primerMensaje) {
   await confirmarIniciarReclamo[0].click();
 }
 
+async function existeReclamoSobreVoucher(page, descripcion) {
+  const elemento = await page.$x(`//div[text()="${descripcion}"]`);
+  return elemento.length > 0;
+}
+
 module.exports = {
   voucherPuedeIniciarReclamo,
-  iniciarReclamo
+  iniciarReclamo,
+  existeReclamoSobreVoucher
 };
