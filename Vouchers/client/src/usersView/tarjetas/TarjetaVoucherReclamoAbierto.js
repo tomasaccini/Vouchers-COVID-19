@@ -73,7 +73,7 @@ export default function TarjetaVoucherReclamoAbierto(props) {
             Retirar antes del {props.data.validoHasta}
           </CardFooter>
           <div style={{'margin-right': '15px'}}>
-            <CerrarReclamoButton reclamoId={props.data.reclamo.id} />
+            <CerrarReclamoButton tituloVoucher={props.data.titulo} reclamoId={props.data.reclamo.id} />
           </div>
         </div>
       </Card>

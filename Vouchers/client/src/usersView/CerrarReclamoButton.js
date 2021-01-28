@@ -85,13 +85,13 @@ export default function CerrarReclamoButton(props) {
           id="modal-slide-description"
           className={classes.modalBody}
         >
-          <h5>¿Desea confirmar que su reclamo ha sido resuelto?</h5>
+          <h5>{`¿Desea confirmar que su reclamo sobre ${props.tituloVoucher} ha sido resuelto?`}</h5>
         </DialogContent>
         <DialogActions
           className={classes.modalFooter + " " + classes.modalFooterCenter}
         >
           <Button onClick={() => setModal(false)}>Cancelar</Button>
-          <Button onClick={() => cerrarReclamo(props.reclamoId)} color="success">
+          <Button id="confirmarCerrarReclamo" onClick={() => cerrarReclamo(props.reclamoId)} color="success">
             Confirmar
           </Button>
         </DialogActions>
