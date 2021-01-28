@@ -39,10 +39,23 @@ async function responderReclamo(page, mensaje) {
   await page.keyboard.press('Enter');
 }
 
+async function cerrarReclamo(page, descripcion) {
+  const cerrarReclamoBotonSelector = `//div[text()="${descripcion}"]/..//button`;
+  await page.waitForXPath(cerrarReclamoBotonSelector);
+  const cerrarReclamoBoton = await page.$x(cerrarReclamoBotonSelector);
+  await cerrarReclamoBoton[0].click();
+  const confirmarCerrarReclamoSelector = `//h5[contains(text(), "${descripcion}")]/../../..//button[@id="confirmarCerrarReclamo"]`;
+  await page.waitForTimeout(1000);
+  await page.waitForXPath(confirmarCerrarReclamoSelector);
+  const confirmarCerrarReclamo = await page.$x(confirmarCerrarReclamoSelector);
+  await confirmarCerrarReclamo[0].click();
+}
+
 module.exports = {
   voucherPuedeIniciarReclamo,
   iniciarReclamo,
   existeReclamoSobreVoucher,
   existeMensajeEnChat,
-  responderReclamo
+  responderReclamo,
+  cerrarReclamo
 };
