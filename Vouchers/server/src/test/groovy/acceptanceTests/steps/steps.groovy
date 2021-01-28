@@ -137,6 +137,11 @@ class Steps {
         this.voucher_A1 = talonarioService.comprarVoucher(this.talonario_A.id, this.cliente.id)
         this.voucher_A2 = talonarioService.comprarVoucher(this.talonario_A.id, this.cliente.id)
     }
+
+    static void "El talonario talonario_B tiene 1 voucher vendido"() {
+        this.voucher_B1 = talonarioService.comprarVoucher(this.talonario_B.id, this.cliente.id)
+    }
+    
     static void "El cliente solicita canjear el voucher"() {
         try {
             this.voucher.solicitarCanje(this.cliente)
