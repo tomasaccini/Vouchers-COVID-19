@@ -256,4 +256,10 @@ class Steps {
             return false
         }
     }
+
+    static boolean "El talonario talonario_A aparece en la posición 1"() {
+        println(this.talonariosRecomendados)
+        this.talonariosRecomendados[0].id == this.talonario_A.id
+    }
+
 }
