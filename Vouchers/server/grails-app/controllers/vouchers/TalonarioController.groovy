@@ -87,6 +87,9 @@ class TalonarioController extends RestfulController {
         }
 
         try {
+            if (productos.size() == 0){
+                throw new RuntimeException('No se puede crear un talonario sin productos')
+            }
             Talonario talonario = talonarioService.crear(negocioId, stock, precio, descripcion, validoDesdeStr, validoHastaStr)
             talonarioService.agregarProductos(talonario, productos)
             respond talonarioAssembler.toBean(talonario)

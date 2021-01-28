@@ -49,9 +49,14 @@ class TalonarioCrear extends Component {
         this.setState({ productos : nProductos });
     }
 
-    mySubmitHandler = (event) => {
+    mySubmitHandler = async (event) => {
         event.preventDefault();
-        TalonarioAPI.crearTalonario(this.props.negocioId, this.state);
+        var resp = await TalonarioAPI.crearTalonario(this.props.negocioId, this.state);
+        if (resp.status === 400){
+            console.log(resp.error);
+            alert(resp.message);
+            return;
+        }
         this.setState({creado: true});
     }
 
