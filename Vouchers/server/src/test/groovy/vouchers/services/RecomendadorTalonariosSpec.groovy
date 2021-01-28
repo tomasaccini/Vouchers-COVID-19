@@ -68,6 +68,7 @@ class RecomendadorTalonariosSpec extends Specification {
 
     private Long crearTalonario() {
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 10, activo: true)
+        Negocio negocio = Negocio.findById(negocioId)
         negocio.addToTalonarios(talonario)
         negocio.save(flush: true, failOnError: true)
         return talonario.id
@@ -87,5 +88,13 @@ class RecomendadorTalonariosSpec extends Specification {
         List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
         expect: "la lista esta vacia"
         talonarios.size() == 0
+    }
+
+    void "recomendador con un talonario sin ventas devuelve ese talonario"() {
+        Long talonarioId = crearTalonario();
+        List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
+        expect: "la lista tiene el unico talonario"
+        talonarios.size() == 1
+        talonarios[0].id == talonarioId
     }
 }
