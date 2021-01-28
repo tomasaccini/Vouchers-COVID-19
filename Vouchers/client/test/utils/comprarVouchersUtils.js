@@ -15,7 +15,15 @@ async function comprarVoucher(page, descripcion) {
   await confirmarCompra[0].click();
 }
 
+async function cmpVouchers(page, descripcion1, descripcion2) {
+  const text = await page.$$eval("div > h2", elements=> elements.map(item=>item.textContent));
+  const index1 = text.indexOf(descripcion1);
+  const index2 = text.indexOf(descripcion2);
+  return index1 < index2;
+}
+
 module.exports = {
   voucherEstaVisible,
-  comprarVoucher
+  comprarVoucher,
+  cmpVouchers
 };
