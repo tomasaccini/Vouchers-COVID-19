@@ -141,6 +141,10 @@ class Steps {
     static void "El talonario talonario_B tiene 1 voucher vendido"() {
         this.voucher_B1 = talonarioService.comprarVoucher(this.talonario_B.id, this.cliente.id)
     }
+
+    static void "El talonario talonario_A tiene un rating promedio de 5 estrellas"() {
+        this.voucher_A1 = voucherService.cambiarRating(this.voucher_A1.id, 5 as Short)
+    }
     
     static void "El cliente solicita canjear el voucher"() {
         try {
