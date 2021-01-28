@@ -8,11 +8,19 @@ import vouchers.*
 class Steps {
     static Negocio negocio
     static Talonario talonario
+    static Talonario talonario_A
+    static Talonario talonario_B
+    static List<Talonario> talonariosRecomendados
     static TalonarioService talonarioService = new TalonarioService()
+    static VoucherService voucherService = new VoucherService()
     static NegocioService negocioService = new NegocioService()
     static ReclamoService reclamoService = new ReclamoService()
+    static RecomendadorTalonarios recomendadorTalonarios = new RecomendadorTalonarios()
     static Cliente cliente
     static Voucher voucher
+    static Voucher voucher_A1
+    static Voucher voucher_A2
+    static Voucher voucher_B1
     static Reclamo reclamo
     static boolean errorDuranteSolicitudCanje = false
     static boolean errorDuranteConfirmacionCanje = false
@@ -46,6 +54,14 @@ class Steps {
         this.talonario = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
         this.negocio.addToTalonarios(this.talonario)
         this.talonario.save(flush: true)
+        this.negocio.save(flush: true)
+    }
+
+    static void "Existe un talonario talonario_A asociado a dicho negocio"() {
+        InformacionVoucher iv = this.crearInformacionVoucher()
+        this.talonario_A = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
+        this.negocio.addToTalonarios(this.talonario_A)
+        this.talonario_A.save(flush: true)
         this.negocio.save(flush: true)
     }
 
