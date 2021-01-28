@@ -26,7 +26,7 @@
   "scripts": {
     "start": "export $(cat .env | xargs) && react-scripts start",
     "build": "export $(cat .env | xargs) && react-scripts build",
-    "test": "export $(cat .env | xargs) && mocha --timeout 100000",
+    "test": "export $(cat .env | xargs) && mocha --timeout 1000000",
     "eject": "export $(cat .env | xargs) &&  react-scripts eject"
   },
   "eslintConfig": {
