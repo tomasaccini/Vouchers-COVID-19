@@ -262,4 +262,7 @@ class Steps {
         this.talonariosRecomendados[0].id == this.talonario_A.id
     }
 
+    static boolean "El talonario talonario_B aparece en la posición 2"() {
+        this.talonariosRecomendados[1].id == this.talonario_B.id
+    }
 }
