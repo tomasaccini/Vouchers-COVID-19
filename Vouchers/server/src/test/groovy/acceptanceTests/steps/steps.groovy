@@ -78,6 +78,16 @@ class Steps {
         this.talonario.save(flush: true)
     }
 
+    static void "El talonario talonario_A esta activo"() {
+        this.talonario_A.activo = true
+        this.talonario_A.save(flush: true)
+    }
+
+    static void "El talonario talonario_B esta activo"() {
+        this.talonario_B.activo = true
+        this.talonario_B.save(flush: true)
+    }
+
     static void "El negocio activa dicho talonario"() {
         talonarioService.activar(this.negocio.id, this.talonario.id)
     }
