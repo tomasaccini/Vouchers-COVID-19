@@ -140,4 +140,22 @@ class RecomendadorTalonariosSpec extends Specification {
         talonarios[0].id == talonarioId1
         talonarios[1].id == talonarioId2
     }
+
+    void "recomendador con dos talonarios, misma cantidad de ventas, distinto rating"() {
+        Long talonarioId1 = crearTalonario()
+        Long talonarioId2 = crearTalonario()
+        Voucher voucher1 = clienteService.comprarVoucher(clienteId, talonarioId1)
+        Voucher voucher2 = clienteService.comprarVoucher(clienteId, talonarioId1)
+        Voucher voucher3 = clienteService.comprarVoucher(clienteId, talonarioId2)
+        Voucher voucher4 = clienteService.comprarVoucher(clienteId, talonarioId2)
+        voucherService.cambiarRating(voucher1.id, 1 as Short)
+        voucherService.cambiarRating(voucher2.id, 1 as Short)
+        voucherService.cambiarRating(voucher3.id, 5 as Short)
+        voucherService.cambiarRating(voucher4.id, 5 as Short)
+        List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
+        expect: "la lista tiene dos talonarios"
+        talonarios.size() == 2
+        talonarios[0].id == talonarioId2
+        talonarios[1].id == talonarioId1
+    }
 }
