@@ -87,7 +87,7 @@ class Talonario {
         return voucher
     }
 
-    def obtenerRating(){
+    Short obtenerRating(){
         Integer puntajes = 0
         Integer cantVotos = 0
         for (v in vouchers){
@@ -96,6 +96,6 @@ class Talonario {
                 cantVotos += 1
             }
         }
-        return puntajes == 0 ? 0 : (puntajes / cantVotos).round(0)
+        return puntajes == 0 ? 0 : (puntajes / cantVotos).round(0) as Short
     }
 }

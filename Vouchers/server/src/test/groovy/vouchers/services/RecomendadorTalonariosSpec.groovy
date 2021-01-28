@@ -16,6 +16,7 @@ class RecomendadorTalonariosSpec extends Specification {
     @Autowired
     RecomendadorTalonarios recomendadorTalonarios
     ClienteService clienteService
+    VoucherService voucherService
 
     private static Boolean setupHecho = false
     static Long clienteId
@@ -100,6 +101,16 @@ class RecomendadorTalonariosSpec extends Specification {
     void "recomendador con un talonario con ventas devuelve ese talonario"() {
         Long talonarioId = crearTalonario()
         clienteService.comprarVoucher(clienteId, talonarioId)
+        List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
+        expect: "la lista tiene el unico talonario"
+        talonarios.size() == 1
+        talonarios[0].id == talonarioId
+    }
+
+    void "recomendador con un talonario con ventas y rating devuelve ese talonario"() {
+        Long talonarioId = crearTalonario()
+        Voucher voucher = clienteService.comprarVoucher(clienteId, talonarioId)
+        voucherService.cambiarRating(voucher.id, 5 as Short)
         List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
         expect: "la lista tiene el unico talonario"
         talonarios.size() == 1
