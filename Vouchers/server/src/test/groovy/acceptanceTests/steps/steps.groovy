@@ -145,7 +145,10 @@ class Steps {
     static void "El talonario talonario_A tiene un rating promedio de 5 estrellas"() {
         this.voucher_A1 = voucherService.cambiarRating(this.voucher_A1.id, 5 as Short)
     }
-    
+
+    static void "El talonario talonario_B tiene un rating promedio de 5 estrellas"() {
+        this.voucher_B1 = voucherService.cambiarRating(this.voucher_B1.id, 5 as Short)
+    }
     static void "El cliente solicita canjear el voucher"() {
         try {
             this.voucher.solicitarCanje(this.cliente)
