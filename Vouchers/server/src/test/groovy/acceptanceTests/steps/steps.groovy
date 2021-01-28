@@ -65,6 +65,14 @@ class Steps {
         this.negocio.save(flush: true)
     }
 
+    static void "Existe un talonario talonario_B asociado a dicho negocio"() {
+        InformacionVoucher iv = this.crearInformacionVoucher()
+        this.talonario_B = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
+        this.negocio.addToTalonarios(this.talonario_B)
+        this.talonario_B.save(flush: true)
+        this.negocio.save(flush: true)
+    }
+
     static void "El talonario esta activo"() {
         this.talonario.activo = true
         this.talonario.save(flush: true)
