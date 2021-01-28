@@ -39,21 +39,21 @@ describe('Historia de Usuario 7', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
-    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 7 - A"), "10", "10", "01012020", "01012022", _formatearStrings("Helado"));
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 7.1 - A"), "10", "10", "01012020", "01012022", _formatearStrings("Helado"));
     await page.waitForTimeout(velocidad*4);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
     await misTalonariosUtils.abrirTabPausados(page);
     await page.waitForTimeout(velocidad);
-    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 7 - A"));
+    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 7.1 - A"));
     await page.waitForTimeout(velocidad*4);
-    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 7 - B"), "10", "10", "01012020", "01012022", _formatearStrings("Helado"));
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 7.1 - B"), "10", "10", "01012020", "01012022", _formatearStrings("Helado"));
     await page.waitForTimeout(velocidad*4);
     await navbarOpcionesUtils.abrirMisTalonarios(page);
     await page.waitForTimeout(velocidad);
     await misTalonariosUtils.abrirTabPausados(page);
     await page.waitForTimeout(velocidad);
-    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 7 - B"));
+    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 7.1 - B"));
     await page.waitForTimeout(velocidad*4);
 
 
@@ -63,23 +63,23 @@ describe('Historia de Usuario 7', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirComprarVouchers(page);
     await page.waitForTimeout(velocidad);
-    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7 - A"));
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7.1 - A"));
     await page.waitForTimeout(velocidad);
 
     await navbarOpcionesUtils.abrirComprarVouchers(page);
     await page.waitForTimeout(velocidad);
-    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7 - B"));
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7.1 - B"));
     await page.waitForTimeout(velocidad);
-    console.log("LOS VOUCHERS FUERON CANJEADOS");
+    console.log("LOS VOUCHERS FUERON COMPRADOS");
 
     await navbarOpcionesUtils.abrirCanjearVouchers(page);
     await page.waitForTimeout(velocidad);
-    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7 - A"))
+    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7.1 - A"))
     await page.waitForTimeout(velocidad);
     
     await navbarOpcionesUtils.abrirCanjearVouchers(page);
     await page.waitForTimeout(velocidad);
-    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7 - B"))
+    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7.1 - B"))
     await page.waitForTimeout(velocidad);
     console.log("SE SOLICITO CANJEAR LOS VOUCHERS");
 
@@ -89,11 +89,11 @@ describe('Historia de Usuario 7', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirVouchersConfirmables(page);
     await page.waitForTimeout(velocidad);
-    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7 - A"));
+    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7.1 - A"));
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirVouchersConfirmables(page);
     await page.waitForTimeout(velocidad);
-    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7 - B"));
+    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7.1 - B"));
     await page.waitForTimeout(velocidad*4);
     console.log("LOS CANJES FUERON CONFIRMADOS");
 
@@ -103,18 +103,134 @@ describe('Historia de Usuario 7', function () {
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirHistorial(page);
     await page.waitForTimeout(velocidad);
-    await historialUtils.puntuarVoucher(page, _formatearStrings("Promo 7 - A"), "5");
+    await historialUtils.puntuarVoucher(page, _formatearStrings("Promo 7.1 - A"), "5");
     await page.waitForTimeout(velocidad);
     await navbarOpcionesUtils.abrirHistorial(page);
     await page.waitForTimeout(velocidad);
-    await historialUtils.puntuarVoucher(page, _formatearStrings("Promo 7 - B"), "1");
+    await historialUtils.puntuarVoucher(page, _formatearStrings("Promo 7.1 - B"), "1");
     await page.waitForTimeout(velocidad);
     console.log("EL CLIENTE PUNTUO LOS VOUCHERS");
     await page.waitForTimeout(velocidad);
 
     await navbarOpcionesUtils.abrirComprarVouchers(page);
     await page.waitForTimeout(velocidad);
-    assert.ok(await comprarVouchersUtils.cmpVouchers(page, _formatearStrings("Promo 7 - A"), _formatearStrings("Promo 7 - B")));
+    assert.ok(await comprarVouchersUtils.cmpVouchers(page, _formatearStrings("Promo 7.1 - A"), _formatearStrings("Promo 7.1 - B")));
+    console.log("LOS VOUCHERS APARECEN EN EL ORDEN CORRECTO");
+
+    await page.waitForTimeout(velocidad*10);
+    await page.close();
+    await browser.close();
+    assert.ok(true);
+  });
+
+  it('Escenario 2 - ordenar por ventas', async function () {
+    const link = `http://${process.env.HOSTNAME}:${process.env.PORT}/`;
+    const headless = process.env.PUPPETEER_HEADLESS == 'true';
+    const browser = await puppeteer.launch({ headless: headless, slowMo: 5, devtools: false, defaultViewport: null, args: ['--start-maximized'] });
+    
+    const page = await browser.newPage();
+    await page.goto(link);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.clickIngresarEnLanding(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirMisProductos(page);
+    await page.waitForTimeout(velocidad);
+    await misProductosUtils.crearNuevoProducto(page, _formatearStrings("Jugo"),  _formatearStrings("naranja"));
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirMisProductos(page);
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
+    await page.waitForTimeout(velocidad);
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 7.2 - A"), "10", "10", "01012020", "01012022", _formatearStrings("Jugo"));
+    await page.waitForTimeout(velocidad*4);
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
+    await page.waitForTimeout(velocidad);
+    await misTalonariosUtils.abrirTabPausados(page);
+    await page.waitForTimeout(velocidad);
+    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 7.2 - A"));
+    await page.waitForTimeout(velocidad*4);
+    await misTalonariosUtils.crearNuevoTalonario(page, _formatearStrings("Promo 7.2 - B"), "10", "10", "01012020", "01012022", _formatearStrings("Jugo"));
+    await page.waitForTimeout(velocidad*4);
+    await navbarOpcionesUtils.abrirMisTalonarios(page);
+    await page.waitForTimeout(velocidad);
+    await misTalonariosUtils.abrirTabPausados(page);
+    await page.waitForTimeout(velocidad);
+    await misTalonariosUtils.activarTalonario(page, _formatearStrings("Promo 7.2 - B"));
+    await page.waitForTimeout(velocidad*4);
+
+
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'cliente1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirComprarVouchers(page);
+    await page.waitForTimeout(velocidad);
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7.2 - A"));
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirComprarVouchers(page);
+    await page.waitForTimeout(velocidad);
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7.2 - A"));
+    await page.waitForTimeout(velocidad);
+
+    await navbarOpcionesUtils.abrirComprarVouchers(page);
+    await page.waitForTimeout(velocidad);
+    await comprarVouchersUtils.comprarVoucher(page, _formatearStrings("Promo 7.2 - B"));
+    await page.waitForTimeout(velocidad);
+    console.log("LOS VOUCHERS FUERON COMPRADOS");
+
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(velocidad);
+    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7.2 - A"))
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(velocidad);
+    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7.2 - A"))
+    await page.waitForTimeout(velocidad);
+    
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(velocidad);
+    await canjearVouchersUtils.solicitarCanjeVoucher(page, _formatearStrings("Promo 7.2 - B"))
+    await page.waitForTimeout(velocidad);
+    console.log("SE SOLICITO CANJEAR LOS VOUCHERS");
+
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirVouchersConfirmables(page);
+    await page.waitForTimeout(velocidad);
+    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7.2 - A"));
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirVouchersConfirmables(page);
+    await page.waitForTimeout(velocidad);
+    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7.2 - A"));
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirVouchersConfirmables(page);
+    await page.waitForTimeout(velocidad);
+    await vouchersConfirmablesUtils.confirmarCanjeVoucher(page, _formatearStrings("Promo 7.2 - B"));
+    await page.waitForTimeout(velocidad*4);
+    console.log("LOS CANJES FUERON CONFIRMADOS");
+
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'cliente1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirHistorial(page);
+    await page.waitForTimeout(velocidad);
+    await historialUtils.puntuarVoucher(page, _formatearStrings("Promo 7.2 - A"), "5");
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirHistorial(page);
+    await page.waitForTimeout(velocidad);
+    await historialUtils.puntuarVoucher(page, _formatearStrings("Promo 7.2 - B"), "5");
+    await page.waitForTimeout(velocidad);
+    console.log("EL CLIENTE PUNTUO LOS VOUCHERS");
+    await page.waitForTimeout(velocidad);
+
+    await navbarOpcionesUtils.abrirComprarVouchers(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(await comprarVouchersUtils.cmpVouchers(page, _formatearStrings("Promo 7.2 - A"), _formatearStrings("Promo 7.2 - B")));
     console.log("LOS VOUCHERS APARECEN EN EL ORDEN CORRECTO");
 
     await page.waitForTimeout(velocidad*10);
