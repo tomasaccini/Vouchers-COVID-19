@@ -97,6 +97,16 @@ describe('Historia de Usuario 6', function () {
     console.log("EL RECLAMO NO ES VISIBLE POR EL CLIENTE");
     await page.waitForTimeout(velocidad);
   
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirReclamos(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(!(await reclamosUtils.existeReclamoSobreVoucher(page, `${_formatearStrings("Promo 6")}`)));
+    console.log("EL RECLAMO NO ES VISIBLE POR EL NEGOCIO");
+    await page.waitForTimeout(velocidad);
+
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();
