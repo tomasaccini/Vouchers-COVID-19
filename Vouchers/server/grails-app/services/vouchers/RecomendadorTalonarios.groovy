@@ -1,4 +1,4 @@
-package services
+package vouchers
 
 import vouchers.*
 
@@ -13,6 +13,9 @@ class RecomendadorTalonarios {
 
     List<Talonario> generarOrdenDeRecomendacion() {
         List<Talonario> talonarios = Talonario.findAllByActivo(true)
+        if (talonarios.size() == 0) {
+            return talonarios
+        }
         return ordenarPorPuntajeEnBaseAlasDimensionesPonderadas(talonarios)
     }
 
