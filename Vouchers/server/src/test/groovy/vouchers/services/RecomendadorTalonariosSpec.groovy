@@ -20,7 +20,6 @@ class RecomendadorTalonariosSpec extends Specification {
     private static Boolean setupHecho = false
     static Long clienteId
     static Long negocioId
-    static Long itemId
     static InformacionVoucher iv
 
     def setup() {
@@ -42,7 +41,21 @@ class RecomendadorTalonariosSpec extends Specification {
 
         negocio.direccion = nuevaDireccion
         negocio.website = "bluedog.com"
+        negocio.save(flush: true, failOnError: true)
 
+        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
+        cliente.cuentaVerificada = true
+        cliente.save(flush: true, failOnError: true)
+
+        setupHecho = true
+        clienteId = cliente.id
+        negocioId = negocio.id
+        Voucher.findAll().each { it.delete(flush:true, failOnError:true) }
+        Talonario.findAll().each { it.delete(flush:true, failOnError:true) }
+    }
+
+    private Long crearTalonario() {
+        Negocio negocio = Negocio.findById(negocioId)
         Producto producto = new Producto()
         producto.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
         producto.nombre = "Hamburguesa Blue Dog"
@@ -54,21 +67,7 @@ class RecomendadorTalonariosSpec extends Specification {
         iv = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2022/08/15'))
         iv.addToItems(item)
 
-        Cliente cliente = new Cliente(nombreCompleto: "Ricardo Fort", email: "ricki@gmail.com", contrasenia: "ricki1234")
-        cliente.cuentaVerificada = true
-        cliente.save(flush: true, failOnError: true)
-
-        setupHecho = true
-        clienteId = cliente.id
-        negocioId = negocio.id
-        itemId = item.id
-        Voucher.findAll().each { it.delete(flush:true, failOnError:true) }
-        Talonario.findAll().each { it.delete(flush:true, failOnError:true) }
-    }
-
-    private Long crearTalonario() {
         Talonario talonario = new Talonario(informacionVoucher: iv, stock: 10, activo: true)
-        Negocio negocio = Negocio.findById(negocioId)
         negocio.addToTalonarios(talonario)
         negocio.save(flush: true, failOnError: true)
         return talonario.id
@@ -80,7 +79,7 @@ class RecomendadorTalonariosSpec extends Specification {
     void "setup test"() {
         expect:
         Negocio.count() == 3
-        Producto.count() == 3
+        Producto.count() == 2
         Talonario.count() == 0
     }
 
@@ -91,7 +90,16 @@ class RecomendadorTalonariosSpec extends Specification {
     }
 
     void "recomendador con un talonario sin ventas devuelve ese talonario"() {
-        Long talonarioId = crearTalonario();
+        Long talonarioId = crearTalonario()
+        List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
+        expect: "la lista tiene el unico talonario"
+        talonarios.size() == 1
+        talonarios[0].id == talonarioId
+    }
+
+    void "recomendador con un talonario con ventas devuelve ese talonario"() {
+        Long talonarioId = crearTalonario()
+        clienteService.comprarVoucher(clienteId, talonarioId)
         List<Talonario> talonarios = recomendadorTalonarios.generarOrdenDeRecomendacion()
         expect: "la lista tiene el unico talonario"
         talonarios.size() == 1
