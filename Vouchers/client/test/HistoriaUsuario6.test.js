@@ -128,6 +128,21 @@ describe('Historia de Usuario 6', function () {
     console.log("TODOS LOS MENSAJES SON VISIBLES POR EL CLIENTE");
     await page.waitForTimeout(velocidad);
 
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'negocio1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirReclamos(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(await reclamosUtils.existeReclamoSobreVoucher(page, `${_formatearStrings("Promo 6")}`));
+    console.log("EL RECLAMO ES VISIBLE POR EL NEGOCIO");
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Primera queja ${_formatearStrings("Promo 6")}`));
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Primera respuesta ${_formatearStrings("Promo 6")}`));
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Segunda queja ${_formatearStrings("Promo 6")}`));
+    console.log("TODOS LOS MENSAJES SON VISIBLES POR EL NEGOCIO");
+    await reclamosUtils.responderReclamo(page, `Segunda respuesta ${_formatearStrings("Promo 6")}`);
+    console.log("EL RECLAMO FUE RESPONDIDO NUEVAMENTE POR EL NEGOCIO");
+
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();
