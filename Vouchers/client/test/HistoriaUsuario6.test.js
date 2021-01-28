@@ -107,6 +107,27 @@ describe('Historia de Usuario 6', function () {
     console.log("EL RECLAMO NO ES VISIBLE POR EL NEGOCIO");
     await page.waitForTimeout(velocidad);
 
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'cliente1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirCanjearVouchers(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(await reclamosUtils.voucherPuedeIniciarReclamo(page, _formatearStrings("Promo 6")));
+    console.log("EL RECLAMO PUEDE REABRIRSE");
+    await reclamosUtils.iniciarReclamo(page, _formatearStrings("Promo 6"), `Segunda queja ${_formatearStrings("Promo 6")}`);
+    console.log("EL RECLAMO FUE REABIERTO");
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirReclamos(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(await reclamosUtils.existeReclamoSobreVoucher(page, `${_formatearStrings("Promo 6")}`));
+    console.log("EL RECLAMO ES VISIBLE POR EL CLIENTE");
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Primera queja ${_formatearStrings("Promo 6")}`));
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Primera respuesta ${_formatearStrings("Promo 6")}`));
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Segunda queja ${_formatearStrings("Promo 6")}`));
+    console.log("TODOS LOS MENSAJES SON VISIBLES POR EL CLIENTE");
+    await page.waitForTimeout(velocidad);
+
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();
