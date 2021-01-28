@@ -77,6 +77,26 @@ describe('Historia de Usuario 6', function () {
     await reclamosUtils.responderReclamo(page, `Primera respuesta ${_formatearStrings("Promo 6")}`);
     console.log("EL RECLAMO FUE RESPONDIDO POR EL NEGOCIO");
 
+    await sesionUtils.cerrarSesion(page);
+    await page.waitForTimeout(velocidad);
+    await sesionUtils.iniciarSesion(page, 'cliente1', 'password');
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirReclamos(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(await reclamosUtils.existeReclamoSobreVoucher(page, `${_formatearStrings("Promo 6")}`));
+    console.log("EL RECLAMO ES VISIBLE POR EL CLIENTE");
+    assert.ok(await reclamosUtils.existeMensajeEnChat(page, `Primera respuesta ${_formatearStrings("Promo 6")}`));
+    console.log("LA RESPUESTA DEL NEGOCIO ES VISIBLE POR EL CLIENTE");
+    await reclamosUtils.cerrarReclamo(page, `${_formatearStrings("Promo 6")}`);
+    console.log("EL CLIENTE CERRO EL RECLAMO");
+
+    await page.waitForTimeout(velocidad);
+    await navbarOpcionesUtils.abrirReclamos(page);
+    await page.waitForTimeout(velocidad);
+    assert.ok(!(await reclamosUtils.existeReclamoSobreVoucher(page, `${_formatearStrings("Promo 6")}`)));
+    console.log("EL RECLAMO NO ES VISIBLE POR EL CLIENTE");
+    await page.waitForTimeout(velocidad);
+  
     await page.waitForTimeout(velocidad*10);
     await page.close();
     await browser.close();
