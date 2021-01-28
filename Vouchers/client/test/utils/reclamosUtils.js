@@ -25,8 +25,14 @@ async function existeReclamoSobreVoucher(page, descripcion) {
   return elemento.length > 0;
 }
 
+async function existeMensajeEnChat(page, mensaje) {
+  const elemento = await page.$x(`//div[text()="${mensaje}"]`);
+  return elemento.length > 0;
+}
+
 module.exports = {
   voucherPuedeIniciarReclamo,
   iniciarReclamo,
-  existeReclamoSobreVoucher
+  existeReclamoSobreVoucher,
+  existeMensajeEnChat
 };
