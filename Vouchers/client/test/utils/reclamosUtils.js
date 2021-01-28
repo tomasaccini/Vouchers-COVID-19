@@ -30,9 +30,19 @@ async function existeMensajeEnChat(page, mensaje) {
   return elemento.length > 0;
 }
 
+async function responderReclamo(page, mensaje) {
+  const mensajeTextareaSelector = "//textarea[contains(@placeholder, 'Write a message')]";
+  await page.waitForXPath(mensajeTextareaSelector);
+  const mensajeTextarea = await page.$x(mensajeTextareaSelector);
+  await mensajeTextarea[0].click();
+  await page.keyboard.type(mensaje);
+  await page.keyboard.press('Enter');
+}
+
 module.exports = {
   voucherPuedeIniciarReclamo,
   iniciarReclamo,
   existeReclamoSobreVoucher,
-  existeMensajeEnChat
+  existeMensajeEnChat,
+  responderReclamo
 };
