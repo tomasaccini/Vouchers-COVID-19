@@ -2,7 +2,6 @@ package vouchers
 
 import enums.ProductoTipo
 import grails.gorm.transactions.Transactional
-import services.RecomendadorTalonarios
 
 import java.text.SimpleDateFormat
 

@@ -8,11 +8,19 @@ import vouchers.*
 class Steps {
     static Negocio negocio
     static Talonario talonario
+    static Talonario talonario_A
+    static Talonario talonario_B
+    static List<Talonario> talonariosRecomendados
     static TalonarioService talonarioService = new TalonarioService()
+    static VoucherService voucherService = new VoucherService()
     static NegocioService negocioService = new NegocioService()
     static ReclamoService reclamoService = new ReclamoService()
+    static RecomendadorTalonarios recomendadorTalonarios = new RecomendadorTalonarios()
     static Cliente cliente
     static Voucher voucher
+    static Voucher voucher_A1
+    static Voucher voucher_A2
+    static Voucher voucher_B1
     static Reclamo reclamo
     static boolean errorDuranteSolicitudCanje = false
     static boolean errorDuranteConfirmacionCanje = false
@@ -49,9 +57,35 @@ class Steps {
         this.negocio.save(flush: true)
     }
 
+    static void "Existe un talonario talonario_A asociado a dicho negocio"() {
+        InformacionVoucher iv = this.crearInformacionVoucher()
+        this.talonario_A = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
+        this.negocio.addToTalonarios(this.talonario_A)
+        this.talonario_A.save(flush: true)
+        this.negocio.save(flush: true)
+    }
+
+    static void "Existe un talonario talonario_B asociado a dicho negocio"() {
+        InformacionVoucher iv = this.crearInformacionVoucher()
+        this.talonario_B = new Talonario(stock: 6, informacionVoucher: iv, negocio: negocio, activo: false)
+        this.negocio.addToTalonarios(this.talonario_B)
+        this.talonario_B.save(flush: true)
+        this.negocio.save(flush: true)
+    }
+
     static void "El talonario esta activo"() {
         this.talonario.activo = true
         this.talonario.save(flush: true)
+    }
+
+    static void "El talonario talonario_A esta activo"() {
+        this.talonario_A.activo = true
+        this.talonario_A.save(flush: true)
+    }
+
+    static void "El talonario talonario_B esta activo"() {
+        this.talonario_B.activo = true
+        this.talonario_B.save(flush: true)
     }
 
     static void "El negocio activa dicho talonario"() {
@@ -93,6 +127,35 @@ class Steps {
 
     static void "El cliente compra un voucher del talonario"() {
         this.voucher = talonarioService.comprarVoucher(this.talonario.id, this.cliente.id)
+    }
+
+    static void "El talonario talonario_A tiene 1 voucher vendido"() {
+        this.voucher_A1 = talonarioService.comprarVoucher(this.talonario_A.id, this.cliente.id)
+    }
+
+    static void "El talonario talonario_A tiene 2 voucher vendido"() {
+        this.voucher_A1 = talonarioService.comprarVoucher(this.talonario_A.id, this.cliente.id)
+        this.voucher_A2 = talonarioService.comprarVoucher(this.talonario_A.id, this.cliente.id)
+    }
+
+    static void "El talonario talonario_B tiene 1 voucher vendido"() {
+        this.voucher_B1 = talonarioService.comprarVoucher(this.talonario_B.id, this.cliente.id)
+    }
+
+    static void "El talonario talonario_A tiene un rating promedio de 5 estrellas"() {
+        this.voucher_A1 = voucherService.cambiarRating(this.voucher_A1.id, 5 as Short)
+    }
+
+    static void "El talonario talonario_B tiene un rating promedio de 5 estrellas"() {
+        this.voucher_B1 = voucherService.cambiarRating(this.voucher_B1.id, 5 as Short)
+    }
+
+    static void "El talonario talonario_B tiene un rating promedio de 1 estrellas"() {
+        this.voucher_A1 = voucherService.cambiarRating(this.voucher_B1.id, 1 as Short)
+    }
+
+    static void "El cliente busca los talonarios activos"() {
+        this.talonariosRecomendados = recomendadorTalonarios.generarOrdenDeRecomendacion()
     }
 
     static void "El cliente solicita canjear el voucher"() {
@@ -192,5 +255,14 @@ class Steps {
         } catch (RuntimeException e) {
             return false
         }
+    }
+
+    static boolean "El talonario talonario_A aparece en la posición 1"() {
+        println(this.talonariosRecomendados)
+        this.talonariosRecomendados[0].id == this.talonario_A.id
+    }
+
+    static boolean "El talonario talonario_B aparece en la posición 2"() {
+        this.talonariosRecomendados[1].id == this.talonario_B.id
     }
 }

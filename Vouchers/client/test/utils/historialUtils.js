@@ -13,8 +13,17 @@ async function voucherEstaVisible(page, descripcion) {
   return elemento.length > 0;
 }
 
+async function puntuarVoucher(page, descripcion, rating) {
+  const puntajeSelector = `//h2[text()="${descripcion}"]/..//label[contains(@for, "unique-rating") and contains(@for, "-${rating}")]`;
+  await page.waitForXPath(puntajeSelector);
+  const puntaje = await page.$x(puntajeSelector);
+  await puntaje[0].click();
+  await page.waitForTimeout(2000);
+}
+
 module.exports = {
   cambiarACanjeadosTab,
   cambiarAExpiradosTab,
-  voucherEstaVisible
+  voucherEstaVisible,
+  puntuarVoucher
 };
