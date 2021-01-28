@@ -40,4 +40,23 @@ class HistoriaUsuario7 extends Specification {
         Steps."El talonario talonario_A aparece en la posición 1"()
         Steps."El talonario talonario_B aparece en la posición 2"()
     }
+
+    void "Escenario 2"() {
+        given:
+        Steps."Un negocio existe"()
+        Steps."Un cliente existe"()
+        Steps."Existe un talonario talonario_A asociado a dicho negocio"()
+        Steps."El talonario talonario_A esta activo"()
+        Steps."Existe un talonario talonario_B asociado a dicho negocio"()
+        Steps."El talonario talonario_B esta activo"()
+        Steps."El talonario talonario_A tiene 2 voucher vendido"()
+        Steps."El talonario talonario_B tiene 1 voucher vendido"()
+        Steps."El talonario talonario_A tiene un rating promedio de 5 estrellas"()
+        Steps."El talonario talonario_B tiene un rating promedio de 5 estrellas"()
+        when:
+        Steps."El cliente busca los talonarios activos"()
+        then:
+        Steps."El talonario talonario_A aparece en la posición 1"()
+        Steps."El talonario talonario_B aparece en la posición 2"()
+    }
 }
