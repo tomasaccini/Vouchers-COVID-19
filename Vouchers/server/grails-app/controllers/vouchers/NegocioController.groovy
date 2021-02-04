@@ -45,7 +45,6 @@ class NegocioController extends RestfulController {
     */
 
     List<Talonario> obtenerTalonarios(Long id) {
-        // TODO: pasar a un service el Negocio.get(id) !!!!
         Negocio negocio = Negocio.get(id)
         println("Request: talonarios de negocio")
         if (!negocio) {

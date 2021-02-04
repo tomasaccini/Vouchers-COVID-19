@@ -12,7 +12,6 @@ import static org.springframework.http.HttpStatus.*
 class TalonarioController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
-    // TODO Delete !!!!
     static allowedMethods = [getAll: "GET", save: "POST", update: "PUT", delete: "DELETE"]
 
     TalonarioService talonarioService
@@ -30,10 +29,6 @@ class TalonarioController extends RestfulController {
 
     def show(Long id) {
         respond talonarioService.get(id)
-    }
-
-    List<Talonario> getAll() {
-        respond talonarioService.getAll()
     }
 
     /*
@@ -148,74 +143,6 @@ class TalonarioController extends RestfulController {
             return response.sendError(400, "Error al activar talonario:" + e.message)
         }
     }
-
-    // TODO Delete !!!!
-    @Transactional
-    def save(Talonario talonario) {
-        respond talonarioService.createMock(), [status: CREATED]
-
-        /*
-        if (talonario == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (talonario.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond talonario.errors
-            return
-        }
-
-        try {
-            counterfoilService.save(talonario)
-        } catch (ValidationException e) {
-            respond talonario.errors
-            return
-        }
-
-        respond talonario, [status: CREATED, view:"show"]
-         */
-    }
-
-    @Transactional
-    def update(Talonario talonario) {
-        if (talonario == null) {
-            render status: NOT_FOUND
-            return
-        }
-        if (talonario.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond talonario.errors
-            return
-        }
-
-        try {
-            talonarioService.save(talonario)
-        } catch (ValidationException e) {
-            respond talonario.errors
-            return
-        }
-
-        respond talonario, [status: OK, view: "show"]
-    }
-
-    @Transactional
-    def delete(Long id) {
-        if (id == null) {
-            render status: NOT_FOUND
-            return
-        }
-
-        talonarioService.delete(id)
-
-        render status: NO_CONTENT
-    }
-
-    /*
-    * Dada una cadena de largo mayor a 2
-    * URL/talonario/search?q={busqueda}
-    * URL/talonario/search?q={busqueda}&max={maximas respuestas deseadas}
-    * Devuelve listado de los talonarios que poseen esa cadena en su descripcion
-    */
 
     def search(String q, Integer max) {
         def map = [:]

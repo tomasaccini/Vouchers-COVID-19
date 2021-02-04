@@ -38,8 +38,6 @@ class ClienteService {
     }
 
     List<Cliente> obtenerTodos() {
-        def a = Cliente.findAll()
-        println("\n\n\n\n\n !!!! ${a}")
-        a
+        return Cliente.findAll()
     }
 }

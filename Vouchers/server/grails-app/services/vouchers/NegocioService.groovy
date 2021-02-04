@@ -51,8 +51,6 @@ class NegocioService {
     }
 
     List<Negocio> obtenerTodos() {
-        def a = Negocio.findAll()
-        println("\n\n\n\n\n !!!! ${a}")
-        a
+        return Negocio.findAll()
     }
 }

@@ -45,12 +45,11 @@ class ReclamoAPI {
     console.log(`debug | abrirReclamo URL es: ${url}`);
     const res = await fetch(url, {
       method: 'POST',
-      // TODO: agregar descripcion/primer mensaje !!!!
       body: JSON.stringify({ voucherId: voucherId, descripcion: descripcion })
     });
 
     if (res.status !== 200) {
-      // !!!! window.alert(res.message);
+      window.alert(res.message);
       return null;
     }
 

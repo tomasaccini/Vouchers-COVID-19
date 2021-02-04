@@ -50,17 +50,6 @@ class VoucherController extends RestfulController {
 
         List<Voucher> vouchers = Voucher.findAllByCliente(cliente, params)
 
-        // !!!! Un cambio que habia hecho flor para traer por estado. Decidimos traer todos y filtrarlos desde la UI.
-        /*
-        List<Voucher> vouchers = []
-
-        if (!params.estado){
-            vouchers = voucherService.buscarPorUsuarioNoCanjeados(cliente, params)
-        } else {
-            vouchers = voucherService.buscarPorUsuarioYEstado(cliente, params.estado, params)
-        }
-         */
-
         List<VoucherCommand> voucherCommands = []
 
         for (Voucher voucher : vouchers) {
@@ -156,7 +145,6 @@ class VoucherController extends RestfulController {
     * URL/vouchers/search?q={busqueda}&max={maximas respuestas deseadas}
     * Devuelve listado de los voucher que poseen esa cadena en su descripcion
     */
-
     def search(String q, Integer max) {
         def map = [:]
         map.max = Math.min(max ?: 10, 100)
@@ -164,32 +152,6 @@ class VoucherController extends RestfulController {
             respond voucherService.findSimilar(q, map)
         } else {
             respond([])
-        }
-    }
-
-    // !!!! creo que hay que borrar todo esto, no estoy seguro
-    VoucherCommand create() {
-        println("Voucher creationg requestes")
-        println(request.JSON)
-        Object requestBody = request.JSON
-
-        Long clienteId
-        Long talonarioId
-        try {
-            clienteId = requestBody['clientId']
-            talonarioId = requestBody['counterfoilId']
-        } catch (Exception e) {
-            return response.sendError(400, "Error en el formato del body del request")
-        }
-
-        println('Create a new Voucher with clientId: ' + clienteId + ", counterfoilId: " + talonarioId + ".")
-
-        try {
-            Voucher voucher = clienteService.comprarVoucher(clienteId, talonarioId)
-            VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
-            respond voucherCommand
-        } catch (RuntimeException re) {
-            return response.sendError(400, "!!!! asdasdfsa")
         }
     }
 
@@ -210,7 +172,7 @@ class VoucherController extends RestfulController {
             VoucherCommand voucherCommand = voucherAssembler.toBean(voucher)
             respond voucherCommand
         } catch (RuntimeException re) {
-            return response.sendError(400, "!!!!")
+            return response.sendError(500, "Error cambiando el rating")
         }
     }
 }

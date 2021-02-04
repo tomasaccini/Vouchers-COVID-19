@@ -12,7 +12,6 @@ import fechasHelper from '../../utils/fechasHelper';
 import ReclamoChatListItem from "./ReclamoChatListItem";
 
 // https://developers.livechat.com/docs/react-chat-ui-kit/
-// TODO: show something in case there are no reclamos !!!!
 class Reclamos extends Component{
 
     constructor(props) {

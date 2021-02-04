@@ -27,6 +27,12 @@ The typical workflow is:
 
 * If having troubles running the application with IntelliJ, delete the `.idea` directory and open the project from the `Vouchers` directory.
 
+* If having this issue when running `grails run-app`, then delete the file `build/.dependencies`.
+
+```
+| Error Error occurred running Grails CLI: No profile found for name [react]. (Use --stacktrace to see the full trace)
+```
+
 Documentation for this plugin: https://grails-plugins.github.io/grails-database-migration/3.0.x/index.html#introduction
 
 # TMP  for development

@@ -23,7 +23,6 @@ import ClientePerfilPage from './usersView/ClientePerfil';
 import Reclamos from "./usersView/reclamos/Reclamos";
 import VouchersConfirmables from "./usersView/VouchersConfirmables";
 
-// TODO hardcodeado el usuarioId !!!!
 class App extends Component {
     constructor(props) {
         super(props)
@@ -67,7 +66,6 @@ class App extends Component {
     }
 
     validarSesionIniciada(props, renderComponente) {
-        console.log('!!!! props', props)
         const negocioId = props.match ? props.match.params.negocioId : '';
 
         if (this.inicioSesion()) {

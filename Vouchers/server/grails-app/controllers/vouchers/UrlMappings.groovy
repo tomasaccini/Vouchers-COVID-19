@@ -48,7 +48,6 @@ class UrlMappings {
         "/recomendaciones"(controller: 'talonario', action: 'obtenerRecomendaciones')
 
         // Talonarios
-        "/talonarios"(controller: 'talonario', action: 'getAll')
         "/talonarios/search"(controller: 'talonario', action: 'search')
         post "/talonarios/comprar"(controller: 'talonario', action: 'comprarVoucher')
         post "/talonarios"(controller: 'talonario', action: 'crear')
@@ -62,11 +61,6 @@ class UrlMappings {
         post "/$controller(.$format)?"(action: "save")
         put "/$controller/$id(.$format)?"(action: "update")
         patch "/$controller/$id(.$format)?"(action: "patch")
-        // TODO delete all this !!!!
-        // get "/vouchers"(controller: 'voucher', action: 'getByUserId')
-        // post "/vouchers"(controller: 'voucher', action: 'create')
-        // put "/vouchers"(controller: 'voucher', action: 'asd')
-
 
         "/"(controller: 'application', action: 'index')
         "500"(view: '/error')

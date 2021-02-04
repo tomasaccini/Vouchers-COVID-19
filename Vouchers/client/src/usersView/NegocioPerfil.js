@@ -34,9 +34,8 @@ class NegocioPerfil extends Component {
 
         const perfil = await this.getPerfilNegocio(negocioId);
         if (perfil === null) {
-            // !!!!
-            // window.alert('Error obteniendo negocio');
-            // window.location.replace(navegacion.getIniciarSesionUrl());
+            window.alert('Error obteniendo negocio');
+            window.location.replace(navegacion.getIniciarSesionUrl());
         }
 
         this.setState({perfil: perfil});

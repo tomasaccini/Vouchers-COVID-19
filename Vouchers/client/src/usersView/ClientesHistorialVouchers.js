@@ -42,9 +42,6 @@ class ClienteHistorialVouchers extends Component {
             return;
         }
 
-        console.log('!!!! canjeados', this.state.canjeados)
-        console.log('!!!! cambiarACanjeados', cambiarACanjeados)
-
         this.setState({ canjeados: cambiarACanjeados });
     }
 

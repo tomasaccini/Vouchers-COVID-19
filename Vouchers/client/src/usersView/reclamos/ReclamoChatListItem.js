@@ -57,7 +57,7 @@ export default function ReclamoChatListItem(props) {
       <Avatar letter={email[0]}/>
       <Column fill style={{'width': '100%'}}>
         <Row justify>
-          <Title ellipsis style={{'dummy': 'Truncate size of Title to up to n characters !!!!'}}>{email}</Title>
+          <Title ellipsis>{email}</Title>
           <div style={{'display': 'flex'}}>
             <Subtitle nowrap>{fecha}</Subtitle>
             { !esCliente ? null : <CerrarReclamoButton tituloVoucher={subtitulo} reclamoId={reclamoId} /> }

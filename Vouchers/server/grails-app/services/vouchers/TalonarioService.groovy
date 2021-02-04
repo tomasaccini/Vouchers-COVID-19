@@ -10,8 +10,6 @@ class TalonarioService {
 
     RecomendadorTalonarios recomendadorTalonarios
 
-    List<Talonario> talonarioDB = []
-
     List<Talonario> generarOrdenDeRecomendacion() {
         return recomendadorTalonarios.generarOrdenDeRecomendacion()
     }
@@ -80,44 +78,8 @@ class TalonarioService {
         talonario
     }
 
-    List<Talonario> getAll() {
-        return Talonario.findAll()
-    }
-
     Integer count() {
         return Talonario.findAll().size()
-    }
-
-    // !!!!
-    private Negocio mockBusiness(name) {
-        Negocio business = new Negocio()
-        business.nombre = name
-        business.email = "sales@bluedog.com"
-        business.contrasenia = "1234"
-        business.cuentaVerificada = true
-        business.numeroTelefonico = "1234"
-        business.categoria = "Cervezería"
-        Direccion newAddress = new Direccion()
-        newAddress.calle = "calle falsa"
-        newAddress.numero = "123"
-        newAddress.departamento = "11D"
-        newAddress.provincia = "Buenos Aires"
-        newAddress.pais = "Argentina"
-
-        business.direccion = newAddress
-        business.website = "bluedog.com"
-
-        Producto product = new Producto()
-        product.descripcion = "Hamburguesa con cebolla, cheddar, huevo, jamón, todo."
-        product.nombre = "Hamburguesa Blue Dog"
-        product.tipo = ProductoTipo.COMIDA_RAPIDA
-        business.addToProducts(product)
-
-        Item item = new Item(producto: product, cantidad: 1)
-        InformacionVoucher vi = new InformacionVoucher(precio: 400, descripcion: "Promo verano", validoDesde: new Date('2020/08/01'), validoHasta: new Date('2020/08/15'))
-        vi.addToItems(item)
-
-        return business
     }
 
     Talonario get(Long talonarioId) {
@@ -129,7 +91,6 @@ class TalonarioService {
     }
 
     Voucher comprarVoucher(talonarioId, clienteId) {
-        // TODO pasar a un service el get y todo en realidad !!!!!
         Cliente cliente = Cliente.get(clienteId)
         println(cliente)
         println(Cliente.getAll())

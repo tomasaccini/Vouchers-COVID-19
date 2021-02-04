@@ -156,8 +156,6 @@ class VoucherAPI {
   }
 
   _transformarTalonario(talonario) {
-    console.log('!!!! _transformarTalonario', talonario)
-
     const iv = talonario.informacionVoucherCommand;
     const items = iv.itemsCommand ? iv.itemsCommand : [];
 

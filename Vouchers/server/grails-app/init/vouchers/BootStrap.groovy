@@ -115,11 +115,11 @@ class BootStrap {
         def voucher14 = clienteService.comprarVoucher(cliente1.id, talonario1.id)
         def voucher22 = clienteService.comprarVoucher(cliente1.id, talonario2.id)
 
-        def reclamo13 = reclamoService.abrirReclamo(voucher13.id, "Initial message !!!!")
+        def reclamo13 = reclamoService.abrirReclamo(voucher13.id, "Initial message")
         // reclamoService.nuevoMensaje(reclamo11.id, talonario1.negocio.id, "Respuesta del negocio")
 
-        def reclamo14 = reclamoService.abrirReclamo(voucher14.id, "Initial message 2 !!!!")
-        def reclamo22 = reclamoService.abrirReclamo(voucher22.id, "Initial message 3 !!!!")
+        def reclamo14 = reclamoService.abrirReclamo(voucher14.id, "Initial message 2")
+        def reclamo22 = reclamoService.abrirReclamo(voucher22.id, "Initial message 3")
 
         // Vouchers confirmacion pendiente
         def voucher15 = clienteService.comprarVoucher(cliente1.id, talonario1.id)

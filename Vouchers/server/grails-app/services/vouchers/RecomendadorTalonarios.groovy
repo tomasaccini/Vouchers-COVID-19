@@ -29,9 +29,6 @@ class RecomendadorTalonarios {
     }
 
     private Tuple2<Talonario, Double> generarTalonarioConPuntajeEnBaseAlasDimensionesPonderadas(Talonario talonario, Long maxVendidos) {
-        println("!!!! " + talonario.negocio.nombre  + ": " + calcularPuntajeEnBaseAlasDimensionesPonderadas(talonario, maxVendidos))
-        println("!!!! " + talonario.negocio.nombre  + ": " + calcularPuntajeDimensionCantidadVendida(talonario.cantidadVendida(), maxVendidos))
-        println("!!!! " + talonario.negocio.nombre  + ": " + calcularPuntajeDimensionRating(talonario.obtenerRating()))
         return new Tuple2(talonario, calcularPuntajeEnBaseAlasDimensionesPonderadas(talonario, maxVendidos))
     }
 

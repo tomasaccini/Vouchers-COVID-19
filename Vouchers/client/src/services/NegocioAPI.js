@@ -19,8 +19,6 @@ class NegocioAPI {
   }
 
   _transformarNegocio(negocio) {
-    console.log('!!!! voucherAPI', voucherAPI)
-    console.log('!!!! negocio', negocio)
     const talonarios = negocio.talonariosCommands.map(t => voucherAPI._transformarTalonario(t));
 
     return {
