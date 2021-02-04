@@ -24,7 +24,7 @@
     "reactstrap": "^6.5.0"
   },
   "scripts": {
-    "start": "export $(cat .env | xargs) && react-scripts start",
+    "start": "export $(cat .env | xargs) SKIP_PREFLIGHT_CHECK=true && react-scripts start",
     "build": "export $(cat .env | xargs) && react-scripts build",
     "test": "export $(cat .env | xargs) && mocha --timeout 1000000",
     "eject": "export $(cat .env | xargs) &&  react-scripts eject"
