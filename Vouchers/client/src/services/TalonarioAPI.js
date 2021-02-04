@@ -20,9 +20,8 @@ class TalonarioAPI{
               productos: talonario.productos.filter(p => p.cantidad > 0)
             })
         });
-        const nuevoTalonario = await res.json();
-        console.log(`debug | creo Talonario: `, nuevoTalonario);
-        return VoucherAPI._transformarTalonario(nuevoTalonario);
+        const respuesta = await res.json();
+        return respuesta;
     }
 
     async cambiarEstado(negocioId, talonarioId, activo){
